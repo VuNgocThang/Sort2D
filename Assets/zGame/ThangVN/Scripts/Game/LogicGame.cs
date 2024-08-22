@@ -66,6 +66,7 @@ public class LogicGame : MonoBehaviour
     public bool isLose = false;
     public bool isWin = false;
     public bool isPauseGame = false;
+    public bool isMove = false;
     public static bool isContiuneMerge = false;
     public int point;
     public int maxPoint;
@@ -73,10 +74,6 @@ public class LogicGame : MonoBehaviour
     public int pigment;
 
     int pointSpawnSpecial = 100;
-    //[SerializeField] RectTransform slot_1;
-    //[SerializeField] RectTransform slot_2;
-    //[SerializeField] RectTransform slot_3;
-    //[SerializeField] RectTransform slot_4;
     [SerializeField] RectTransform slot_5;
     [SerializeField] RectTransform slot_6;
 
@@ -107,12 +104,14 @@ public class LogicGame : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
         //Debug.Log("Load scene Game: " + SaveGame.Challenges);
         //Debug.Log(SaveGame.Heart + " heart");
         Refresh();
         //InitPlateSpawn(false);
 
         LoadData();
+        InitNextPlate();
     }
 
     private void Refresh()
@@ -135,7 +134,6 @@ public class LogicGame : MonoBehaviour
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
 
-        Application.targetFrameRate = 60;
 
         ResetPosSpawn();
 
@@ -148,33 +146,14 @@ public class LogicGame : MonoBehaviour
     }
     void ResetPosSpawn()
     {
-        //Vector3 screenPos1 = RectTransformUtility.WorldToScreenPoint(cam, slot_1.position);
-        //Vector3 screenPos2 = RectTransformUtility.WorldToScreenPoint(cam, slot_2.position);
-        //Vector3 screenPos3 = RectTransformUtility.WorldToScreenPoint(cam, slot_3.position);
-        //Vector3 screenPos4 = RectTransformUtility.WorldToScreenPoint(cam, slot_4.position);
         Vector3 screenPos5 = RectTransformUtility.WorldToScreenPoint(cam, slot_5.position);
         Vector3 screenPos6 = RectTransformUtility.WorldToScreenPoint(cam, slot_6.position);
-
-        //Vector3 worldPos1;
-        //Vector3 worldPos2;
-        //Vector3 worldPos3;
-        //Vector3 worldPos4;
 
         Vector3 worldPos5;
         Vector3 worldPos6;
 
-        //RectTransformUtility.ScreenPointToWorldPointInRectangle(slot_1, screenPos1, cam, out worldPos1);
-        //RectTransformUtility.ScreenPointToWorldPointInRectangle(slot_2, screenPos2, cam, out worldPos2);
-        //RectTransformUtility.ScreenPointToWorldPointInRectangle(slot_3, screenPos3, cam, out worldPos3);
-        //RectTransformUtility.ScreenPointToWorldPointInRectangle(slot_4, screenPos4, cam, out worldPos4);
-
         RectTransformUtility.ScreenPointToWorldPointInRectangle(slot_5, screenPos5, cam, out worldPos5);
         RectTransformUtility.ScreenPointToWorldPointInRectangle(slot_6, screenPos6, cam, out worldPos6);
-
-        //listSpawnNew[0].transform.position = worldPos1;
-        //listSpawnNew[1].transform.position = worldPos2;
-        //listSpawnNew[2].transform.position = worldPos3;
-        //listNextPlate[0].transform.position = worldPos4;
 
         listNextPlate[0].transform.position = worldPos5;
         listNextPlate[1].transform.position = worldPos6;
@@ -368,6 +347,19 @@ public class LogicGame : MonoBehaviour
     //        }
     //    }
     //}
+
+    void InitNextPlate()
+    {
+        for (int i = 0; i < listNextPlate.Count; i++)
+        {
+            if (listNextPlate[i].ListValue.Count == 0)
+            {
+                listNextPlate[i].Init(GetColorNew);
+                if (i == 0) listNextPlate[i].InitRandom(true);
+                else listNextPlate[i].InitRandom(false);
+            }
+        }
+    }
     #endregion
 
     void Swap(List<ColorPlate> a)
@@ -399,109 +391,115 @@ public class LogicGame : MonoBehaviour
     [SerializeField] float timerRun = -1;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (timeClick >= 0)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-            timeClick = .1f;
-            Vector3 spawnPosition = GetMouseWorldPosition();
-            clickParticlePool.Spawn(spawnPosition, true);
-
-            if (gameMode == GameMode.Play)
+            timeClick -= Ez.TimeMod;
+        }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                if (isLose || isWin) return;
-                // click from start to grid
-                if (Physics.Raycast(ray, out var hit, 100f, layerArrow) && !isPauseGame)
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+                timeClick = .5f;
+                Vector3 spawnPosition = GetMouseWorldPosition();
+                clickParticlePool.Spawn(spawnPosition, true);
+
+                if (gameMode == GameMode.Play)
                 {
-                    //if (countMove == 0)
-                    //{
-                    ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
-
-                    if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0) return;
-
-                    ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
-                    ColorPlate holder = checkStatusHolder.CheckHolder(arrowPlate);
-
-                    arrowPlate.PlayAnimOnClick();
-                    ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
-
-                    if (holder != null)
+                    if (isLose || isWin) return;
+                    // click from start to grid
+                    if (Physics.Raycast(ray, out var hit, 100f, layerArrow) && !isPauseGame)
                     {
-                        SetColor(arrowPlate, holder);
+                        //if (countMove == 0)
+                        //{
+                        ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
 
-                        if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
+                        if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0) return;
+
+                        ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
+                        ColorPlate holder = checkStatusHolder.CheckHolder(arrowPlate);
+
+                        arrowPlate.PlayAnimOnClick();
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
+
+                        if (holder != null)
+                        {
+                            SetColor(arrowPlate, holder);
+
+                            if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
+                        }
+
+                        if (isHadSpawnSpecial)
+                        {
+                            //countMove = 0;
+                            //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
+                            Debug.Log("Play Effect Has Special");
+                            listNextPlate[0].SpawnSpecialColor(GetColorNew);
+                            Vector3 spawnPos = listNextPlate[0].transform.position;
+                            specialParticlePool.Spawn(spawnPos, true);
+                            isHadSpawnSpecial = false;
+                        }
+                        else
+                        {
+                            //countMove = UnityEngine.Random.Range(2, 4);
+                            //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
+                        }
+                        //}
+                        //else
+                        //{
+                        //    ManagerAudio.PlaySound(ManagerAudio.Data.soundCannotClick);
+                        //    EasyUI.Toast.Toast.Show("Not enough quantity", 1f);
+                        //}
                     }
 
-                    if (isHadSpawnSpecial)
+                    // click from spawn to start
+                    if (Physics.Raycast(ray, out var hitPlate, 100f, layerPlateSpawn) && !isPauseGame)
                     {
-                        //countMove = 0;
-                        //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
-                        Debug.Log("Play Effect Has Special");
-                        listNextPlate[0].SpawnSpecialColor(GetColorNew);
-                        Vector3 spawnPos = listNextPlate[0].transform.position;
-                        specialParticlePool.Spawn(spawnPos, true);
-                        isHadSpawnSpecial = false;
+                        ColorPlate plateSpawn = hitPlate.collider.GetComponent<ColorPlate>();
+                        if (plateSpawn.ListValue.Count == 0) return;
+
+                        //if (countMove > 0)
+                        //{
+                        //    ManagerAudio.PlaySound(ManagerAudio.Data.soundEasyButton);
+                        //    SetColorIntoStartPlate(plateSpawn, listNextPlate[0]);
+                        //}
                     }
-                    else
+
+                    // using Item Hammer
+                    if (isUsingHammer)
                     {
-                        //countMove = UnityEngine.Random.Range(2, 4);
-                        //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
+                        if (Physics.Raycast(ray, out var plate, 100f, layerUsingItem))
+                        {
+                            ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
+
+                            Debug.Log(plateSelect.name);
+
+                            if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
+
+                            hammer.gameObject.SetActive(true);
+                            hammer.transform.position = plateSelect.transform.position + GameConfig.OFFSET_HAMMER;
+                            hammer.hitColorPlate = plateSelect.transform.position;
+                            hammer.colorPlateDestroy = plateSelect;
+
+                            SaveGame.Hammer--;
+                            isUsingHammer = false;
+                        }
                     }
-                    //}
-                    //else
-                    //{
-                    //    ManagerAudio.PlaySound(ManagerAudio.Data.soundCannotClick);
-                    //    EasyUI.Toast.Toast.Show("Not enough quantity", 1f);
-                    //}
-                }
 
-                // click from spawn to start
-                if (Physics.Raycast(ray, out var hitPlate, 100f, layerPlateSpawn) && !isPauseGame)
-                {
-                    ColorPlate plateSpawn = hitPlate.collider.GetComponent<ColorPlate>();
-                    if (plateSpawn.ListValue.Count == 0) return;
-
-                    //if (countMove > 0)
-                    //{
-                    //    ManagerAudio.PlaySound(ManagerAudio.Data.soundEasyButton);
-                    //    SetColorIntoStartPlate(plateSpawn, listNextPlate[0]);
-                    //}
-                }
-
-                // using Item Hammer
-                if (isUsingHammer)
-                {
-                    if (Physics.Raycast(ray, out var plate, 100f, layerUsingItem))
+                    if (Physics.Raycast(ray, out var hitPlateAds, 100f, layerPlate) && !isPauseGame && !isUsingHammer)
                     {
-                        ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
+                        ColorPlate adsPlate = hitPlateAds.collider.GetComponent<ColorPlate>();
 
-                        Debug.Log(plateSelect.name);
+                        if (adsPlate.status != Status.Ads) return;
 
-                        if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
-
-                        hammer.gameObject.SetActive(true);
-                        hammer.transform.position = plateSelect.transform.position + GameConfig.OFFSET_HAMMER;
-                        hammer.hitColorPlate = plateSelect.transform.position;
-                        hammer.colorPlateDestroy = plateSelect;
-
-                        SaveGame.Hammer--;
-                        isUsingHammer = false;
+                        Debug.Log(" Watch Ads to Unlock AdsPlate");
+                        adsPlate.status = Status.None;
+                        adsPlate.logicVisual.Refresh();
                     }
-                }
-
-                if (Physics.Raycast(ray, out var hitPlateAds, 100f, layerPlate) && !isPauseGame && !isUsingHammer)
-                {
-                    ColorPlate adsPlate = hitPlateAds.collider.GetComponent<ColorPlate>();
-
-                    if (adsPlate.status != Status.Ads) return;
-
-                    Debug.Log(" Watch Ads to Unlock AdsPlate");
-                    adsPlate.status = Status.None;
-                    adsPlate.logicVisual.Refresh();
                 }
             }
         }
-
 
         if (timerRun >= 0)
         {
@@ -534,22 +532,22 @@ public class LogicGame : MonoBehaviour
         }
 
 
-        if (gameMode == GameMode.EditGame)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Ray rayTest = cam.ScreenPointToRay(Input.mousePosition); ;
-                if (Physics.Raycast(rayTest, out var plate, 100f, layerArrow))
-                {
-                    ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
+        //if (gameMode == GameMode.EditGame)
+        //{
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        Ray rayTest = cam.ScreenPointToRay(Input.mousePosition); ;
+        //        if (Physics.Raycast(rayTest, out var plate, 100f, layerArrow))
+        //        {
+        //            ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
 
-                    plateSelect.Init(GetColorNew);
-                    plateSelect.InitColor();
+        //            plateSelect.Init(GetColorNew);
+        //            plateSelect.InitColor();
 
-                    CheckLose();
-                }
-            }
-        }
+        //            CheckLose();
+        //        }
+        //    }
+        //}
     }
 
 
@@ -599,71 +597,11 @@ public class LogicGame : MonoBehaviour
 
     private bool isSequenceActive = false;
 
-    void SetColorIntoStartPlate(ColorPlate startColorPlate, ColorPlate endColorPlate)
-    {
-        //countMove--;
-        //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
-
-        endColorPlate.listTypes.AddRange(startColorPlate.listTypes);
-
-        int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
-
-        startColorPlate.listTypes.Clear();
-
-        Sequence sq = DOTween.Sequence();
-
-
-        for (int i = count - 1; i >= 0; i--)
-        {
-            startColorPlate.TopColor.transform.SetParent(endColorPlate.transform);
-            startColorPlate.TopColor.transform.localScale = Vector3.one;
-            endColorPlate.ListValue.Add(startColorPlate.TopValue);
-            endColorPlate.ListColor.Add(startColorPlate.TopColor);
-
-            startColorPlate.ListValue.RemoveAt(startColorPlate.ListValue.Count - 1);
-            startColorPlate.ListColor.RemoveAt(startColorPlate.ListColor.Count - 1);
-
-            endColorPlate.InitValue(endColorPlate.transform, false, -1);
-        }
-
-        sq.AppendInterval(0.3f);
-
-        if (endColorPlate.listTypes.Count >= 2)
-        {
-            if (endColorPlate.listTypes[endColorPlate.listTypes.Count - 1].type == endColorPlate.listTypes[endColorPlate.listTypes.Count - 2].type)
-            {
-                //Debug.Log("same type. MERGE");
-                endColorPlate.listTypes[endColorPlate.listTypes.Count - 1].listPlates.AddRange(endColorPlate.listTypes[endColorPlate.listTypes.Count - 2].listPlates);
-                endColorPlate.listTypes.RemoveAt(endColorPlate.listTypes.Count - 2);
-            }
-            else
-            {
-                //Debug.Log("not same type. DONT NEED MERGE");
-            }
-        }
-        else
-        {
-            //Debug.Log("Only 1 type");
-        }
-        if (!isSequenceActive)
-        {
-            isSequenceActive = true;
-
-            sq.AppendInterval(0.3f);
-            sq.AppendCallback(() =>
-            {
-                //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
-                isSequenceActive = false;
-            });
-        }
-
-        //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
-        //StartCoroutine(WaitForInitNextPlateSpawn(startColorPlate));
-
-    }
 
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
+        isMove = true;
+        timerRun += .5f;
         if (startColorPlate.ListValue.Count == 0)
         {
             if (listNextPlate[0].ListValue.Count == 0) return;
@@ -685,6 +623,24 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
 
+            Tweener t = null;
+            t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
+            listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
+            foreach (LogicColor c in listNextPlate[0].ListColor)
+            {
+                c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+            }
+
+            foreach (LogicColor c in listNextPlate[1].ListColor)
+            {
+                c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+            }
+            Swap(listNextPlate);
+            t.OnComplete(() =>
+            {
+                listNextPlate[1].InitRandom(false);
+            });
+
             float delay = 0f;
 
             DG.Tweening.Sequence sq = DOTween.Sequence();
@@ -696,17 +652,6 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.localScale = Vector3.one;
                 delay += 0.01f;
             }
-
-            //for (int i = startColorPlate.ListColor.Count - 1; i >= 0; i--)
-            //{
-            //    LogicColor renderer = startColorPlate.ListColor[i];
-            //    renderer.transform.SetParent(endColorPlate.transform);
-            //    sq.Insert(delay, renderer.transform.DOLocalMove(new Vector3(0, renderer.transform.localPosition.y, 0), 1f).SetEase(curveMove));
-            //    renderer.transform.localRotation = Quaternion.identity;
-            //    renderer.transform.localScale = Vector3.one;
-            //    delay += 0.2f;
-            //}
-
 
             List<ColorEnum> listValueMid = new List<ColorEnum>();
             List<LogicColor> ListColorMid = new List<LogicColor>();
@@ -729,6 +674,8 @@ public class LogicGame : MonoBehaviour
 
             sq.OnComplete(() =>
             {
+                //isMove = false;
+
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
                     if (!isMergeing)
@@ -1042,7 +989,8 @@ public class LogicGame : MonoBehaviour
 
         for (int i = count - 1; i >= 0; i--)
         {
-            sequence.AppendCallback(() =>
+            float delay = 0.06f * (count - 1 - i);
+            DOVirtual.DelayedCall(delay, () =>
             {
                 if (startColorPlate.TopValue == endColorPlate.TopValue)
                 {
@@ -1070,11 +1018,7 @@ public class LogicGame : MonoBehaviour
                     else endColorPlate.InitValue(endColorPlate.transform, false, 3);
                 }
             });
-
-
-            sequence.AppendInterval(0.1f);
         }
-
         timerRun += 0.1f * count + 0.5f;
         sequence.Play();
         if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
