@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: GroupUI
+  m_EditorClassIdentifier: 
+  m_GroupName: GroupUI
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b14e637ac9301f44397afc333d730a30
+  m_SerializeEntries:
+  - m_GUID: 03610f6fcac981c4f9b49d02e5eb0567
+    m_Address: PopupHome
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f07adcda8da8a442806e6af828d1599
+    m_Address: PopupSetting
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88477740c1ac92d4f8e319731b8f926e
+    m_Address: PopupWin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0495384116323c45bd98ed70753e595
+    m_Address: PopupLose
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af292e1bdd7b2f24099d990e8b2a754e
+    m_Address: PopupSettingHome
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3011edc843ec15e49874b8707a1709ff
+    m_Address: nHomeUi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f43b102ad98b6ed4db045549aac613d8
+    m_Address: PopupDecor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbbcf4b3b0bd0a643a6cc15966ad2a2e
+    m_Address: PopupGallery
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae1443024544f01489c00e12a19dca1b
+    m_Address: PopupGoToLevel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3723d9c804a34f489b4feff746cdc62
+    m_Address: PopupFreeCoin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b063cfe6caba694d8116d9880868999
+    m_Address: PopupEndless
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5a19d6a69e2f2ad49b413f1b1de7f7cd
+    m_Address: PopupShopInGame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18fafa8cbb4b413479eed79ed0d920f9
+    m_Address: PopupRestart
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d64480c90615aab4da09285b1aadfd0e
+    m_Address: PopupEndChallenges
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae0ea66748495994f9e9fd7b386d3faa
+    m_Address: PopupUnlockBooster
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: affc4fe0911ffd849a841c5127b3e2c0
+    m_Address: PopupUnlockColor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3ff0d1b6ea0a1b47b6539cd83f7e09d
+    m_Address: PopupSetupRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f118173e1a8029f489f8a43786d8ad06, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 18432c71da5973e428657187ff8aaf86, type: 2}
+    - {fileID: 11400000, guid: c15a61a90a068284a9abeec3daed86cd, type: 2}

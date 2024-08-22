@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f8bca2234bf6f49b330fe53169d99c, type: 3}
+  m_Name: BoosterData
+  m_EditorClassIdentifier: 
+  listBooster:
+  - nameBooster: Swap
+    spriteBooster: {fileID: 21300000, guid: 3e39df26d3a22814f9481869ff52c442, type: 3}
+    spriteIcon: {fileID: 21300000, guid: acfea455a9fecf14c81ae7d307984545, type: 3}
+    spriteText: {fileID: 21300000, guid: 8e2b75e331cac6241a513cc810691a20, type: 3}
+    boosterEnum: 1
+    textExplain: drag any stack to move it
+    cost: 400
+  - nameBooster: Hammer
+    spriteBooster: {fileID: 21300000, guid: c245ea0febe4abc49b759cbabcc07ef1, type: 3}
+    spriteIcon: {fileID: 21300000, guid: 81eb06383721bc54aa827a8e30ecd4b5, type: 3}
+    spriteText: {fileID: 21300000, guid: a5e9d7ae944fd3c499fbdf121b0d5d63, type: 3}
+    boosterEnum: 0
+    textExplain: tap any stack to clear it
+    cost: 250
+  - nameBooster: Refresh
+    spriteBooster: {fileID: 21300000, guid: 512242e95c183884c8c6db583c873ba5, type: 3}
+    spriteIcon: {fileID: 21300000, guid: b41615f6946f5d2449970c7f54483794, type: 3}
+    spriteText: {fileID: 21300000, guid: 442fa8b9c554c0b45a874e081bad35fe, type: 3}
+    boosterEnum: 2
+    textExplain: refresh tray to get new stack options
+    cost: 200

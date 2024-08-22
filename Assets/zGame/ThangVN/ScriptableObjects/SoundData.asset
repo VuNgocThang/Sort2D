@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7a5b6f38c5ddf40853b4a4689e2d73, type: 3}
+  m_Name: SoundData
+  m_EditorClassIdentifier: 
+  soundClick: {fileID: 8300000, guid: e474de7152825a9498d7cb3c27c7dbcd, type: 3}
+  soundSwitch: {fileID: 8300000, guid: d5abecbd4332e704f9a29e90919f4d7c, type: 3}
+  soundPopupWin: {fileID: 8300000, guid: 5df53a12f55489742ad7cc89ea24bcc6, type: 3}
+  soundPopupLose: {fileID: 8300000, guid: 778508e7060c04544b176e47eab5c708, type: 3}
+  soundEasyButton: {fileID: 8300000, guid: c996b8a0be68c5c40a92a7db5f386e18, type: 3}
+  soundPaperFireWorks: {fileID: 8300000, guid: 91dc51438b0f14448aa3d7872863e168, type: 3}
+  soundArrowButton: {fileID: 8300000, guid: e474de7152825a9498d7cb3c27c7dbcd, type: 3}
+  soundMerge_2: {fileID: 8300000, guid: f7534332247272c498831f6de95c3356, type: 3}
+  soundMerge: {fileID: 8300000, guid: 440cd79aca63d0a4bafbe67476a03f3d, type: 3}
+  soundEat1: {fileID: 8300000, guid: d8f4990be653e3d419e980ca43665142, type: 3}
+  soundEat2: {fileID: 8300000, guid: 0b77b5085c76b344b90dc208db47b3df, type: 3}
+  soundEat3: {fileID: 8300000, guid: 012977c0deda4204687c45b62d8ab057, type: 3}
+  soundCannotClick: {fileID: 8300000, guid: 93d5a1292d6962945bb541d3eaf50372, type: 3}
+  musicInGame: {fileID: 8300000, guid: def0380595ece28468e617bb4fedfbfe, type: 3}
+  musicBG: {fileID: 8300000, guid: 60c7509afa8108f42b07c79e75bd2d06, type: 3}

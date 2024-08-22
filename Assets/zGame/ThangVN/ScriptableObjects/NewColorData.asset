@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bc01b3caee27194d901757ef66532f7, type: 3}
+  m_Name: NewColorData
+  m_EditorClassIdentifier: 
+  listNewColorData:
+  - indexLevelUnlock: 2
+    spriteIcon: {fileID: 21300000, guid: 23f792669577acc42a363b56c814ed08, type: 3}
+    newColorEnum: 0
+  - indexLevelUnlock: 5
+    spriteIcon: {fileID: 21300000, guid: d08058592f39cfe48b204e75925301fa, type: 3}
+    newColorEnum: 1
+  - indexLevelUnlock: 8
+    spriteIcon: {fileID: 21300000, guid: a12cbc0e2106c564cb681911d24c5c1f, type: 3}
+    newColorEnum: 2
+  - indexLevelUnlock: 12
+    spriteIcon: {fileID: 21300000, guid: 03275ada9c528704f9fe7349efdcaf22, type: 3}
+    newColorEnum: 3
+  - indexLevelUnlock: 16
+    spriteIcon: {fileID: 21300000, guid: b0ab9fdd4d13dc44ea3973c18ffc276a, type: 3}
+    newColorEnum: 4

@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f3e3c706d97ae49831d0ef0a50a763, type: 3}
+  m_Name: ListRoomData
+  m_EditorClassIdentifier: 
+  listRoom:
+  - idRoom: 0
+    listObjectRoom:
+    - idObject: 0
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 79faac283888b00418e28125842ce647, type: 3}
+      - {fileID: 21300000, guid: 94a4ad214a40dee42a38a58332717d7f, type: 3}
+      - {fileID: 21300000, guid: d4820450f92ea7347ac50e8c943f06c0, type: 3}
+      - {fileID: 21300000, guid: 3f03f12204892fa4594446b3c5e190ef, type: 3}
+    - idObject: 1
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: c54b273a126e0f84aa5751687420be1f, type: 3}
+      - {fileID: 21300000, guid: 66e9353e8e0e36949a486ae880ca6921, type: 3}
+      - {fileID: 21300000, guid: e6ea23ebb0caf2d4596ecfe05cee13d6, type: 3}
+      - {fileID: 21300000, guid: eb55d771a8e436640a50eb62023a536f, type: 3}
+    - idObject: 2
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 87e5b9f80cc4fd24ea7931a3127fd5ec, type: 3}
+      - {fileID: 21300000, guid: 042301c4f2fc6274da131cbc896c72a0, type: 3}
+      - {fileID: 21300000, guid: 17f8627ef381977419463ff318b02007, type: 3}
+      - {fileID: 21300000, guid: 56e6ff86e7749d249a84d89fb29eefa0, type: 3}
+    - idObject: 3
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 647ac9a1b2f423d42b71634ad337b51f, type: 3}
+      - {fileID: 21300000, guid: 93bd3a7bce05520419526d4e6a755e1c, type: 3}
+      - {fileID: 21300000, guid: 4cb685b65bc9bce41ae90b69d107289a, type: 3}
+      - {fileID: 21300000, guid: cb56eecfa5c970246ae42b00c4a1e670, type: 3}
+    - idObject: 4
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: e4fa7e62bdc7a4f48940f3dcf5fe5645, type: 3}
+      - {fileID: 21300000, guid: 5a92ef8fb7991bd458c032fe30704407, type: 3}
+      - {fileID: 21300000, guid: d7ebc4c0cd75486419a17d84b16c9d7b, type: 3}
+      - {fileID: 21300000, guid: ccc2041235ee8704abb0e57142ef2d58, type: 3}
+    - idObject: 5
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 202ccf0aab83c6d4bb78702e1bb4247b, type: 3}
+      - {fileID: 21300000, guid: 5e927287023a8fe48836dc97711d2cdc, type: 3}
+      - {fileID: 21300000, guid: 284b96413924c74418439437bc170978, type: 3}
+      - {fileID: 21300000, guid: 7e490026693a2184f8c4b4a5ec545f01, type: 3}
+    - idObject: 6
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - idObject: 7
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: a4581df916139da41865d6fee3bac786, type: 3}
+      - {fileID: 21300000, guid: 95d1496884c063845b48b008491a0ab0, type: 3}
+      - {fileID: 21300000, guid: e67d9c1c3592dda4ca0d43523e53597c, type: 3}
+      - {fileID: 21300000, guid: c7e06be94593cba4a9baa3ca42932f07, type: 3}
+    - idObject: 8
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 47091abf67d63774f95a827b641ee658, type: 3}
+      - {fileID: 21300000, guid: b5ff27698114a3d4dbe8d2a9cbf97fad, type: 3}
+      - {fileID: 21300000, guid: 8aaafdb6a9c3c8647952d139396a90a2, type: 3}
+      - {fileID: 21300000, guid: b6c0341d72925c044a42e27be1bf841b, type: 3}
+    - idObject: 9
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 369ac84b9f8847c4f907b78946b27a27, type: 3}
+      - {fileID: 21300000, guid: 0d999a66c270cf54e8aa82611a8ef265, type: 3}
+      - {fileID: 21300000, guid: 08c84bb415b386f4aad523e6ccd18800, type: 3}
+      - {fileID: 21300000, guid: b221c0f7ce26c4d42bd2ce1439b93fbc, type: 3}
+    - idObject: 10
+      isPainted: 0
+      colorNeed: 300
+      sprite:
+      - {fileID: 21300000, guid: 6fb5063380c8a4b4b86c839c4f867b6c, type: 3}
+      - {fileID: 21300000, guid: fe11c7a0903a4124192f13a24e0b2988, type: 3}
+      - {fileID: 21300000, guid: edf8c1d43b286d146a3dbeee7dc9ed19, type: 3}
+      - {fileID: 21300000, guid: ec662899baf2ebe49a2c30e6afa57e24, type: 3}
