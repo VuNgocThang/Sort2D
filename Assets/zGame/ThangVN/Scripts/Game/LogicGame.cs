@@ -601,7 +601,6 @@ public class LogicGame : MonoBehaviour
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
         isMove = true;
-        timerRun += .5f;
         if (startColorPlate.ListValue.Count == 0)
         {
             if (listNextPlate[0].ListValue.Count == 0) return;
@@ -662,18 +661,18 @@ public class LogicGame : MonoBehaviour
             listTypes.AddRange(startColorPlate.listTypes);
 
 
-            startColorPlate.ListValue.Clear();
             startColorPlate.ListColor.Clear();
             startColorPlate.listTypes.Clear();
 
 
-            endColorPlate.ListValue.AddRange(listValueMid);
             endColorPlate.ListColor.AddRange(ListColorMid);
             endColorPlate.listTypes.AddRange(listTypes);
 
 
             sq.OnComplete(() =>
             {
+                startColorPlate.ListValue.Clear();
+                endColorPlate.ListValue.AddRange(listValueMid);
                 //isMove = false;
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
