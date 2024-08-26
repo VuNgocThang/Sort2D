@@ -66,7 +66,6 @@ public class LogicGame : MonoBehaviour
     public bool isLose = false;
     public bool isWin = false;
     public bool isPauseGame = false;
-    public bool isMove = false;
     public static bool isContiuneMerge = false;
     public int point;
     public int maxPoint;
@@ -594,13 +593,8 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-
-    private bool isSequenceActive = false;
-
-
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
-        isMove = true;
         if (startColorPlate.ListValue.Count == 0)
         {
             if (listNextPlate[0].ListValue.Count == 0) return;
@@ -663,42 +657,39 @@ public class LogicGame : MonoBehaviour
 
             startColorPlate.ListColor.Clear();
             startColorPlate.listTypes.Clear();
-
+            startColorPlate.ListValue.Clear();
 
             endColorPlate.ListColor.AddRange(ListColorMid);
             endColorPlate.listTypes.AddRange(listTypes);
-
+            endColorPlate.ListValue.AddRange(listValueMid);
 
             sq.OnComplete(() =>
             {
-                startColorPlate.ListValue.Clear();
-                endColorPlate.ListValue.AddRange(listValueMid);
-                //isMove = false;
-
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
-                    if (!isMergeing)
+                    //if (!isMergeing)
+                    //{
+                    List<ColorPlate> listDataConnect = new List<ColorPlate>();
+                    CheckNearByRecursive(listDataConnect, endColorPlate);
+
+                    if (listDataConnect.Count <= 1)
                     {
-                        List<ColorPlate> listDataConnect = new List<ColorPlate>();
-                        CheckNearByRecursive(listDataConnect, endColorPlate);
-
-                        if (listDataConnect.Count <= 1)
-                        {
-                            if (!isLose) CheckLose();
-                        }
-                        else
-                        {
-                            FindTarget findTarget = new FindTarget();
-                            if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
-                            Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
-                            Debug.Log(" Color Root:" + colorRoot.name);
-
-                            HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
-                            HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
-                            AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
-                            RecursiveMerge();
-                        }
+                        if (!isLose) CheckLose();
                     }
+                    else
+                    {
+                        listSteps.Clear();
+
+                        FindTarget findTarget = new FindTarget();
+                        if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
+                        Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
+                        Debug.Log(" Color Root:" + colorRoot.name);
+                        HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
+                        HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
+                        AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
+                        RecursiveMerge();
+                    }
+                    //}
                 }
                 else
                 {
@@ -979,10 +970,10 @@ public class LogicGame : MonoBehaviour
     {
         timerRun = 0;
         isMergeing = true;
-        for (int i = listSteps.Count - 1; i >= 0; i--)
-        {
-            Debug.Log(listSteps[i].nearByColorPlate + " to " + listSteps[i].rootColorPlate);
-        }
+        //for (int i = listSteps.Count - 1; i >= 0; i--)
+        //{
+        //    Debug.Log(listSteps[i].nearByColorPlate + " to " + listSteps[i].rootColorPlate);
+        //}
         int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
         Sequence sequence = DOTween.Sequence();
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class GameConfig
 {
+    public static float TIME_MOVE = 0.25f;
+
     public static int MAX_HEART = 5;
 
     public static float TIME_COUNT_DOWN = 300f;

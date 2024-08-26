@@ -170,7 +170,7 @@ public class ColorPlate : MonoBehaviour
             {
                 int randomCountPerStack = -1;
                 int rdRatioColorInStack = UnityEngine.Random.Range(0, 100);
-                Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
+                //Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
 
                 for (int i = 0; i < levelData.listRatioSpawnColor.Count; i++)
                 {
@@ -182,7 +182,7 @@ public class ColorPlate : MonoBehaviour
 
                     randomCountPerStack = levelData.listRatioSpawnColor.Count;
                 }
-                Debug.Log("màu được spawn: " + randomCountPerStack);
+                //Debug.Log("màu được spawn: " + randomCountPerStack);
 
                 listDiff.Add(randomCountPerStack);
             }
@@ -276,10 +276,10 @@ public class ColorPlate : MonoBehaviour
                 {
                     // Bieu dien o day
 
-                    if (index != -1)
-                        MoveDirection(index, i);
+                    //if (index != -1)
+                    //    MoveDirection(index, i);
 
-                    ListColor[i].transform.DOLocalJump(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 2, 1, 0.3f);
+                    ListColor[i].transform.DOLocalJump(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 2, 1, GameConfig.TIME_MOVE);
                     //.OnComplete(() =>
                     //{
                     //    ListColor[i].transform.eulerAngles = Vector3.zero;
@@ -304,7 +304,11 @@ public class ColorPlate : MonoBehaviour
                                     = new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z - 180f);
 
             ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z + 180f), 0.1f, RotateMode.Fast);
+               (new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z + 180f), GameConfig.TIME_MOVE, RotateMode.Fast)
+               .OnComplete(() =>
+               {
+                   ListColor[i].transform.localEulerAngles = Vector3.zero;
+               });
         }
         else if (index == 1)
         {
@@ -313,7 +317,11 @@ public class ColorPlate : MonoBehaviour
                                    = new Vector3(ListColor[i].transform.localEulerAngles.x - 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z);
 
             ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x + 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z), 0.1f, RotateMode.Fast);
+               (new Vector3(ListColor[i].transform.localEulerAngles.x + 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z), GameConfig.TIME_MOVE, RotateMode.Fast)
+               .OnComplete(() =>
+               {
+                   ListColor[i].transform.localEulerAngles = Vector3.zero;
+               });
         }
         else if (index == 2)
         {
@@ -322,7 +330,11 @@ public class ColorPlate : MonoBehaviour
                                    = new Vector3(ListColor[i].transform.localEulerAngles.x + 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z);
 
             ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x - 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z), 0.1f, RotateMode.Fast);
+               (new Vector3(ListColor[i].transform.localEulerAngles.x - 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z), GameConfig.TIME_MOVE, RotateMode.Fast)
+               .OnComplete(() =>
+               {
+                   ListColor[i].transform.localEulerAngles = Vector3.zero;
+               });
         }
         else
         {
@@ -331,7 +343,11 @@ public class ColorPlate : MonoBehaviour
                                     = new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z + 180f);
 
             ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z - 180f), 0.1f, RotateMode.Fast);
+               (new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z - 180f), GameConfig.TIME_MOVE, RotateMode.Fast)
+               .OnComplete(() =>
+               {
+                   ListColor[i].transform.localEulerAngles = Vector3.zero;
+               });
         }
     }
 
