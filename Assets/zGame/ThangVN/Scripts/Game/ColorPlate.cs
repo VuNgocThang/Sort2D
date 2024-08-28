@@ -29,7 +29,11 @@ public enum Status
     CannotPlace,
     None,
     Ads,
-    Existed
+    Existed,
+    SpeicalArrowRight,
+    SpecialArrowLeft,
+    SpecialArrowUp,
+    SpecialArrowDown
 }
 
 [Serializable]

@@ -47,9 +47,16 @@ public class CheckGetHolderStatus : ICheckStatus
                     {
                         break;
                     }
+                    else if (LogicGame.Instance.ListColorPlate[i].status == Status.SpeicalArrowRight)
+                    {
+                        CheckPossibleSpeicalArrowRight(LogicGame.Instance.ListColorPlate[i]);
+                    }
+                    else
+                    {
+                        maxCol = LogicGame.Instance.ListColorPlate[i].Col;
+                        possiblePlate = LogicGame.Instance.ListColorPlate[i];
+                    }
 
-                    maxCol = LogicGame.Instance.ListColorPlate[i].Col;
-                    possiblePlate = LogicGame.Instance.ListColorPlate[i];
                 }
             }
         }
@@ -168,8 +175,61 @@ public class CheckGetHolderStatus : ICheckStatus
                     {
                         break;
                     }
+                    //Debug.Log(LogicGame.Instance.ListColorPlate[i].name + "___" + LogicGame.Instance.ListColorPlate[i].status);
 
-                    minRow = LogicGame.Instance.ListColorPlate[i].Row;
+                    if (LogicGame.Instance.ListColorPlate[i].status == Status.SpeicalArrowRight)
+                    {
+                        //Debug.Log("check special arrow");
+                        possiblePlate = CheckPossibleSpeicalArrowRight(LogicGame.Instance.ListColorPlate[i]);
+                        break;
+                    }
+                    else
+                    {
+                        //Debug.Log("no check anything");
+                        minRow = LogicGame.Instance.ListColorPlate[i].Row;
+                        possiblePlate = LogicGame.Instance.ListColorPlate[i];
+                    }
+                }
+            }
+        }
+
+        //Debug.Log("possible: " + possiblePlate.name);
+
+        if (possiblePlate != null)
+        {
+            return possiblePlate;
+        }
+        else
+        {
+            if (arrowDown.ListValue.Count == 0)
+            {
+                possiblePlate = arrowDown;
+                return possiblePlate;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
+    ColorPlate CheckPossibleSpeicalArrowRight(ColorPlate specialRight)
+    {
+        ColorPlate possiblePlate = null;
+        int maxCol = specialRight.Col;
+
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            if (LogicGame.Instance.ListColorPlate[i].Row == specialRight.Row)
+            {
+                if (LogicGame.Instance.ListColorPlate[i].Col > maxCol)
+                {
+                    if (IsBreak(LogicGame.Instance.ListColorPlate[i]))
+                    {
+                        break;
+                    }
+
+                    maxCol = LogicGame.Instance.ListColorPlate[i].Col;
                     possiblePlate = LogicGame.Instance.ListColorPlate[i];
                 }
             }
@@ -181,9 +241,9 @@ public class CheckGetHolderStatus : ICheckStatus
         }
         else
         {
-            if (arrowDown.ListValue.Count == 0)
+            if (specialRight.ListValue.Count == 0)
             {
-                possiblePlate = arrowDown;
+                possiblePlate = specialRight;
                 return possiblePlate;
             }
             else

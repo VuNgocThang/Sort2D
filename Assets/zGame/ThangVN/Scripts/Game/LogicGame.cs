@@ -419,6 +419,9 @@ public class LogicGame : MonoBehaviour
                         ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
                         ColorPlate holder = checkStatusHolder.CheckHolder(arrowPlate);
 
+                        ICheckListMove checkListMove = new CheckGetListMove();
+                        List<ColorPlate> listMove = checkListMove.GetListSlotVisual(arrowPlate);
+
                         arrowPlate.PlayAnimOnClick();
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
 

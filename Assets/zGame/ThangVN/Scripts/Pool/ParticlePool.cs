@@ -19,7 +19,7 @@ public class ParticlePool : MonoBehaviour
 
     public TypeParticle typeParticle;
 
-    private ParticleSystem particle;
+    [SerializeField] private ParticleSystem particle;
     // Start is called before the first frame update
 
     public void OnParticleSystemStopped()
