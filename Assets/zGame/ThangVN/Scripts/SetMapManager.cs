@@ -113,6 +113,7 @@ public class SetMapManager : MonoBehaviour
         Debug.Log(textAsset.ToString());
         colorPlateData = JsonUtility.FromJson<ColorPlateData>(textAsset.ToString());
 
+
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
         Init(rows, cols, holderColorPlate, ListColorPlate, colorPlatePrefab);

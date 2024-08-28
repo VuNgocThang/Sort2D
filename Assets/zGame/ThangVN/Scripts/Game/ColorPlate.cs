@@ -261,7 +261,7 @@ public class ColorPlate : MonoBehaviour
                 if (isFirst) color.transform.localScale = Vector3.one;
                 else color.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
-                color.transform.localScale = Vector3.one;
+                //color.transform.localScale = Vector3.one;
 
                 color.transform.localPosition = new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0);
                 ListColor.Add(color);
@@ -278,6 +278,24 @@ public class ColorPlate : MonoBehaviour
 
                     //if (index != -1)
                     //    MoveDirection(index, i);
+
+                    //for (int i = 0; i < parentA.childCount; i++)
+                    //{
+                    //    Transform obj = parentA.GetChild(i);
+                    //    Vector3 originalPosition = obj.position;
+                    //    Quaternion originalRotation = obj.rotation;
+
+                    //    Vector3 midpoint = (originalPosition + parentB.position) / 2;
+
+                    //    for (float t = 0; t <= flipDuration; t += Time.deltaTime)
+                    //    {
+                    //        float normalizedTime = t / flipDuration;
+
+                    //        obj.position = Vector3.Lerp(originalPosition, midpoint, normalizedTime);
+                    //        obj.Rotate(0, 180 * Time.deltaTime / flipDuration, 0);
+
+                    //        yield return null; 
+                    //}
 
                     ListColor[i].transform.DOLocalJump(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 2, 1, GameConfig.TIME_MOVE);
                     //.OnComplete(() =>

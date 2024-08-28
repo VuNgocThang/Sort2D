@@ -966,14 +966,14 @@ public class LogicGame : MonoBehaviour
         }
     }
 
+    //for (int i = listSteps.Count - 1; i >= 0; i--)
+    //{
+    //    Debug.Log(listSteps[i].nearByColorPlate + " to " + listSteps[i].rootColorPlate);
+    //}
     void Merge(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
         timerRun = 0;
         isMergeing = true;
-        //for (int i = listSteps.Count - 1; i >= 0; i--)
-        //{
-        //    Debug.Log(listSteps[i].nearByColorPlate + " to " + listSteps[i].rootColorPlate);
-        //}
         int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
         Sequence sequence = DOTween.Sequence();
 
@@ -1006,6 +1006,7 @@ public class LogicGame : MonoBehaviour
                     else if (endColorPlate.Col > startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
                         endColorPlate.InitValue(endColorPlate.transform, false, 2);
                     else endColorPlate.InitValue(endColorPlate.transform, false, 3);
+
                 }
             });
         }
@@ -1013,6 +1014,7 @@ public class LogicGame : MonoBehaviour
         sequence.Play();
         if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
     }
+
     void CheckLose()
     {
         bool allPlaced = true;
