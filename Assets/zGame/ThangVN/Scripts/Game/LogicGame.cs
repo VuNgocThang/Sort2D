@@ -518,6 +518,10 @@ public class LogicGame : MonoBehaviour
             StartCoroutine(RaiseEventWin());
         };
 
+        //if (!isMergeing)
+        //{
+        //    CheckClear();
+        //}
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -572,7 +576,7 @@ public class LogicGame : MonoBehaviour
         {
             isContiuneMerge = false;
 
-            CheckClear();
+            //CheckClear();
 
             if (isWin) return;
 
@@ -586,6 +590,7 @@ public class LogicGame : MonoBehaviour
             {
                 colorRoot = null;
                 isMergeing = false;
+                CheckClear();
             }
 
         }
@@ -670,29 +675,29 @@ public class LogicGame : MonoBehaviour
             {
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
-                    //if (!isMergeing)
-                    //{
-                    List<ColorPlate> listDataConnect = new List<ColorPlate>();
-                    CheckNearByRecursive(listDataConnect, endColorPlate);
-
-                    if (listDataConnect.Count <= 1)
+                    if (!isMergeing)
                     {
-                        if (!isLose) CheckLose();
-                    }
-                    else
-                    {
-                        listSteps.Clear();
+                        List<ColorPlate> listDataConnect = new List<ColorPlate>();
+                        CheckNearByRecursive(listDataConnect, endColorPlate);
 
-                        FindTarget findTarget = new FindTarget();
-                        if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
-                        Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
-                        Debug.Log(" Color Root:" + colorRoot.name);
-                        HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
-                        HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
-                        AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
-                        RecursiveMerge();
+                        if (listDataConnect.Count <= 1)
+                        {
+                            if (!isLose) CheckLose();
+                        }
+                        else
+                        {
+                            listSteps.Clear();
+
+                            FindTarget findTarget = new FindTarget();
+                            if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
+                            Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
+                            Debug.Log(" Color Root:" + colorRoot.name);
+                            HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
+                            HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
+                            AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
+                            RecursiveMerge();
+                        }
                     }
-                    //}
                 }
                 else
                 {
@@ -933,7 +938,7 @@ public class LogicGame : MonoBehaviour
                 //}
             }
         }
-        Debug.Log("point: " + point);
+        //Debug.Log("point: " + point);
         //IncreaseCountDiff();
     }
 
