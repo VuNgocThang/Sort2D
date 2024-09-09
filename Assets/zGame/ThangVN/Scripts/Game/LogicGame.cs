@@ -686,7 +686,7 @@ public class LogicGame : MonoBehaviour
                         }
                         else
                         {
-                            listSteps.Clear();
+                            //listSteps.Clear();
 
                             FindTarget findTarget = new FindTarget();
                             if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
@@ -930,7 +930,8 @@ public class LogicGame : MonoBehaviour
 
                 //if (!isPauseGame)
                 //{
-                timerRun += count * 0.05f;
+
+                timerRun += 0.2f;
 
                 colorPlate.InitClear(true);
                 colorPlate.DecreaseCountFrozenNearBy();
@@ -1017,8 +1018,11 @@ public class LogicGame : MonoBehaviour
 
                 }
             });
+
+            timerRun += 0.13f;
         }
-        timerRun += 0.1f * count + 0.5f;
+        timerRun += 0.2f;
+        //timerRun += 0.1f * count + 0.5f;
         sequence.Play();
         if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
     }
