@@ -42,7 +42,7 @@ public class SetMapManager : MonoBehaviour
     public LayerMask layerMask;
     private void Start()
     {
-        cellSize = 1.1f;
+        cellSize = 0.92f;
         if (gameMode == GameMode.Edit)
         {
             LoadDataSetMap(level);
