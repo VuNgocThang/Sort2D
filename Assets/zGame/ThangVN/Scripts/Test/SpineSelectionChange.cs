@@ -1,6 +1,7 @@
 ﻿using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class SpineSelectionChange : MonoBehaviour
@@ -10,6 +11,7 @@ public class SpineSelectionChange : MonoBehaviour
 
     const string IDLE = "idle";
     const string READING = "readingbook";
+    const string BONUS = "bonus";
 
     private void Start()
     {
@@ -20,9 +22,6 @@ public class SpineSelectionChange : MonoBehaviour
         {
             SetStartingAnimation(IDLE, true);
         }
-
-        
-
 
     }
 
@@ -36,9 +35,21 @@ public class SpineSelectionChange : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("q");
+            catBonus.gameObject.SetActive(false);
+            catNormal.gameObject.SetActive(true);
+
+            SetStartingAnimation(IDLE);
+        }
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log("w");
+            catBonus.gameObject.SetActive(false);
+            catNormal.gameObject.SetActive(true);
+
             SetStartingAnimation(READING);
         }
 
@@ -48,6 +59,8 @@ public class SpineSelectionChange : MonoBehaviour
 
             catBonus.gameObject.SetActive(true);
             catNormal.gameObject.SetActive(false);
+
+            catBonus.AnimationState.SetAnimation(0, BONUS, false);
         }
     }
 }
