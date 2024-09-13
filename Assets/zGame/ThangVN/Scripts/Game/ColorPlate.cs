@@ -267,7 +267,7 @@ public class ColorPlate : MonoBehaviour
 
                 color.transform.localScale = Vector3.one;
 
-                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0);
+                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0/*-i * GameConfig.OFFSET_PLATE*/);
                 ListColor.Add(color);
             }
             else

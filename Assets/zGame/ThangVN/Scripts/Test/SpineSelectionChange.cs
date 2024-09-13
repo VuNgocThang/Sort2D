@@ -41,7 +41,7 @@ public class SpineSelectionChange : MonoBehaviour
             catBonus.gameObject.SetActive(false);
             catNormal.gameObject.SetActive(true);
 
-            SetStartingAnimation(IDLE);
+            SetStartingAnimation(IDLE, true);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -50,7 +50,7 @@ public class SpineSelectionChange : MonoBehaviour
             catBonus.gameObject.SetActive(false);
             catNormal.gameObject.SetActive(true);
 
-            SetStartingAnimation(READING);
+            SetStartingAnimation(READING, true);
         }
 
         if (Input.GetKeyDown(KeyCode.E))

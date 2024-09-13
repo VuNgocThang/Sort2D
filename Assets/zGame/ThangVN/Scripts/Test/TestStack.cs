@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,19 +7,26 @@ using UnityEngine;
 
 public class TestStack : MonoBehaviour
 {
-    public GameObject square;
-    public List<GameObject> listSquare;
+    public SquareTest squarePrefab;
+    public List<SquareTest> listSquare;
     public Transform parent;
-    public GameObject test;
+    public Transform parentArrow;
+    public GameObject arrowPrefab;
 
     public int rows = 9;
     public int cols = 8;
     public float cellSize = 1.2f;
 
+    public float offSetX;
+    public float offSetY;
+    // up  y = -1.44f;
+    // right x = -2.5; rotation z = 90;
+    // left  x = 2.5; rotation z = 180;
+
     private void Start()
     {
         GenerateGrid();
-        SetPos();
+        InitArrowPlates();
     }
 
     void GenerateGrid()
@@ -35,16 +42,40 @@ public class TestStack : MonoBehaviour
             {
                 Vector3 position = new Vector3(col, row, 0) * cellSize + startPosition;
 
-                GameObject colorPlate = Instantiate(square, parent);
+                SquareTest colorPlate = Instantiate(squarePrefab, parent);
+                colorPlate.Init(row, col);
                 colorPlate.transform.localPosition = position;
                 listSquare.Add(colorPlate);
             }
         }
+
+
     }
 
-    void SetPos()
+
+    void InitArrowPlates()
     {
-        test.transform.position = new Vector3(-2.8f, listSquare[0].transform.position.y, 0);
+        offSetX = listSquare[1].transform.position.x - listSquare[0].transform.position.x;
+        offSetY = listSquare[cols].transform.position.y - listSquare[0].transform.position.y;
+
+        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true);
+        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false);
+        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false);
+    }
+
+    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject arrow = Instantiate(arrowPrefab, parentArrow);
+            if (isHorizontal)
+                arrow.transform.position = new Vector3(listSquare[0].transform.position.x + i * offSetX, basePosition.y, 0);
+            else
+                arrow.transform.position = new Vector3(basePosition.x, listSquare[0].transform.position.y + i * offSetY, 0);
+
+            arrow.transform.localEulerAngles = rotation;
+            arrow.name = arrowName;
+        }
     }
 
 }
