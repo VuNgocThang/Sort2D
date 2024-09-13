@@ -165,6 +165,7 @@ public class LogicGame : MonoBehaviour
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, colorPLatePrefab);
 
         if (SaveGame.Challenges)
         {
@@ -174,8 +175,8 @@ public class LogicGame : MonoBehaviour
         {
             LoadLevelNormal();
         }
-        DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
-        countDiffMax = dataLevel.CountDiff;
+        //DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
+        //countDiffMax = dataLevel.CountDiff;
     }
     void LoadLevelChallenges()
     {

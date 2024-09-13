@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
+using System.ComponentModel;
 
 public class SetMapManager : MonoBehaviour
 {
@@ -174,16 +175,19 @@ public class SetMapManager : MonoBehaviour
     {
         colorPlate = new ColorPlate[rows, cols];
 
-        var offSetZ = (((float)rows + 1) / 2.0f) * cellSize;
+        //var offSetZ = (((float)rows + 1) / 2.0f) * cellSize;
+        var offSetY = (((float)rows + 1) / 2.0f) * cellSize;
         var offsetX = (((float)cols - 1) / 2.0f) * cellSize;
 
-        Vector3 startPosition = new Vector3(-offsetX, 0, -offSetZ);
+        //Vector3 startPosition = new Vector3(-offsetX, 0, -offSetZ);
+        Vector3 startPosition = new Vector3(-offsetX, -offSetY, 0);
 
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < cols; col++)
             {
-                Vector3 position = new Vector3(col, 0, row) * cellSize + startPosition;
+                //Vector3 position = new Vector3(col, 0, row) * cellSize + startPosition;
+                Vector3 position = new Vector3(col, row, 0) * cellSize + startPosition;
 
                 InstantiateColorPlate(row, col, position, parent, ListColorPlate, colorPlatePrefab);
             }
@@ -192,6 +196,34 @@ public class SetMapManager : MonoBehaviour
 
         LinkColorPlate(rows, cols);
     }
+
+    float offSetX;
+    float offSetY;
+    public void InitArrowPlates(int rows, int cols, List<ColorPlate> listColorPlate, Transform parent, ColorPlate colorPlatePrefab)
+    {
+        offSetX = listColorPlate[1].transform.position.x - listColorPlate[0].transform.position.x;
+        offSetY = listColorPlate[cols].transform.position.y - listColorPlate[0].transform.position.y;
+
+        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true, parent, listColorPlate, colorPlatePrefab);
+        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, parent, listColorPlate, colorPlatePrefab);
+        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, parent, listColorPlate, colorPlatePrefab);
+    }
+
+    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            ColorPlate arrow = Instantiate(colorPlatePrefab, parent);
+            if (isHorizontal)
+                arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y, 0);
+            else
+                arrow.transform.position = new Vector3(basePosition.x, listColorPlate[0].transform.position.y + i * offSetY, 0);
+
+            arrow.transform.localEulerAngles = rotation;
+            arrow.name = arrowName;
+        }
+    }
+
     private void InstantiateColorPlate(int row, int col, Vector3 position, Transform parent, List<ColorPlate> ListColorPlate, ColorPlate colorPlatePrefab)
     {
         ColorPlate colorPlate = Instantiate(colorPlatePrefab, parent);

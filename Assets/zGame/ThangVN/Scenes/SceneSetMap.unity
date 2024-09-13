@@ -669,6 +669,8 @@ MonoBehaviour:
   cam: {fileID: 1031981716}
   startPos: {x: 0, y: 0, z: 0}
   startRot: {x: 0, y: 0, z: 0}
+  testStack: {fileID: 0}
+  nDesk: {fileID: 0}
 --- !u!114 &1031981714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1222,7 +1224,7 @@ MonoBehaviour:
     gold: 0
     pigment: 0
   listPlates: []
-  level: 20000
+  level: 1000
   rows: 5
   cols: 5
   colorPlatePrefab: {fileID: 8737586721808567042, guid: 3f7aa7d2f282f5e44a2276e9246406ee,
