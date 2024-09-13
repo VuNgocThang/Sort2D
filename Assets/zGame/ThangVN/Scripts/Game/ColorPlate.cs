@@ -262,12 +262,12 @@ public class ColorPlate : MonoBehaviour
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
 
-                if (isFirst) color.transform.localScale = Vector3.one;
-                else color.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+                //if (isFirst) color.transform.localScale = Vector3.one;
+                //else color.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
 
-                //color.transform.localScale = Vector3.one;
+                color.transform.localScale = Vector3.one;
 
-                color.transform.localPosition = new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0);
+                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0);
                 ListColor.Add(color);
             }
             else
@@ -301,7 +301,7 @@ public class ColorPlate : MonoBehaviour
                     //        yield return null; 
                     //}
 
-                    ListColor[i].transform.DOLocalJump(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 2, 1, GameConfig.TIME_MOVE);
+                    ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 2, 1, GameConfig.TIME_MOVE);
                     //.OnComplete(() =>
                     //{
                     //    ListColor[i].transform.eulerAngles = Vector3.zero;
@@ -311,7 +311,7 @@ public class ColorPlate : MonoBehaviour
                 }
                 else
                 {
-                    ListColor[i].transform.LposY(0.2f + (i + 1) * GameConfig.OFFSET_PLATE);
+                    ListColor[i].transform.LposY(i * GameConfig.OFFSET_PLATE);
                 }
             }
         }
@@ -611,8 +611,8 @@ public class ColorPlate : MonoBehaviour
         if (status == Status.LockCoin)
             status = Status.None;
 
-        if (logicVisual.animLockCoin != null)
-            logicVisual.animLockCoin.Play("Unlock");
+        //if (logicVisual.animLockCoin != null)
+        //    logicVisual.animLockCoin.Play("Unlock");
 
         yield return new WaitForSeconds(0.5f);
 

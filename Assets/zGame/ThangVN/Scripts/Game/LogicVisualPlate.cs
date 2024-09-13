@@ -5,8 +5,8 @@ using UnityEngine;
 public class LogicVisualPlate : MonoBehaviour
 {
     //visual gameplay
-    public GameObject hightlight;
-    public GameObject target;
+    //public GameObject hightlight;
+    //public GameObject target;
     public GameObject circle;
 
     //visual plate spawn
@@ -21,8 +21,7 @@ public class LogicVisualPlate : MonoBehaviour
     public GameObject ads;
 
 
-    public Animator animLockCoin;
-    public Animator animAds;
+    //public Animator animLockCoin;
 
     //logic visual ingame
     public void PlayNormal(bool isArrow)
@@ -31,30 +30,30 @@ public class LogicVisualPlate : MonoBehaviour
         {
             normal.SetActive(true);
             arrow.SetActive(false);
-            target.SetActive(false);
-            hightlight.SetActive(false);
+            //target.SetActive(false);
+            //hightlight.SetActive(false);
         }
         else
         {
             normal.SetActive(false);
             arrow.SetActive(true);
-            target.SetActive(false);
-            hightlight.SetActive(false);
+            //target.SetActive(false);
+            //hightlight.SetActive(false);
         }
     }
     public void PlayHighLight()
     {
         normal.SetActive(false);
-        target.SetActive(false);
-        hightlight.SetActive(true);
+        //target.SetActive(false);
+        //hightlight.SetActive(true);
     }
     public void PlayTarget()
     {
         arrow.SetActive(false);
         normal.SetActive(false);
-        hightlight.SetActive(false);
+        //hightlight.SetActive(false);
 
-        target.SetActive(true);
+        //target.SetActive(true);
     }
 
     public void PlayArrowCannotClick()

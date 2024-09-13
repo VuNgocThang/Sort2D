@@ -1195,6 +1195,7 @@ MonoBehaviour:
   cam: {fileID: 330585545}
   startPos: {x: 0, y: 0, z: 0}
   startRot: {x: 0, y: 0, z: 0}
+  testStack: {fileID: 0}
 --- !u!1 &338778963
 GameObject:
   m_ObjectHideFlags: 0
@@ -6663,6 +6664,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Square
+      objectReference: {fileID: 0}
+    - target: {fileID: 4203025547705818264, guid: 9c43898da5589314593568a7e4d72652,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6674473674454831681, guid: 9c43898da5589314593568a7e4d72652,
         type: 3}

@@ -9,6 +9,9 @@ public class CameraChange : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] Vector3 startPos;
     [SerializeField] Vector3 startRot;
+    float sizeDefault = 8f;
+    float maxCol = 6f;
+    [SerializeField] TestStack testStack;
 
     Vector3 endPos = new Vector3(0f, 25f, -4.4f);
     Vector3 endRot = new Vector3(80f, 0f, 0f);
@@ -19,6 +22,10 @@ public class CameraChange : MonoBehaviour
 
     private void Start()
     {
+        //cam.orthographicSize = (testStack.cols / maxCol) * sizeDefault;
+        float y = 0.3f * (maxCol - testStack.cols);
+        testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+
         startPos = cam.transform.position;
         startRot = cam.transform.localEulerAngles;
     }

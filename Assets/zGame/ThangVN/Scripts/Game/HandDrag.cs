@@ -117,7 +117,7 @@ public class HandDrag : MonoBehaviour
                     for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                     {
                         LogicColor c = selectingPlate.ListColor[i];
-                        c.transform.DOLocalMove(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 0.3f);
+                        c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
                     }
 
                     selectingPlate.circleZZZ.SetActive(false);
@@ -139,7 +139,7 @@ public class HandDrag : MonoBehaviour
                 for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                 {
                     LogicColor c = selectingPlate.ListColor[i];
-                    c.transform.DOLocalMove(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 0.3f);
+                    c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
                 }
             }
         }
@@ -150,7 +150,7 @@ public class HandDrag : MonoBehaviour
                 for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                 {
                     LogicColor c = selectingPlate.ListColor[i];
-                    c.transform.DOLocalMove(new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0), 0.3f);
+                    c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
                 }
 
                 selectingPlate.circleZZZ.SetActive(false);
@@ -170,7 +170,7 @@ public class HandDrag : MonoBehaviour
             for (int i = 0; i < selectingPlate.ListColor.Count; i++)
             {
                 LogicColor c = selectingPlate.ListColor[i];
-                c.transform.position = Vector3.MoveTowards(c.transform.position, hit.point + new Vector3(0, 1 + (i + 1) * GameConfig.OFFSET_PLATE, 0), 1f);
+                c.transform.position = Vector3.MoveTowards(c.transform.position, hit.point + new Vector3(0, 1 + i * GameConfig.OFFSET_PLATE, 0), 1f);
             }
         }
 

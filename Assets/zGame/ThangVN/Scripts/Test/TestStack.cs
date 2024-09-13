@@ -8,6 +8,9 @@ using UnityEngine;
 public class TestStack : MonoBehaviour
 {
     public GameObject square;
+    public List<GameObject> listSquare;
+    public Transform parent;
+    public GameObject test;
 
     public int rows = 9;
     public int cols = 8;
@@ -16,6 +19,7 @@ public class TestStack : MonoBehaviour
     private void Start()
     {
         GenerateGrid();
+        SetPos();
     }
 
     void GenerateGrid()
@@ -31,9 +35,16 @@ public class TestStack : MonoBehaviour
             {
                 Vector3 position = new Vector3(col, row, 0) * cellSize + startPosition;
 
-                GameObject colorPlate = Instantiate(square, this.transform);
+                GameObject colorPlate = Instantiate(square, parent);
                 colorPlate.transform.localPosition = position;
+                listSquare.Add(colorPlate);
             }
         }
     }
+
+    void SetPos()
+    {
+        test.transform.position = new Vector3(-2.8f, listSquare[0].transform.position.y, 0);
+    }
+
 }

@@ -756,7 +756,7 @@ public class LogicGame : MonoBehaviour
             {
                 LogicColor c = startColorPlate.ListColor[i];
                 c.transform.SetParent(endColorPlate.transform);
-                c.transform.localPosition = new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0);
+                c.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0);
                 c.transform.localRotation = Quaternion.identity;
                 c.transform.localScale = Vector3.one;
             }
@@ -785,7 +785,7 @@ public class LogicGame : MonoBehaviour
             {
                 LogicColor c = startColorPlate.ListColor[i];
                 c.transform.SetParent(endColorPlate.transform);
-                c.transform.localPosition = new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0);
+                c.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0);
                 c.transform.localRotation = Quaternion.identity;
                 c.transform.localScale = Vector3.one;
             }
@@ -794,7 +794,7 @@ public class LogicGame : MonoBehaviour
             {
                 LogicColor c = endColorPlate.ListColor[i];
                 c.transform.SetParent(startColorPlate.transform);
-                c.transform.localPosition = new Vector3(0, 0.2f + (i + 1) * GameConfig.OFFSET_PLATE, 0);
+                c.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0);
                 c.transform.localRotation = Quaternion.identity;
                 c.transform.localScale = Vector3.one;
             }
