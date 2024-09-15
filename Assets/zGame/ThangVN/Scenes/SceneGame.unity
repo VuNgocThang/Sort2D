@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18186364, g: 0.22754101, b: 0.30741706, a: 1}
+  m_IndirectSpecularColor: {r: 0.18186422, g: 0.22754158, b: 0.30741835, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -318,7 +318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &25859536
 Transform:
   m_ObjectHideFlags: 0
@@ -2707,6 +2707,8 @@ MonoBehaviour:
     pigment: 0
   colorPLatePrefab: {fileID: 7164750557717306792, guid: acdee9a02f93bc74a9e74bdd9337dd27,
     type: 3}
+  arrowPlatePrefab: {fileID: 7951668350891572787, guid: 51f43603707592545ab889e6e9e28f7c,
+    type: 3}
   listNextPlate:
   - {fileID: 1689702705}
   - {fileID: 1900725513}
@@ -2823,7 +2825,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1305653335}
   - {fileID: 1015616350904242533}
   - {fileID: 1413535243}
   - {fileID: 940057921}
@@ -4876,7 +4877,7 @@ Transform:
   m_Children:
   - {fileID: 1923326692}
   - {fileID: 1048348263}
-  m_Father: {fileID: 603901195}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1305653336
 MonoBehaviour:
@@ -4928,7 +4929,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2026565085}
@@ -11853,6 +11854,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 330585546}
+  - {fileID: 1305653335}
   - {fileID: 603901195}
   - {fileID: 21368436}
   - {fileID: 338778966}

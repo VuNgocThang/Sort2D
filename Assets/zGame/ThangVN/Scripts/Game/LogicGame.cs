@@ -28,6 +28,7 @@ public class LogicGame : MonoBehaviour
 
     [SerializeField] public ColorPlateData colorPlateData;
     [SerializeField] ColorPlate colorPLatePrefab;
+    [SerializeField] ColorPlate arrowPlatePrefab;
 
     [SerializeField] public List<ColorPlate> listNextPlate;
     [SerializeField] public List<ColorPlate> listSpawnNew;
@@ -165,7 +166,7 @@ public class LogicGame : MonoBehaviour
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
-        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, colorPLatePrefab);
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab);
 
         if (SaveGame.Challenges)
         {

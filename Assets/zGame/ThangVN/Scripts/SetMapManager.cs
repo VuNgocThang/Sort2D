@@ -43,7 +43,7 @@ public class SetMapManager : MonoBehaviour
     public LayerMask layerMask;
     private void Start()
     {
-        cellSize = 0.92f;
+        cellSize = 0.75f;
         if (gameMode == GameMode.Edit)
         {
             LoadDataSetMap(level);
@@ -175,18 +175,15 @@ public class SetMapManager : MonoBehaviour
     {
         colorPlate = new ColorPlate[rows, cols];
 
-        //var offSetZ = (((float)rows + 1) / 2.0f) * cellSize;
         var offSetY = (((float)rows + 1) / 2.0f) * cellSize;
         var offsetX = (((float)cols - 1) / 2.0f) * cellSize;
 
-        //Vector3 startPosition = new Vector3(-offsetX, 0, -offSetZ);
         Vector3 startPosition = new Vector3(-offsetX, -offSetY, 0);
 
         for (int row = 0; row < rows; row++)
         {
             for (int col = 0; col < cols; col++)
             {
-                //Vector3 position = new Vector3(col, 0, row) * cellSize + startPosition;
                 Vector3 position = new Vector3(col, row, 0) * cellSize + startPosition;
 
                 InstantiateColorPlate(row, col, position, parent, ListColorPlate, colorPlatePrefab);
@@ -228,7 +225,7 @@ public class SetMapManager : MonoBehaviour
     {
         ColorPlate colorPlate = Instantiate(colorPlatePrefab, parent);
         //colorPlate.transform.position = position;
-        colorPlate.transform.position = position;
+        colorPlate.transform.localPosition = position;
         colorPlate.status = Status.None;
         colorPlate.Init();
         colorPlate.Initialize(row, col);

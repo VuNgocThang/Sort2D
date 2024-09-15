@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339845369129700374}
   - component: {fileID: 6909789472884458579}
+  - component: {fileID: 7951668350891572787}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -138,6 +139,42 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7, y: 0.7, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7951668350891572787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781627107156025646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5542747f6a2bd45ac97cb8ab82dce3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Row: 0
+  Col: 0
+  logicVisual: {fileID: 0}
+  ListConnect: []
+  ListColor: []
+  status: 8
+  ListValue: 
+  listTypes: []
+  anim: {fileID: 0}
+  targetUIPosition: {fileID: 0}
+  customRatio: {fileID: 0}
+  circleZZZ: {fileID: 0}
+  txtPointUnlock: {fileID: 0}
+  isLocked: 0
+  pointToUnLock: 0
+  countFrozen: 0
+  countMaxDiff: 0
+  customCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  isPlayingOnClick: 0
 --- !u!1 &4949787787438748909
 GameObject:
   m_ObjectHideFlags: 0
