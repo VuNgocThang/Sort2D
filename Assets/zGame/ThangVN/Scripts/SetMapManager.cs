@@ -201,20 +201,28 @@ public class SetMapManager : MonoBehaviour
         offSetX = listColorPlate[1].transform.position.x - listColorPlate[0].transform.position.x;
         offSetY = listColorPlate[cols].transform.position.y - listColorPlate[0].transform.position.y;
 
-        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true, parent, listColorPlate, colorPlatePrefab);
-        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, parent, listColorPlate, colorPlatePrefab);
-        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, parent, listColorPlate, colorPlatePrefab);
+        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true, true, parent, listColorPlate, colorPlatePrefab);
+        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, true, parent, listColorPlate, colorPlatePrefab);
+        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, false, parent, listColorPlate, colorPlatePrefab);
     }
 
-    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab)
+    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, bool isArrowRight, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab)
     {
         for (int i = 0; i < count; i++)
         {
             ColorPlate arrow = Instantiate(colorPlatePrefab, parent);
+            arrow.gameObject.layer = 6;
             if (isHorizontal)
+            {
                 arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y, 0);
+                arrow.Initialize(-1, i);
+            }
             else
+            {
                 arrow.transform.position = new Vector3(basePosition.x, listColorPlate[0].transform.position.y + i * offSetY, 0);
+                if (isArrowRight) arrow.Initialize(i, -1);
+                else arrow.Initialize(i, count);
+            }
 
             arrow.transform.localEulerAngles = rotation;
             arrow.name = arrowName;
