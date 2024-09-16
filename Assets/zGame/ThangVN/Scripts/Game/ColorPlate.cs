@@ -262,9 +262,6 @@ public class ColorPlate : MonoBehaviour
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
 
-                //if (isFirst) color.transform.localScale = Vector3.one;
-                //else color.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
-
                 color.transform.localScale = Vector3.one;
 
                 color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
@@ -276,46 +273,20 @@ public class ColorPlate : MonoBehaviour
                 ListColor[i].gameObject.SetActive(true);
                 ListColor[i].Init((int)ListValue[i]);
 
-                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 /*|| Math.Abs(ListColor[i].transform.localPosition.z) > 1*/)
+                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.y) > 1)
                 {
                     // Bieu dien o day
 
-                    //if (index != -1)
-                    //    MoveDirection(index, i);
-
-                    //for (int i = 0; i < parentA.childCount; i++)
-                    //{
-                    //    Transform obj = parentA.GetChild(i);
-                    //    Vector3 originalPosition = obj.position;
-                    //    Quaternion originalRotation = obj.rotation;
-
-                    //    Vector3 midpoint = (originalPosition + parentB.position) / 2;
-
-                    //    for (float t = 0; t <= flipDuration; t += Time.deltaTime)
-                    //    {
-                    //        float normalizedTime = t / flipDuration;
-
-                    //        obj.position = Vector3.Lerp(originalPosition, midpoint, normalizedTime);
-                    //        obj.Rotate(0, 180 * Time.deltaTime / flipDuration, 0);
-
-                    //        yield return null; 
-                    //}
-
-                    ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 2, 1, GameConfig.TIME_MOVE);
-                    //.OnComplete(() =>
-                    //{
-                    //    ListColor[i].transform.eulerAngles = Vector3.zero;
-                    //});
-
-
+                    Vector3 currentPos = ListColor[i].transform.localPosition;
+                    Debug.Log("i : " + i + " ___  " + ListColor[i].transform.localPosition);
+                    //ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, currentPos.z), 1, 1, GameConfig.TIME_MOVE);
+                    ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), GameConfig.TIME_MOVE);
                 }
                 else
                 {
-                    //ListColor[i].transform.LposY(i * GameConfig.OFFSET_PLATE);
-                    int indexCache = i;
-                    Debug.Log(indexCache + " i: " + -i * GameConfig.OFFSET_PLATE);
                     ListColor[i].transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
+
             }
         }
     }
