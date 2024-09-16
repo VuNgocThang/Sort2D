@@ -748,12 +748,12 @@ public class LogicGame : MonoBehaviour
 
                 }
 
-                if (!SaveGame.IsDoneTutorial)
-                {
-                    canvasTutorial.enabled = true;
-                    tutorial.PlayProgressTut(2);
-                    isPauseGame = true;
-                }
+                //if (!SaveGame.IsDoneTutorial)
+                //{
+                //    canvasTutorial.enabled = true;
+                //    tutorial.PlayProgressTut(2);
+                //    isPauseGame = true;
+                //}
             });
         }
     }
