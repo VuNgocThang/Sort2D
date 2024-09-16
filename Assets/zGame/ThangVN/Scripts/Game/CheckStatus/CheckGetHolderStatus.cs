@@ -67,15 +67,16 @@ public class CheckGetHolderStatus : ICheckStatus
         }
         else
         {
-            if (arrowRight.ListValue.Count == 0)
-            {
-                possiblePlate = arrowRight;
-                return possiblePlate;
-            }
-            else
-            {
+            //if (arrowRight.ListValue.Count == 0)
+            //{
+            //    possiblePlate = arrowRight;
+            //    return possiblePlate;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
                 return null;
-            }
         }
 
     }
@@ -108,15 +109,16 @@ public class CheckGetHolderStatus : ICheckStatus
         }
         else
         {
-            if (arrowLeft.ListValue.Count == 0)
-            {
-                possiblePlate = arrowLeft;
-                return possiblePlate;
-            }
-            else
-            {
-                return null;
-            }
+            //if (arrowLeft.ListValue.Count == 0)
+            //{
+            //    possiblePlate = arrowLeft;
+            //    return possiblePlate;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            return null;
         }
     }
     ColorPlate CheckPossibleMoveUp(ColorPlate arrowUp)
@@ -148,15 +150,16 @@ public class CheckGetHolderStatus : ICheckStatus
         }
         else
         {
-            if (arrowUp.ListValue.Count == 0)
-            {
-                possiblePlate = arrowUp;
-                return possiblePlate;
-            }
-            else
-            {
-                return null;
-            }
+            //if (arrowUp.ListValue.Count == 0)
+            //{
+            //    possiblePlate = arrowUp;
+            //    return possiblePlate;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            return null;
         }
     }
     ColorPlate CheckPossibleMoveDown(ColorPlate arrowDown)
@@ -201,15 +204,16 @@ public class CheckGetHolderStatus : ICheckStatus
         }
         else
         {
-            if (arrowDown.ListValue.Count == 0)
-            {
-                possiblePlate = arrowDown;
-                return possiblePlate;
-            }
-            else
-            {
-                return null;
-            }
+            //if (arrowDown.ListValue.Count == 0)
+            //{
+            //    possiblePlate = arrowDown;
+            //    return possiblePlate;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            return null;
         }
     }
 

@@ -11,7 +11,7 @@ public class TestStack : MonoBehaviour
     public List<SquareTest> listSquare;
     public Transform parent;
     public Transform parentArrow;
-    public GameObject arrowPrefab;
+    public ArrowTest arrowPrefab;
 
     public int rows = 6;
     public int cols = 6;
@@ -25,8 +25,8 @@ public class TestStack : MonoBehaviour
 
     private void Start()
     {
-        GenerateGrid();
-        InitArrowPlates();
+        //GenerateGrid();
+        //InitArrowPlates();
     }
 
     void GenerateGrid()
@@ -58,20 +58,37 @@ public class TestStack : MonoBehaviour
         offSetX = listSquare[1].transform.position.x - listSquare[0].transform.position.x;
         offSetY = listSquare[cols].transform.position.y - listSquare[0].transform.position.y;
 
-        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true);
-        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false);
-        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false);
+        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true, true);
+        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, true);
+        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, false);
     }
 
-    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal)
+    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, bool isArrowRight)
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject arrow = Instantiate(arrowPrefab, parentArrow);
+            ArrowTest arrow = Instantiate(arrowPrefab, parentArrow);
+
             if (isHorizontal)
+            {
                 arrow.transform.position = new Vector3(listSquare[0].transform.position.x + i * offSetX, basePosition.y, 0);
+                arrow.Init(-1, i);
+            }
             else
+            {
                 arrow.transform.position = new Vector3(basePosition.x, listSquare[0].transform.position.y + i * offSetY, 0);
+
+                if (isArrowRight)
+                {
+                    arrow.Init(i, -1);
+                }
+                else
+                {
+                    arrow.Init(i, count + 1);
+                }
+            }
+
+            
 
             arrow.transform.localEulerAngles = rotation;
             arrow.name = arrowName;

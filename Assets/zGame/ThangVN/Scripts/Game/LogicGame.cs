@@ -409,7 +409,7 @@ public class LogicGame : MonoBehaviour
                 if (gameMode == GameMode.Play)
                 {
                     if (isLose || isWin) return;
-                    // click from start to grid
+
                     if (Physics.Raycast(ray, out var hit, 100f, layerArrow) && !isPauseGame)
                     {
                         //if (countMove == 0)
@@ -429,6 +429,7 @@ public class LogicGame : MonoBehaviour
 
                         if (holder != null)
                         {
+                            //Debug.Log(arrowPlate.name + " __ " + holder.name);
                             SetColor(arrowPlate, holder);
 
                             if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
@@ -597,10 +598,10 @@ public class LogicGame : MonoBehaviour
 
         }
 
-        if (!isLose)
-        {
-            CheckLose();
-        }
+        //if (!isLose)
+        //{
+        //    CheckLose();
+        //}
     }
 
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
@@ -611,8 +612,9 @@ public class LogicGame : MonoBehaviour
 
             foreach (LogicColor renderer in listNextPlate[0].ListColor)
             {
+                Vector3 localPos = renderer.transform.localPosition;
                 renderer.transform.SetParent(startColorPlate.transform);
-                renderer.transform.localPosition = new Vector3(0, renderer.transform.localPosition.y, 0);
+                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -646,11 +648,18 @@ public class LogicGame : MonoBehaviour
 
             float delay = 0f;
 
-            DG.Tweening.Sequence sq = DOTween.Sequence();
+            //Debug.Log($"=----------------End Position {endColorPlate.transform.position}");
+
+            Sequence sq = DOTween.Sequence();
             foreach (LogicColor renderer in startColorPlate.ListColor)
             {
+                Vector3 localPos = renderer.transform.localPosition;
                 renderer.transform.SetParent(endColorPlate.transform);
-                sq.Insert(delay, renderer.transform.DOLocalMove(new Vector3(0, renderer.transform.localPosition.y, 0), 0.4f).SetEase(curveMove));
+
+                Transform transformCache = renderer.transform;
+                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f).SetEase(curveMove));
+                //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
+
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
                 delay += 0.01f;
@@ -684,7 +693,7 @@ public class LogicGame : MonoBehaviour
 
                         if (listDataConnect.Count <= 1)
                         {
-                            if (!isLose) CheckLose();
+                            //if (!isLose) CheckLose();
                         }
                         else
                         {
@@ -990,9 +999,12 @@ public class LogicGame : MonoBehaviour
 
         for (int i = count - 1; i >= 0; i--)
         {
-            float delay = 0.06f * (count - 1 - i);
-            DOVirtual.DelayedCall(delay, () =>
+            //float delay = 0.08f * (count - 1 - i);
+
+            sequence.AppendCallback(() =>
             {
+                //    DOVirtual.DelayedCall(delay, () =>
+                //{
                 if (startColorPlate.TopValue == endColorPlate.TopValue)
                 {
                     startColorPlate.TopColor.transform.SetParent(endColorPlate.transform);
@@ -1010,20 +1022,17 @@ public class LogicGame : MonoBehaviour
                     startColorPlate.ListValue.RemoveAt(startColorPlate.ListValue.Count - 1);
                     startColorPlate.ListColor.RemoveAt(startColorPlate.ListColor.Count - 1);
 
-                    if (endColorPlate.Col == startColorPlate.Col && endColorPlate.Row > startColorPlate.Row)
-                        endColorPlate.InitValue(endColorPlate.transform, false, 0);
-                    else if (endColorPlate.Col < startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
-                        endColorPlate.InitValue(endColorPlate.transform, false, 1);
-                    else if (endColorPlate.Col > startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
-                        endColorPlate.InitValue(endColorPlate.transform, false, 2);
-                    else endColorPlate.InitValue(endColorPlate.transform, false, 3);
+                    endColorPlate.InitValue(endColorPlate.transform, false, -1);
 
                 }
             });
 
-            timerRun += 0.13f;
+            //timerRun += 0.13f;
+
+            sequence.AppendInterval(0.1f);
+            timerRun += 0.15f;
         }
-        timerRun += 0.2f;
+        //timerRun += 0.2f;
         //timerRun += 0.1f * count + 0.5f;
         sequence.Play();
         if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
