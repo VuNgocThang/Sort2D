@@ -598,10 +598,10 @@ public class LogicGame : MonoBehaviour
 
         }
 
-        if (!isLose)
-        {
-            CheckLose();
-        }
+        //if (!isLose)
+        //{
+        //    CheckLose();
+        //}
     }
 
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
@@ -645,108 +645,115 @@ public class LogicGame : MonoBehaviour
                 listNextPlate[1].InitRandom(false);
             });
 
-            //float delay = 0f;
+            float delay = 0f;
 
-            //DG.Tweening.Sequence sq = DOTween.Sequence();
-            //foreach (LogicColor renderer in startColorPlate.ListColor)
-            //{
-            //    renderer.transform.SetParent(endColorPlate.transform);
-            //    sq.Insert(delay, renderer.transform.DOLocalMove(new Vector3(0, renderer.transform.localPosition.y, renderer.transform.localPosition.z), 0.4f).SetEase(curveMove));
-            //    renderer.transform.localRotation = Quaternion.identity;
-            //    renderer.transform.localScale = Vector3.one;
-            //    delay += 0.01f;
-            //}
+            Debug.Log($"=----------------End Position {endColorPlate.transform.position}");
 
-            //List<ColorEnum> listValueMid = new List<ColorEnum>();
-            //List<LogicColor> ListColorMid = new List<LogicColor>();
-            //List<GroupEnum> listTypes = new List<GroupEnum>();
+            Sequence sq = DOTween.Sequence();
+            foreach (LogicColor renderer in startColorPlate.ListColor)
+            {
+                Vector3 localPos = renderer.transform.localPosition;
+                renderer.transform.SetParent(endColorPlate.transform);
 
-            //listValueMid.AddRange(startColorPlate.ListValue);
-            //ListColorMid.AddRange(startColorPlate.ListColor);
-            //listTypes.AddRange(startColorPlate.listTypes);
+                Transform transformCache = renderer.transform;
+                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f).SetEase(curveMove));
+                //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
+
+                renderer.transform.localRotation = Quaternion.identity;
+                renderer.transform.localScale = Vector3.one;
+                delay += 0.01f;
+            }
+
+            List<ColorEnum> listValueMid = new List<ColorEnum>();
+            List<LogicColor> ListColorMid = new List<LogicColor>();
+            List<GroupEnum> listTypes = new List<GroupEnum>();
+
+            listValueMid.AddRange(startColorPlate.ListValue);
+            ListColorMid.AddRange(startColorPlate.ListColor);
+            listTypes.AddRange(startColorPlate.listTypes);
 
 
-            //startColorPlate.ListColor.Clear();
-            //startColorPlate.listTypes.Clear();
-            //startColorPlate.ListValue.Clear();
+            startColorPlate.ListColor.Clear();
+            startColorPlate.listTypes.Clear();
+            startColorPlate.ListValue.Clear();
 
-            //endColorPlate.ListColor.AddRange(ListColorMid);
-            //endColorPlate.listTypes.AddRange(listTypes);
-            //endColorPlate.ListValue.AddRange(listValueMid);
+            endColorPlate.ListColor.AddRange(ListColorMid);
+            endColorPlate.listTypes.AddRange(listTypes);
+            endColorPlate.ListValue.AddRange(listValueMid);
 
-            //sq.OnComplete(() =>
-            //{
-            //    if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
-            //    {
-            //        if (!isMergeing)
-            //        {
-            //            List<ColorPlate> listDataConnect = new List<ColorPlate>();
-            //            CheckNearByRecursive(listDataConnect, endColorPlate);
+            sq.OnComplete(() =>
+            {
+                if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
+                {
+                    if (!isMergeing)
+                    {
+                        List<ColorPlate> listDataConnect = new List<ColorPlate>();
+                        CheckNearByRecursive(listDataConnect, endColorPlate);
 
-            //            if (listDataConnect.Count <= 1)
-            //            {
-            //                if (!isLose) CheckLose();
-            //            }
-            //            else
-            //            {
-            //                //listSteps.Clear();
+                        if (listDataConnect.Count <= 1)
+                        {
+                            //if (!isLose) CheckLose();
+                        }
+                        else
+                        {
+                            //listSteps.Clear();
 
-            //                FindTarget findTarget = new FindTarget();
-            //                if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
-            //                Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
-            //                Debug.Log(" Color Root:" + colorRoot.name);
-            //                HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
-            //                HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
-            //                AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
-            //                RecursiveMerge();
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        FindColorEnum findColorEnum = new FindColorEnum();
-            //        ColorEnum cEnum = findColorEnum.FindTargetColorEnum(endColorPlate.ListConnect);
+                            FindTarget findTarget = new FindTarget();
+                            if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
+                            Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
+                            Debug.Log(" Color Root:" + colorRoot.name);
+                            HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
+                            HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
+                            AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
+                            RecursiveMerge();
+                        }
+                    }
+                }
+                else
+                {
+                    FindColorEnum findColorEnum = new FindColorEnum();
+                    ColorEnum cEnum = findColorEnum.FindTargetColorEnum(endColorPlate.ListConnect);
 
-            //        Sequence sequenceSpecial = DOTween.Sequence();
+                    Sequence sequenceSpecial = DOTween.Sequence();
 
-            //        sequenceSpecial.AppendCallback(() =>
-            //            chargingParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true)
-            //        );
+                    sequenceSpecial.AppendCallback(() =>
+                        chargingParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true)
+                    );
 
-            //        sequenceSpecial.AppendInterval(0.5f);
+                    sequenceSpecial.AppendInterval(0.5f);
 
-            //        sequenceSpecial.AppendCallback(() =>
-            //            {
-            //                endColorPlate.Init(GetColorNew);
-            //                endColorPlate.ChangeSpecialColorPLate(cEnum);
-            //            }
-            //        );
+                    sequenceSpecial.AppendCallback(() =>
+                        {
+                            endColorPlate.Init(GetColorNew);
+                            endColorPlate.ChangeSpecialColorPLate(cEnum);
+                        }
+                    );
 
-            //        sequenceSpecial.AppendInterval(0.1f);
+                    sequenceSpecial.AppendInterval(0.1f);
 
-            //        sequenceSpecial.AppendCallback(() =>
-            //            {
-            //                changeColorParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
-            //                RecursiveMerge();
+                    sequenceSpecial.AppendCallback(() =>
+                        {
+                            changeColorParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
+                            RecursiveMerge();
 
-            //            }
-            //        );
+                        }
+                    );
 
-            //        //chargingParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
-            //        //changeColorParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
+                    //chargingParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
+                    //changeColorParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
 
-            //        //endColorPlate.Init(GetColorNew);
-            //        //endColorPlate.ChangeSpecialColorPLate(cEnum);
+                    //endColorPlate.Init(GetColorNew);
+                    //endColorPlate.ChangeSpecialColorPLate(cEnum);
 
-            //    }
+                }
 
-            //    if (!SaveGame.IsDoneTutorial)
-            //    {
-            //        canvasTutorial.enabled = true;
-            //        tutorial.PlayProgressTut(2);
-            //        isPauseGame = true;
-            //    }
-            //});
+                if (!SaveGame.IsDoneTutorial)
+                {
+                    canvasTutorial.enabled = true;
+                    tutorial.PlayProgressTut(2);
+                    isPauseGame = true;
+                }
+            });
         }
     }
 
@@ -1011,13 +1018,15 @@ public class LogicGame : MonoBehaviour
                     startColorPlate.ListValue.RemoveAt(startColorPlate.ListValue.Count - 1);
                     startColorPlate.ListColor.RemoveAt(startColorPlate.ListColor.Count - 1);
 
-                    if (endColorPlate.Col == startColorPlate.Col && endColorPlate.Row > startColorPlate.Row)
-                        endColorPlate.InitValue(endColorPlate.transform, false, 0);
-                    else if (endColorPlate.Col < startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
-                        endColorPlate.InitValue(endColorPlate.transform, false, 1);
-                    else if (endColorPlate.Col > startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
-                        endColorPlate.InitValue(endColorPlate.transform, false, 2);
-                    else endColorPlate.InitValue(endColorPlate.transform, false, 3);
+                    endColorPlate.InitValue(endColorPlate.transform);
+
+                    //if (endColorPlate.Col == startColorPlate.Col && endColorPlate.Row > startColorPlate.Row)
+                    //    endColorPlate.InitValue(endColorPlate.transform, false, 0);
+                    //else if (endColorPlate.Col < startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
+                    //    endColorPlate.InitValue(endColorPlate.transform, false, 1);
+                    //else if (endColorPlate.Col > startColorPlate.Col && endColorPlate.Row == startColorPlate.Row)
+                    //    endColorPlate.InitValue(endColorPlate.transform, false, 2);
+                    //else endColorPlate.InitValue(endColorPlate.transform, false, 3);
 
                 }
             });

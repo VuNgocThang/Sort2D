@@ -312,6 +312,8 @@ public class ColorPlate : MonoBehaviour
                 else
                 {
                     //ListColor[i].transform.LposY(i * GameConfig.OFFSET_PLATE);
+                    int indexCache = i;
+                    Debug.Log(indexCache + " i: " + -i * GameConfig.OFFSET_PLATE);
                     ListColor[i].transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
             }
