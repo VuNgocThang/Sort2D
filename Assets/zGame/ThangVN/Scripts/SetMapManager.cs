@@ -216,15 +216,24 @@ public class SetMapManager : MonoBehaviour
             {
                 arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y, 0);
                 arrow.Initialize(-1, i);
+                arrow.status = Status.Up;
             }
             else
             {
                 arrow.transform.position = new Vector3(basePosition.x, listColorPlate[0].transform.position.y + i * offSetY, 0);
-                if (isArrowRight) arrow.Initialize(i, -1);
-                else arrow.Initialize(i, count);
+                if (isArrowRight)
+                {
+                    arrow.Initialize(i, -1);
+                    arrow.status = Status.Right;
+                }
+                else
+                {
+                    arrow.Initialize(i, count);
+                    arrow.status = Status.Left;
+                }
             }
 
-            arrow.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localEulerAngles = rotation;
             arrow.name = arrowName;
         }
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8809775151976807198}
   - component: {fileID: 6981179215328008215}
   m_Layer: 0
-  m_Name: yellow
+  m_Name: purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 4c214be1439d3b94fba41dd83d8d2fc0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 788bfe1f43b23ce43b21bc7f9fca94c2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -506,13 +506,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listMeshes:
+  - {fileID: 3199441662397287780}
   - {fileID: 1535528898223705114}
   - {fileID: 5178198922674660028}
   - {fileID: 8518491168405671142}
-  - {fileID: 3199441662397287780}
-  - {fileID: 8498374581591825666}
-  - {fileID: 8546286697084487570}
   - {fileID: 476894913792713267}
+  - {fileID: 8546286697084487570}
+  - {fileID: 8498374581591825666}
   - {fileID: 4901537733181553164}
   trail: {fileID: 5351184496232628241}
 --- !u!96 &5351184496232628241

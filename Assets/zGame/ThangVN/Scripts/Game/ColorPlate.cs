@@ -267,7 +267,7 @@ public class ColorPlate : MonoBehaviour
 
                 color.transform.localScale = Vector3.one;
 
-                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, 0/*-i * GameConfig.OFFSET_PLATE*/);
+                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 ListColor.Add(color);
             }
             else
@@ -276,7 +276,7 @@ public class ColorPlate : MonoBehaviour
                 ListColor[i].gameObject.SetActive(true);
                 ListColor[i].Init((int)ListValue[i]);
 
-                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.z) > 1)
+                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 /*|| Math.Abs(ListColor[i].transform.localPosition.z) > 1*/)
                 {
                     // Bieu dien o day
 
@@ -311,7 +311,8 @@ public class ColorPlate : MonoBehaviour
                 }
                 else
                 {
-                    ListColor[i].transform.LposY(i * GameConfig.OFFSET_PLATE);
+                    //ListColor[i].transform.LposY(i * GameConfig.OFFSET_PLATE);
+                    ListColor[i].transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
             }
         }
