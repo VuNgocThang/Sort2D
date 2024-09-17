@@ -1019,18 +1019,21 @@ public class LogicGame : MonoBehaviour
                     endColorPlate.ListValue.Add(startColorPlate.TopValue);
                     endColorPlate.ListColor.Add(startColorPlate.TopColor);
 
+
                     startColorPlate.ListValue.RemoveAt(startColorPlate.ListValue.Count - 1);
                     startColorPlate.ListColor.RemoveAt(startColorPlate.ListColor.Count - 1);
 
-                    endColorPlate.InitValue(endColorPlate.transform, false, -1);
-
+                    if (startColorPlate.Col == endColorPlate.Col)
+                        endColorPlate.InitValue(endColorPlate.transform, true, 1);
+                    else
+                        endColorPlate.InitValue(endColorPlate.transform, true, 0);
                 }
             });
 
             //timerRun += 0.13f;
 
-            sequence.AppendInterval(0.1f);
-            timerRun += 0.15f;
+            sequence.AppendInterval(0.2f);
+            timerRun += 0.25f;
         }
         //timerRun += 0.2f;
         //timerRun += 0.1f * count + 0.5f;

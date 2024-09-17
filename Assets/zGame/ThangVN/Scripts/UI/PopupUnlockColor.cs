@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PopupUnlockColor : Popup
 {
-    [SerializeField] Image icon;
+    [SerializeField] Image bg, icon;
     [SerializeField] NewColorData newColorData;
 
     public static async void Show(int index)
@@ -27,6 +27,7 @@ public class PopupUnlockColor : Popup
         {
             if (index == (int)newColorData.listNewColorData[i].newColorEnum)
             {
+                bg.sprite = newColorData.listNewColorData[i].spriteBg;
                 icon.sprite = newColorData.listNewColorData[i].spriteIcon;
             }
         }

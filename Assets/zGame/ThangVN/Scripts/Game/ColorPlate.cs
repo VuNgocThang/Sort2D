@@ -277,10 +277,16 @@ public class ColorPlate : MonoBehaviour
                 {
                     // Bieu dien o day
 
-                    Vector3 currentPos = ListColor[i].transform.localPosition;
-                    Debug.Log("i : " + i + " ___  " + ListColor[i].transform.localPosition);
-                    //ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, currentPos.z), 1, 1, GameConfig.TIME_MOVE);
-                    ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), GameConfig.TIME_MOVE);
+                    //Vector3 currentPos = ListColor[i].transform.localPosition;
+                    float jumpPower = 1f + i * 0.1f;
+                    if (index == 0)
+                    {
+                        ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.2f);
+                    }
+                    else
+                    {
+                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), GameConfig.TIME_MOVE);
+                    }
                 }
                 else
                 {
@@ -290,6 +296,7 @@ public class ColorPlate : MonoBehaviour
             }
         }
     }
+
 
     private void MoveDirection(int index, int i)
     {
