@@ -461,6 +461,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopupUnlockColor
       objectReference: {fileID: 0}
+    - target: {fileID: 3834561848445529687, guid: affc4fe0911ffd849a841c5127b3e2c0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4900943758151224114, guid: affc4fe0911ffd849a841c5127b3e2c0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -11281,7 +11286,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7644329961015670668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c497bb67e2d417a479de6367f33ead6c, type: 3}
   m_Name: 

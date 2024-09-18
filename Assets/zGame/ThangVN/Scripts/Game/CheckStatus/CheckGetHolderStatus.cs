@@ -47,16 +47,15 @@ public class CheckGetHolderStatus : ICheckStatus
                     {
                         break;
                     }
-                    else if (LogicGame.Instance.ListColorPlate[i].status == Status.SpeicalArrowRight)
-                    {
-                        CheckPossibleSpeicalArrowRight(LogicGame.Instance.ListColorPlate[i]);
-                    }
+                    //else if (LogicGame.Instance.ListColorPlate[i].status == Status.SpeicalArrowRight)
+                    //{
+                    //    CheckPossibleSpeicalArrowRight(LogicGame.Instance.ListColorPlate[i]);
+                    //}
                     else
                     {
                         maxCol = LogicGame.Instance.ListColorPlate[i].Col;
                         possiblePlate = LogicGame.Instance.ListColorPlate[i];
                     }
-
                 }
             }
         }
@@ -76,7 +75,7 @@ public class CheckGetHolderStatus : ICheckStatus
             //{
             //    return null;
             //}
-                return null;
+            return null;
         }
 
     }
