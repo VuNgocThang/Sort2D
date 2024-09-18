@@ -281,11 +281,11 @@ public class ColorPlate : MonoBehaviour
                     float jumpPower = 1f + i * 0.1f;
                     if (index == 0)
                     {
-                        ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.2f);
+                        ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.15f);
                     }
                     else
                     {
-                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), GameConfig.TIME_MOVE);
+                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.15f);
                     }
                 }
                 else

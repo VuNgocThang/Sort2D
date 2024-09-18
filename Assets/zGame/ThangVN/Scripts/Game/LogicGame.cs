@@ -1032,8 +1032,8 @@ public class LogicGame : MonoBehaviour
 
             //timerRun += 0.13f;
 
-            sequence.AppendInterval(0.2f);
-            timerRun += 0.25f;
+            sequence.AppendInterval(0.15f);
+            timerRun += 0.2f;
         }
         //timerRun += 0.2f;
         //timerRun += 0.1f * count + 0.5f;
