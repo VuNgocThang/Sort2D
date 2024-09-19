@@ -32,35 +32,29 @@ public class SpineSelectionChange : MonoBehaviour
             catNormal.AnimationState.SetAnimation(0, animationName, isLoop);
         }
     }
+   
 
-    private void Update()
+    public void PlayAnimBonus()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log("q");
-            catBonus.gameObject.SetActive(false);
-            catNormal.gameObject.SetActive(true);
+        catBonus.gameObject.SetActive(true);
+        catNormal.gameObject.SetActive(false);
 
-            SetStartingAnimation(IDLE, true);
-        }
+        catBonus.AnimationState.SetAnimation(0, BONUS, false);
+    }
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log("w");
-            catBonus.gameObject.SetActive(false);
-            catNormal.gameObject.SetActive(true);
+    public void PlayAnimReading()
+    {
+        catBonus.gameObject.SetActive(false);
+        catNormal.gameObject.SetActive(true);
 
-            SetStartingAnimation(READING, true);
-        }
+        SetStartingAnimation(READING, true);
+    }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("E");
+    public void PlayAnimIdle()
+    {
+        catBonus.gameObject.SetActive(false);
+        catNormal.gameObject.SetActive(true);
 
-            catBonus.gameObject.SetActive(true);
-            catNormal.gameObject.SetActive(false);
-
-            catBonus.AnimationState.SetAnimation(0, BONUS, false);
-        }
+        SetStartingAnimation(IDLE, true);
     }
 }

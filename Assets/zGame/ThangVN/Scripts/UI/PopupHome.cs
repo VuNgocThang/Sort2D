@@ -20,7 +20,7 @@ public class PopupHome : MonoBehaviour
     [SerializeField] GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
 
     [SerializeField] Image iconItem, imgTextName;
-    [SerializeField] TextMeshProUGUI txtExplain;
+    [SerializeField] TextMeshProUGUI txtNameBooster, txtExplain;
     [SerializeField] HandDrag handDrag;
     [SerializeField] ButtonBoosterHammer btnHammer;
     [SerializeField] ButtonBoosterRefresh btnRefresh;
@@ -261,6 +261,7 @@ public class PopupHome : MonoBehaviour
             {
                 imgTextName.sprite = boosterData.listBooster[i].spriteText;
                 iconItem.sprite = boosterData.listBooster[i].spriteIcon;
+                txtNameBooster.text = boosterData.listBooster[i].nameBooster;
                 txtExplain.text = boosterData.listBooster[i].textExplain;
             }
         }

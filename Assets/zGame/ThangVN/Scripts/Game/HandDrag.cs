@@ -96,7 +96,8 @@ public class HandDrag : MonoBehaviour
 
     bool CheckConditionToPut(ColorPlate targetPlate)
     {
-        if (targetPlate.status == Status.Frozen || targetPlate.isLocked || targetPlate.status == Status.Ads || targetPlate.status == Status.CannotPlace || targetPlate.status == Status.Empty) return false;
+        if (targetPlate.status == Status.Frozen || targetPlate.isLocked || targetPlate.status == Status.Ads 
+            || targetPlate.status == Status.CannotPlace || targetPlate.status == Status.Empty) return false;
         else return true;
     }
 

@@ -93,6 +93,8 @@ public class LogicGame : MonoBehaviour
 
     int countSpawnSpecial = 0;
     [SerializeField] bool isHadSpawnSpecial = false;
+    [SerializeField] SpineSelectionChange spineSelection;
+
     LogicColor GetColorNew()
     {
         return listColors.GetClone();
@@ -325,28 +327,57 @@ public class LogicGame : MonoBehaviour
     #region InitNextPlate
     public void ShufflePlateSpawn()
     {
-        for (int i = 0; i < listSpawnNew.Count; i++)
+        //for (int i = 0; i < listSpawnNew.Count; i++)
+        //{
+        //    listSpawnNew[i].Init(GetColorNew);
+        //}
+
+        //Sequence sequence = DOTween.Sequence();
+
+        //for (int i = 0; i < listSpawnNew.Count; i++)
+        //{
+        //    int index = i;
+
+        //    sequence.AppendCallback(() =>
+        //    {
+        //        listSpawnNew[index].Init(GetColorNew);
+        //        listSpawnNew[index].InitColor();
+
+        //        foreach (LogicColor c in listSpawnNew[index].ListColor)
+        //        {
+        //            c.transform.localPosition = new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
+        //        }
+
+        //        foreach (LogicColor c in listSpawnNew[index].ListColor)
+        //        {
+        //            c.transform.DOLocalMoveX(0, 0.3f);
+        //        }
+        //    });
+        //    sequence.AppendInterval(0.2f);
+        //}
+
+        for (int i = 0; i < listNextPlate.Count; i++)
         {
-            listSpawnNew[i].Init(GetColorNew);
+            listNextPlate[i].Init(GetColorNew);
         }
 
         Sequence sequence = DOTween.Sequence();
 
-        for (int i = 0; i < listSpawnNew.Count; i++)
+        for (int i = 0; i < listNextPlate.Count; i++)
         {
             int index = i;
 
             sequence.AppendCallback(() =>
             {
-                listSpawnNew[index].Init(GetColorNew);
-                listSpawnNew[index].InitColor();
+                listNextPlate[index].Init(GetColorNew);
+                listNextPlate[index].InitColor();
 
-                foreach (LogicColor c in listSpawnNew[index].ListColor)
+                foreach (LogicColor c in listNextPlate[index].ListColor)
                 {
                     c.transform.localPosition = new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
                 }
 
-                foreach (LogicColor c in listSpawnNew[index].ListColor)
+                foreach (LogicColor c in listNextPlate[index].ListColor)
                 {
                     c.transform.DOLocalMoveX(0, 0.3f);
                 }
