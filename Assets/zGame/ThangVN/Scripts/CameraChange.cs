@@ -60,7 +60,16 @@ public class CameraChange : MonoBehaviour
             {
                 LogicColor logicColor = LogicGame.Instance.ListColorPlate[i].ListColor[j];
 
-                logicColor.transform.localPosition = new Vector3(0, 0, 0);
+                //logicColor.transform.localPosition = new Vector3(0, 0, 0);
+
+                if (j == LogicGame.Instance.ListColorPlate[i].ListColor.Count - 1)
+                {
+                    logicColor.transform.localPosition = new Vector3(0, 0, -0.1f);
+                }
+                else
+                {
+                    logicColor.transform.localPosition = new Vector3(0, 0, 0);
+                }
             }
         }
     }

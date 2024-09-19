@@ -884,8 +884,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.55, y: 0.55, z: 0.55}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7259435785693919934}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1037,7 +1037,7 @@ GameObject:
   - component: {fileID: 7164750557717306792}
   - component: {fileID: 5693479225502479163}
   - component: {fileID: 2679122819267365330}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ColorPlate2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

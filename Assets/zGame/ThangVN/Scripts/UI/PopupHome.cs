@@ -202,7 +202,7 @@ public class PopupHome : MonoBehaviour
     {
         itemObj.SetActive(true);
         top.SetActive(false);
-        bot.SetActive(false);
+        //bot.SetActive(false);
         nSpawn.SetActive(false);
         LogicGame.Instance.isPauseGame = true;
 
@@ -218,7 +218,7 @@ public class PopupHome : MonoBehaviour
     {
         itemObj.SetActive(true);
         top.SetActive(false);
-        bot.SetActive(false);
+        //bot.SetActive(false);
         nSpawn.SetActive(false);
         LogicGame.Instance.isPauseGame = true;
 
@@ -248,7 +248,7 @@ public class PopupHome : MonoBehaviour
 
         itemObj.SetActive(false);
         top.SetActive(true);
-        bot.SetActive(true);
+        //bot.SetActive(true);
         nSpawn.SetActive(true);
         LogicGame.Instance.RecursiveMerge();
     }
