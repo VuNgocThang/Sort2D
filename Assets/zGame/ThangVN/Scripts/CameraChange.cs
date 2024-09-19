@@ -50,13 +50,32 @@ public class CameraChange : MonoBehaviour
 
     public void ChangeCameraUsingItem()
     {
-        cam.transform.DOMove(endPos, 0.3f);
-        cam.transform.DORotate(endRot, 0.3f);
+        //cam.transform.DOMove(endPos, 0.3f);
+        //cam.transform.DORotate(endRot, 0.3f);
+
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            if (LogicGame.Instance.ListColorPlate[i].ListValue.Count == 0) continue;
+            for (int j = 0; j < LogicGame.Instance.ListColorPlate[i].ListColor.Count; j++)
+            {
+                LogicColor logicColor = LogicGame.Instance.ListColorPlate[i].ListColor[j];
+
+                logicColor.transform.localPosition = new Vector3(0, 0, 0);
+            }
+        }
     }
 
     public void ExitUsingItemCamera()
     {
-        cam.transform.DOMove(startPos, 0.3f);
-        cam.transform.DORotate(startRot, 0.3f);
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            if (LogicGame.Instance.ListColorPlate[i].ListValue.Count == 0) continue;
+            for (int j = 0; j < LogicGame.Instance.ListColorPlate[i].ListColor.Count; j++)
+            {
+                LogicColor logicColor = LogicGame.Instance.ListColorPlate[i].ListColor[j];
+
+                logicColor.transform.localPosition = new Vector3(0, j * GameConfig.OFFSET_PLATE, -j * GameConfig.OFFSET_PLATE);
+            }
+        }
     }
 }
