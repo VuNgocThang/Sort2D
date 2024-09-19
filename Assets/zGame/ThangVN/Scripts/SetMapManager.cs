@@ -196,17 +196,18 @@ public class SetMapManager : MonoBehaviour
 
     float offSetX;
     float offSetY;
-    public void InitArrowPlates(int rows, int cols, List<ColorPlate> listColorPlate, Transform parent, ColorPlate colorPlatePrefab)
+    public void InitArrowPlates(int rows, int cols, List<ColorPlate> listColorPlate, Transform parent, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
     {
         offSetX = listColorPlate[1].transform.position.x - listColorPlate[0].transform.position.x;
         offSetY = listColorPlate[cols].transform.position.y - listColorPlate[0].transform.position.y;
 
-        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true, true, parent, listColorPlate, colorPlatePrefab);
-        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, true, parent, listColorPlate, colorPlatePrefab);
-        InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, false, parent, listColorPlate, colorPlatePrefab);
+        InitArrows(cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), true, true, parent, listColorPlate, colorPlatePrefab, listArrowPlate);
+        InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, true, parent, listColorPlate, colorPlatePrefab, listArrowPlate);
+        //InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, false, parent, listColorPlate, colorPlatePrefab, listArrowPlate);
+        InitArrowLeft(rows, cols, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, false, parent, listColorPlate, colorPlatePrefab, listArrowPlate);
     }
 
-    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, bool isArrowRight, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab)
+    void InitArrows(int count, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, bool isArrowRight, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
     {
         for (int i = 0; i < count; i++)
         {
@@ -217,6 +218,12 @@ public class SetMapManager : MonoBehaviour
                 arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y, 0);
                 arrow.Initialize(-1, i);
                 arrow.status = Status.Up;
+
+                if (i != 0 && i != count - 1)
+                {
+                    //Debug.Log("IIIII: " + i);
+                    arrow.LinkColorPlate(colorPlate[0, i]);
+                }
             }
             else
             {
@@ -225,16 +232,38 @@ public class SetMapManager : MonoBehaviour
                 {
                     arrow.Initialize(i, -1);
                     arrow.status = Status.Right;
+                    arrow.LinkColorPlate(colorPlate[i, 0]);
+
                 }
-                else
-                {
-                    arrow.Initialize(i, count);
-                    arrow.status = Status.Left;
-                }
+                //else
+                //{
+                //    arrow.Initialize(i, count);
+                //    arrow.status = Status.Left;
+                //    //arrow.LinkColorPlate(colorPlate[i, count - 1]);
+
+                //}
             }
 
             arrow.logicVisual.transform.localEulerAngles = rotation;
             arrow.name = arrowName;
+            listArrowPlate.Add(arrow);
+        }
+    }
+
+    void InitArrowLeft(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, bool isHorizontal, bool isArrowRight, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
+    {
+        for (int i = 0; i < rows; i++)
+        {
+            ColorPlate arrow = Instantiate(colorPlatePrefab, parent);
+            arrow.gameObject.layer = 6;
+            arrow.transform.position = new Vector3(basePosition.x, listColorPlate[0].transform.position.y + i * offSetY, 0);
+            arrow.Initialize(i, cols);
+            arrow.status = Status.Left;
+            arrow.LinkColorPlate(colorPlate[i, cols - 1]);
+
+            arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.name = arrowName;
+            listArrowPlate.Add(arrow);
         }
     }
 

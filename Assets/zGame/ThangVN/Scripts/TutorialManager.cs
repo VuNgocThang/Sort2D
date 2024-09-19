@@ -24,7 +24,6 @@ namespace ThangVN
             else if (indexCurrentLevel == GameConfig.LEVEL_SWAP && !SaveGame.IsShowSwap)
             {
                 SaveGame.IsShowSwap = true;
-
                 PopupUnlockBooster.Show((int)BoosterEnum.BoosterSwap);
             }
             else if (indexCurrentLevel == GameConfig.LEVEL_HAMMER && !SaveGame.IsShowHammer)

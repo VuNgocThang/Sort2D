@@ -46,8 +46,8 @@ public class PopupWin : Popup
             InitPile();
             ReceiveReward();
             ManagerEvent.ClearEvent();
-            if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
-            else StartCoroutine(LoadScene("SceneGame"));
+            //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
+            /*else*/ StartCoroutine(LoadScene("SceneGame"));
         });
 
         btnHome.OnClick(() =>
@@ -69,8 +69,8 @@ public class PopupWin : Popup
             ReceiveReward();
 
             ManagerEvent.ClearEvent();
-            if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
-            else StartCoroutine(LoadScene("SceneGame"));
+            //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
+            /*else*/ StartCoroutine(LoadScene("SceneGame"));
 
         });
     }

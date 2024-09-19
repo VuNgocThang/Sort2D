@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utilities.Common;
 using Color = UnityEngine.Color;
 
@@ -34,8 +35,10 @@ public class LogicGame : MonoBehaviour
     [SerializeField] public List<ColorPlate> listSpawnNew;
     [SerializeField] public List<ColorPlate> ListColorPlate;
     [SerializeField] public List<ColorPlate> ListArrowPlate;
-    [HideInInspector] public int rows;
-    [HideInInspector] public int cols;
+    /*[HideInInspector]*/
+    public int rows;
+    /*[HideInInspector]*/
+    public int cols;
     [SerializeField] public PopupHome homeInGame;
 
     [SerializeField] LayerMask layerArrow;
@@ -104,6 +107,7 @@ public class LogicGame : MonoBehaviour
 
     void Start()
     {
+        //Test(3);
         Application.targetFrameRate = 60;
         //Debug.Log("Load scene Game: " + SaveGame.Challenges);
         //Debug.Log(SaveGame.Heart + " heart");
@@ -113,6 +117,16 @@ public class LogicGame : MonoBehaviour
         LoadData();
         InitNextPlate();
     }
+    //void Test(int count)
+    //{
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        if (i != 0 && i != count - 1)
+    //        {
+    //            Debug.Log("__" + i + "__");
+    //        }
+    //    }
+    //}
 
     private void Refresh()
     {
@@ -165,8 +179,10 @@ public class LogicGame : MonoBehaviour
 
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
+        ResetNDesk();
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
-        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab);
+        Debug.Log(rows + " __ " + cols);
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab, ListArrowPlate);
 
         if (SaveGame.Challenges)
         {
@@ -176,8 +192,30 @@ public class LogicGame : MonoBehaviour
         {
             LoadLevelNormal();
         }
-        //DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
-        //countDiffMax = dataLevel.CountDiff;
+        DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
+        countDiffMax = dataLevel.CountDiff;
+    }
+    [SerializeField] GameObject testStack;
+    void ResetNDesk()
+    {
+
+        if (cols >= rows)
+        {
+            float y = 0.3f * (6 - cols);
+            testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+
+            float scale = 6f / cols;
+            holder.localScale = new Vector3(scale, scale, scale);
+        }
+        else
+        {
+            float y = 0.3f * (6 - rows);
+            testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+
+            float scale = 6f / rows;
+            holder.localScale = new Vector3(scale, scale, scale);
+        }
+
     }
     void LoadLevelChallenges()
     {
@@ -402,7 +440,7 @@ public class LogicGame : MonoBehaviour
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-                timeClick = .5f;
+                timeClick = .8f;
                 Vector3 spawnPosition = GetMouseWorldPosition();
                 clickParticlePool.Spawn(spawnPosition, true);
 
@@ -540,6 +578,20 @@ public class LogicGame : MonoBehaviour
             StartCoroutine(RaiseEventLose());
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SaveGame.Level++;
+            SceneManager.LoadScene("SceneGame");
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SaveGame.Level--;
+            SceneManager.LoadScene("SceneGame");
+        }
+
+
+
 
         //if (gameMode == GameMode.EditGame)
         //{
@@ -598,10 +650,10 @@ public class LogicGame : MonoBehaviour
 
         }
 
-        //if (!isLose)
-        //{
-        //    CheckLose();
-        //}
+        if (!isLose)
+        {
+            CheckLose();
+        }
     }
 
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
@@ -693,7 +745,7 @@ public class LogicGame : MonoBehaviour
 
                         if (listDataConnect.Count <= 1)
                         {
-                            //if (!isLose) CheckLose();
+                            if (!isLose) CheckLose();
                         }
                         else
                         {
@@ -1032,8 +1084,8 @@ public class LogicGame : MonoBehaviour
 
             //timerRun += 0.13f;
 
-            sequence.AppendInterval(0.15f);
-            timerRun += 0.2f;
+            sequence.AppendInterval(0.1f);
+            timerRun += 0.15f;
         }
         //timerRun += 0.2f;
         //timerRun += 0.1f * count + 0.5f;
@@ -1049,7 +1101,9 @@ public class LogicGame : MonoBehaviour
 
         for (int i = 0; i < ListArrowPlate.Count; i++)
         {
-            if (ListArrowPlate[i].ListValue.Count == 0)
+            if (ListArrowPlate[i].ListConnect.Count == 0) continue;
+
+            if (ListArrowPlate[i].ListConnect[0].ListValue.Count == 0)
             {
                 countZeroListValues++;
             }
@@ -1069,7 +1123,9 @@ public class LogicGame : MonoBehaviour
 
         for (int i = 0; i < ListArrowPlate.Count; i++)
         {
-            if (ListArrowPlate[i].ListValue.Count == 0)
+            if (ListArrowPlate[i].ListConnect.Count == 0) continue;
+
+            if (ListArrowPlate[i].ListConnect[0].ListValue.Count == 0)
             {
                 allPlaced = false;
                 break;
@@ -1085,7 +1141,7 @@ public class LogicGame : MonoBehaviour
     }
     IEnumerator RaiseEventLose()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         if (!SaveGame.Challenges)
             ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
         else ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
@@ -1123,6 +1179,37 @@ public class LogicGame : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        //if (ListArrowPlate.Count >= 4)
+        //{
+        //    List<ColorPlate> newListRevive = new List<ColorPlate>();
+        //    while (newListRevive.Count < 3)
+        //    {
+        //        int randomIndex = UnityEngine.Random.Range(0, ListArrowPlate.Count);
+
+        //        if (!newListRevive.Contains(ListArrowPlate[randomIndex]))
+        //        {
+        //            Debug.Log("randomIndex: " + randomIndex);
+        //            newListRevive.Add(ListArrowPlate[randomIndex].ListConnect[0]);
+        //        }
+        //    }
+
+        //    for (int i = 0; i < newListRevive.Count; i++)
+        //    {
+        //        newListRevive[i].ClearAll();
+        //    }
+
+        //    homeInGame.imgDanger.SetActive(false);
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < ListArrowPlate.Count; i++)
+        //    {
+        //        ListArrowPlate[i].ClearAll();
+        //    }
+
+        //    homeInGame.imgDanger.SetActive(false);
+        //}
+
         if (ListArrowPlate.Count >= 4)
         {
             List<ColorPlate> newListRevive = new List<ColorPlate>();
@@ -1130,25 +1217,28 @@ public class LogicGame : MonoBehaviour
             {
                 int randomIndex = UnityEngine.Random.Range(0, ListArrowPlate.Count);
 
-                if (!newListRevive.Contains(ListArrowPlate[randomIndex]))
+                if (ListArrowPlate[randomIndex].ListConnect.Count > 0 && !newListRevive.Contains(ListArrowPlate[randomIndex].ListConnect[0]))
                 {
                     Debug.Log("randomIndex: " + randomIndex);
-                    newListRevive.Add(ListArrowPlate[randomIndex]);
+                    newListRevive.Add(ListArrowPlate[randomIndex].ListConnect[0]);
                 }
+                else continue;
+                // Nếu ListArrowPlate[randomIndex].ListConnect.Count == 0 thì vòng lặp sẽ tiếp tục
+                // Nếu newListRevive đã có ListArrowPlate[randomIndex].ListConnect[0] thì sẽ tiếp tục tìm kiếm
             }
 
-            for (int i = 0; i < newListRevive.Count; i++)
+            foreach (var plate in newListRevive)
             {
-                newListRevive[i].ClearAll();
+                plate.ClearAll();
             }
 
             homeInGame.imgDanger.SetActive(false);
         }
         else
         {
-            for (int i = 0; i < ListArrowPlate.Count; i++)
+            foreach (var plate in ListArrowPlate)
             {
-                ListArrowPlate[i].ClearAll();
+                plate.ClearAll();
             }
 
             homeInGame.imgDanger.SetActive(false);

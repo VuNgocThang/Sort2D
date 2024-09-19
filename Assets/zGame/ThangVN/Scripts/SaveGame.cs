@@ -84,7 +84,7 @@ public static class SaveGame
         }
         get
         {
-            if (level == -1) level = ES3.Load(LEVEL, 20);
+            if (level == -1) level = ES3.Load(LEVEL, 0);
             return level;
         }
     }

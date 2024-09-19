@@ -25,8 +25,8 @@ public class TestStack : MonoBehaviour
 
     private void Start()
     {
-        //GenerateGrid();
-        //InitArrowPlates();
+        GenerateGrid();
+        InitArrowPlates();
     }
 
     void GenerateGrid()

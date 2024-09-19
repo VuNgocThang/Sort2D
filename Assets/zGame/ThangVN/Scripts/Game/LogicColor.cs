@@ -7,6 +7,7 @@ public class LogicColor : MonoBehaviour
     [SerializeField] public List<GameObject> listMeshes;
     //[SerializeField] public GameObject lockNoMove;
     [SerializeField] public TrailRenderer trail;
+    public SpriteRenderer spriteRender;
 
     public void Init(int index)
     {
@@ -16,6 +17,7 @@ public class LogicColor : MonoBehaviour
         }
 
         listMeshes[index].SetActive(true);
+        spriteRender = listMeshes[index].GetComponent<SpriteRenderer>();
     }
 
     //public void InitLockNoMove()

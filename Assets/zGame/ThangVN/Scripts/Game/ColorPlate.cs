@@ -278,14 +278,25 @@ public class ColorPlate : MonoBehaviour
                     // Bieu dien o day
 
                     //Vector3 currentPos = ListColor[i].transform.localPosition;
-                    float jumpPower = 1f + i * 0.1f;
+                    float jumpPower = 0.5f + i * 0.1f;
                     if (index == 0)
                     {
-                        ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.15f);
+                        LogicColor colorZ = ListColor[i];
+
+                        colorZ.transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.1f)
+                            .OnStart(() =>
+                            {
+                                colorZ.spriteRender.sortingOrder = 2;
+                            })
+                            .OnComplete(() =>
+                            {
+                                colorZ.spriteRender.sortingOrder = 1;
+                            })
+                            ;
                     }
                     else
                     {
-                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.15f);
+                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.1f);
                     }
                 }
                 else

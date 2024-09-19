@@ -1348,7 +1348,7 @@ MonoBehaviour:
   cam: {fileID: 330585545}
   startPos: {x: 0, y: 0, z: 0}
   startRot: {x: 0, y: 0, z: 0}
-  testStack: {fileID: 1305653336}
+  testStack: {fileID: 0}
   nDesk: {fileID: 1048348263}
 --- !u!1 &338778963
 GameObject:
@@ -2662,6 +2662,7 @@ MonoBehaviour:
   canvasTutorial: {fileID: 799753859}
   tutorial: {fileID: 2108822597}
   isHadSpawnSpecial: 0
+  testStack: {fileID: 1305653334}
   timerRun: -1
   listSteps: []
   listNearByCanConnect: []
@@ -4418,7 +4419,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1305653335}
-  - component: {fileID: 1305653336}
   m_Layer: 0
   m_Name: TEST
   m_TagString: Untagged
@@ -4443,30 +4443,6 @@ Transform:
   - {fileID: 1048348263}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1305653336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305653334}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3b526f4434fb8e4caf1cad1e4047f63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  squarePrefab: {fileID: 6517043256794009359, guid: 9c43898da5589314593568a7e4d72652,
-    type: 3}
-  listSquare: []
-  parent: {fileID: 1345345338}
-  parentArrow: {fileID: 7071652672858551959}
-  arrowPrefab: {fileID: 781627107156025646, guid: 51f43603707592545ab889e6e9e28f7c,
-    type: 3}
-  rows: 6
-  cols: 6
-  cellSize: 0.75
-  offSetX: 0
-  offSetY: 0
 --- !u!1 &1345345337
 GameObject:
   m_ObjectHideFlags: 0
@@ -6417,7 +6393,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026565084}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3b526f4434fb8e4caf1cad1e4047f63, type: 3}
   m_Name: 
@@ -6429,8 +6405,8 @@ MonoBehaviour:
   parentArrow: {fileID: 7071652672858551959}
   arrowPrefab: {fileID: 7645165841478806343, guid: 8cea39b2bf9f0854aaf139ea1f62d78f,
     type: 3}
-  rows: 6
-  cols: 6
+  rows: 4
+  cols: 3
   cellSize: 0.75
   offSetX: 0
   offSetY: 0
@@ -10383,7 +10359,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7644329961015670668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c497bb67e2d417a479de6367f33ead6c, type: 3}
   m_Name: 
