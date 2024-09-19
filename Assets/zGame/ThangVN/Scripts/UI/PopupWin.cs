@@ -227,7 +227,7 @@ public class PopupWin : Popup
 
         while (elapsed < duration)
         {
-            Debug.Log(elapsed);
+            //Debug.Log(elapsed);
             elapsed += Time.deltaTime;
             currentPigment = (int)Mathf.Lerp(start, end, elapsed / duration);
             txtPigment.text = currentPigment.ToString();

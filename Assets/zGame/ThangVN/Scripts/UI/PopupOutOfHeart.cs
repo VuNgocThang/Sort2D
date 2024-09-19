@@ -77,6 +77,9 @@ namespace ThangVN
 
         public override void Hide()
         {
+            SaveGame.CountDownTimer = countdownTimer;
+
+
             transform.localScale = Vector3.one;
 
             transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
