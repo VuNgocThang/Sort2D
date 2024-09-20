@@ -184,7 +184,7 @@ public class PopupSetupRoom : Popup
 
         SaveGame.CanShow = true;
         ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
-        PopupDecor.ShowWithAnim(start, end, duration);
+        //PopupDecor.ShowWithAnim(start, end, duration);
     }
 
     public void Initialized(int idRoom, int idObj, bool isRoomWatchAds)

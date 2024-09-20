@@ -39,7 +39,7 @@ public class HomeUI : MonoBehaviour
 
         btnDecor.OnClick(() =>
         {
-            if (SaveGame.Level >= 3) SaveGame.FirstDecor = false;
+            //if (SaveGame.Level >= 3) SaveGame.FirstDecor = false;
 
             PopupDecor.Show();
         });
