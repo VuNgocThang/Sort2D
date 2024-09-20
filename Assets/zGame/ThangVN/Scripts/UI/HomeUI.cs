@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using BaseGame;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 public class HomeUI : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class HomeUI : MonoBehaviour
     public GameObject nTop, nBot, iconNotice;
     public Animator animator;
     public Animator animUsePigment;
+    public List<Sprite> listSprite;
+    public Image bg;
 
     private void Awake()
     {
@@ -51,6 +54,9 @@ public class HomeUI : MonoBehaviour
 
     private void Start()
     {
+        int randomBG = UnityEngine.Random.Range(0, 2);
+        bg.sprite = listSprite[randomBG];
+
         SaveGame.Challenges = false;
         animator.Play("Show");
         if (SaveGame.Music) ManagerAudio.PlayMusic(ManagerAudio.Data.musicBG);

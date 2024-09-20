@@ -504,8 +504,8 @@ public class LogicGame : MonoBehaviour
                         ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
                         ColorPlate holder = checkStatusHolder.CheckHolder(arrowPlate);
 
-                        ICheckListMove checkListMove = new CheckGetListMove();
-                        List<ColorPlate> listMove = checkListMove.GetListSlotVisual(arrowPlate);
+                        //ICheckListMove checkListMove = new CheckGetListMove();
+                        //List<ColorPlate> listMove = checkListMove.GetListSlotVisual(arrowPlate);
 
 
                         if (holder != null)
@@ -610,6 +610,8 @@ public class LogicGame : MonoBehaviour
         {
             ListArrowPlate[i].PlayAnimArrow();
         }
+
+
 
         //if (!isMergeing)
         //{

@@ -897,7 +897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b743b888bb087264d965128df3e2f75d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d8bf1b6bef67514d8271440c107c28f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1681,14 +1681,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5456511716742979246, guid: 3011edc843ec15e49874b8707a1709ff,
         type: 3}
+      propertyPath: bg
+      value: 
+      objectReference: {fileID: 1135478465}
+    - target: {fileID: 5456511716742979246, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
       propertyPath: animUsePigment
       value: 
       objectReference: {fileID: 929512969}
-    - target: {fileID: 6873390930149544096, guid: 3011edc843ec15e49874b8707a1709ff,
-        type: 3}
-      propertyPath: animEasyButton
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

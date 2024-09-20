@@ -124,7 +124,7 @@ public class PopupHome : MonoBehaviour
         if (!SaveGame.Challenges)
         {
             imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
-            txtPoint.text = $"{LogicGame.Instance.point}/{LogicGame.Instance.maxPoint}";
+            txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point}</color><color=#3A2B74>/{LogicGame.Instance.maxPoint} </color>";
         }
         else
         {
@@ -154,7 +154,7 @@ public class PopupHome : MonoBehaviour
 
             if (imgFill != null)
                 imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
-            txtPoint.text = $"{LogicGame.Instance.point} / {LogicGame.Instance.maxPoint}";
+            txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point} </color>/ <color=#3A2B74>{LogicGame.Instance.maxPoint} </color>";
 
         }
         else
