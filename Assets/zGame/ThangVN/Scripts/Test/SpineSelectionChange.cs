@@ -13,8 +13,12 @@ public class SpineSelectionChange : MonoBehaviour
     const string READING = "readingbook";
     const string BONUS = "bonus";
 
+
     private void Start()
     {
+        currentState = CharacterState.Idle;
+        lastActionTime = Time.time;
+
         catBonus.gameObject.SetActive(false);
         catNormal.gameObject.SetActive(true);
 
@@ -22,7 +26,6 @@ public class SpineSelectionChange : MonoBehaviour
         {
             SetStartingAnimation(IDLE, true);
         }
-
     }
 
     public void SetStartingAnimation(string animationName, bool isLoop = false)
@@ -32,7 +35,6 @@ public class SpineSelectionChange : MonoBehaviour
             catNormal.AnimationState.SetAnimation(0, animationName, isLoop);
         }
     }
-   
 
     public void PlayAnimBonus()
     {
@@ -57,4 +59,64 @@ public class SpineSelectionChange : MonoBehaviour
 
         SetStartingAnimation(IDLE, true);
     }
+
+    public enum CharacterState
+    {
+        Idle,
+        Reading,
+        Bonus
+    }
+
+    public CharacterState currentState;
+    public float lastActionTime;
+    private const float readingTimeout = 5f;
+    private const float bonusTimeout = 3f;
+
+
+    private void Update()
+    {
+        float timeSinceLastAction = Time.time - lastActionTime;
+        //Debug.Log("lastActioneTime: " + lastActionTime);
+        //Debug.Log("timeSinceLastAction: " + timeSinceLastAction);
+
+        switch (currentState)
+        {
+            case CharacterState.Idle:
+                if (timeSinceLastAction > readingTimeout)
+                {
+                    currentState = CharacterState.Reading;
+                    PlayAnimReading();
+                    //Debug.Log("Switched to Reading state");
+                }
+                break;
+            case CharacterState.Reading:
+                break;
+            case CharacterState.Bonus:
+                //PlayAnimBonus();
+                //if (timeSinceLastAction > bonusTimeout)
+                //{
+                //    currentState = CharacterState.Idle;
+                //    PlayAnimIdle();
+                //    Debug.Log("Switched to Idle state after Bonus");
+                //}
+                break;
+        }
+
+    }
+
+    public void ActionToIdle()
+    {
+        lastActionTime = Time.time;
+        currentState = CharacterState.Idle;
+        PlayAnimIdle();
+    }
+
+    public void PerformAction()
+    {
+        currentState = CharacterState.Bonus;
+        lastActionTime = Time.time;
+        //Debug.Log("Performed Bonus action");
+    }
 }
+
+

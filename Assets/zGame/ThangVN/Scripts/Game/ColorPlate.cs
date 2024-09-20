@@ -473,7 +473,8 @@ public class ColorPlate : MonoBehaviour
         //    isPlayingOnClick = true;
         //}
 
-        StartCoroutine(PlayAnim());
+        //StartCoroutine(PlayAnim());
+        StartCoroutine(PlayAnimClick());
     }
 
     public bool IsPlayingOnClick()
@@ -503,8 +504,37 @@ public class ColorPlate : MonoBehaviour
             anim.Play("Normal");
             isPlayingOnClick = false;
         }
+    }
+
+    public void PlayAnimArrow()
+    {
+        if (ListConnect[0].ListValue.Count > 0 && !isPlayingOnClick)
+        {
+            logicVisual.PlayArrowCannotClick();
+        }
+
+        if (ListConnect[0].ListValue.Count == 0 && !isPlayingOnClick)
+        {
+            logicVisual.PlayArrowNormal();
+        }
+    }
 
 
+    IEnumerator PlayAnimClick()
+    {
+        isPlayingOnClick = true;
+        logicVisual.arrow.SetActive(false);
+        logicVisual.arrowClick.SetActive(true);
+        logicVisual.arrowCannotClick.SetActive(false);
+
+        logicVisual.arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
+            .OnComplete(() =>
+            {
+                logicVisual.arrowClick.transform.localScale = Vector3.one;
+            });
+        yield return new WaitForSeconds(0.15f);
+
+        isPlayingOnClick = false;
     }
 
     public void PlayAnimScale()

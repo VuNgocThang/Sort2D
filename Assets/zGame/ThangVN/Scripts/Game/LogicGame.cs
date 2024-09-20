@@ -35,6 +35,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] public List<ColorPlate> listSpawnNew;
     [SerializeField] public List<ColorPlate> ListColorPlate;
     [SerializeField] public List<ColorPlate> ListArrowPlate;
+    [SerializeField] public List<ColorPlate> ListCheckPlate;
     /*[HideInInspector]*/
     public int rows;
     /*[HideInInspector]*/
@@ -94,6 +95,7 @@ public class LogicGame : MonoBehaviour
     int countSpawnSpecial = 0;
     [SerializeField] bool isHadSpawnSpecial = false;
     [SerializeField] SpineSelectionChange spineSelection;
+    [SerializeField] ControllerAnimState ControllerAnimState;
 
     LogicColor GetColorNew()
     {
@@ -114,6 +116,7 @@ public class LogicGame : MonoBehaviour
         //InitPlateSpawn(false);
 
         LoadData();
+        InitListCheckPlate();
         InitNextPlate();
     }
     //void Test(int count)
@@ -192,9 +195,19 @@ public class LogicGame : MonoBehaviour
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab, ListArrowPlate);
-
         DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
         countDiffMax = dataLevel.CountDiff;
+    }
+
+    void InitListCheckPlate()
+    {
+        for (int i = 0; i < ListArrowPlate.Count; i++)
+        {
+            if (!ListCheckPlate.Contains(ListArrowPlate[i].ListConnect[0]))
+            {
+                ListCheckPlate.Add(ListArrowPlate[i].ListConnect[0]);
+            }
+        }
     }
     [SerializeField] GameObject testStack;
     void ResetNDesk()
@@ -266,6 +279,8 @@ public class LogicGame : MonoBehaviour
             if (ListColorPlate[index].status == Status.Frozen)
             {
                 ListColorPlate[index].countFrozen = 3;
+                ListColorPlate[index].Init(GetColorNew);
+                ListColorPlate[index].InitColor();
             }
 
             if (ListColorPlate[index].status == Status.LockCoin)
@@ -492,11 +507,13 @@ public class LogicGame : MonoBehaviour
                         ICheckListMove checkListMove = new CheckGetListMove();
                         List<ColorPlate> listMove = checkListMove.GetListSlotVisual(arrowPlate);
 
-                        arrowPlate.PlayAnimOnClick();
-                        ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
 
                         if (holder != null)
                         {
+                            spineSelection.ActionToIdle();
+                            ControllerAnimState.ActionToIdle();
+                            arrowPlate.PlayAnimOnClick();
+                            ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
                             Debug.Log(arrowPlate.name + " __ " + holder.name);
                             SetColor(arrowPlate, holder);
 
@@ -589,55 +606,14 @@ public class LogicGame : MonoBehaviour
             StartCoroutine(RaiseEventWin());
         };
 
+        for (int i = 0; i < ListArrowPlate.Count; i++)
+        {
+            ListArrowPlate[i].PlayAnimArrow();
+        }
+
         //if (!isMergeing)
         //{
         //    CheckClear();
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            countSpawnSpecial = 1;
-            isHadSpawnSpecial = true;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            isLose = true;
-            Debug.Log("You lose");
-            StartCoroutine(RaiseEventLose());
-        }
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SaveGame.Level++;
-            SceneManager.LoadScene("SceneGame");
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SaveGame.Level--;
-            SceneManager.LoadScene("SceneGame");
-        }
-
-
-
-
-        //if (gameMode == GameMode.EditGame)
-        //{
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        Ray rayTest = cam.ScreenPointToRay(Input.mousePosition); ;
-        //        if (Physics.Raycast(rayTest, out var plate, 100f, layerArrow))
-        //        {
-        //            ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
-
-        //            plateSelect.Init(GetColorNew);
-        //            plateSelect.InitColor();
-
-        //            CheckLose();
-        //        }
-        //    }
         //}
     }
 
@@ -1024,6 +1000,7 @@ public class LogicGame : MonoBehaviour
                 //if (!isPauseGame)
                 //{
 
+                ControllerAnimState.ActionToBonus();
                 timerRun += 0.2f;
 
                 colorPlate.InitClear(true);
@@ -1129,11 +1106,10 @@ public class LogicGame : MonoBehaviour
         int countZeroListValues = 0;
 
 
-        for (int i = 0; i < ListArrowPlate.Count; i++)
+        for (int i = 0; i < ListCheckPlate.Count; i++)
         {
-            if (ListArrowPlate[i].ListConnect.Count == 0) continue;
 
-            if (ListArrowPlate[i].ListConnect[0].ListValue.Count == 0)
+            if (ListCheckPlate[i].ListValue.Count == 0)
             {
                 countZeroListValues++;
             }
@@ -1151,11 +1127,10 @@ public class LogicGame : MonoBehaviour
             //Debug.LogWarning(" Show Danger");
         }
 
-        for (int i = 0; i < ListArrowPlate.Count; i++)
+        for (int i = 0; i < ListCheckPlate.Count; i++)
         {
-            if (ListArrowPlate[i].ListConnect.Count == 0) continue;
 
-            if (ListArrowPlate[i].ListConnect[0].ListValue.Count == 0)
+            if (ListCheckPlate[i].ListValue.Count == 0)
             {
                 allPlaced = false;
                 break;
@@ -1209,6 +1184,37 @@ public class LogicGame : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        if (ListCheckPlate.Count >= 4)
+        {
+            List<ColorPlate> newListRevive = new List<ColorPlate>();
+            while (newListRevive.Count < 3)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, ListCheckPlate.Count);
+
+                if (!newListRevive.Contains(ListCheckPlate[randomIndex]))
+                {
+                    Debug.Log("randomIndex: " + randomIndex);
+                    newListRevive.Add(ListCheckPlate[randomIndex]);
+                }
+            }
+
+            for (int i = 0; i < newListRevive.Count; i++)
+            {
+                newListRevive[i].ClearAll();
+            }
+
+            homeInGame.imgDanger.SetActive(false);
+        }
+        else
+        {
+            for (int i = 0; i < ListArrowPlate.Count; i++)
+            {
+                ListArrowPlate[i].ClearAll();
+            }
+
+            homeInGame.imgDanger.SetActive(false);
+        }
+
         //if (ListArrowPlate.Count >= 4)
         //{
         //    List<ColorPlate> newListRevive = new List<ColorPlate>();
@@ -1216,63 +1222,32 @@ public class LogicGame : MonoBehaviour
         //    {
         //        int randomIndex = UnityEngine.Random.Range(0, ListArrowPlate.Count);
 
-        //        if (!newListRevive.Contains(ListArrowPlate[randomIndex]))
+        //        if (ListArrowPlate[randomIndex].ListConnect.Count > 0 && !newListRevive.Contains(ListArrowPlate[randomIndex].ListConnect[0]))
         //        {
         //            Debug.Log("randomIndex: " + randomIndex);
         //            newListRevive.Add(ListArrowPlate[randomIndex].ListConnect[0]);
         //        }
+        //        else continue;
+        //        // Nếu ListArrowPlate[randomIndex].ListConnect.Count == 0 thì vòng lặp sẽ tiếp tục
+        //        // Nếu newListRevive đã có ListArrowPlate[randomIndex].ListConnect[0] thì sẽ tiếp tục tìm kiếm
         //    }
 
-        //    for (int i = 0; i < newListRevive.Count; i++)
+        //    foreach (var plate in newListRevive)
         //    {
-        //        newListRevive[i].ClearAll();
+        //        plate.ClearAll();
         //    }
 
         //    homeInGame.imgDanger.SetActive(false);
         //}
         //else
         //{
-        //    for (int i = 0; i < ListArrowPlate.Count; i++)
+        //    foreach (var plate in ListArrowPlate)
         //    {
-        //        ListArrowPlate[i].ClearAll();
+        //        plate.ClearAll();
         //    }
 
         //    homeInGame.imgDanger.SetActive(false);
         //}
-
-        if (ListArrowPlate.Count >= 4)
-        {
-            List<ColorPlate> newListRevive = new List<ColorPlate>();
-            while (newListRevive.Count < 3)
-            {
-                int randomIndex = UnityEngine.Random.Range(0, ListArrowPlate.Count);
-
-                if (ListArrowPlate[randomIndex].ListConnect.Count > 0 && !newListRevive.Contains(ListArrowPlate[randomIndex].ListConnect[0]))
-                {
-                    Debug.Log("randomIndex: " + randomIndex);
-                    newListRevive.Add(ListArrowPlate[randomIndex].ListConnect[0]);
-                }
-                else continue;
-                // Nếu ListArrowPlate[randomIndex].ListConnect.Count == 0 thì vòng lặp sẽ tiếp tục
-                // Nếu newListRevive đã có ListArrowPlate[randomIndex].ListConnect[0] thì sẽ tiếp tục tìm kiếm
-            }
-
-            foreach (var plate in newListRevive)
-            {
-                plate.ClearAll();
-            }
-
-            homeInGame.imgDanger.SetActive(false);
-        }
-        else
-        {
-            foreach (var plate in ListArrowPlate)
-            {
-                plate.ClearAll();
-            }
-
-            homeInGame.imgDanger.SetActive(false);
-        }
     }
 
 }

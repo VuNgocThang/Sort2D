@@ -33,7 +33,7 @@ public static class SaveGame
         }
         get
         {
-            if (sound == -1) sound = ES3.Load(SOUND, 1);
+            if (sound == -1) sound = ES3.Load(SOUND, 0);
             return sound == 1;
         }
     }
@@ -50,7 +50,7 @@ public static class SaveGame
         }
         get
         {
-            if (music == -1) music = ES3.Load(MUSIC, 1);
+            if (music == -1) music = ES3.Load(MUSIC, 0);
             return music == 1;
         }
     }

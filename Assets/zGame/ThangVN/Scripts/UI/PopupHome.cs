@@ -152,7 +152,8 @@ public class PopupHome : MonoBehaviour
         {
             if (LogicGame.Instance.point >= LogicGame.Instance.maxPoint) LogicGame.Instance.point = LogicGame.Instance.maxPoint;
 
-            imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
+            if (imgFill != null)
+                imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
             txtPoint.text = $"{LogicGame.Instance.point} / {LogicGame.Instance.maxPoint}";
 
         }

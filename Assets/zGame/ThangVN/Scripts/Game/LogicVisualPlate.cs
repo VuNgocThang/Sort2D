@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,16 +59,40 @@ public class LogicVisualPlate : MonoBehaviour
 
     public void PlayArrowCannotClick()
     {
-        arrowCannotClick.SetActive(true);
-        arrowClick.SetActive(false);
         arrow.SetActive(false);
+        arrowClick.SetActive(false);
+        arrowCannotClick.SetActive(true);
     }
 
-    public void PlayArrowCanClick()
+    public void PlayArrowNormal()
     {
-        Debug.Log("wtf arrow can click?>");
         arrow.SetActive(true);
+        arrowClick.SetActive(false);
         arrowCannotClick.SetActive(false);
+    }
+
+    public void PlayArrowClicked()
+    {
+        StartCoroutine(ClickArrow());
+    }
+
+    IEnumerator ClickArrow()
+    {
+        arrow.SetActive(false);
+        arrowClick.SetActive(true);
+        arrowCannotClick.SetActive(false);
+
+        arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
+            .OnComplete(() =>
+            {
+                arrowClick.transform.localScale = Vector3.one;
+            });
+        yield return new WaitForSeconds(0.15f);
+
+        arrow.SetActive(true);
+        arrowClick.SetActive(false);
+        arrowCannotClick.SetActive(false);
+
     }
 
     public void SetDirectionArrow(Status stt, bool isLocked)
