@@ -270,9 +270,10 @@ public class PopupHome : MonoBehaviour
     IEnumerator ShowTarget()
     {
         LogicGame.Instance.isPauseGame = true;
+        yield return null;
         nTargetPigment.SetActive(true);
         txtLevelInTarget.text = $"Level {SaveGame.Level + 1}";
-        txtTargetPigment.text = LogicGame.Instance.colorPlateData.pigment.ToString();
+        txtTargetPigment.text = LogicGame.Instance.pigment.ToString();
         animPigment.Play("Show");
 
         yield return new WaitForSeconds(1f);
@@ -298,6 +299,7 @@ public class PopupHome : MonoBehaviour
     IEnumerator ShowText()
     {
         LogicGame.Instance.isPauseGame = true;
+        yield return null;
         nChallenges.SetActive(true);
         if (nChallenges.activeSelf)
             animChallenges.Play("Show");

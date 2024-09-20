@@ -286,7 +286,7 @@ public class ColorPlate : MonoBehaviour
                         colorZ.transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.1f)
                             .OnStart(() =>
                             {
-                                colorZ.spriteRender.sortingOrder = 2;
+                                colorZ.spriteRender.sortingOrder = 11;
                             })
                             .OnComplete(() =>
                             {
@@ -418,6 +418,15 @@ public class ColorPlate : MonoBehaviour
             ListConnect.Add(colorPlate);
         }
     }
+
+    public void LinkColorPlateArrow(ColorPlate colorPlate)
+    {
+        if (colorPlate != null && !ListConnect.Contains(colorPlate))
+        {
+            ListConnect.Add(colorPlate);
+        }
+    }
+
     public List<ColorPlate> CheckNearByCanConnect(/*ColorPlate colorPlate*/)
     {
         List<ColorPlate> listSame = new List<ColorPlate>();

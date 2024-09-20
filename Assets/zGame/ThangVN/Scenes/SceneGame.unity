@@ -430,7 +430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d62a5ef3e74edd94d930f9ffc8a3258c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5318c6264d696d488ec046bb791dd07, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2357,6 +2357,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2967214489146526622}
     m_Modifications:
+    - target: {fileID: 1980637288939285724, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980637288939285724, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980637288939285724, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2967214488216674287, guid: 03610f6fcac981c4f9b49d02e5eb0567,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2647,6 +2662,7 @@ MonoBehaviour:
   canvasTutorial: {fileID: 799753859}
   tutorial: {fileID: 2108822597}
   isHadSpawnSpecial: 0
+  spineSelection: {fileID: 0}
   testStack: {fileID: 1305653334}
   timerRun: -1
   listSteps: []
@@ -3160,79 +3176,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &853564843
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.081
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4939964764761008960, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920248680448732736, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_Name
-      value: ColorPlate2D
-      objectReference: {fileID: 0}
-    - target: {fileID: 6920248680448732736, guid: acdee9a02f93bc74a9e74bdd9337dd27,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: acdee9a02f93bc74a9e74bdd9337dd27, type: 3}
 --- !u!1 &854801687 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6832338610827621995, guid: 0715e52f6408d8e479b5fb366f162291,
@@ -11428,4 +11371,3 @@ SceneRoots:
   - {fileID: 213925593}
   - {fileID: 2026565085}
   - {fileID: 6920780087886554681}
-  - {fileID: 853564843}

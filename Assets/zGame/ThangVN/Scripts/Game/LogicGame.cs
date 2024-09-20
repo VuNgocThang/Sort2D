@@ -109,10 +109,7 @@ public class LogicGame : MonoBehaviour
 
     void Start()
     {
-        //Test(3);
         Application.targetFrameRate = 60;
-        //Debug.Log("Load scene Game: " + SaveGame.Challenges);
-        //Debug.Log(SaveGame.Heart + " heart");
         Refresh();
         //InitPlateSpawn(false);
 
@@ -184,7 +181,6 @@ public class LogicGame : MonoBehaviour
         ResetNDesk();
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
         Debug.Log(rows + " __ " + cols);
-        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab, ListArrowPlate);
 
         if (SaveGame.Challenges)
         {
@@ -194,6 +190,9 @@ public class LogicGame : MonoBehaviour
         {
             LoadLevelNormal();
         }
+
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab, ListArrowPlate);
+
         DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
         countDiffMax = dataLevel.CountDiff;
     }
