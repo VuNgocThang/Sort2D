@@ -89,6 +89,7 @@ public class LogicGame : MonoBehaviour
     public bool isUsingHammer;
     public bool isUsingHand;
     public Hammer hammer;
+    public HammerSpineEvent hammerSpine;
     [SerializeField] public Canvas canvasTutorial;
     public Tutorial tutorial;
 
@@ -183,7 +184,6 @@ public class LogicGame : MonoBehaviour
         cols = colorPlateData.cols;
         ResetNDesk();
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
-        Debug.Log(rows + " __ " + cols);
 
         if (SaveGame.Challenges)
         {
@@ -439,8 +439,8 @@ public class LogicGame : MonoBehaviour
             if (listNextPlate[i].ListValue.Count == 0)
             {
                 listNextPlate[i].Init(GetColorNew);
-                if (i == 0) listNextPlate[i].InitRandom(true);
-                else listNextPlate[i].InitRandom(false);
+                if (i == 0) listNextPlate[i].InitColor();
+                else listNextPlate[i].InitColor();
             }
         }
     }
@@ -567,10 +567,15 @@ public class LogicGame : MonoBehaviour
 
                             if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
 
-                            hammer.gameObject.SetActive(true);
-                            hammer.transform.position = plateSelect.transform.position + GameConfig.OFFSET_HAMMER;
-                            hammer.hitColorPlate = plateSelect.transform.position;
-                            hammer.colorPlateDestroy = plateSelect;
+                            //hammer.gameObject.SetActive(true);
+                            //hammer.transform.position = plateSelect.transform.position + GameConfig.OFFSET_HAMMER;
+                            //hammer.hitColorPlate = plateSelect.transform.position;
+                            //hammer.colorPlateDestroy = plateSelect;
+
+                            hammerSpine.gameObject.SetActive(true);
+                            hammerSpine.anim.transform.position = plateSelect.transform.position;
+                            hammerSpine.PlayAnim();
+                            hammerSpine.colorPlateDestroy = plateSelect;
 
                             SaveGame.Hammer--;
                             isUsingHammer = false;
@@ -611,7 +616,17 @@ public class LogicGame : MonoBehaviour
             ListArrowPlate[i].PlayAnimArrow();
         }
 
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            SaveGame.Level++;
+            SceneManager.LoadScene("SceneGame");
+        }
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            SaveGame.Level--;
+            SceneManager.LoadScene("SceneGame");
+        }
 
         //if (!isMergeing)
         //{
@@ -703,7 +718,7 @@ public class LogicGame : MonoBehaviour
             Swap(listNextPlate);
             t.OnComplete(() =>
             {
-                listNextPlate[1].InitRandom(false);
+                listNextPlate[1].InitColor();
             });
 
             float delay = 0f;
@@ -778,7 +793,7 @@ public class LogicGame : MonoBehaviour
                     Sequence sequenceSpecial = DOTween.Sequence();
 
                     sequenceSpecial.AppendCallback(() =>
-                        chargingParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true)
+                        chargingParticlePool.Spawn(endColorPlate.transform.position, true)
                     );
 
                     sequenceSpecial.AppendInterval(0.5f);
@@ -794,7 +809,7 @@ public class LogicGame : MonoBehaviour
 
                     sequenceSpecial.AppendCallback(() =>
                         {
-                            changeColorParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
+                            changeColorParticlePool.Spawn(endColorPlate.transform.position, true);
                             RecursiveMerge();
 
                         }

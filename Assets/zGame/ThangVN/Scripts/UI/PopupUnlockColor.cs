@@ -3,7 +3,6 @@ using ntDev;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,16 +43,15 @@ public class PopupUnlockColor : Popup
 
     public override void Hide()
     {
-        transform.localScale = Vector3.one;
-
-        transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-        {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
-            LogicGame.Instance.isPauseGame = false;
-            gameObject.SetActive(false);
-        });
+        base.Hide();
+        StartCoroutine(ReturnGame());
         //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
+    }
 
+    IEnumerator ReturnGame()
+    {
+        yield return new WaitForSeconds(0.25f);
+        LogicGame.Instance.isPauseGame = false;
     }
 
     IEnumerator PlayAnimation()

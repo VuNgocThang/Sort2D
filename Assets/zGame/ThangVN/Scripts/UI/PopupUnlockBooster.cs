@@ -40,16 +40,15 @@ namespace ThangVN
 
         public override void Hide()
         {
-            //base.Hide();
-            transform.localScale = Vector3.one;
-
-            transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-            {
-                LogicGame.Instance.isPauseGame = false;
-                gameObject.SetActive(false);
-                ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
-            });
+            base.Hide();
+            StartCoroutine(ReturnGame());
             //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
+        }
+
+        IEnumerator ReturnGame()
+        {
+            yield return new WaitForSeconds(0.25f);
+            LogicGame.Instance.isPauseGame = false;
         }
     }
 }

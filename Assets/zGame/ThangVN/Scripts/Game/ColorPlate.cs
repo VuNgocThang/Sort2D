@@ -104,6 +104,7 @@ public class ColorPlate : MonoBehaviour
     public void InitColor()
     {
         int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
+        Debug.Log("countDiff: " + LogicGame.Instance.countDiff);
         //int r = UnityEngine.Random.Range(0, listtest.Count);
         //int type = listtest[r];
 
@@ -508,17 +509,22 @@ public class ColorPlate : MonoBehaviour
 
     public void PlayAnimArrow()
     {
-        if (ListConnect[0].ListValue.Count > 0 && !isPlayingOnClick)
+        if (CheckArrow(ListConnect[0]) && !isPlayingOnClick)
         {
             logicVisual.PlayArrowCannotClick();
         }
 
-        if (ListConnect[0].ListValue.Count == 0 && !isPlayingOnClick)
+        if (!CheckArrow(ListConnect[0]) && !isPlayingOnClick)
         {
             logicVisual.PlayArrowNormal();
         }
     }
 
+    bool CheckArrow(ColorPlate c)
+    {
+        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin || c.status == Status.CannotPlace || c.status == Status.Ads || c.status == Status.Empty) return true;
+        else return false;
+    }
 
     IEnumerator PlayAnimClick()
     {

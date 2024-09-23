@@ -2377,6 +2377,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2967214489146526622}
     m_Modifications:
+    - target: {fileID: 241125550984640428, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -372.8737
+      objectReference: {fileID: 0}
+    - target: {fileID: 241125550984640428, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 63.700012
+      objectReference: {fileID: 0}
     - target: {fileID: 2967214488216674287, guid: 03610f6fcac981c4f9b49d02e5eb0567,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2475,6 +2485,21 @@ PrefabInstance:
     - target: {fileID: 2967214488216674287, guid: 03610f6fcac981c4f9b49d02e5eb0567,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148400091901212867, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148400091901212867, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304232485530536344, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7644329962006275069, guid: 03610f6fcac981c4f9b49d02e5eb0567,
@@ -2665,6 +2690,7 @@ MonoBehaviour:
   isUsingHammer: 0
   isUsingHand: 0
   hammer: {fileID: 1768236511}
+  hammerSpine: {fileID: 1863335191}
   canvasTutorial: {fileID: 799753859}
   tutorial: {fileID: 2108822597}
   isHadSpawnSpecial: 0
@@ -6083,7 +6109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863335189}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6107,6 +6133,7 @@ MonoBehaviour:
   anim: {fileID: 1670922799}
   smoke: {fileID: 921109519180040907}
   hit: HIT
+  colorPlateDestroy: {fileID: 0}
 --- !u!1 &1900725510
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,13 +6,20 @@ using UnityEngine;
 
 public class HammerSpineEvent : MonoBehaviour
 {
-    [SerializeField] SkeletonAnimation anim;
+    public SkeletonAnimation anim;
     [SerializeField] ParticleSystem smoke;
     [SpineEvent] public string hit = "HIT";
+    public ColorPlate colorPlateDestroy;
+
 
     private void Awake()
     {
         anim.AnimationState.Event += RaiseAnimEvent;
+    }
+
+    public void PlayAnim()
+    {
+        StartCoroutine(PlayAnimState());
     }
     void RaiseAnimEvent(TrackEntry trackE, Spine.Event e)
     {
@@ -24,10 +31,23 @@ public class HammerSpineEvent : MonoBehaviour
 
     void ActiveVfx(Spine.Event e)
     {
+        if (colorPlateDestroy == null) return;
+        colorPlateDestroy.ClearAll();
+
         smoke.transform.localPosition = anim.transform.localPosition;
         smoke.gameObject.SetActive(true);
         smoke.Play();
-        Debug.Log("Fuck");
+    }
+
+    IEnumerator PlayAnimState()
+    {
+        anim.state.SetAnimation(0, "hammer_hit", false);
+
+        yield return new WaitForSeconds(1f);
+
+        LogicGame.Instance.homeInGame.ExitUsingItem();
+
+        this.gameObject.SetActive(false);
     }
 
 }

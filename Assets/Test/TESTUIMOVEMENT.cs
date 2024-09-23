@@ -24,6 +24,7 @@ public class TESTUIMOVEMENT : MonoBehaviour
                 {
                     if (slots[j].id == listItems[i].id)
                     {
+                        listItems[i].gameObject.SetActive(false);
                         item.imgItemDrag.sprite = sprites[listItems[i].id];
                         item.imgItemDrag.SetNativeSize();
                         item.rectTransform.SetParent(slots[j].transform);

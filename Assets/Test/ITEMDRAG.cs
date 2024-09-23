@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using ntDev;
+using Spine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,10 +12,10 @@ public class ITEMDRAG : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public int id;
     public RectTransform rectTransform;
     public CanvasGroup canvasGroup;
-    private Vector2 originalPosition;
-    private IMGITEM linkedImgItem;
-    private Slot linkedSlot;
-    private TESTUIMOVEMENT testUIMovement;
+    public Vector2 originalPosition;
+    public IMGITEM linkedImgItem;
+    public Slot linkedSlot;
+    public TESTUIMOVEMENT testUIMovement;
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class ITEMDRAG : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         this.linkedSlot.imgLine.gameObject.SetActive(true);
 
         testUIMovement = FindObjectOfType<TESTUIMOVEMENT>();
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -44,17 +47,28 @@ public class ITEMDRAG : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         canvasGroup.blocksRaycasts = true;
 
-        rectTransform.anchoredPosition = originalPosition;
-
-        linkedImgItem.gameObject.SetActive(true);
-        if (linkedSlot != null)
+        //To do end drag
+        float distance = Vector2.Distance(rectTransform.position, linkedSlot.GetComponent<RectTransform>().position);
+        Debug.Log("distance: " + distance);
+        if (distance <= 100)
+        {
+            this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
+            rectTransform.anchoredPosition = Vector2.zero;
             linkedSlot.imgLine.gameObject.SetActive(false);
-
-        this.gameObject.SetActive(false);
+        }
+        else
+        {
+            rectTransform.anchoredPosition = originalPosition;
+            linkedSlot.imgLine.gameObject.SetActive(false);
+            linkedImgItem.gameObject.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
 
         if (testUIMovement != null)
         {
             testUIMovement.ClearCurrentDraggingItem();
         }
+
     }
+
 }
