@@ -20,6 +20,7 @@ public class BookItem : MonoBehaviour
     void ShowBook(int index)
     {
         Debug.Log("indexBook: " + index);
+        PopupBookItem.Show(index);
     }
 
     public void Init(int _index)
