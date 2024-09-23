@@ -7,4 +7,5 @@ public class Slot : MonoBehaviour
 {
     public int id;
     public Image imgLine;
+    public RectTransform rectTransform;
 }
