@@ -12,6 +12,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] TextMeshProUGUI txtNameBook;
     [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg;
 
+
     private void Awake()
     {
         btnSelectItem.OnClick(() => OnSelect(true));
@@ -47,16 +48,6 @@ public class PopupDecorateBook : Popup
 
     public void OnSelect(bool isSelectItem)
     {
-        //if (isSelectItem)
-        //{
-        //    bgScrollViewItem.SetActive(true);
-        //    imgChooseItem.SetActive(true);
-        //    imgNotChooseItem.SetActive(false);
-
-        //    bgSelectColor.SetActive(false);
-        //    imgChooseBg.SetActive(false);
-        //    imgNotChooseBg.SetActive(true);
-        //}
         bgScrollViewItem.SetActive(isSelectItem);
         imgChooseItem.SetActive(isSelectItem);
         imgNotChooseItem.SetActive(!isSelectItem);
