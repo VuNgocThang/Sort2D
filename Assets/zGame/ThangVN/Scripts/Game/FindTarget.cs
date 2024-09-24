@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +11,35 @@ public class FindTarget
 
         if (listDataConnect.Count < 3)
         {
+            // độ ưu tiên thứ nhất: check stack thứ 2 có merge được với stack nào bên cạnh không
+            List<ColorPlate> listCanBeRoot = new List<ColorPlate>();
+            listCanBeRoot.AddRange(listDataConnect);
+
+            foreach (ColorPlate c in listDataConnect)
+            {
+                if (c.listTypes.Count < 2) continue;
+
+                foreach (ColorPlate n in c.ListConnect)
+                {
+                    if (n.ListValue.Count == 0 || n.countFrozen != 0) continue;
+
+                    if (listDataConnect.Contains(n)) continue;
+
+                    if (c.listTypes[c.listTypes.Count - 2].type == n.TopValue)
+                    {
+                        listCanBeRoot.Remove(c);
+                    }
+                }
+            }
+
+            if (listCanBeRoot.Count == 1)
+            {
+                colorResult = listCanBeRoot[0];
+                return colorResult;
+            }
+
+
+            // độ ưu tiên thứ 2: gần băng, gần nhiều băng
             Dictionary<ColorPlate, int> countFrozenDictionary = new Dictionary<ColorPlate, int>();
             foreach (ColorPlate c in listDataConnect)
             {
@@ -178,7 +207,6 @@ public class FindTarget
                 }
                 else
                 {
-                    int maxValue = 0;
                     bool isSame = true;
 
                     int firstValue = countFrozenDictionary.First().Value;
@@ -258,6 +286,20 @@ public class FindTarget
                                 }
                             }
                         }
+                    }
+                    else
+                    {
+                        int maxValue = 0;
+                        foreach (var obj in countFrozenDictionary)
+                        {
+                            if (obj.Value >= maxValue)
+                            {
+                                maxValue = obj.Value;
+                                colorResult = obj.Key;
+                            }
+                        }
+
+                        return colorResult;
                     }
                 }
             }

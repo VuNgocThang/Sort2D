@@ -102,12 +102,10 @@ public class ColorPlate : MonoBehaviour
     {
         LevelData levelData = customRatio.listLevelData[SaveGame.Level];
 
-        //Debug.Log(levelData.listRatioCountInStack.Count + " levelData.listRatioCountInStack");
         listTypes.Clear();
         List<int> listDiff = new List<int>();
         int randomListTypeCount = -1;
         int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
-        Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
         for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
         {
             if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
@@ -118,11 +116,9 @@ public class ColorPlate : MonoBehaviour
 
             randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
         }
-        Debug.Log("randomListTypeCount  before: " + randomListTypeCount);
 
         randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
 
-        Debug.Log("randomListTypeCount  after: " + randomListTypeCount);
 
         int t = 0;
         while (listDiff.Count < randomListTypeCount && t < 1000)

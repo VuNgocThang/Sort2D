@@ -137,7 +137,7 @@ public static class SaveGame
         }
         get
         {
-            if (refresh == -1) refresh = ES3.Load(REFRESH, 2);
+            if (refresh == -1) refresh = ES3.Load(REFRESH, 10000);
             return refresh;
         }
     }
