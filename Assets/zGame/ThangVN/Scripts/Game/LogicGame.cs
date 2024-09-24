@@ -619,12 +619,14 @@ public class LogicGame : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             SaveGame.Level++;
+            ManagerEvent.ClearEvent();
             SceneManager.LoadScene("SceneGame");
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
             SaveGame.Level--;
+            ManagerEvent.ClearEvent();
             SceneManager.LoadScene("SceneGame");
         }
 

@@ -97,27 +97,75 @@ public class ColorPlate : MonoBehaviour
         Col = col;
         gameObject.name = $"Cell ({row}, {col})";
     }
-    List<int> listtest = new List<int>()
-    {
-        0, 1, 2
-    };
+
     public void InitColor()
     {
-        int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
-        //Debug.Log("countDiff: " + LogicGame.Instance.countDiff);
-        //int r = UnityEngine.Random.Range(0, listtest.Count);
-        //int type = listtest[r];
+        LevelData levelData = customRatio.listLevelData[SaveGame.Level];
 
-        GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-        listTypes.Add(group);
-
-        int randomCount = UnityEngine.Random.Range(1, 5);
-
-        for (int j = 0; j < randomCount; j++)
+        //Debug.Log(levelData.listRatioCountInStack.Count + " levelData.listRatioCountInStack");
+        listTypes.Clear();
+        List<int> listDiff = new List<int>();
+        int randomListTypeCount = -1;
+        int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
+        Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
+        for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
         {
-            group.listPlates.Add(group.type);
-            ListValue.Add(group.type);
+            if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
+            {
+                randomListTypeCount = i + 1;
+                break;
+            }
+
+            randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
         }
+        Debug.Log("randomListTypeCount  before: " + randomListTypeCount);
+
+        randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
+
+        Debug.Log("randomListTypeCount  after: " + randomListTypeCount);
+
+        int t = 0;
+        while (listDiff.Count < randomListTypeCount && t < 1000)
+        {
+            int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
+            if (!listDiff.Contains(type))
+                listDiff.Add(type);
+            ++t;
+        }
+
+        foreach (int type in listDiff)
+        {
+            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+            listTypes.Add(group);
+
+            int remainingCount = 10 - ListValue.Count;
+            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
+            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
+
+            for (int j = 0; j < randomCount; j++)
+            {
+                if (ListValue.Count >= 10)
+                {
+                    break;
+                }
+
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
+            }
+        }
+
+        //int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
+
+        //GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+        //listTypes.Add(group);
+
+        //int randomCount = UnityEngine.Random.Range(1, 5);
+
+        //for (int j = 0; j < randomCount; j++)
+        //{
+        //    group.listPlates.Add(group.type);
+        //    ListValue.Add(group.type);
+        //}
 
         InitValue(this.transform);
     }
@@ -125,7 +173,6 @@ public class ColorPlate : MonoBehaviour
     public void SpawnSpecialColor(GetColorNew getColorNew)
     {
         Init(getColorNew);
-
         GroupEnum group = new GroupEnum { type = ColorEnum.Random };
         listTypes.Add(group);
         group.listPlates.Add(group.type);
@@ -134,101 +181,92 @@ public class ColorPlate : MonoBehaviour
     }
 
     #region old gameplay spawn
-    //public void InitRandom(bool isFirst = true)
-    //{
-    //    InitGroupEnum();
-    //    InitValue(this.transform, isFirst);
-    //}
-    //public void InitGroupEnum()
-    //{
-    //    LevelData levelData = customRatio.listLevelData[0];
+    public void InitRandom(bool isFirst = true)
+    {
+        InitGroupEnum();
+        InitValue(this.transform, isFirst);
+    }
+    public void InitGroupEnum()
+    {
+        LevelData levelData = customRatio.listLevelData[0];
 
-    //    listTypes.Clear();
-    //    HashSet<int> listDiff = new HashSet<int>();
+        listTypes.Clear();
+        HashSet<int> listDiff = new HashSet<int>();
 
-    //    int randomListTypeCount = -1;
-    //    int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
+        int randomListTypeCount = -1;
+        int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
 
-    //    if (rdRatioCountInStack == 99)
-    //    {
-    //        GroupEnum group = new GroupEnum { type = ColorEnum.Random };
-    //        listTypes.Add(group);
-    //        group.listPlates.Add(group.type);
-    //        ListValue.Add(group.type);
-    //    }
-    //    else
-    //    {
-    //        for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
-    //        {
-    //            if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
-    //            {
-    //                randomListTypeCount = i + 1;
-    //                break;
-    //            }
 
-    //            randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
-    //        }
-    //        //Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
-    //        //Debug.Log("số lượng màu khác nhau: " + randomListTypeCount);
+        for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
+        {
+            if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
+            {
+                randomListTypeCount = i + 1;
+                break;
+            }
 
-    //        while (listDiff.Count < randomListTypeCount)
-    //        {
-    //            int randomCountPerStack = -1;
-    //            int rdRatioColorInStack = UnityEngine.Random.Range(0, 100);
-    //            //Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
+            randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
+        }
+        //Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
+        //Debug.Log("số lượng màu khác nhau: " + randomListTypeCount);
 
-    //            for (int i = 0; i < levelData.listRatioSpawnColor.Count; i++)
-    //            {
-    //                if (levelData.listRatioSpawnColor[i] > rdRatioColorInStack)
-    //                {
-    //                    randomCountPerStack = i;
-    //                    break;
-    //                }
+        while (listDiff.Count < randomListTypeCount)
+        {
+            int randomCountPerStack = -1;
+            int rdRatioColorInStack = UnityEngine.Random.Range(0, 100);
+            //Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
 
-    //                randomCountPerStack = levelData.listRatioSpawnColor.Count;
-    //            }
-    //            //Debug.Log("màu được spawn: " + randomCountPerStack);
+            for (int i = 0; i < levelData.listRatioSpawnColor.Count; i++)
+            {
+                if (levelData.listRatioSpawnColor[i] > rdRatioColorInStack)
+                {
+                    randomCountPerStack = i;
+                    break;
+                }
 
-    //            listDiff.Add(randomCountPerStack);
-    //        }
+                randomCountPerStack = levelData.listRatioSpawnColor.Count;
+            }
+            //Debug.Log("màu được spawn: " + randomCountPerStack);
 
-    //        //int randomListTypeCount = 3;
+            listDiff.Add(randomCountPerStack);
+        }
 
-    //        //while (listDiff.Count < randomListTypeCount)
-    //        //{
-    //        //    listDiff.Add(UnityEngine.Random.Range(0, 7));
-    //        //}
+        //int randomListTypeCount = 3;
 
-    //        foreach (int type in listDiff)
-    //        {
-    //            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-    //            listTypes.Add(group);
+        //while (listDiff.Count < randomListTypeCount)
+        //{
+        //    listDiff.Add(UnityEngine.Random.Range(0, 7));
+        //}
 
-    //            //int randomCount = UnityEngine.Random.Range(1, 4);
+        foreach (int type in listDiff)
+        {
+            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+            listTypes.Add(group);
 
-    //            //for (int j = 0; j < randomCount; j++)
-    //            //{
-    //            //    group.listPlates.Add(group.type);
-    //            //    ListValue.Add(group.type);
-    //            //}
+            //int randomCount = UnityEngine.Random.Range(1, 4);
 
-    //            int remainingCount = 10 - ListValue.Count;
-    //            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
-    //            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
+            //for (int j = 0; j < randomCount; j++)
+            //{
+            //    group.listPlates.Add(group.type);
+            //    ListValue.Add(group.type);
+            //}
 
-    //            for (int j = 0; j < randomCount; j++)
-    //            {
-    //                if (ListValue.Count >= 10)
-    //                {
-    //                    break;
-    //                }
+            int remainingCount = 10 - ListValue.Count;
+            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
+            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
 
-    //                group.listPlates.Add(group.type);
-    //                ListValue.Add(group.type);
-    //            }
-    //        }
-    //    }
-    //}
+            for (int j = 0; j < randomCount; j++)
+            {
+                if (ListValue.Count >= 10)
+                {
+                    break;
+                }
+
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
+            }
+        }
+    }
     #endregion
     public void ChangeSpecialColorPLate(ColorEnum colorEnum)
     {
