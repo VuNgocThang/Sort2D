@@ -13,7 +13,7 @@ public class PopupBookItem : Popup
     {
         btnDecorate.OnClick(() =>
         {
-
+            PopupDecorateBook.Show(0);
         });
     }
     public static async void Show(int index)

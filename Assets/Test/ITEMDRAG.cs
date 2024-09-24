@@ -58,7 +58,7 @@ public class ITEMDRAG : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
         else
         {
-            rectTransform.anchoredPosition = originalPosition;
+            rectTransform.anchoredPosition = eventData.delta;
             linkedSlot.imgLine.gameObject.SetActive(false);
             linkedImgItem.gameObject.SetActive(true);
             this.gameObject.SetActive(false);

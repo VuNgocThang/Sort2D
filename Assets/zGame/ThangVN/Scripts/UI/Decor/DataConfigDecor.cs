@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+//data config
 [Serializable]
 public class DataItemDecor
 {
@@ -30,6 +30,11 @@ public class DataBook
     public List<DataItemDecor> listDataItemDecor;
     public List<DataSlot> listDataSlots;
 }
+
+
+//data save
+
+
 
 [CreateAssetMenu(fileName = "DataConfigDecor", menuName = "ScriptableObjects/DataConfigDecor")]
 

@@ -37,7 +37,7 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         }
 
         T tmp = Instantiate(prefab);
-        tmp.gameObject.SetActive(false);
+        tmp.gameObject.SetActive(true);
         pooledObjects.Add(tmp);
         return tmp;
     }

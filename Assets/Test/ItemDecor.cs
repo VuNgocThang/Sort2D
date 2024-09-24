@@ -6,5 +6,6 @@ using UnityEngine;
 public class ItemDecor : MonoBehaviour
 {
     public IMGITEM imgItem;
+    public ImageItem imageItem;
     public TextMeshProUGUI txtCost;
 }
