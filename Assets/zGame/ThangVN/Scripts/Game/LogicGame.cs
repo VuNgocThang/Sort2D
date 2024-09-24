@@ -514,7 +514,7 @@ public class LogicGame : MonoBehaviour
                             ControllerAnimState.ActionToIdle();
                             arrowPlate.PlayAnimOnClick();
                             ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
-                            Debug.Log(arrowPlate.name + " __ " + holder.name);
+                            //Debug.Log(arrowPlate.name + " __ " + holder.name);
                             SetColor(arrowPlate, holder);
 
                             if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;

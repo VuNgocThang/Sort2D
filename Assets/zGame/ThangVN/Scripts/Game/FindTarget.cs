@@ -33,36 +33,48 @@ public class FindTarget
                 }
 
             }
+            if (countFrozenDictionary.Count > 0)
+            {
+                //Debug.Log("countFrozenDictionary.Count : " + countFrozenDictionary.Count);
+                //foreach (var obj in countFrozenDictionary)
+                //{
+                //    Debug.Log(obj.Key + ": " + obj.Value);
+                //}
 
-            //int maxCount = 0;
-            //bool isSame = true;
-            //if (countFrozenDictionary.Count == 1)
-            //{
-            //    foreach (var obj in countFrozenDictionary)
-            //    {
-            //        colorResult = obj.Key;
-            //    }
-            //}
-            //else
-            //{
-            //    if (countFrozenDictionary.ElementAt(0).Value == countFrozenDictionary.ElementAt(1).Value)
-            //    {
-            //        isSame = true;
-            //    }
-            //    else isSame = false;
-            //}
-            //if (!isSame)
-            //{
-            //    foreach (var obj in countFrozenDictionary)
-            //    {
-            //        if (obj.Value > maxCount)
-            //        {
-            //            maxCount = obj.Value;
-            //            colorResult = obj.Key;
-            //        }
-            //    }
-            //    return colorResult;
-            //}
+                int maxCount = 0;
+                bool isSame = true;
+                if (countFrozenDictionary.Count == 1)
+                {
+                    foreach (var obj in countFrozenDictionary)
+                    {
+                        colorResult = obj.Key;
+                        return colorResult;
+                    }
+                }
+                else
+                {
+                    if (countFrozenDictionary.ElementAt(0).Value == countFrozenDictionary.ElementAt(1).Value)
+                    {
+                        isSame = true;
+                    }
+                    else isSame = false;
+                }
+
+                if (!isSame)
+                {
+                    foreach (var obj in countFrozenDictionary)
+                    {
+                        if (obj.Value > maxCount)
+                        {
+                            maxCount = obj.Value;
+                            colorResult = obj.Key;
+                        }
+                    }
+
+                    Debug.Log("colorResult if isSame: " + colorResult);
+                    return colorResult;
+                }
+            }
 
             foreach (ColorPlate c in listDataConnect)
             {
