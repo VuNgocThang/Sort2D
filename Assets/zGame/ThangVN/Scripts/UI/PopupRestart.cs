@@ -58,7 +58,7 @@ namespace ThangVN
 
                 DateTime timer = DateTime.Now + TimeSpan.FromSeconds(increaseHeart * GameConfig.TIME_COUNT_DOWN);
 
-                PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, timer.ToString());
+                //PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, timer.ToString());
             }
         }
 

@@ -83,7 +83,7 @@ public class PopupLose : Popup
         else btnRevive.gameObject.SetActive(true);
 
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPopupLose);
-        Debug.Log("Heart: " + SaveGame.Heart);
+        //Debug.Log("Heart: " + SaveGame.Heart);
         if (SaveGame.Heart > 0)
             SaveGame.Heart--;
 

@@ -71,8 +71,7 @@ namespace ThangVN
             }
             else
             {
-                //Show Toast Not Enough Coin
-
+                EasyUI.Toast.Toast.Show("Not enough money!", 1f);
                 Debug.Log("Not enough coin");
             }
         }
