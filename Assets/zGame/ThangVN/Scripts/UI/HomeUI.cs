@@ -72,7 +72,7 @@ public class HomeUI : MonoBehaviour
         txtCoin.text = SaveGame.Coin.ToString();
         txtHeart.text = SaveGame.Heart.ToString();
         txtColor.text = SaveGame.Pigment.ToString();
-        txtLevel.text = SaveGame.Level.ToString();
+        txtLevel.text = $"Level {SaveGame.Level}";
 
         if (Input.GetKeyDown(KeyCode.M))
         {
