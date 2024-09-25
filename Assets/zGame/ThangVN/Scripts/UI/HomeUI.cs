@@ -12,7 +12,7 @@ public class HomeUI : MonoBehaviour
 {
     public static HomeUI Instance;
     public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay;
-    public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor;
+    public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel;
     [SerializeField] int heart;
     [SerializeField] float countdownTimer;
     public GameObject nTop, nBot, iconNotice;
@@ -72,6 +72,7 @@ public class HomeUI : MonoBehaviour
         txtCoin.text = SaveGame.Coin.ToString();
         txtHeart.text = SaveGame.Heart.ToString();
         txtColor.text = SaveGame.Pigment.ToString();
+        txtLevel.text = SaveGame.Level.ToString();
 
         if (Input.GetKeyDown(KeyCode.M))
         {

@@ -62,10 +62,12 @@ namespace ThangVN
 
         void BuyHeart()
         {
-            if (SaveGame.Coin >= 1200)
+            if (SaveGame.Coin >= 100)
             {
-                SaveGame.Coin -= 1200;
+                SaveGame.Coin -= 100;
                 SaveGame.Heart += 1;
+
+                SceneManager.LoadScene("SceneGame");
             }
             else
             {

@@ -76,6 +76,7 @@ public class LogicGame : MonoBehaviour
     public int maxPoint;
     public int gold;
     public int pigment;
+    public int countRevive;
 
     int pointSpawnSpecial = 100;
     [SerializeField] RectTransform slot_5;
@@ -140,6 +141,7 @@ public class LogicGame : MonoBehaviour
         isPauseGame = false;
         listColors.Refresh();
         countDiff = 2;
+        countRevive = 1;
         //countMove = 2;
         point = 0;
         //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
@@ -628,6 +630,12 @@ public class LogicGame : MonoBehaviour
             SaveGame.Level--;
             ManagerEvent.ClearEvent();
             SceneManager.LoadScene("SceneGame");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            isLose = true;
+            StartCoroutine(RaiseEventLose());
         }
 
         //if (!isMergeing)
@@ -1196,6 +1204,7 @@ public class LogicGame : MonoBehaviour
 
     public void ReviveGame()
     {
+        countRevive--;
         StartCoroutine(ClearSomeArrows());
     }
 

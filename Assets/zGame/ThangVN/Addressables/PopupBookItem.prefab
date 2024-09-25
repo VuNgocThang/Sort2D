@@ -1280,6 +1280,7 @@ GameObject:
   - component: {fileID: 7892188133539402032}
   - component: {fileID: 6499520445482131612}
   - component: {fileID: 2017044469991185372}
+  - component: {fileID: 7012501349580193567}
   m_Layer: 5
   m_Name: PopupBookItem
   m_TagString: Untagged
@@ -1367,6 +1368,21 @@ MonoBehaviour:
   txtProgress: {fileID: 7781057928956553090}
   txtNameBook: {fileID: 6215033250771531255}
   txtDecorate: {fileID: 6867568482619682313}
+--- !u!114 &7012501349580193567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8603210681977717505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8696f3dc6f9603a41937a62cbe6085fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConformX: 0
+  ConformY: 1
+  Logging: 0
 --- !u!1 &9098421760519835876
 GameObject:
   m_ObjectHideFlags: 0

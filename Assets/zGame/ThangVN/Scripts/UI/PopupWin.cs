@@ -43,8 +43,8 @@ public class PopupWin : Popup
 
         btnContinue.OnClick(() =>
         {
-            InitPile();
-            ReceiveReward();
+            //InitPile();
+            //ReceiveReward();
             ManagerEvent.ClearEvent();
             //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
             /*else*/ StartCoroutine(LoadScene("SceneGame"));
@@ -104,7 +104,8 @@ public class PopupWin : Popup
 
     IEnumerator LoadScene(string sceneName)
     {
-        yield return new WaitForSeconds(2.5f);
+        //yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(sceneName);
     }
 

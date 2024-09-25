@@ -168,10 +168,10 @@ RectTransform:
   - {fileID: 9024837512433232062}
   m_Father: {fileID: 9213884353205151179}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 442, y: 42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8409860050593382562
 CanvasRenderer:
@@ -1367,12 +1367,13 @@ MonoBehaviour:
   btnPlusColorPlate: {fileID: 6507479406132936095}
   btnFreeCoin: {fileID: 5273409004320768844}
   btnChallenges: {fileID: 7617960924816028553}
-  btnDecor: {fileID: 3141877354085005586}
+  btnDecor: {fileID: 6873390930149544096}
   btnPlay: {fileID: 1507113455079605511}
   txtCoin: {fileID: 8409754634528456653}
   txtHeart: {fileID: 1079981363064212415}
   txtCountdownHeart: {fileID: 3070312649710130815}
   txtColor: {fileID: 7823958815528014472}
+  txtLevel: {fileID: 5365765436250949395}
   heart: 0
   countdownTimer: 0
   nTop: {fileID: 3813721225300369074}
@@ -3502,7 +3503,7 @@ MonoBehaviour:
   Sound: 1
   enableScaleFX: 0
   enableSpriteFX: 0
-  animEasyButton: {fileID: 6584344598182133273}
+  animEasyButton: {fileID: 0}
 --- !u!95 &6584344598182133273
 Animator:
   serializedVersion: 5
@@ -3513,7 +3514,7 @@ Animator:
   m_GameObject: {fileID: 9181747363898375472}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 96980111c305a9643a063e13411bc0d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3a5c51791f204fc4a9694f5be6744230, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -16,6 +16,7 @@ public class PopupDecorateBook : Popup
     public List<ImageItem> listItems;
     public List<Slot> slots;
     public List<Sprite> sprites;
+    public List<ItemDecor> listItemDecors;
 
     [SerializeField] ItemDraggable itemDragPrefab;
     [SerializeField] Slot slotPrefab;
@@ -29,7 +30,7 @@ public class PopupDecorateBook : Popup
         btnSelectItem.OnClick(() => OnSelect(true));
         btnSelectBgColor.OnClick(() => OnSelect(false));
     }
-  
+
     public static async void Show(int index)
     {
         PopupDecorateBook pop = await ManagerPopup.ShowPopup<PopupDecorateBook>();
@@ -47,8 +48,18 @@ public class PopupDecorateBook : Popup
     {
         Debug.Log("Show PopupDecorateBook at index: " + index);
         listItems.Clear();
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].gameObject.SetActive(false);
+        }
         slots.Clear();
         sprites.Clear();
+
+        for (int i = 0; i < listItemDecors.Count; i++)
+        {
+            listItemDecors[i].gameObject.SetActive(false);
+        }
+        listItemDecors.Clear();
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
         {
@@ -77,6 +88,7 @@ public class PopupDecorateBook : Popup
             item.imageItem.img.SetNativeSize();
             item.txtCost.text = dataBook.listDataItemDecor[i].cost.ToString();
             listItems.Add(item.imageItem);
+            listItemDecors.Add(item);
             sprites.Add(dataBook.listDataItemDecor[i].sprite);
         }
     }

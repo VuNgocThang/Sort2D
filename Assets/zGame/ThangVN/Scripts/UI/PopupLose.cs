@@ -79,6 +79,9 @@ public class PopupLose : Popup
     public override void Init()
     {
         base.Init();
+        if (LogicGame.Instance.countRevive == 0) btnRevive.gameObject.SetActive(false);
+        else btnRevive.gameObject.SetActive(true);
+
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPopupLose);
         Debug.Log("Heart: " + SaveGame.Heart);
         if (SaveGame.Heart > 0)
