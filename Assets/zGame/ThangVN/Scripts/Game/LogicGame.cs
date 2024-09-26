@@ -116,7 +116,7 @@ public class LogicGame : MonoBehaviour
         Application.targetFrameRate = 60;
         Refresh();
         //InitPlateSpawn(false);
-
+        LoadSaveData();
         LoadData();
         InitListCheckPlate();
         InitNextPlate();
@@ -193,7 +193,12 @@ public class LogicGame : MonoBehaviour
         }
         else
         {
-            LoadLevelNormal();
+            maxPoint = colorPlateData.goalScore;
+            gold = colorPlateData.gold;
+            pigment = colorPlateData.pigment;
+
+            if (saveGameNormal == null) LoadLevelNormal();
+            else LoadSaveNormalData();
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab, ListArrowPlate);
@@ -276,8 +281,8 @@ public class LogicGame : MonoBehaviour
             int index = colorPlateData.listSpecialData[i].Row * cols + colorPlateData.listSpecialData[i].Col;
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
 
+            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
             if (ListColorPlate[index].status == Status.Frozen)
             {
                 ListColorPlate[index].countFrozen = 3;
@@ -335,9 +340,7 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[index].logicVisual.DeletePlate();
         }
 
-        maxPoint = colorPlateData.goalScore;
-        gold = colorPlateData.gold;
-        pigment = colorPlateData.pigment;
+
     }
 
     #region InitNextPlate
@@ -620,15 +623,23 @@ public class LogicGame : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
             SaveGame.Level++;
             ManagerEvent.ClearEvent();
+
             SceneManager.LoadScene("SceneGame");
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
             SaveGame.Level--;
             ManagerEvent.ClearEvent();
+
             SceneManager.LoadScene("SceneGame");
         }
 
@@ -1139,13 +1150,13 @@ public class LogicGame : MonoBehaviour
             {
                 if (!CheckColorPlateValue(ListCheckPlate[i]))
                 {
-                    Debug.Log(ListCheckPlate[i].name);
+                    //Debug.Log(ListCheckPlate[i].name);
                     countZeroListValues++;
                 }
             }
 
         }
-        Debug.Log("countZeroListValues: " + countZeroListValues);
+        //Debug.Log("countZeroListValues: " + countZeroListValues);
         if (countZeroListValues > 2)
         {
             homeInGame.imgDanger.SetActive(false);
@@ -1161,26 +1172,12 @@ public class LogicGame : MonoBehaviour
         if (countZeroListValues == 0 && !isMergeing)
         {
             isLose = true;
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
             Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
         }
-
-        //for (int i = 0; i < ListCheckPlate.Count; i++)
-        //{
-
-        //    if (ListCheckPlate[i].ListValue.Count == 0 /*|| ListCheckPlate[i].isLocked || ListCheckPlate[i].countFrozen != 0 || ListCheckPlate[i].status == Status.CannotPlace*/)
-        //    {
-        //        allPlaced = false;
-        //        break;
-        //    }
-        //}
-
-        //if (allPlaced && !isMergeing && !isLose)
-        //{
-        //    isLose = true;
-        //    Debug.Log("You lose");
-        //    StartCoroutine(RaiseEventLose());
-        //}
     }
 
     bool CheckColorPlateValue(ColorPlate colorPlateCheck)
@@ -1204,6 +1201,9 @@ public class LogicGame : MonoBehaviour
     void CheckWin()
     {
         isWin = true;
+        saveGameNormal = null;
+        PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
         Debug.Log(point + " __ " + gold + " __ " + pigment);
         Debug.Log("check win");
         if (SaveGame.Level < 19)
@@ -1265,40 +1265,135 @@ public class LogicGame : MonoBehaviour
 
             homeInGame.imgDanger.SetActive(false);
         }
-
-        //if (ListArrowPlate.Count >= 4)
-        //{
-        //    List<ColorPlate> newListRevive = new List<ColorPlate>();
-        //    while (newListRevive.Count < 3)
-        //    {
-        //        int randomIndex = UnityEngine.Random.Range(0, ListArrowPlate.Count);
-
-        //        if (ListArrowPlate[randomIndex].ListConnect.Count > 0 && !newListRevive.Contains(ListArrowPlate[randomIndex].ListConnect[0]))
-        //        {
-        //            Debug.Log("randomIndex: " + randomIndex);
-        //            newListRevive.Add(ListArrowPlate[randomIndex].ListConnect[0]);
-        //        }
-        //        else continue;
-        //        // Nếu ListArrowPlate[randomIndex].ListConnect.Count == 0 thì vòng lặp sẽ tiếp tục
-        //        // Nếu newListRevive đã có ListArrowPlate[randomIndex].ListConnect[0] thì sẽ tiếp tục tìm kiếm
-        //    }
-
-        //    foreach (var plate in newListRevive)
-        //    {
-        //        plate.ClearAll();
-        //    }
-
-        //    homeInGame.imgDanger.SetActive(false);
-        //}
-        //else
-        //{
-        //    foreach (var plate in ListArrowPlate)
-        //    {
-        //        plate.ClearAll();
-        //    }
-
-        //    homeInGame.imgDanger.SetActive(false);
-        //}
     }
+
+    #region SaveDataProgress
+    public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();
+
+    private void OnApplicationQuit()
+    {
+        SaveDataGame();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Debug.Log("Páue");
+            SaveDataGame();
+        }
+        else
+        {
+            Debug.Log("UnPause");
+        }
+    }
+
+    public void SaveDataGame()
+    {
+        if (!SaveGame.Challenges)
+        {
+            SaveGameNormal();
+        }
+        else
+        {
+
+        }
+    }
+
+    void SaveGameNormal()
+    {
+        SaveCurrentDataGame currentData = new SaveCurrentDataGame();
+
+        currentData.currentPoint = point;
+
+        List<ColorPlateInTable> listColorPlateInTable = new List<ColorPlateInTable>();
+
+        for (int i = 0; i < ListColorPlate.Count; i++)
+        {
+            List<CurrentEnum> listCurrentEnum = new List<CurrentEnum>();
+
+            for (int j = 0; j < ListColorPlate[i].listTypes.Count; j++)
+            {
+                CurrentEnum currentEnum = new CurrentEnum();
+
+                currentEnum.indexEnum = (int)ListColorPlate[i].listTypes[j].type;
+                currentEnum.countEnum = ListColorPlate[i].listTypes[j].listPlates.Count;
+                listCurrentEnum.Add(currentEnum);
+            }
+
+            ColorPlateInTable colorPlateInTable = new ColorPlateInTable()
+            {
+                typeColorPlate = (int)ListColorPlate[i].status,
+                countFrozen = ListColorPlate[i].countFrozen,
+                pointToUnlock = ListColorPlate[i].pointToUnLock,
+                listEnum = listCurrentEnum,
+            };
+
+            listColorPlateInTable.Add(colorPlateInTable);
+        }
+
+        currentData.ListColorPlate = listColorPlateInTable;
+        saveGameNormal = currentData;
+        string gameSaveData = JsonUtility.ToJson(saveGameNormal);
+        PlayerPrefs.SetString(GameConfig.GAMESAVENORMAL, gameSaveData);
+        PlayerPrefs.Save();
+    }
+
+    void LoadSaveData()
+    {
+        if (!SaveGame.Challenges)
+        {
+            string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
+            if (string.IsNullOrEmpty(gameSaveData))
+            {
+                Debug.Log("nullll");
+                saveGameNormal = null;
+                return;
+            }
+
+            saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
+        }
+    }
+
+    void LoadSaveNormalData()
+    {
+        Debug.Log("saveGameNormal.currentPoint: " + saveGameNormal.currentPoint);
+        point = saveGameNormal.currentPoint;
+
+        for (int i = 0; i < saveGameNormal.ListColorPlate.Count; i++)
+        {
+            Debug.Log(saveGameNormal.ListColorPlate[i].typeColorPlate + " ___ " + saveGameNormal.ListColorPlate[i].listEnum.Count);
+
+            ListColorPlate[i].status = (Status)saveGameNormal.ListColorPlate[i].typeColorPlate;
+
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameNormal.ListColorPlate[i].countFrozen);
+
+            if (ListColorPlate[i].status == Status.LockCoin)
+            {
+                ListColorPlate[i].isLocked = true;
+                ListColorPlate[i].pointToUnLock = saveGameNormal.ListColorPlate[i].pointToUnlock;
+                ListColorPlate[i].txtPointUnlock.text = saveGameNormal.ListColorPlate[i].pointToUnlock.ToString();
+                ListColorPlate[i].txtPointUnlock.gameObject.SetActive(true);
+            }
+
+            if (ListColorPlate[i].status == Status.Empty)
+            {
+                ListColorPlate[i].logicVisual.DeletePlate();
+            }
+
+            if (ListColorPlate[i].status == Status.None)
+            {
+                ListColorPlate[i].logicVisual.Refresh();
+            }
+
+            ListColorPlate[i].Init(GetColorNew);
+
+            ListColorPlate[i].InitColorExisted(saveGameNormal.ListColorPlate[i].listEnum);
+
+        }
+    }
+
+    #endregion
+
 
 }

@@ -87,4 +87,8 @@ public static class GameConfig
     }
 
     public static string DATACOIN = "DATACOIN";
+
+    public static string GAMESAVENORMAL = "GameSaveNormal";
+
+    public static string GAMESAVECHALLENGES = "GameSaveChallenges";
 }

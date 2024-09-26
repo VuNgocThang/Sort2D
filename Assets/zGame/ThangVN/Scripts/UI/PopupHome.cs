@@ -121,6 +121,7 @@ public class PopupHome : MonoBehaviour
 
     private void Update()
     {
+
         if (!SaveGame.Challenges)
         {
             imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;

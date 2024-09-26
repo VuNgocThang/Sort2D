@@ -183,6 +183,31 @@ public class ColorPlate : MonoBehaviour
         InitGroupEnum();
         InitValue(this.transform, isFirst);
     }
+
+    public void InitColorExisted(List<CurrentEnum> listCurrentEnum)
+    {
+        InitExistedValue(listCurrentEnum);
+
+        InitValue(this.transform);
+    }
+
+    public void InitExistedValue(List<CurrentEnum> listCurrentEnum)
+    {
+        listTypes.Clear();
+
+        for (int i = 0; i < listCurrentEnum.Count; i++)
+        {
+            GroupEnum group = new GroupEnum { type = (ColorEnum)listCurrentEnum[i].indexEnum };
+            listTypes.Add(group);
+
+            for (int j = 0; j < listCurrentEnum[i].countEnum; j++)
+            {
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
+            }
+        }
+    }
+
     public void InitGroupEnum()
     {
         LevelData levelData = customRatio.listLevelData[0];

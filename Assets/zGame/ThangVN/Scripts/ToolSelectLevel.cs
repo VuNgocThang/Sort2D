@@ -34,6 +34,9 @@ public class ToolSelectLevel : MonoBehaviour
         ManagerEvent.ClearEvent();
         SaveGame.Level = int.Parse(inputField.text) - 1;
         SaveGame.IsDoneTutorial = true;
+        LogicGame.Instance.saveGameNormal = null;
+        PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
         SceneManager.LoadScene("SceneGame");
     }
 }

@@ -153,6 +153,27 @@ public class LogicVisualPlate : MonoBehaviour
         }
     }
 
+    public void SetSpecialSquareExisted(Status stt, int countFrozen)
+    {
+        switch (stt)
+        {
+            case Status.Frozen:
+                SetFrozen(countFrozen);
+                break;
+            case Status.CannotPlace:
+                SetCannotPlace();
+                break;
+            case Status.LockCoin:
+                SetLockCoin();
+                break;
+            case Status.Ads:
+                SetAds();
+                break;
+            default:
+                return;
+        }
+    }
+
     public void SetVisualAfterUnlock(Status stt)
     {
         switch (stt)
@@ -254,6 +275,7 @@ public class LogicVisualPlate : MonoBehaviour
         lockCoin.SetActive(true);
     }
 
+
     public void SetCannotPlace()
     {
         normal.SetActive(false);
@@ -280,6 +302,29 @@ public class LogicVisualPlate : MonoBehaviour
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
+        }
+    }
+
+    public void SetFrozen(int countFrozen)
+    {
+        normal.SetActive(true);
+        cannotPlace.SetActive(false);
+        lockCoin.SetActive(false);
+        ads.SetActive(false);
+
+        for (int i = 0; i < listForzen.Count; i++)
+        {
+            listForzen[i].SetActive(true);
+        }
+
+        if (countFrozen == 2)
+        {
+            listForzen[0].SetActive(false);
+        }
+        else if (countFrozen == 1)
+        {
+            listForzen[0].SetActive(false);
+            listForzen[1].SetActive(false);
         }
     }
 
