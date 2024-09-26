@@ -1368,6 +1368,11 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameNormal.ListColorPlate[i].countFrozen);
 
+            if (ListColorPlate[i].status == Status.Frozen)
+            {
+                ListColorPlate[i].countFrozen = saveGameNormal.ListColorPlate[i].countFrozen;
+            }
+
             if (ListColorPlate[i].status == Status.LockCoin)
             {
                 ListColorPlate[i].isLocked = true;
