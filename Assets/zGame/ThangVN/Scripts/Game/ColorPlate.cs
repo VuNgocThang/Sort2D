@@ -69,6 +69,7 @@ public class ColorPlate : MonoBehaviour
     public int pointToUnLock;
     public int countFrozen;
     public int countMaxDiff;
+    public AnimationCurve curve;
 
     private void Start()
     {
@@ -331,7 +332,7 @@ public class ColorPlate : MonoBehaviour
                     }
                     else
                     {
-                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.1f);
+                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.1f).SetEase(curve);
                     }
                 }
                 else

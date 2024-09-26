@@ -43,8 +43,15 @@ public class PopupUnlockColor : Popup
 
     public override void Hide()
     {
-        base.Hide();
-        StartCoroutine(ReturnGame());
+        transform.localScale = Vector3.one;
+
+        transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            LogicGame.Instance.isPauseGame = false;
+            gameObject.SetActive(false);
+            ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
+        });
+        //StartCoroutine(ReturnGame());
         //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
     }
 

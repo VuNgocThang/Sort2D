@@ -66,7 +66,7 @@ namespace ThangVN
             {
                 SaveGame.Coin -= 100;
                 SaveGame.Heart += 1;
-
+                ManagerEvent.ClearEvent();
                 SceneManager.LoadScene("SceneGame");
             }
             else
