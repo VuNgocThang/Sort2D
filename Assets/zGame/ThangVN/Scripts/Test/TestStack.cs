@@ -9,9 +9,9 @@ public class TestStack : MonoBehaviour
 {
     public SquareTest squarePrefab;
     public List<SquareTest> listSquare;
-    public Transform parent;
-    public Transform parentArrow;
-    public ArrowTest arrowPrefab;
+    public Transform nDesk;
+    public Transform nParentArrow;
+    public ColorPlate arrowPrefab;
 
     public int rows = 6;
     public int cols = 6;
@@ -25,8 +25,33 @@ public class TestStack : MonoBehaviour
 
     private void Start()
     {
+        ResetNDesk();
         GenerateGrid();
         InitArrowPlates();
+    }
+    float scale;
+    void ResetNDesk()
+    {
+
+        if (cols >= rows)
+        {
+            float y = 0.3f * (6 - cols);
+            this.transform.position = new Vector3(0, 1.8f + y, 0);
+
+            scale = 6f / cols;
+            nDesk.localScale = new Vector3(scale, scale, scale);
+            nParentArrow.localScale = new Vector3(scale, scale, scale);
+        }
+        else
+        {
+            float y = 0.3f * (6 - rows);
+            this.transform.position = new Vector3(0, 1.8f + y, 0);
+
+            scale = 6f / rows;
+            nDesk.localScale = new Vector3(scale, scale, scale);
+            nParentArrow.localScale = new Vector3(scale, scale, scale);
+        }
+
     }
 
     void GenerateGrid()
@@ -42,7 +67,7 @@ public class TestStack : MonoBehaviour
             {
                 Vector3 position = new Vector3(col, row, 0) * cellSize + startPosition;
 
-                SquareTest colorPlate = Instantiate(squarePrefab, parent);
+                SquareTest colorPlate = Instantiate(squarePrefab, nDesk);
                 colorPlate.Init(row, col);
                 colorPlate.transform.localPosition = position;
                 listSquare.Add(colorPlate);
@@ -67,28 +92,29 @@ public class TestStack : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            ArrowTest arrow = Instantiate(arrowPrefab, parentArrow);
+            ColorPlate arrow = Instantiate(arrowPrefab, nParentArrow);
 
             if (isHorizontal)
             {
-                arrow.transform.position = new Vector3(listSquare[0].transform.position.x + i * offSetX, basePosition.y, 0);
-                arrow.Init(-1, i);
+                arrow.transform.position = new Vector3(listSquare[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
+                arrow.Initialize(-1, i);
             }
             else
             {
-                arrow.transform.position = new Vector3(basePosition.x, listSquare[0].transform.position.y + i * offSetY, 0);
 
                 if (isArrowRight)
                 {
-                    arrow.Init(i, -1);
+                    arrow.transform.position = new Vector3(basePosition.x - 0.2f * scale, listSquare[0].transform.position.y + i * offSetY, 0);
+                    arrow.Initialize(i, -1);
                 }
                 else
                 {
-                    arrow.Init(i, count + 1);
+                    arrow.transform.position = new Vector3(basePosition.x + 0.2f * scale, listSquare[0].transform.position.y + i * offSetY, 0);
+                    arrow.Initialize(i, count + 1);
                 }
             }
 
-            
+
 
             arrow.transform.localEulerAngles = rotation;
             arrow.name = arrowName;

@@ -1129,19 +1129,23 @@ public class LogicGame : MonoBehaviour
 
     void CheckLose()
     {
-        bool allPlaced = true;
+        //bool allPlaced = true;
         int countZeroListValues = 0;
 
 
         for (int i = 0; i < ListCheckPlate.Count; i++)
         {
-
             if (ListCheckPlate[i].ListValue.Count == 0)
             {
-                countZeroListValues++;
+                if (!CheckColorPlateValue(ListCheckPlate[i]))
+                {
+                    Debug.Log(ListCheckPlate[i].name);
+                    countZeroListValues++;
+                }
             }
-        }
 
+        }
+        Debug.Log("countZeroListValues: " + countZeroListValues);
         if (countZeroListValues > 2)
         {
             homeInGame.imgDanger.SetActive(false);
@@ -1154,23 +1158,42 @@ public class LogicGame : MonoBehaviour
             //Debug.LogWarning(" Show Danger");
         }
 
-        for (int i = 0; i < ListCheckPlate.Count; i++)
-        {
-
-            if (ListCheckPlate[i].ListValue.Count == 0)
-            {
-                allPlaced = false;
-                break;
-            }
-        }
-
-        if (allPlaced && !isMergeing && !isLose)
+        if (countZeroListValues == 0 && !isMergeing)
         {
             isLose = true;
             Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
         }
+
+        //for (int i = 0; i < ListCheckPlate.Count; i++)
+        //{
+
+        //    if (ListCheckPlate[i].ListValue.Count == 0 /*|| ListCheckPlate[i].isLocked || ListCheckPlate[i].countFrozen != 0 || ListCheckPlate[i].status == Status.CannotPlace*/)
+        //    {
+        //        allPlaced = false;
+        //        break;
+        //    }
+        //}
+
+        //if (allPlaced && !isMergeing && !isLose)
+        //{
+        //    isLose = true;
+        //    Debug.Log("You lose");
+        //    StartCoroutine(RaiseEventLose());
+        //}
     }
+
+    bool CheckColorPlateValue(ColorPlate colorPlateCheck)
+    {
+
+        if (colorPlateCheck.isLocked || colorPlateCheck.status == Status.CannotPlace || colorPlateCheck.countFrozen != 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     IEnumerator RaiseEventLose()
     {
         yield return new WaitForSeconds(1f);

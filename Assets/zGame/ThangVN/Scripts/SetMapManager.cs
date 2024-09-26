@@ -202,8 +202,6 @@ public class SetMapManager : MonoBehaviour
         offSetY = listColorPlate[cols].transform.position.y - listColorPlate[0].transform.position.y;
 
         InitArrowUp(rows, cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate);
-        //InitArrows(rows, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), false, true, parent, listColorPlate, colorPlatePrefab, listArrowPlate);
-        //InitArrows(rows, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), false, false, parent, listColorPlate, colorPlatePrefab, listArrowPlate);
         InitArrowRight(rows, cols, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate);
         InitArrowLeft(rows, cols, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate);
     }
