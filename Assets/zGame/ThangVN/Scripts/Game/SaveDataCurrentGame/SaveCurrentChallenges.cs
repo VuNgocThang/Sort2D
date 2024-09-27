@@ -1,18 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class SaveCurrentChallenges : MonoBehaviour
+[Serializable]
+public class SaveCurrentChallenges
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<ColorPlateInTable> ListColorPlate = new List<ColorPlateInTable>();
+    public int currentPoint;
 }
