@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System;
 using System.ComponentModel;
+using UnityEngine.UIElements;
 
 public class SetMapManager : MonoBehaviour
 {
@@ -201,18 +202,21 @@ public class SetMapManager : MonoBehaviour
         offSetX = listColorPlate[1].transform.position.x - listColorPlate[0].transform.position.x;
         offSetY = listColorPlate[cols].transform.position.y - listColorPlate[0].transform.position.y;
 
-        InitArrowUp(rows, cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate);
-        InitArrowRight(rows, cols, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate);
-        InitArrowLeft(rows, cols, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate);
+        float scale;
+        if (cols >= rows) scale = 6f / cols;
+        else scale = 6f / rows;
+
+        InitArrowUp(rows, cols, new Vector3(0, 0, 90f), "ArrowUp", new Vector3(0, -1.44f, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate, scale);
+        InitArrowRight(rows, cols, new Vector3(0, 0, 0), "ArrowRight", new Vector3(-2.5f, 0, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate, scale);
+        InitArrowLeft(rows, cols, new Vector3(0, 0, 180f), "ArrowLeft", new Vector3(2.5f, 0, 0), parent, listColorPlate, colorPlatePrefab, listArrowPlate, scale);
     }
 
-    void InitArrowUp(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
+    void InitArrowUp(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate, float scale)
     {
         for (int i = 0; i < cols; i++)
         {
             ColorPlate arrow = Instantiate(colorPlatePrefab, parent);
             arrow.gameObject.layer = 6;
-            arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y, 0);
             arrow.status = Status.Up;
             //arrow.Initialize(-1, i);
 
@@ -225,23 +229,25 @@ public class SetMapManager : MonoBehaviour
                 break;
             }
 
-            //if (i != 0 && i != cols - 1)
-            //{
-            //    arrow.LinkColorPlate(colorPlate[0, i]);
-            //}
+            //arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.transform.localEulerAngles = rotation;
+            parent.localScale = new Vector3(scale, scale, scale);
 
-            arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
+            if (cols != 6)
+            {
+                arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
             arrow.name = arrowName;
             listArrowPlate.Add(arrow);
         }
     }
-    void InitArrowRight(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
+    void InitArrowRight(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate, float scale)
     {
         for (int i = 0; i < rows; i++)
         {
             ColorPlate arrow = Instantiate(colorPlatePrefab, parent);
             arrow.gameObject.layer = 6;
-            arrow.transform.position = new Vector3(basePosition.x, listColorPlate[0].transform.position.y + i * offSetY, 0);
             arrow.status = Status.Right;
             for (int j = 0; j < cols; j++)
             {
@@ -252,7 +258,15 @@ public class SetMapManager : MonoBehaviour
                 break;
             }
 
-            arrow.logicVisual.transform.localEulerAngles = rotation;
+            //arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.transform.localEulerAngles = rotation;
+            parent.localScale = new Vector3(scale, scale, scale);
+
+            arrow.transform.position = new Vector3(basePosition.x - 0.2f * scale, listColorPlate[0].transform.position.y + i * offSetY, 0);
+            if (rows != 6)
+            {
+                arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
             arrow.name = arrowName;
             listArrowPlate.Add(arrow);
         }
@@ -260,13 +274,12 @@ public class SetMapManager : MonoBehaviour
 
 
 
-    void InitArrowLeft(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
+    void InitArrowLeft(int rows, int cols, Vector3 rotation, string arrowName, Vector3 basePosition, Transform parent, List<ColorPlate> listColorPlate, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate, float scale)
     {
         for (int i = 0; i < rows; i++)
         {
             ColorPlate arrow = Instantiate(colorPlatePrefab, parent);
             arrow.gameObject.layer = 6;
-            arrow.transform.position = new Vector3(basePosition.x, listColorPlate[0].transform.position.y + i * offSetY, 0);
             arrow.status = Status.Left;
             for (int j = cols - 1; j >= 0; j--)
             {
@@ -277,7 +290,15 @@ public class SetMapManager : MonoBehaviour
                 break;
             }
 
-            arrow.logicVisual.transform.localEulerAngles = rotation;
+            //arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.transform.localEulerAngles = rotation;
+            parent.localScale = new Vector3(scale, scale, scale);
+            if (rows != 6)
+            {
+                arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
+
+            arrow.transform.position = new Vector3(basePosition.x + 0.2f * scale, listColorPlate[0].transform.position.y + i * offSetY, 0);
             arrow.name = arrowName;
             listArrowPlate.Add(arrow);
         }
