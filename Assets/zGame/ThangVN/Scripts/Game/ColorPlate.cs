@@ -324,8 +324,8 @@ public class ColorPlate : MonoBehaviour
                 color.transform.localRotation = Quaternion.identity;
 
                 color.transform.localScale = Vector3.one;
-
-                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                color.transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 ListColor.Add(color);
             }
             else
@@ -343,8 +343,9 @@ public class ColorPlate : MonoBehaviour
                     if (index == 0)
                     {
                         LogicColor colorZ = ListColor[i];
+                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                        colorZ.transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.1f)
+                        colorZ.transform.DOLocalJump(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.1f)
                             .OnStart(() =>
                             {
                                 colorZ.spriteRender.sortingOrder = 11;
@@ -357,12 +358,16 @@ public class ColorPlate : MonoBehaviour
                     }
                     else
                     {
-                        ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.1f).SetEase(curve);
+                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                        ListColor[i].transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.1f).SetEase(curve);
                     }
                 }
                 else
                 {
-                    ListColor[i].transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                    float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                    ListColor[i].transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
 
             }

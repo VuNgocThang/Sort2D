@@ -114,6 +114,10 @@ public class TestStack : MonoBehaviour
                 }
             }
 
+            if (count != 6)
+            {
+                arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
 
 
             arrow.transform.localEulerAngles = rotation;

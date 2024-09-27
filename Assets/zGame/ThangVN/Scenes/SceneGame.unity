@@ -3857,6 +3857,7 @@ MonoBehaviour:
   gameMode: 1
   cam: {fileID: 330585545}
   holder: {fileID: 1048348263}
+  nParentArrow: {fileID: 1923326692}
   targetUIPosition: {fileID: 1456683859}
   colorPlateData:
     listSpecialData: []
@@ -3982,6 +3983,9 @@ MonoBehaviour:
   listSteps: []
   listNearByCanConnect: []
   saveGameNormal:
+    ListColorPlate: []
+    currentPoint: 0
+  saveGameChallenges:
     ListColorPlate: []
     currentPoint: 0
 --- !u!4 &603901195
@@ -11691,7 +11695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923326692}
   m_Layer: 0
-  m_Name: listArrow
+  m_Name: nParentArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

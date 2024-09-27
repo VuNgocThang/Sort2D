@@ -25,6 +25,7 @@ public class LogicGame : MonoBehaviour
     public const int RULE_COMPLETE = 10;
     [SerializeField] Camera cam;
     [SerializeField] Transform holder;
+    [SerializeField] Transform nParentArrow;
     [SerializeField] public Transform targetUIPosition;
 
     [SerializeField] public ColorPlateData colorPlateData;
@@ -202,7 +203,7 @@ public class LogicGame : MonoBehaviour
             else LoadSaveNormalData();
         }
 
-        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab, ListArrowPlate);
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
         DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
         countDiffMax = dataLevel.CountDiff;
     }
@@ -711,7 +712,9 @@ public class LogicGame : MonoBehaviour
             {
                 Vector3 localPos = renderer.transform.localPosition;
                 renderer.transform.SetParent(startColorPlate.transform);
-                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -754,7 +757,9 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.SetParent(endColorPlate.transform);
 
                 Transform transformCache = renderer.transform;
-                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f).SetEase(curveMove));
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f).SetEase(curveMove));
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
                 renderer.transform.localRotation = Quaternion.identity;

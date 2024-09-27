@@ -68,6 +68,7 @@ public class DefaultFinishPlate : IVisualPlate
             else
             {
                 sq.Insert(delay, color.transform.DOScale(0, 0.3f));
+                sq.Insert(delay, color.transform.DORotate(new Vector3(0, 0, 360), 0.3f, RotateMode.LocalAxisAdd));
                 delay += 0.05f;
                 sq.OnComplete(() =>
                 {

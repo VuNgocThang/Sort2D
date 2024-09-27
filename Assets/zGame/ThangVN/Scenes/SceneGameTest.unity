@@ -805,7 +805,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 181896552}
-  - component: {fileID: 181896553}
   m_Layer: 0
   m_Name: nDesk
   m_TagString: Untagged
@@ -828,26 +827,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1413535243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &181896553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181896551}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89bb034ff33e73f43be7f5720985c17a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  easyController: {fileID: 1736101034}
-  nX: {fileID: 181896552}
-  cam: {fileID: 330585545}
-  speed: 50
-  topBorder: 700
-  bottomBorder: 850
-  leftBorder: 0
-  rightBorder: 0
 --- !u!1 &185965149
 GameObject:
   m_ObjectHideFlags: 0
@@ -4146,6 +4125,12 @@ MonoBehaviour:
   timerRun: -1
   listSteps: []
   listNearByCanConnect: []
+  saveGameNormal:
+    ListColorPlate: []
+    currentPoint: 0
+  saveGameChallenges:
+    ListColorPlate: []
+    currentPoint: 0
 --- !u!4 &603901195
 Transform:
   m_ObjectHideFlags: 0
@@ -4164,7 +4149,6 @@ Transform:
   - {fileID: 1576420973}
   - {fileID: 124753108}
   - {fileID: 1426200808}
-  - {fileID: 1355555631}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &608311472
@@ -8194,58 +8178,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1355555630
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1355555631}
-  - component: {fileID: 1355555632}
-  m_Layer: 0
-  m_Name: Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1355555631
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355555630}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 603901195}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1355555632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355555630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89bb034ff33e73f43be7f5720985c17a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  easyController: {fileID: 1736101034}
-  nX: {fileID: 0}
-  cam: {fileID: 330585545}
-  speed: 50
-  topBorder: 700
-  bottomBorder: 850
-  leftBorder: 0
-  rightBorder: 0
 --- !u!1 &1358056034
 GameObject:
   m_ObjectHideFlags: 0
