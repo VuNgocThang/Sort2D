@@ -16,7 +16,6 @@ public class ImageItem : MonoBehaviour
     {
         btn.OnClick(() =>
         {
-            TESTUIMOVEMENT testMove = FindObjectOfType<TESTUIMOVEMENT>();
             PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
 
             if (popupDecorateBook != null)

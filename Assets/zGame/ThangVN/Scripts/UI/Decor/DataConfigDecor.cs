@@ -8,7 +8,7 @@ using UnityEngine;
 [Serializable]
 public class DataItemDecor
 {
-    public int id;
+    public int idItemDecor;
     public int cost;
     public Sprite spriteIcon;
     public Sprite sprite;
@@ -18,7 +18,7 @@ public class DataItemDecor
 [Serializable]
 public class DataSlot
 {
-    public int id;
+    public int idSlot;
     public Sprite spriteLine;
     public Vector2 pos;
 }
@@ -33,6 +33,27 @@ public class DataBook
 
 
 //data save
+[Serializable]
+public class ItemDecorated
+{
+    public int idItemDecorated;
+    public bool isPainted;
+}
+
+[Serializable]
+public class BookDecorated
+{
+    public int idBookDecorated;
+    public float progress;
+    public bool isPainted;
+    public List<ItemDecorated> listItemDecorated;
+}
+
+[Serializable]
+public class ListBookDecorated
+{
+    public List<BookDecorated> listBookDecorated;
+}
 
 
 

@@ -56,7 +56,7 @@ public class TESTUIMOVEMENT : MonoBehaviour
         for (int i = 0; i < dataBook.listDataSlots.Count; i++)
         {
             Slot slot = Instantiate(slotPrefab, nParentSlot);
-            slot.id = dataBook.listDataSlots[i].id;
+            slot.id = dataBook.listDataSlots[i].idSlot;
             slot.rectTransform.anchoredPosition = dataBook.listDataSlots[i].pos;
             slot.imgLine.sprite = dataBook.listDataSlots[i].spriteLine;
             slot.imgLine.SetNativeSize();
@@ -67,7 +67,7 @@ public class TESTUIMOVEMENT : MonoBehaviour
         for (int i = 0; i < dataBook.listDataItemDecor.Count; i++)
         {
             ItemDecor item = Instantiate(itemDecorPrefab, nContent);
-            item.imgItem.id = dataBook.listDataItemDecor[i].id;
+            item.imgItem.id = dataBook.listDataItemDecor[i].idItemDecor;
             item.imgItem.img.sprite = dataBook.listDataItemDecor[i].spriteIcon;
             item.txtCost.text = dataBook.listDataItemDecor[i].cost.ToString();
             listItems.Add(item.imgItem);

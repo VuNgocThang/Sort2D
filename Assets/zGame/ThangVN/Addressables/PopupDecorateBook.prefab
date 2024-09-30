@@ -566,6 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   btnClose:
   - {fileID: 5745040090047185986}
+  idBookDecorated: 0
   nColorChangeBook: {fileID: 8241915155715569863}
   nColorChangeBg1: {fileID: 931267382290740073}
   nColorChangeBg2: {fileID: 5396809825148431308}
@@ -586,6 +587,7 @@ MonoBehaviour:
   listItems: []
   slots: []
   sprites: []
+  listItemDecors: []
   itemDragPrefab: {fileID: 4402296398394638939, guid: c2906f6050d380b41a2f80a33ff53590,
     type: 3}
   slotPrefab: {fileID: 4526265694080287041, guid: d4fff37d472b2a843a487e99ff8c70d2,
@@ -593,6 +595,11 @@ MonoBehaviour:
   itemDecorPrefab: {fileID: 2745087057056850017, guid: 85392257083288e4d8fdc38b3674cd83,
     type: 3}
   dataConfigDecor: {fileID: 11400000, guid: 0f8742cf8a747194b9e17f4973278aaa, type: 2}
+  bookDecorated:
+    idBookDecorated: 0
+    progress: 0
+    isPainted: 0
+    listItemDecorated: []
 --- !u!114 &8213304762944989910
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class PopupBookItem : Popup
 {
     [SerializeField] EasyButton btnDecorate;
     [SerializeField] TextMeshProUGUI txtProgress, txtNameBook, txtDecorate;
+    [SerializeField] BookDecorated bookDecorated;
 
     private void Awake()
     {

@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilities.Common;
 
 public class PopupDecorateBook : Popup
 {
+    [SerializeField] int idBookDecorated;
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext;
     [SerializeField] TextMeshProUGUI txtNameBook;
@@ -24,6 +26,8 @@ public class PopupDecorateBook : Popup
 
     [SerializeField] DataConfigDecor dataConfigDecor;
     DataBook dataBook;
+
+    [SerializeField] BookDecorated bookDecorated;
 
     private void Awake()
     {
@@ -44,8 +48,22 @@ public class PopupDecorateBook : Popup
         OnSelect(true);
     }
 
+    void LoadDataBook()
+    {
+        idBookDecorated = SaveGame.CurrentBook;
+        for (int i = 0; i < SaveGame.ListBookDecorated.listBookDecorated.Count; i++)
+        {
+            if (idBookDecorated == SaveGame.ListBookDecorated.listBookDecorated[i].idBookDecorated)
+            {
+                bookDecorated = SaveGame.ListBookDecorated.listBookDecorated[i];
+            }
+        }
+    }
+
     public void Initialize(int index)
     {
+        LoadDataBook();
+
         Debug.Log("Show PopupDecorateBook at index: " + index);
         listItems.Clear();
         for (int i = 0; i < slots.Count; i++)
@@ -72,7 +90,7 @@ public class PopupDecorateBook : Popup
         for (int i = 0; i < dataBook.listDataSlots.Count; i++)
         {
             Slot slot = Instantiate(slotPrefab, nParentSlot);
-            slot.id = dataBook.listDataSlots[i].id;
+            slot.id = dataBook.listDataSlots[i].idSlot;
             slot.rectTransform.anchoredPosition = dataBook.listDataSlots[i].pos;
             slot.imgLine.sprite = dataBook.listDataSlots[i].spriteLine;
             slot.imgLine.SetNativeSize();
@@ -83,7 +101,7 @@ public class PopupDecorateBook : Popup
         for (int i = 0; i < dataBook.listDataItemDecor.Count; i++)
         {
             ItemDecor item = Instantiate(itemDecorPrefab, nContent);
-            item.imageItem.id = dataBook.listDataItemDecor[i].id;
+            item.imageItem.id = dataBook.listDataItemDecor[i].idItemDecor;
             item.imageItem.img.sprite = dataBook.listDataItemDecor[i].spriteIcon;
             item.imageItem.img.SetNativeSize();
             item.txtCost.text = dataBook.listDataItemDecor[i].cost.ToString();
@@ -91,6 +109,36 @@ public class PopupDecorateBook : Popup
             listItemDecors.Add(item);
             sprites.Add(dataBook.listDataItemDecor[i].sprite);
         }
+
+
+        for (int i = 0; i < listItems.Count; i++)
+        {
+            for (int j = 0; j < bookDecorated.listItemDecorated.Count; j++)
+            {
+                if (bookDecorated.listItemDecorated[j].idItemDecorated == listItems[i].id)
+                {
+                    listItems[i].isPainted = true;
+                    listItems[i].img.gameObject.SetActive(false);
+
+                    int idIndex = listItems[i].id;
+
+                    for (int k = 0; k < slots.Count; k++)
+                    {
+                        if (slots[k].id == idIndex)
+                        {
+                            ItemDraggable item = ItemDraggablePool.Instance.GetPooledObject();
+                            item.imgItemDrag.sprite = sprites[listItems[i].id];
+                            item.imgItemDrag.SetNativeSize();
+                            item.id = listItems[i].id;
+                            item.SetInParent(listItems[i], slots[k]);
+                            item.transform.localScale = Vector3.one;
+                            item.gameObject.SetActive(true);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public override void Hide()
@@ -122,7 +170,10 @@ public class PopupDecorateBook : Popup
 
         for (int i = 0; i < slots.Count; i++)
         {
-            if (slots[i].id == imageItem.id) currentItemDrag.Initialize(imageItem, startPos, slots[i]);
+            if (slots[i].id == imageItem.id)
+            {
+                currentItemDrag.Initialize(imageItem, startPos, slots[i]);
+            }
         }
 
         currentItemDrag.rectTransform.position = imageItemRect.position;

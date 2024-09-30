@@ -400,6 +400,58 @@ public static class SaveGame
         }
     }
 
+    const string LISTBOOKDATA = "LISTBOOKDATA";
+    static ListBookDecorated listBookDecorated;
+
+    public static ListBookDecorated ListBookDecorated
+    {
+        set
+        {
+            listBookDecorated = value;
+            ES3.Save(LISTBOOKDATA, listBookDecorated);
+        }
+        get
+        {
+            if (listBookDecorated == null)
+            {
+                listBookDecorated = ES3.Load(LISTBOOKDATA, new ListBookDecorated
+                {
+                    listBookDecorated = new List<BookDecorated>()
+                    {
+                        new BookDecorated()
+                        {
+                            idBookDecorated = 0,
+                            progress = 0,
+                            isPainted = false,
+                            listItemDecorated = new List<ItemDecorated>()
+                            {
+
+                            }
+                        }
+                    }
+                });
+            }
+            return listBookDecorated;
+        }
+    }
+
+    const string CURRENTBOOK = "CURRENTBOOK";
+    static int currentBook = -1;
+
+    public static int CurrentBook
+    {
+        set
+        {
+            ES3.Save(CURRENTBOOK, value);
+            currentBook = value;
+        }
+        get
+        {
+            if (currentBook == -1) currentBook = ES3.Load(CURRENTBOOK, 0);
+            return currentBook;
+        }
+    }
+
 
     const string CURRENTROOM = "CURRENTROOM";
     static int currentRoom = -1;

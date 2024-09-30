@@ -28,7 +28,8 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
 
     public T GetPooledObject()
     {
-        for (int i = 0; i < amountPrefab; i++)
+        Debug.Log(pooledObjects.Count);
+        for (int i = 0; i < pooledObjects.Count; i++)
         {
             if (!pooledObjects[i].gameObject.activeInHierarchy)
             {
@@ -37,7 +38,7 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         }
 
         T tmp = Instantiate(prefab);
-        tmp.gameObject.SetActive(true);
+        tmp.gameObject.SetActive(false);
         pooledObjects.Add(tmp);
         return tmp;
     }
