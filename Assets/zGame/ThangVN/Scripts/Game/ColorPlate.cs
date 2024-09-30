@@ -70,6 +70,7 @@ public class ColorPlate : MonoBehaviour
     public int countFrozen;
     public int countMaxDiff;
     public AnimationCurve curve;
+    public TimerConfigData timerConfigData;
 
     private void Start()
     {
@@ -345,7 +346,7 @@ public class ColorPlate : MonoBehaviour
                         LogicColor colorZ = ListColor[i];
                         float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                        colorZ.transform.DOLocalJump(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, 0.1f)
+                        colorZ.transform.DOLocalJump(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, timerConfigData.timeMove)
                             .OnStart(() =>
                             {
                                 colorZ.spriteRender.sortingOrder = 11;
@@ -360,7 +361,7 @@ public class ColorPlate : MonoBehaviour
                     {
                         float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                        ListColor[i].transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 0.1f).SetEase(curve);
+                        ListColor[i].transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove).SetEase(curve);
                     }
                 }
                 else

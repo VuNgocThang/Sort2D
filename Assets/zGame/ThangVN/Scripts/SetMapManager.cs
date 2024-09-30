@@ -771,8 +771,6 @@ public class SetMapManager : MonoBehaviour
         }
     }
 
-
-
     //void Generate()
     //{
     //    colorPlate = new ColorPlate[rows, cols];

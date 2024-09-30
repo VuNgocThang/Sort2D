@@ -99,6 +99,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] bool isHadSpawnSpecial = false;
     [SerializeField] SpineSelectionChange spineSelection;
     [SerializeField] ControllerAnimState ControllerAnimState;
+    [SerializeField] TimerConfigData timerConfigData;
 
     LogicColor GetColorNew()
     {
@@ -1135,8 +1136,8 @@ public class LogicGame : MonoBehaviour
 
             //timerRun += 0.13f;
 
-            sequence.AppendInterval(0.1f);
-            timerRun += 0.15f;
+            sequence.AppendInterval(timerConfigData.timeMerge);
+            timerRun += timerConfigData.timeRun;
         }
         //timerRun += 0.2f;
         //timerRun += 0.1f * count + 0.5f;
