@@ -54,6 +54,8 @@ public class HomeUI : MonoBehaviour
 
     private void Start()
     {
+
+
         int randomBG = UnityEngine.Random.Range(0, 2);
         bg.sprite = listSprite[randomBG];
 
