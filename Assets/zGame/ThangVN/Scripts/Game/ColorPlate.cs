@@ -361,7 +361,7 @@ public class ColorPlate : MonoBehaviour
                     {
                         float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                        ListColor[i].transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove).SetEase(curve);
+                        ListColor[i].transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove)/*.SetEase(curve)*/;
                     }
                 }
                 else

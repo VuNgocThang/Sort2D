@@ -24,13 +24,19 @@ public class DataSlot
 }
 
 [Serializable]
+public class DataColor
+{
+    public int idColor;
+    public Color color;
+}
+
+[Serializable]
 public class DataBook
 {
     public int idBook;
     public List<DataItemDecor> listDataItemDecor;
     public List<DataSlot> listDataSlots;
 }
-
 
 //data save
 [Serializable]
@@ -47,6 +53,12 @@ public class BookDecorated
     public float progress;
     public bool isPainted;
     public List<ItemDecorated> listItemDecorated;
+}
+
+[Serializable]
+public class ColorPainted
+{
+    public int idColorPainted;
 }
 
 [Serializable]

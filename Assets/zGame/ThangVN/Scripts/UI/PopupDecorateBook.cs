@@ -1,6 +1,8 @@
+﻿using Febucci.UI;
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -110,34 +112,63 @@ public class PopupDecorateBook : Popup
             sprites.Add(dataBook.listDataItemDecor[i].sprite);
         }
 
+        Dictionary<int, ImageItem> itemDict = listItems.ToDictionary(item => item.id);
 
-        for (int i = 0; i < listItems.Count; i++)
+        for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
         {
-            for (int j = 0; j < bookDecorated.listItemDecorated.Count; j++)
+            int idItemDecorated = bookDecorated.listItemDecorated[i].idItemDecorated;
+
+            // Kiểm tra nếu item tồn tại trong dictionary
+            if (itemDict.TryGetValue(idItemDecorated, out ImageItem itemData))
             {
-                if (bookDecorated.listItemDecorated[j].idItemDecorated == listItems[i].id)
+                itemData.isPainted = true;
+                itemData.img.gameObject.SetActive(false);
+
+                // Lấy danh sách các slot có id khớp với item
+                for (int k = 0; k < slots.Count; k++)
                 {
-                    listItems[i].isPainted = true;
-                    listItems[i].img.gameObject.SetActive(false);
-
-                    int idIndex = listItems[i].id;
-
-                    for (int k = 0; k < slots.Count; k++)
+                    if (slots[k].id == idItemDecorated)
                     {
-                        if (slots[k].id == idIndex)
-                        {
-                            ItemDraggable item = ItemDraggablePool.Instance.GetPooledObject();
-                            item.imgItemDrag.sprite = sprites[listItems[i].id];
-                            item.imgItemDrag.SetNativeSize();
-                            item.id = listItems[i].id;
-                            item.SetInParent(listItems[i], slots[k]);
-                            item.transform.localScale = Vector3.one;
-                            item.gameObject.SetActive(true);
-                        }
+                        ItemDraggable itemDraggable = ItemDraggablePool.Instance.GetPooledObject();
+                        itemDraggable.imgItemDrag.sprite = sprites[idItemDecorated];
+                        itemDraggable.imgItemDrag.SetNativeSize();
+                        itemDraggable.id = idItemDecorated;
+                        itemDraggable.SetInParent(itemData, slots[k]);
+                        itemDraggable.transform.localScale = Vector3.one;
+                        itemDraggable.gameObject.SetActive(true);
                     }
                 }
             }
         }
+
+
+        //for (int i = 0; i < listItems.Count; i++)
+        //{
+        //    for (int j = 0; j < bookDecorated.listItemDecorated.Count; j++)
+        //    {
+        //        if (bookDecorated.listItemDecorated[j].idItemDecorated == listItems[i].id)
+        //        {
+        //            listItems[i].isPainted = true;
+        //            listItems[i].img.gameObject.SetActive(false);
+
+        //            int idIndex = listItems[i].id;
+
+        //            for (int k = 0; k < slots.Count; k++)
+        //            {
+        //                if (slots[k].id == idIndex)
+        //                {
+        //                    ItemDraggable item = ItemDraggablePool.Instance.GetPooledObject();
+        //                    item.imgItemDrag.sprite = sprites[listItems[i].id];
+        //                    item.imgItemDrag.SetNativeSize();
+        //                    item.id = listItems[i].id;
+        //                    item.SetInParent(listItems[i], slots[k]);
+        //                    item.transform.localScale = Vector3.one;
+        //                    item.gameObject.SetActive(true);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
     }
 
