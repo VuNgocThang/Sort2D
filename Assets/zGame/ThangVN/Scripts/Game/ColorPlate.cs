@@ -70,6 +70,7 @@ public class ColorPlate : MonoBehaviour
     public int countFrozen;
     public int countMaxDiff;
     public AnimationCurve curve;
+    public AnimationCurve curveMoveUp;
     public TimerConfigData timerConfigData;
 
     private void Start()
@@ -152,15 +153,11 @@ public class ColorPlate : MonoBehaviour
             }
         }
 
-        //int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
-
-        //GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-        //listTypes.Add(group);
-
-        //int randomCount = UnityEngine.Random.Range(1, 5);
-
-        //for (int j = 0; j < randomCount; j++)
+        //foreach (int type in listDiff)
         //{
+        //    GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+        //    listTypes.Add(group);
+
         //    group.listPlates.Add(group.type);
         //    ListValue.Add(group.type);
         //}
@@ -332,8 +329,58 @@ public class ColorPlate : MonoBehaviour
             else
             {
 
-                ListColor[i].gameObject.SetActive(true);
-                ListColor[i].Init((int)ListValue[i]);
+                //ListColor[i].gameObject.SetActive(true);
+                //ListColor[i].Init((int)ListValue[i]);
+
+                //if (Math.Abs(ListColor[i].transform.localPosition.x) > 1)
+                //{
+                //    float jumpPower = 0.5f + i * 0.1f;
+                //    Debug.Log("000000000000000");
+
+                //    LogicColor colorZ = ListColor[i];
+                //    float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                //    colorZ.transform.DOLocalJump(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, timerConfigData.timeMove)
+                //        .OnStart(() =>
+                //        {
+                //            colorZ.spriteRender.sortingOrder = 11;
+                //        })
+                //        .OnComplete(() =>
+                //        {
+                //            colorZ.spriteRender.sortingOrder = 1;
+                //        })
+                //        ;
+                //}
+                //else if (ListColor[i].transform.localPosition.y < -0.5f || ListColor[i].transform.localPosition.y > 1f)
+                //{
+                //    Debug.Log("111111111111");
+
+                //    float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                //    LogicColor colorZ = ListColor[i];
+
+                //    colorZ.transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove)
+                //        .SetEase(curve)
+                //        //.SetEase(curveMoveUp)
+                //        .OnStart(() =>
+                //        {
+                //            colorZ.spriteRender.sortingOrder = 11;
+                //        })
+                //        .OnComplete(() =>
+                //        {
+                //            colorZ.spriteRender.sortingOrder = 1;
+                //        })
+                //        ;
+                //    ;
+                //}
+                //else
+                //{
+                //    Debug.Log("wtf");
+
+                //    float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                //    ListColor[i].transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                //}
+
 
                 if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.y) > 1)
                 {
@@ -343,6 +390,8 @@ public class ColorPlate : MonoBehaviour
                     float jumpPower = 0.5f + i * 0.1f;
                     if (index == 0)
                     {
+                        Debug.Log("000000000000000");
+
                         LogicColor colorZ = ListColor[i];
                         float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
@@ -357,15 +406,32 @@ public class ColorPlate : MonoBehaviour
                             })
                             ;
                     }
-                    else
+                    else if (index == 1)
                     {
-                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                        Debug.Log("111111111111");
 
-                        ListColor[i].transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove)/*.SetEase(curve)*/;
+                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                        LogicColor colorZ = ListColor[i];
+
+                        colorZ.transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove)
+                            .SetEase(curve)
+                            //.SetEase(curveMoveUp)
+                            .OnStart(() =>
+                            {
+                                colorZ.spriteRender.sortingOrder = 11;
+                            })
+                            .OnComplete(() =>
+                            {
+                                colorZ.spriteRender.sortingOrder = 1;
+                            })
+                            ;
+                        ;
                     }
                 }
                 else
                 {
+                    Debug.Log("wtf");
+
                     float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
                     ListColor[i].transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);

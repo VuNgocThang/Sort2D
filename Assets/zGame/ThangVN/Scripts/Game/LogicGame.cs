@@ -156,7 +156,7 @@ public class LogicGame : MonoBehaviour
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
 
 
-        ResetPosSpawn();
+        //ResetPosSpawn();
 
     }
 
@@ -463,19 +463,19 @@ public class LogicGame : MonoBehaviour
 
     void SwitchNextPlate(object e)
     {
-        listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.2f).SetEase(Ease.OutCirc);
-        listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.2f).SetEase(Ease.InCirc);
-        foreach (LogicColor c in listNextPlate[0].ListColor)
-        {
-            c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
-        }
+        //listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.2f).SetEase(Ease.OutCirc);
+        //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.2f).SetEase(Ease.InCirc);
+        //foreach (LogicColor c in listNextPlate[0].ListColor)
+        //{
+        //    c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+        //}
 
-        foreach (LogicColor c in listNextPlate[1].ListColor)
-        {
-            c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-        }
+        //foreach (LogicColor c in listNextPlate[1].ListColor)
+        //{
+        //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+        //}
 
-        Swap(listNextPlate);
+        //Swap(listNextPlate);
     }
     float timeClick = -1;
 
@@ -715,7 +715,7 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.SetParent(startColorPlate.transform);
                 float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -730,17 +730,19 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].listTypes.Clear();
 
             Tweener t = null;
-            t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
-            listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
-            foreach (LogicColor c in listNextPlate[0].ListColor)
-            {
-                c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
-            }
+            t = listNextPlate[0].transform.DOMove(listNextPlate[1].transform.position, 0.3f).SetEase(Ease.OutCirc);
+            listNextPlate[1].transform.DOMove(listNextPlate[0].transform.position, 0.3f).SetEase(Ease.InCirc);
+            //t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
+            //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
+            //foreach (LogicColor c in listNextPlate[0].ListColor)
+            //{
+            //    c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+            //}
 
-            foreach (LogicColor c in listNextPlate[1].ListColor)
-            {
-                c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-            }
+            //foreach (LogicColor c in listNextPlate[1].ListColor)
+            //{
+            //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+            //}
             Swap(listNextPlate);
             t.OnComplete(() =>
             {
@@ -760,7 +762,13 @@ public class LogicGame : MonoBehaviour
                 Transform transformCache = renderer.transform;
                 float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f).SetEase(curveMove));
+                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f)
+                                                .SetEase(curveMove)
+                                                .OnComplete(() =>
+                                                {
+                                                    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                                                })
+                    );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
                 renderer.transform.localRotation = Quaternion.identity;
@@ -1128,9 +1136,15 @@ public class LogicGame : MonoBehaviour
                     startColorPlate.ListColor.RemoveAt(startColorPlate.ListColor.Count - 1);
 
                     if (startColorPlate.Col == endColorPlate.Col)
+                    {
                         endColorPlate.InitValue(endColorPlate.transform, true, 1);
-                    else
+
+                    }
+                    else if (startColorPlate.Row == endColorPlate.Row)
+                    {
+
                         endColorPlate.InitValue(endColorPlate.transform, true, 0);
+                    }
                 }
             });
 
@@ -1425,7 +1439,7 @@ public class LogicGame : MonoBehaviour
 
         for (int i = 0; i < saveGameNormal.ListColorPlate.Count; i++)
         {
-            Debug.Log(saveGameNormal.ListColorPlate[i].typeColorPlate + " ___ " + saveGameNormal.ListColorPlate[i].listEnum.Count);
+            //Debug.Log(saveGameNormal.ListColorPlate[i].typeColorPlate + " ___ " + saveGameNormal.ListColorPlate[i].listEnum.Count);
 
             ListColorPlate[i].status = (Status)saveGameNormal.ListColorPlate[i].typeColorPlate;
 
