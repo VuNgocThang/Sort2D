@@ -100,6 +100,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] SpineSelectionChange spineSelection;
     [SerializeField] ControllerAnimState ControllerAnimState;
     [SerializeField] TimerConfigData timerConfigData;
+    [SerializeField] SpawnBookTest spawnBook;
 
     LogicColor GetColorNew()
     {
@@ -729,9 +730,25 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
 
-            Tweener t = null;
-            t = listNextPlate[0].transform.DOMove(listNextPlate[1].transform.position, 0.3f).SetEase(Ease.OutCirc);
-            listNextPlate[1].transform.DOMove(listNextPlate[0].transform.position, 0.3f).SetEase(Ease.InCirc);
+            foreach (LogicColor renderer in listNextPlate[1].ListColor)
+            {
+                Vector3 localPos = renderer.transform.localPosition;
+                renderer.transform.SetParent(listNextPlate[0].transform);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
+                renderer.transform.localRotation = Quaternion.identity;
+                renderer.transform.localScale = Vector3.one;
+            }
+
+            listNextPlate[0].ListValue.AddRange(listNextPlate[1].ListValue);
+            listNextPlate[0].ListColor.AddRange(listNextPlate[1].ListColor);
+            listNextPlate[0].listTypes.AddRange(listNextPlate[1].listTypes);
+
+            spawnBook.PlayAnimSpawn();
+            //Tweener t = null;
+            //t = listNextPlate[0].transform.DOMove(listNextPlate[1].transform.position, 0.3f).SetEase(Ease.OutCirc);
+            //listNextPlate[1].transform.DOMove(listNextPlate[0].transform.position, 0.3f).SetEase(Ease.InCirc);
             //t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
             //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
             //foreach (LogicColor c in listNextPlate[0].ListColor)
@@ -743,11 +760,11 @@ public class LogicGame : MonoBehaviour
             //{
             //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
             //}
-            Swap(listNextPlate);
-            t.OnComplete(() =>
-            {
-                listNextPlate[1].InitColor();
-            });
+            //Swap(listNextPlate);
+            //t.OnComplete(() =>
+            //{
+            //    listNextPlate[1].InitColor();
+            //});
 
             float delay = 0f;
 

@@ -10,11 +10,20 @@ public class SpawnBookTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("press R");
-
-            animParent.Play("Spawn", -1, 0);
-            animBox.Play("box_anim", -1, 0);
+            PlayAnimSpawn();
         }
     }
 
+    public void PlayAnimSpawn()
+    {
+        Debug.Log("press R");
+
+        animParent.Play("Spawn", -1, 0);
+        animBox.Play("box_anim", -1, 0);
+    }
+
+    public void Spawn()
+    {
+        Debug.Log("Spawn Book");
+    }
 }
