@@ -621,8 +621,12 @@ public class ColorPlate : MonoBehaviour
                 {
                     if (color.trail != null) color.trail.enabled = true;
 
-                    Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
-                    Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+                    // Camera overlay
+                    Vector3 viewportPos = new Vector3(targetUIPosition.position.x / Screen.width, targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
+                    Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
+
+                    //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
+                    //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
                     color.transform.DOMove(targetPos, 0.3f).OnComplete(() =>
                     {

@@ -790,12 +790,12 @@ public class LogicGame : MonoBehaviour
                 Transform transformCache = renderer.transform;
                 float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f)
+                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
                                                 .SetEase(curveMove)
-                                                .OnComplete(() =>
-                                                {
-                                                    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                                                })
+                                                //.OnComplete(() =>
+                                                //{
+                                                //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                                                //})
                     );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
