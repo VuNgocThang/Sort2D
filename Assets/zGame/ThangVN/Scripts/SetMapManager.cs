@@ -229,8 +229,9 @@ public class SetMapManager : MonoBehaviour
                 break;
             }
 
-            //arrow.logicVisual.transform.localEulerAngles = rotation;
-            arrow.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localPosition = new Vector3(0, 0.2f, 0);
+            //arrow.transform.localEulerAngles = rotation;
             parent.localScale = new Vector3(scale, scale, scale);
 
             arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
@@ -260,8 +261,10 @@ public class SetMapManager : MonoBehaviour
                 break;
             }
 
-            //arrow.logicVisual.transform.localEulerAngles = rotation;
-            arrow.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localPosition = new Vector3(0.2f, 0, 0);
+
+            //arrow.transform.localEulerAngles = rotation;
             parent.localScale = new Vector3(scale, scale, scale);
 
             arrow.transform.position = new Vector3(basePosition.x - 0.2f * scale, listColorPlate[0].transform.position.y + i * offSetY, 0);
@@ -295,8 +298,10 @@ public class SetMapManager : MonoBehaviour
                 break;
             }
 
-            //arrow.logicVisual.transform.localEulerAngles = rotation;
-            arrow.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localEulerAngles = rotation;
+            arrow.logicVisual.transform.localPosition = new Vector3(-0.2f, 0, 0);
+
+            //arrow.transform.localEulerAngles = rotation;
             parent.localScale = new Vector3(scale, scale, scale);
 
             int max = rows >= cols ? rows : cols;

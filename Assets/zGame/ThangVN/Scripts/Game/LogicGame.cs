@@ -123,6 +123,7 @@ public class LogicGame : MonoBehaviour
         LoadData();
         InitListCheckPlate();
         InitNextPlate();
+        RecursiveMerge();
     }
     //void Test(int count)
     //{
@@ -713,9 +714,10 @@ public class LogicGame : MonoBehaviour
             foreach (LogicColor renderer in listNextPlate[0].ListColor)
             {
                 Vector3 localPos = renderer.transform.localPosition;
-                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.SetParent(startColorPlate.transform);
-                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -736,9 +738,10 @@ public class LogicGame : MonoBehaviour
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
                 Vector3 localPos = renderer.transform.localPosition;
-                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.SetParent(listNextPlate[0].transform);
-                t = renderer.transform.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.3f);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                t = renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
                 //renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
@@ -1503,12 +1506,12 @@ public class LogicGame : MonoBehaviour
 
     void LoadSaveChallengesData()
     {
-        Debug.Log("saveGameChallenges.currentPoint: " + saveGameChallenges.currentPoint);
+        //Debug.Log("saveGameChallenges.currentPoint: " + saveGameChallenges.currentPoint);
         point = saveGameChallenges.currentPoint;
 
         for (int i = 0; i < saveGameChallenges.ListColorPlate.Count; i++)
         {
-            Debug.Log(saveGameChallenges.ListColorPlate[i].typeColorPlate + " ___ " + saveGameChallenges.ListColorPlate[i].listEnum.Count);
+            //Debug.Log(saveGameChallenges.ListColorPlate[i].typeColorPlate + " ___ " + saveGameChallenges.ListColorPlate[i].listEnum.Count);
 
             ListColorPlate[i].status = (Status)saveGameChallenges.ListColorPlate[i].typeColorPlate;
 
