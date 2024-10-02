@@ -1251,7 +1251,7 @@ public class LogicGame : MonoBehaviour
     {
         isWin = true;
 
-
+        SaveGame.IsShowBook = false;
         Debug.Log(point + " __ " + gold + " __ " + pigment);
         Debug.Log("check win");
         if (SaveGame.Level < 19)

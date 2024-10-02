@@ -8,15 +8,15 @@ public class SpawnBookTest : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            PlayAnimSpawn();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    PlayAnimSpawn();
+        //}
     }
 
     public void PlayAnimSpawn()
     {
-        Debug.Log("press R");
+        //Debug.Log("press R");
 
         animParent.Play("Spawn", -1, 0);
         animBox.Play("box_anim", -1, 0);
@@ -25,6 +25,6 @@ public class SpawnBookTest : MonoBehaviour
     public void Spawn()
     {
         LogicGame.Instance.InitNextPlate();
-        Debug.Log("Spawn Book");
+        //Debug.Log("Spawn Book");
     }
 }

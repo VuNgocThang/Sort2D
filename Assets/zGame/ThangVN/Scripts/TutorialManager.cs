@@ -32,24 +32,34 @@ namespace ThangVN
 
                 PopupUnlockBooster.Show((int)BoosterEnum.BoosterHammer);
             }
-            else if (indexCurrentLevel == GameConfig.LEVEL_YELLOW)
+            else if (indexCurrentLevel == GameConfig.LEVEL_YELLOW && !SaveGame.IsShowBook)
             {
+                SaveGame.IsShowBook = true;
+
                 PopupUnlockColor.Show((int)NewColorEnum.ColorYellow);
             }
-            else if (indexCurrentLevel == GameConfig.LEVEL_PURPLE)
+            else if (indexCurrentLevel == GameConfig.LEVEL_PURPLE && !SaveGame.IsShowBook)
             {
+                SaveGame.IsShowBook = true;
+
                 PopupUnlockColor.Show((int)NewColorEnum.ColorPurple);
             }
-            else if (indexCurrentLevel == GameConfig.LEVEL_PINK)
+            else if (indexCurrentLevel == GameConfig.LEVEL_PINK && !SaveGame.IsShowBook)
             {
+                SaveGame.IsShowBook = true;
+
                 PopupUnlockColor.Show((int)NewColorEnum.ColorPink);
             }
-            else if (indexCurrentLevel == GameConfig.LEVEL_RANDOM)
+            else if (indexCurrentLevel == GameConfig.LEVEL_RANDOM && !SaveGame.IsShowBook)
             {
+                SaveGame.IsShowBook = true;
+
                 PopupUnlockColor.Show((int)NewColorEnum.ColorRandom);
             }
-            else if (indexCurrentLevel == GameConfig.LEVEL_ORANGE)
+            else if (indexCurrentLevel == GameConfig.LEVEL_ORANGE && !SaveGame.IsShowBook)
             {
+                SaveGame.IsShowBook = true;
+
                 PopupUnlockColor.Show((int)NewColorEnum.ColorOrange);
             }
             else if (indexCurrentLevel == 0 && !SaveGame.IsDoneTutorial)

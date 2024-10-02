@@ -263,6 +263,23 @@ public static class SaveGame
         }
     }
 
+    const string ISSHOWBOOK = "ISSHOWBOOK";
+    static int isShowBook = -1;
+    public static bool IsShowBook
+    {
+        set
+        {
+            ES3.Save(ISSHOWBOOK, value ? 1 : 0);
+            isShowBook = value ? 1 : 0;
+        }
+        get
+        {
+            if (isShowBook == -1) isShowBook = ES3.Load(ISSHOWBOOK, 0);
+            return isShowBook == 1;
+        }
+    }
+
+
     const string ISSHOWHAMMER = "ISSHOWHAMMER";
     static int isShowHammder = -1;
 
