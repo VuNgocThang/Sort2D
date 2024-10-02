@@ -441,7 +441,7 @@ public class LogicGame : MonoBehaviour
     //    }
     //}
 
-    void InitNextPlate()
+    public void InitNextPlate()
     {
         for (int i = 0; i < listNextPlate.Count; i++)
         {
@@ -713,9 +713,8 @@ public class LogicGame : MonoBehaviour
             foreach (LogicColor renderer in listNextPlate[0].ListColor)
             {
                 Vector3 localPos = renderer.transform.localPosition;
+                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.SetParent(startColorPlate.transform);
-                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-
                 renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
@@ -730,13 +729,17 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
 
+            //return;
+
+            Tween t = null;
+
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
                 Vector3 localPos = renderer.transform.localPosition;
-                renderer.transform.SetParent(listNextPlate[0].transform);
-                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-
                 renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
+                renderer.transform.SetParent(listNextPlate[0].transform);
+                t = renderer.transform.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.3f);
+                //renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -744,6 +747,11 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].ListValue.AddRange(listNextPlate[1].ListValue);
             listNextPlate[0].ListColor.AddRange(listNextPlate[1].ListColor);
             listNextPlate[0].listTypes.AddRange(listNextPlate[1].listTypes);
+            listNextPlate[0].InitValue(listNextPlate[0].transform);
+
+            listNextPlate[1].ListValue.Clear();
+            listNextPlate[1].ListColor.Clear();
+            listNextPlate[1].listTypes.Clear();
 
             spawnBook.PlayAnimSpawn();
             //Tweener t = null;

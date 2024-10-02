@@ -234,7 +234,9 @@ public class SetMapManager : MonoBehaviour
             parent.localScale = new Vector3(scale, scale, scale);
 
             arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
-            if (cols != 6)
+
+            int max = rows >= cols ? rows : cols;
+            if (max != 6)
             {
                 arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             }
@@ -263,7 +265,10 @@ public class SetMapManager : MonoBehaviour
             parent.localScale = new Vector3(scale, scale, scale);
 
             arrow.transform.position = new Vector3(basePosition.x - 0.2f * scale, listColorPlate[0].transform.position.y + i * offSetY, 0);
-            if (rows != 6)
+
+            int max = rows >= cols ? rows : cols;
+
+            if (max != 6)
             {
                 arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             }
@@ -293,7 +298,10 @@ public class SetMapManager : MonoBehaviour
             //arrow.logicVisual.transform.localEulerAngles = rotation;
             arrow.transform.localEulerAngles = rotation;
             parent.localScale = new Vector3(scale, scale, scale);
-            if (rows != 6)
+
+            int max = rows >= cols ? rows : cols;
+
+            if (max != 6)
             {
                 arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             }

@@ -24,6 +24,7 @@ public class SpawnBookTest : MonoBehaviour
 
     public void Spawn()
     {
+        LogicGame.Instance.InitNextPlate();
         Debug.Log("Spawn Book");
     }
 }
