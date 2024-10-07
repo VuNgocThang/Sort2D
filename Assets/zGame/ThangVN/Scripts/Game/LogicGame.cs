@@ -250,7 +250,7 @@ public class LogicGame : MonoBehaviour
             int index = colorPlateData.listSpecialData[i].Row * cols + colorPlateData.listSpecialData[i].Col;
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
+            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
         }
 
         for (int i = 0; i < colorPlateData.listArrowData.Count; i++)
@@ -287,7 +287,7 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
 
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
+            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
             if (ListColorPlate[index].status == Status.Frozen)
             {
                 ListColorPlate[index].countFrozen = 3;
@@ -403,6 +403,7 @@ public class LogicGame : MonoBehaviour
 
                 foreach (LogicColor c in listNextPlate[index].ListColor)
                 {
+                    float randomX = UnityEngine.Random.Range(-0.5f, 0.5f);
                     c.transform.DOLocalMoveX(0, 0.3f);
                 }
             });
@@ -733,7 +734,7 @@ public class LogicGame : MonoBehaviour
 
             //return;
 
-            Tween t = null;
+            //Tween t = null;
 
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
@@ -741,8 +742,9 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.SetParent(listNextPlate[0].transform);
                 float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                t = renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
-                //renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
+                /*t = */
+                //renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
+                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -792,10 +794,10 @@ public class LogicGame : MonoBehaviour
 
                 sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
                                                 .SetEase(curveMove)
-                                                //.OnComplete(() =>
-                                                //{
-                                                //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                                                //})
+                    //.OnComplete(() =>
+                    //{
+                    //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                    //})
                     );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
@@ -1224,6 +1226,12 @@ public class LogicGame : MonoBehaviour
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
+            if (SaveGame.Challenges)
+            {
+                saveGameChallenges = null;
+                PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
+            }
+
             Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
         }
@@ -1471,7 +1479,7 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[i].status = (Status)saveGameNormal.ListColorPlate[i].typeColorPlate;
 
-            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameNormal.ListColorPlate[i].countFrozen);
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameNormal.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
 
             if (ListColorPlate[i].status == Status.Frozen)
             {
@@ -1515,7 +1523,7 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[i].status = (Status)saveGameChallenges.ListColorPlate[i].typeColorPlate;
 
-            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameChallenges.ListColorPlate[i].countFrozen);
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameChallenges.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
 
             if (ListColorPlate[i].status == Status.Frozen)
             {

@@ -127,7 +127,7 @@ public class SetMapManager : MonoBehaviour
             int index = colorPlateData.listSpecialData[i].Row * cols + colorPlateData.listSpecialData[i].Col;
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
+            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
 
             //if (ListColorPlate[index].status == Status.Frozen)
             //{
@@ -548,7 +548,7 @@ public class SetMapManager : MonoBehaviour
                     SpecialData special = new SpecialData();
 
                     c.status = Status.Frozen;
-                    c.logicVisual.SetFrozen();
+                    c.logicVisual.SetFrozenVisual(c.Row);
 
                     special.Row = c.Row;
                     special.Col = c.Col;

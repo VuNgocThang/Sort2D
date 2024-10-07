@@ -132,12 +132,12 @@ public class LogicVisualPlate : MonoBehaviour
         }
     }
 
-    public void SetSpecialSquare(Status stt)
+    public void SetSpecialSquare(Status stt, int RowOffset)
     {
         switch (stt)
         {
             case Status.Frozen:
-                SetFrozen();
+                SetFrozenVisual(RowOffset);
                 break;
             case Status.CannotPlace:
                 SetCannotPlace();
@@ -153,12 +153,12 @@ public class LogicVisualPlate : MonoBehaviour
         }
     }
 
-    public void SetSpecialSquareExisted(Status stt, int countFrozen)
+    public void SetSpecialSquareExisted(Status stt, int countFrozen, int RowOffset)
     {
         switch (stt)
         {
             case Status.Frozen:
-                SetFrozen(countFrozen);
+                SetFrozen(countFrozen, RowOffset);
                 break;
             case Status.CannotPlace:
                 SetCannotPlace();
@@ -292,7 +292,7 @@ public class LogicVisualPlate : MonoBehaviour
         cannotPlace.SetActive(true);
     }
 
-    public void SetFrozen()
+    public void SetFrozenVisual(int RowOffset)
     {
         normal.SetActive(true);
         cannotPlace.SetActive(false);
@@ -302,10 +302,12 @@ public class LogicVisualPlate : MonoBehaviour
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
+            Debug.Log((7 - RowOffset) * 10 - 5);
+            listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
         }
     }
 
-    public void SetFrozen(int countFrozen)
+    public void SetFrozen(int countFrozen, int RowOffset)
     {
         normal.SetActive(true);
         cannotPlace.SetActive(false);
@@ -315,6 +317,8 @@ public class LogicVisualPlate : MonoBehaviour
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
+            listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+
         }
 
         if (countFrozen == 2)

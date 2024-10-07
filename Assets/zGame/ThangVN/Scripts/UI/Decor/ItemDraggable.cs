@@ -66,9 +66,9 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         else
         {
-            rectTransform.anchoredPosition = originalPosition;
-            linkedImageItem.gameObject.SetActive(true);
-            this.gameObject.SetActive(false);
+            //rectTransform.anchoredPosition = originalPosition;
+            //linkedImageItem.gameObject.SetActive(true);
+            //this.gameObject.SetActive(false);
         }
 
         linkedSlot.imgLine.gameObject.SetActive(false);

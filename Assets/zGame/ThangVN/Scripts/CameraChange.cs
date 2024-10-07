@@ -83,7 +83,7 @@ public class CameraChange : MonoBehaviour
             {
                 LogicColor logicColor = LogicGame.Instance.ListColorPlate[i].ListColor[j];
 
-                logicColor.transform.localPosition = new Vector3(0, j * GameConfig.OFFSET_PLATE, -j * GameConfig.OFFSET_PLATE);
+                logicColor.transform.localPosition = new Vector3(0, j * GameConfig.OFFSET_PLATE, -j * GameConfig.OFFSET_PLATE_Z);
             }
         }
     }
