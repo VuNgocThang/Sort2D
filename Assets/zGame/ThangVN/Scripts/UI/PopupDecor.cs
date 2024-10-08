@@ -17,6 +17,7 @@ public class PopupDecor : Popup
     [SerializeField] Transform nContent;
     [SerializeField] List<BookDecorated> listBookDecorated;
     [SerializeField] DataConfigDecor dataBookConfig;
+    [SerializeField] List<float> listProgress;
 
 
     private void Awake()
@@ -36,7 +37,7 @@ public class PopupDecor : Popup
     public override void Init()
     {
         base.Init();
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = false;
+        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = false;
         txtColorPlate.text = SaveGame.Pigment.ToString();
 
         //for (int i = 0; i < listSelect.Count; i++)
@@ -54,6 +55,12 @@ public class PopupDecor : Popup
             listBookItems[i].gameObject.SetActive(false);
         }
 
+        listBookItems.Clear();
+        listProgress.Clear();
+
+        LoadDataBook();
+
+
         for (int i = 0; i < dataBookConfig.listDataBooks.Count; i++)
         {
             BookItem book = Instantiate(bookItemPrefab, nContent);
@@ -61,7 +68,11 @@ public class PopupDecor : Popup
             listBookItems.Add(book);
         }
 
-        LoadDataBook();
+        for (int i = 0; i < listProgress.Count; i++)
+        {
+            listBookItems[i].InitProgressText(listProgress[i]);
+        }
+
     }
 
     void LoadDataBook()
@@ -70,22 +81,23 @@ public class PopupDecor : Popup
 
         for (int i = 0; i < listBookDecorated.Count; i++)
         {
-
+            listProgress.Add(listBookDecorated[i].progress);
         }
     }
 
 
     public override void Hide()
     {
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
+        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
         base.Hide();
     }
 
     public void BackHome()
     {
+        Debug.Log("BackHome");
         HomeUI.Instance.animator.Play("Show");
         HomeUI.Instance.DisableObject();
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
+        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
 
         base.Hide();
     }

@@ -75,24 +75,13 @@ public class HomeUI : MonoBehaviour
         txtHeart.text = SaveGame.Heart.ToString();
         txtColor.text = SaveGame.Pigment.ToString();
         txtLevel.text = $"Level {SaveGame.Level + 1}";
-        for (int i = 0; i < bookDataConfig.listDataBooks.Count; i++)
-        {
-            if (bookDataConfig.listDataBooks[i].idBook == SaveGame.CurrentBook)
-            {
-                totalParts = bookDataConfig.listDataBooks[i].totalParts;
-            }
-        }
+
+        totalParts = bookDataConfig.listDataBooks[bookDataConfig.listDataBooks.Count - 1].totalParts;
+
         listBook = SaveGame.ListBookDecorated;
 
-        for (int i = 0; i < listBook.listBookDecorated.Count; i++)
-        {
-            if (SaveGame.CurrentBook == listBook.listBookDecorated[i].idBookDecorated)
-            {
-                currentParts = listBook.listBookDecorated[i].listItemDecorated.Count;
-
-                if (!listBook.listBookDecorated[i].isPainted) currentParts++;
-            }
-        }
+        currentParts = listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated.Count;
+        //if (!listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].isPainted) currentParts++;
 
         imgProgressTask.fillAmount = currentParts / totalParts;
         txtProgressTask.text = $"{currentParts}/{totalParts}";

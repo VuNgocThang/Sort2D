@@ -30,7 +30,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         linkedImageItem.gameObject.SetActive(false);
         linkedSlot = slot;
         linkedSlot.imgLine.gameObject.SetActive(true);
-
+        rectTransform.localScale = Vector3.one;
         popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
     }
 
@@ -70,11 +70,14 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
                 rectTransform.anchoredPosition = Vector2.zero;
                 AddNewBook();
+                OpenNewBook();
             }
             else
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
                 AddNewBook();
+                OpenNewBook();
+
                 //rectTransform.anchoredPosition = originalPosition;
                 //linkedImageItem.gameObject.SetActive(true);
                 //this.gameObject.SetActive(false);
@@ -161,12 +164,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (listBookDecoratedCache[i].idBookDecorated == SaveGame.CurrentBook)
             {
                 listBookDecoratedCache[i].listItemDecorated = listItemDecoratedCache;
+                listBookDecoratedCache[i].progress = (float)listBookDecoratedCache[i].listItemDecorated.Count / popupDecorateBook.total;
             }
         }
+
         dataCache.listBookDecorated = listBookDecoratedCache;
         SaveGame.ListBookDecorated = dataCache;
         Debug.Log("save item decorate");
-        OpenNewBook();
     }
 
     void OpenNewBook()
@@ -181,7 +185,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 {
                     Debug.Log(" Open New Book");
                     SaveGame.MaxCurrentBook = idBook + 1;
-                    SaveGame.ListBookDecorated.listBookDecorated.Add(new BookDecorated()
+                    dataCache.listBookDecorated.Add(new BookDecorated()
                     {
                         idBookDecorated = idBook + 1,
                         progress = 0,
@@ -191,9 +195,15 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
                         }
                     });
+
+                    SaveGame.ListBookDecorated = dataCache;
+                    PopupNewBook.Show();
+
                 }
             }
 
         }
+
+
     }
 }

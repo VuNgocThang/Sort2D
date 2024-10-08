@@ -8,7 +8,7 @@ public class PopupBookItem : Popup
 {
     [SerializeField] int idBookDecorated;
 
-    [SerializeField] EasyButton btnDecorate;
+    [SerializeField] EasyButton btnDecorate, btnBack;
     [SerializeField] TextMeshProUGUI txtProgress, txtNameBook, txtDecorate;
     [SerializeField] BookDecorated bookDecorated;
     public List<Slot> slots;
@@ -25,6 +25,12 @@ public class PopupBookItem : Popup
         btnDecorate.OnClick(() =>
         {
             PopupDecorateBook.Show(SaveGame.CurrentBook);
+        });
+
+        btnBack.OnClick(() =>
+        {
+            base.Hide();
+            PopupDecor.Show();
         });
     }
     public static async void Show(int index)

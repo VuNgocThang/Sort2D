@@ -564,8 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5458517926fefd46b03f478d0918383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnClose:
-  - {fileID: 5745040090047185986}
+  btnClose: []
   nBookCover: {fileID: 730256140534648798}
   idBookDecorated: 0
   nColorChangeBook: {fileID: 8241915155715569863}
@@ -575,6 +574,7 @@ MonoBehaviour:
   btnSelectBgColor: {fileID: 9075206509265376558}
   btnPrev: {fileID: 9163302165252377604}
   btnNext: {fileID: 388577033516707384}
+  btnBack: {fileID: 5745040090047185986}
   txtNameBook: {fileID: 7217904436281148724}
   bgScrollViewItem: {fileID: 8155639841525948848}
   bgSelectColor: {fileID: 4391191773520825467}
@@ -582,6 +582,7 @@ MonoBehaviour:
   imgNotChooseItem: {fileID: 3199796525544713723}
   imgChooseBg: {fileID: 4316759159805430420}
   imgNotChooseBg: {fileID: 1299938828719046059}
+  bgNewBook: {fileID: 0}
   nParent: {fileID: 4058159706050043845}
   nParentSlot: {fileID: 6960554692873118842}
   nContent: {fileID: 90319747596561417}
@@ -596,6 +597,7 @@ MonoBehaviour:
   itemDecorPrefab: {fileID: 2745087057056850017, guid: 85392257083288e4d8fdc38b3674cd83,
     type: 3}
   dataConfigDecor: {fileID: 11400000, guid: 0f8742cf8a747194b9e17f4973278aaa, type: 2}
+  total: 0
   bookDecorated:
     idBookDecorated: 0
     progress: 0
@@ -2436,7 +2438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7329077207295071958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2899,7 +2901,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5969483661157645071
 RectTransform:
   m_ObjectHideFlags: 0

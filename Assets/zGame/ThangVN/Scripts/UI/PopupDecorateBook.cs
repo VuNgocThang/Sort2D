@@ -12,9 +12,9 @@ public class PopupDecorateBook : Popup
     public RectTransform nBookCover;
     [SerializeField] int idBookDecorated;
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
-    [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext;
+    [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
     [SerializeField] TextMeshProUGUI txtNameBook;
-    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg;
+    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, bgNewBook;
     ItemDraggable currentItemDrag;
     [SerializeField] Transform nParent, nParentSlot, nContent;
     public List<ImageItem> listItems;
@@ -27,6 +27,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] ItemDecor itemDecorPrefab;
 
     public DataConfigDecor dataConfigDecor;
+    public float total;
     DataBook dataBook;
 
     [SerializeField] BookDecorated bookDecorated;
@@ -35,6 +36,11 @@ public class PopupDecorateBook : Popup
     {
         btnSelectItem.OnClick(() => OnSelect(true));
         btnSelectBgColor.OnClick(() => OnSelect(false));
+        btnBack.OnClick(() =>
+        {
+            base.Hide();
+            PopupBookItem.Show(SaveGame.CurrentBook);
+        });
     }
 
     public static async void Show(int index)
@@ -48,6 +54,7 @@ public class PopupDecorateBook : Popup
     {
         base.Init();
         OnSelect(true);
+        ManagerPopup.HidePopup<PopupBookItem>();
     }
 
     void LoadDataBook()
@@ -83,9 +90,10 @@ public class PopupDecorateBook : Popup
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
         {
-            if (dataConfigDecor.listDataBooks[i].idBook == /*index*/0)
+            if (dataConfigDecor.listDataBooks[i].idBook == index /*0*/)
             {
                 dataBook = dataConfigDecor.listDataBooks[i];
+                total = dataConfigDecor.listDataBooks[i].totalParts;
             }
         }
 
@@ -134,6 +142,7 @@ public class PopupDecorateBook : Popup
                         itemDraggable.imgItemDrag.SetNativeSize();
                         itemDraggable.id = idItemDecorated;
                         itemDraggable.SetInParent(itemData, slots[k]);
+                        itemDraggable.rectTransform.anchoredPosition = new Vector2(bookDecorated.listItemDecorated[i].x, bookDecorated.listItemDecorated[i].y);
                         itemDraggable.transform.localScale = Vector3.one;
                         itemDraggable.gameObject.SetActive(true);
                     }

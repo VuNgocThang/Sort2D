@@ -12,6 +12,7 @@ public class BookItem : MonoBehaviour
     [SerializeField] int indexBook;
     [SerializeField] EasyButton btnSelect;
     [SerializeField] Sprite defaultSprite;
+    [SerializeField] GameObject nText;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class BookItem : MonoBehaviour
     void ShowBook(int index)
     {
         SaveGame.CurrentBook = indexBook;
+        ManagerPopup.HidePopup<PopupDecor>();
         PopupBookItem.Show(index);
     }
 
@@ -36,7 +38,16 @@ public class BookItem : MonoBehaviour
         txtTitleBook.text = title;
         if (indexBook <= SaveGame.MaxCurrentBook)
         {
+            nText.SetActive(true);
+        }
+        if (indexBook <= SaveGame.MaxCurrentBook)
+        {
             imgIconBook.sprite = defaultSprite;
         }
+    }
+
+    public void InitProgressText(float percent)
+    {
+        txtProgress.text = $"{percent * 100}%";
     }
 }
