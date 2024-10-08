@@ -9,7 +9,7 @@ public class LogicColor : MonoBehaviour
     [SerializeField] public TrailRenderer trail;
     public SpriteRenderer spriteRender;
 
-    public void Init(int index)
+    public void Init(int index, int layer)
     {
         foreach (var mesh in listMeshes)
         {
@@ -18,6 +18,7 @@ public class LogicColor : MonoBehaviour
 
         listMeshes[index].SetActive(true);
         spriteRender = listMeshes[index].GetComponent<SpriteRenderer>();
+        spriteRender.sortingOrder = layer;
     }
 
     //public void InitLockNoMove()

@@ -317,7 +317,9 @@ public class ColorPlate : MonoBehaviour
             if (i >= ListColor.Count)
             {
                 LogicColor color = GetColorNew();
-                color.Init((int)ListValue[i]);
+                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                Debug.Log("layer: " + layer);
+                color.Init((int)ListValue[i], layer);
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
 
@@ -351,7 +353,8 @@ public class ColorPlate : MonoBehaviour
                             })
                             .OnComplete(() =>
                             {
-                                colorZ.spriteRender.sortingOrder = 1;
+                                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                                colorZ.spriteRender.sortingOrder = layer;
                             })
                             ;
                     }
@@ -371,7 +374,9 @@ public class ColorPlate : MonoBehaviour
                             })
                             .OnComplete(() =>
                             {
-                                colorZ.spriteRender.sortingOrder = 1;
+                                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+
+                                colorZ.spriteRender.sortingOrder = layer;
                             })
                             ;
                         ;
@@ -387,7 +392,9 @@ public class ColorPlate : MonoBehaviour
                 else
                 {
                     //Debug.Log("wtf");
+                    int layer = (8 - Row) > 1 ? 8 - Row : 1;
 
+                    ListColor[i].spriteRender.sortingOrder = layer;
                     ListColor[i].transform.localPosition = new Vector3(ListColor[i].transform.localPosition.x, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
 

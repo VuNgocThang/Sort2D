@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LogicVisualPlate : MonoBehaviour
 {
@@ -302,8 +303,11 @@ public class LogicVisualPlate : MonoBehaviour
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
-            Debug.Log((7 - RowOffset) * 10 - 5);
-            listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+            //Debug.Log((7 - RowOffset) * 10 - 5);
+            //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+            int layer = (8 - RowOffset) > 1 ? 8 - RowOffset : 1;
+
+            listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
         }
     }
 
@@ -317,7 +321,10 @@ public class LogicVisualPlate : MonoBehaviour
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
-            listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+            //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+            int layer = (8 - RowOffset) > 1 ? 8 - RowOffset : 1;
+
+            listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
 
         }
 
