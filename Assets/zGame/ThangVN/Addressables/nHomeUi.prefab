@@ -1374,8 +1374,11 @@ MonoBehaviour:
   txtCountdownHeart: {fileID: 3070312649710130815}
   txtColor: {fileID: 7823958815528014472}
   txtLevel: {fileID: 5365765436250949395}
+  txtProgressTask: {fileID: 2885180147605390249}
   heart: 0
   countdownTimer: 0
+  totalParts: 0
+  currentParts: 0
   nTop: {fileID: 3813721225300369074}
   nBot: {fileID: 7015725053598515417}
   iconNotice: {fileID: 5588294594762916286}
@@ -1385,6 +1388,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6d8bf1b6bef67514d8271440c107c28f, type: 3}
   - {fileID: 21300000, guid: af2aa0ec6bc9ab44d905fadd52f21d63, type: 3}
   bg: {fileID: 0}
+  imgProgressTask: {fileID: 4168305754262336037}
+  bookDataConfig: {fileID: 11400000, guid: 0f8742cf8a747194b9e17f4973278aaa, type: 2}
+  listBook:
+    listBookDecorated: []
 --- !u!95 &3894584647451459282
 Animator:
   serializedVersion: 5
@@ -2986,7 +2993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3/5
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 725d2fe5c8ef7af4dadd462ff8233360, type: 2}
   m_sharedMaterial: {fileID: 406485749866670470, guid: 725d2fe5c8ef7af4dadd462ff8233360,
@@ -2996,8 +3003,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285803322
-  m_fontColor: {r: 0.22745098, g: 0.16862746, b: 0.45490196, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

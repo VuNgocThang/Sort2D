@@ -469,6 +469,23 @@ public static class SaveGame
         }
     }
 
+    const string MAXCURRENTBOOK = "MAXCURRENTBOOK";
+    static int maxCurrentBook = -1;
+
+    public static int MaxCurrentBook
+    {
+        set
+        {
+            ES3.Save(MAXCURRENTBOOK, value);
+            maxCurrentBook = value;
+        }
+        get
+        {
+            if (maxCurrentBook == -1) maxCurrentBook = ES3.Load(MAXCURRENTBOOK, 0);
+            return maxCurrentBook;
+        }
+    }
+
 
     const string CURRENTROOM = "CURRENTROOM";
     static int currentRoom = -1;

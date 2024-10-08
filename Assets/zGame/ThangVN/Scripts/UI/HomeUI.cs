@@ -12,14 +12,16 @@ public class HomeUI : MonoBehaviour
 {
     public static HomeUI Instance;
     public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay;
-    public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel;
+    public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
-    [SerializeField] float countdownTimer;
+    [SerializeField] float countdownTimer, totalParts, currentParts;
     public GameObject nTop, nBot, iconNotice;
     public Animator animator;
     public Animator animUsePigment;
     public List<Sprite> listSprite;
-    public Image bg;
+    public Image bg, imgProgressTask;
+    [SerializeField] DataConfigDecor bookDataConfig;
+    [SerializeField] ListBookDecorated listBook;
 
     private void Awake()
     {
@@ -54,8 +56,6 @@ public class HomeUI : MonoBehaviour
 
     private void Start()
     {
-
-
         int randomBG = UnityEngine.Random.Range(0, 2);
         bg.sprite = listSprite[randomBG];
 
@@ -75,7 +75,27 @@ public class HomeUI : MonoBehaviour
         txtHeart.text = SaveGame.Heart.ToString();
         txtColor.text = SaveGame.Pigment.ToString();
         txtLevel.text = $"Level {SaveGame.Level + 1}";
+        for (int i = 0; i < bookDataConfig.listDataBooks.Count; i++)
+        {
+            if (bookDataConfig.listDataBooks[i].idBook == SaveGame.CurrentBook)
+            {
+                totalParts = bookDataConfig.listDataBooks[i].totalParts;
+            }
+        }
+        listBook = SaveGame.ListBookDecorated;
 
+        for (int i = 0; i < listBook.listBookDecorated.Count; i++)
+        {
+            if (SaveGame.CurrentBook == listBook.listBookDecorated[i].idBookDecorated)
+            {
+                currentParts = listBook.listBookDecorated[i].listItemDecorated.Count;
+
+                if (!listBook.listBookDecorated[i].isPainted) currentParts++;
+            }
+        }
+
+        imgProgressTask.fillAmount = currentParts / totalParts;
+        txtProgressTask.text = $"{currentParts}/{totalParts}";
         if (Input.GetKeyDown(KeyCode.M))
         {
             DateTime timer = DateTime.Now + TimeSpan.FromSeconds(90f);

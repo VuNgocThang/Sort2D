@@ -34,16 +34,27 @@ public class DataColor
 public class DataBook
 {
     public int idBook;
+    public string titleBook;
+    public int totalParts;
     public List<DataItemDecor> listDataItemDecor;
     public List<DataSlot> listDataSlots;
 }
 
 //data save
+//public class ItemPosition
+//{
+//    public float x;
+//    public float y;
+//}
+
 [Serializable]
 public class ItemDecorated
 {
     public int idItemDecorated;
     public bool isPainted;
+    //public ItemPosition position;
+    public float x;
+    public float y;
 }
 
 [Serializable]

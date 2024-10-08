@@ -24,7 +24,7 @@ public class PopupBookItem : Popup
     {
         btnDecorate.OnClick(() =>
         {
-            PopupDecorateBook.Show(0/*SaveGame.CurrentBook*/);
+            PopupDecorateBook.Show(SaveGame.CurrentBook);
         });
     }
     public static async void Show(int index)
@@ -42,6 +42,13 @@ public class PopupBookItem : Popup
     public void Initialize(int index)
     {
         Debug.Log("Show PopupBookItem at index: " + index);
+        for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
+        {
+            if (dataConfigDecor.listDataBooks[i].idBook == index)
+            {
+                txtNameBook.text = dataConfigDecor.listDataBooks[i].titleBook;
+            }
+        }
         LoadDataBook();
         SpawnExistedItemInBook();
 
@@ -70,7 +77,7 @@ public class PopupBookItem : Popup
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
         {
-            if (dataConfigDecor.listDataBooks[i].idBook == 0)
+            if (dataConfigDecor.listDataBooks[i].idBook == idBookDecorated)
             {
                 dataBook = dataConfigDecor.listDataBooks[i];
             }
@@ -102,6 +109,7 @@ public class PopupBookItem : Popup
                     item.imgItemDrag.sprite = sprites[idIndex];
                     item.imgItemDrag.SetNativeSize();
                     item.SetInParent(null, slots[j]);
+                    item.rectTransform.anchoredPosition = new Vector2(bookDecorated.listItemDecorated[i].x, bookDecorated.listItemDecorated[i].y);
                     item.transform.localScale = Vector3.one;
                     item.gameObject.SetActive(true);
                 }

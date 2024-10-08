@@ -13,8 +13,11 @@ public class PopupDecor : Popup
     [SerializeField] List<GameObject> listSelect;
     [SerializeField] TextMeshProUGUI txtColorPlate;
     [SerializeField] BookItem bookItemPrefab;
+    [SerializeField] List<BookItem> listBookItems;
     [SerializeField] Transform nContent;
-    List<BookDecorated> listBookDecorated;
+    [SerializeField] List<BookDecorated> listBookDecorated;
+    [SerializeField] DataConfigDecor dataBookConfig;
+
 
     private void Awake()
     {
@@ -46,11 +49,16 @@ public class PopupDecor : Popup
         //    LogicSetupRoom.instance.listGameObject[SaveGame.CurrentObject].SetActive(true);
         //    SaveGame.CanShow = true;
         //}
+        for (int i = 0; i < listBookItems.Count; i++)
+        {
+            listBookItems[i].gameObject.SetActive(false);
+        }
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < dataBookConfig.listDataBooks.Count; i++)
         {
             BookItem book = Instantiate(bookItemPrefab, nContent);
-            book.Init(i);
+            book.Init(i, dataBookConfig.listDataBooks[i].titleBook);
+            listBookItems.Add(book);
         }
 
         LoadDataBook();
@@ -62,7 +70,7 @@ public class PopupDecor : Popup
 
         for (int i = 0; i < listBookDecorated.Count; i++)
         {
-            
+
         }
     }
 

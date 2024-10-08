@@ -9,6 +9,7 @@ using Utilities.Common;
 
 public class PopupDecorateBook : Popup
 {
+    public RectTransform nBookCover;
     [SerializeField] int idBookDecorated;
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext;
@@ -25,7 +26,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] Slot slotPrefab;
     [SerializeField] ItemDecor itemDecorPrefab;
 
-    [SerializeField] DataConfigDecor dataConfigDecor;
+    public DataConfigDecor dataConfigDecor;
     DataBook dataBook;
 
     [SerializeField] BookDecorated bookDecorated;

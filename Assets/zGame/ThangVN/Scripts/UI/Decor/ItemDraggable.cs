@@ -15,6 +15,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     PopupDecorateBook popupDecorateBook;
     ImageItem linkedImageItem;
     Slot linkedSlot;
+    [SerializeField] Color defaultColor = new Color(255, 255, 255, 255);
+    [SerializeField] Color redColor = new Color(150, 50, 50, 255);
 
     private void Awake()
     {
@@ -50,6 +52,9 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta;
+
+        if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover)) imgItemDrag.color = defaultColor;
+        else imgItemDrag.color = redColor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -58,18 +63,31 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         float distance = Vector2.Distance(rectTransform.position, linkedSlot.rectTransform.position);
 
-        if (distance <= 100)
+        if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover))
         {
-            this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
-            rectTransform.anchoredPosition = Vector2.zero;
-            AddNewBook();
+            if (distance <= 100)
+            {
+                this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
+                rectTransform.anchoredPosition = Vector2.zero;
+                AddNewBook();
+            }
+            else
+            {
+                this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
+                AddNewBook();
+                //rectTransform.anchoredPosition = originalPosition;
+                //linkedImageItem.gameObject.SetActive(true);
+                //this.gameObject.SetActive(false);
+            }
         }
         else
         {
-            //rectTransform.anchoredPosition = originalPosition;
-            //linkedImageItem.gameObject.SetActive(true);
-            //this.gameObject.SetActive(false);
+            imgItemDrag.color = defaultColor;
+            rectTransform.anchoredPosition = originalPosition;
+            linkedImageItem.gameObject.SetActive(true);
+            this.gameObject.SetActive(false);
         }
+
 
         linkedSlot.imgLine.gameObject.SetActive(false);
 
@@ -77,6 +95,25 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             popupDecorateBook.ClearCurrentDraggingItem();
         }
+    }
+
+    bool IsRectTransformInsideParent(RectTransform child, RectTransform parent)
+    {
+        Vector3[] childCorners = new Vector3[4];
+        child.GetWorldCorners(childCorners);
+
+        Vector3[] parentCorners = new Vector3[4];
+        parent.GetWorldCorners(parentCorners);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (!RectTransformUtility.RectangleContainsScreenPoint(parent, childCorners[i]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -102,6 +139,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         ItemDecorated itemDecorated = new ItemDecorated();
         itemDecorated.idItemDecorated = id;
         itemDecorated.isPainted = true;
+        itemDecorated.x = rectTransform.anchoredPosition.x;
+        itemDecorated.y = rectTransform.anchoredPosition.y;
 
         //for (int i = 0; i < listItemDecoratedCache.Count; i++)
         //{
@@ -127,6 +166,34 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         dataCache.listBookDecorated = listBookDecoratedCache;
         SaveGame.ListBookDecorated = dataCache;
         Debug.Log("save item decorate");
+        OpenNewBook();
+    }
 
+    void OpenNewBook()
+    {
+        ListBookDecorated dataCache = SaveGame.ListBookDecorated;
+        for (int i = 0; i < popupDecorateBook.dataConfigDecor.listDataBooks.Count; i++)
+        {
+            int idBook = popupDecorateBook.dataConfigDecor.listDataBooks[i].idBook;
+            if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].idBookDecorated == idBook)
+            {
+                if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count == popupDecorateBook.dataConfigDecor.listDataBooks[i].totalParts - 1)
+                {
+                    Debug.Log(" Open New Book");
+                    SaveGame.MaxCurrentBook = idBook + 1;
+                    SaveGame.ListBookDecorated.listBookDecorated.Add(new BookDecorated()
+                    {
+                        idBookDecorated = idBook + 1,
+                        progress = 0,
+                        isPainted = false,
+                        listItemDecorated = new List<ItemDecorated>()
+                        {
+
+                        }
+                    });
+                }
+            }
+
+        }
     }
 }
