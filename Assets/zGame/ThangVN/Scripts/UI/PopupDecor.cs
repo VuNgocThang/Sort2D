@@ -18,6 +18,7 @@ public class PopupDecor : Popup
     [SerializeField] List<BookDecorated> listBookDecorated;
     [SerializeField] DataConfigDecor dataBookConfig;
     [SerializeField] List<float> listProgress;
+    [SerializeField] ScrollRect scrollRect;
 
 
     private void Awake()
@@ -72,6 +73,8 @@ public class PopupDecor : Popup
         {
             listBookItems[i].InitProgressText(listProgress[i]);
         }
+
+        //scrollRect.verticalNormalizedPosition = 1f;
 
     }
 

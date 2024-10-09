@@ -69,13 +69,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
                 rectTransform.anchoredPosition = Vector2.zero;
-                AddNewBook();
+                AddNewBook(true);
                 OpenNewBook();
             }
             else
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
-                AddNewBook();
+                AddNewBook(false);
                 OpenNewBook();
 
                 //rectTransform.anchoredPosition = originalPosition;
@@ -120,7 +120,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
 
-    void AddNewBook()
+    void AddNewBook(bool isTruePos)
     {
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
         List<BookDecorated> listBookDecoratedCache = dataCache.listBookDecorated;
@@ -144,6 +144,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         itemDecorated.isPainted = true;
         itemDecorated.x = rectTransform.anchoredPosition.x;
         itemDecorated.y = rectTransform.anchoredPosition.y;
+        itemDecorated.isTruePos = isTruePos;
 
         //for (int i = 0; i < listItemDecoratedCache.Count; i++)
         //{
@@ -159,12 +160,20 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             Debug.Log($"listItemDecoratedCache[{i}].idItemDecorated: " + listItemDecoratedCache[i].idItemDecorated);
         }
 
+        int countProgress = 0;
+
         for (int i = 0; i < listBookDecoratedCache.Count; i++)
         {
             if (listBookDecoratedCache[i].idBookDecorated == SaveGame.CurrentBook)
             {
                 listBookDecoratedCache[i].listItemDecorated = listItemDecoratedCache;
-                listBookDecoratedCache[i].progress = (float)listBookDecoratedCache[i].listItemDecorated.Count / popupDecorateBook.total;
+
+                for (int j = 0; j < listBookDecoratedCache[i].listItemDecorated.Count; j++)
+                {
+                    if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos) countProgress++;
+                }
+
+                listBookDecoratedCache[i].progress = (float)countProgress / popupDecorateBook.total;
             }
         }
 

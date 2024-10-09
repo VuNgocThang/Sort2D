@@ -52,6 +52,7 @@ public class ItemDecorated
 {
     public int idItemDecorated;
     public bool isPainted;
+    public bool isTruePos;
     //public ItemPosition position;
     public float x;
     public float y;
