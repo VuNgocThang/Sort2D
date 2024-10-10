@@ -28,7 +28,6 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
 
     public T GetPooledObject()
     {
-        Debug.Log(pooledObjects.Count);
         for (int i = 0; i < pooledObjects.Count; i++)
         {
             if (!pooledObjects[i].gameObject.activeInHierarchy)
