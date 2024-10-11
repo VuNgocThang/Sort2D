@@ -168,6 +168,12 @@ MonoBehaviour:
   pointToUnLock: 0
   countFrozen: 0
   countMaxDiff: 0
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   customCurve:
     serializedVersion: 2
     m_Curve: []
@@ -201,7 +207,7 @@ Transform:
   m_GameObject: {fileID: 4949787787438748909}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -224,9 +230,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
   normal: {fileID: 0}
-  arrow: {fileID: 0}
-  arrowClick: {fileID: 0}
-  arrowCannotClick: {fileID: 0}
+  arrow: {fileID: 5265235796109072604}
+  arrowClick: {fileID: 7316133108072564832}
+  arrowCannotClick: {fileID: 303301794776684591}
   lockCoin: {fileID: 0}
   cannotPlace: {fileID: 0}
   listForzen: []

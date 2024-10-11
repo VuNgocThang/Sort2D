@@ -1,0 +1,385 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c715906de34761e4abdb609962383ca0, type: 3}
+  m_Name: DataConfigDecor
+  m_EditorClassIdentifier: 
+  listDataBooks:
+  - idBook: 0
+    titleBook: The Secret Book
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 1
+    titleBook: The Secret Book 1
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 2
+    titleBook: The Secret Book 2
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 3
+    titleBook: The Secret Book 3
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 4
+    titleBook: The Secret Book 4
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 5
+    titleBook: The Secret Book 5
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 6
+    titleBook: The Secret Book 6
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 7
+    titleBook: The Secret Book 7
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 8
+    titleBook: The Secret Book 8
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}
+  - idBook: 9
+    titleBook: The Secret Book 9
+    totalParts: 5
+    listDataItemDecor:
+    - idItemDecor: 0
+      cost: 1000
+      spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
+      sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
+      isPainted: 0
+    - idItemDecor: 1
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
+      sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
+      isPainted: 0
+    - idItemDecor: 2
+      cost: 1200
+      spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
+      sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
+      isPainted: 0
+    - idItemDecor: 3
+      cost: 1234
+      spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
+      sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
+      isPainted: 0
+    listDataSlots:
+    - idSlot: 2
+      spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
+      pos: {x: 182, y: 116}
+    - idSlot: 1
+      spriteLine: {fileID: 21300000, guid: 46924794f201faa4189bda78b6a79a7a, type: 3}
+      pos: {x: -1, y: -3}
+    - idSlot: 3
+      spriteLine: {fileID: 21300000, guid: 7303f1f072a488445be3661ee93f8745, type: 3}
+      pos: {x: 37, y: 330}
+    - idSlot: 0
+      spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
+      pos: {x: 72, y: -18}

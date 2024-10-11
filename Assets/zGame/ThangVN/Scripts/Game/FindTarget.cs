@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +11,35 @@ public class FindTarget
 
         if (listDataConnect.Count < 3)
         {
+            // độ ưu tiên thứ nhất: check stack thứ 2 có merge được với stack nào bên cạnh không
+            List<ColorPlate> listCanBeRoot = new List<ColorPlate>();
+            listCanBeRoot.AddRange(listDataConnect);
+
+            foreach (ColorPlate c in listDataConnect)
+            {
+                if (c.listTypes.Count < 2) continue;
+
+                foreach (ColorPlate n in c.ListConnect)
+                {
+                    if (n.ListValue.Count == 0 || n.countFrozen != 0) continue;
+
+                    if (listDataConnect.Contains(n)) continue;
+
+                    if (c.listTypes[c.listTypes.Count - 2].type == n.TopValue)
+                    {
+                        listCanBeRoot.Remove(c);
+                    }
+                }
+            }
+
+            if (listCanBeRoot.Count == 1)
+            {
+                colorResult = listCanBeRoot[0];
+                return colorResult;
+            }
+
+
+            // độ ưu tiên thứ 2: gần băng, gần nhiều băng
             Dictionary<ColorPlate, int> countFrozenDictionary = new Dictionary<ColorPlate, int>();
             foreach (ColorPlate c in listDataConnect)
             {
@@ -33,36 +62,48 @@ public class FindTarget
                 }
 
             }
+            if (countFrozenDictionary.Count > 0)
+            {
+                //Debug.Log("countFrozenDictionary.Count : " + countFrozenDictionary.Count);
+                //foreach (var obj in countFrozenDictionary)
+                //{
+                //    Debug.Log(obj.Key + ": " + obj.Value);
+                //}
 
-            //int maxCount = 0;
-            //bool isSame = true;
-            //if (countFrozenDictionary.Count == 1)
-            //{
-            //    foreach (var obj in countFrozenDictionary)
-            //    {
-            //        colorResult = obj.Key;
-            //    }
-            //}
-            //else
-            //{
-            //    if (countFrozenDictionary.ElementAt(0).Value == countFrozenDictionary.ElementAt(1).Value)
-            //    {
-            //        isSame = true;
-            //    }
-            //    else isSame = false;
-            //}
-            //if (!isSame)
-            //{
-            //    foreach (var obj in countFrozenDictionary)
-            //    {
-            //        if (obj.Value > maxCount)
-            //        {
-            //            maxCount = obj.Value;
-            //            colorResult = obj.Key;
-            //        }
-            //    }
-            //    return colorResult;
-            //}
+                int maxCount = 0;
+                bool isSame = true;
+                if (countFrozenDictionary.Count == 1)
+                {
+                    foreach (var obj in countFrozenDictionary)
+                    {
+                        colorResult = obj.Key;
+                        return colorResult;
+                    }
+                }
+                else
+                {
+                    if (countFrozenDictionary.ElementAt(0).Value == countFrozenDictionary.ElementAt(1).Value)
+                    {
+                        isSame = true;
+                    }
+                    else isSame = false;
+                }
+
+                if (!isSame)
+                {
+                    foreach (var obj in countFrozenDictionary)
+                    {
+                        if (obj.Value > maxCount)
+                        {
+                            maxCount = obj.Value;
+                            colorResult = obj.Key;
+                        }
+                    }
+
+                    Debug.Log("colorResult if isSame: " + colorResult);
+                    return colorResult;
+                }
+            }
 
             foreach (ColorPlate c in listDataConnect)
             {
@@ -117,6 +158,154 @@ public class FindTarget
             List<ColorPlate> listCanBeRoot = new List<ColorPlate>();
             listCanBeRoot.AddRange(listDataConnect);
 
+            // Check condition has frozen colorPlate 
+            Dictionary<ColorPlate, int> countFrozenDictionary = new Dictionary<ColorPlate, int>();
+
+            foreach (ColorPlate c in listDataConnect)
+            {
+                //Debug.Log(c.name);
+                foreach (ColorPlate cl in c.ListConnect)
+                {
+                    //Debug.Log(cl.countFrozen + " cl ");
+
+                    if (cl.ListValue.Count == 0) continue;
+                    if (cl.countFrozen == 0) continue;
+
+                    if (countFrozenDictionary.ContainsKey(c))
+                    {
+                        countFrozenDictionary[c]++;
+                    }
+                    else
+                    {
+                        countFrozenDictionary.Add(c, 1);
+                    }
+                }
+
+            }
+
+            if (countFrozenDictionary.Count > 0)
+            {
+                listCanBeRoot.Clear();
+                Debug.Log("countFrozenDictionary.Count : " + countFrozenDictionary.Count);
+                foreach (var obj in countFrozenDictionary)
+                {
+                    listCanBeRoot.Add(obj.Key);
+                    Debug.Log(obj.Key + ": " + obj.Value);
+                }
+
+                List<ColorPlate> listCanBeRootFake = new List<ColorPlate>();
+                listCanBeRootFake.AddRange(listCanBeRoot);
+
+
+                if (countFrozenDictionary.Count == 1)
+                {
+                    foreach (var obj in countFrozenDictionary)
+                    {
+                        colorResult = obj.Key;
+                        return colorResult;
+                    }
+                }
+                else
+                {
+                    bool isSame = true;
+
+                    int firstValue = countFrozenDictionary.First().Value;
+
+                    foreach (var obj in countFrozenDictionary)
+                    {
+                        if (obj.Value != firstValue)
+                        {
+                            isSame = false;
+                            break;
+                        }
+                    }
+
+
+                    if (isSame)
+                    {
+                        foreach (ColorPlate c in listCanBeRoot)
+                        {
+                            if (c.listTypes.Count < 2) continue;
+
+                            foreach (ColorPlate n in c.CheckNearByCanConnect())
+                            {
+                                if (n.listTypes.Count < 2) continue;
+
+                                if (n.listTypes[n.listTypes.Count - 2].type == c.listTypes[c.listTypes.Count - 2].type)
+                                {
+                                    listCanBeRootFake.Remove(c);
+                                }
+                            }
+                        }
+
+                        if (listCanBeRootFake.Count > 0 && listCanBeRootFake.Count < listCanBeRoot.Count)
+                        {
+                            for (int i = 0; i < listCanBeRootFake.Count; i++)
+                            {
+                                //Debug.Log(listCanBeRoot[i].name + " after solve");
+                            }
+
+                            int maxCount = -1;
+
+                            for (int i = 0; i < listCanBeRootFake.Count; i++)
+                            {
+
+                                int count = listCanBeRootFake[i].CountHasSameTopValueInConnect();
+                                if (count > maxCount)
+                                {
+                                    maxCount = count;
+                                    colorResult = listCanBeRootFake[i];
+                                }
+                            }
+                        }
+                        else if (listCanBeRootFake.Count == 0)
+                        {
+                            int minCount = 5;
+
+                            for (int i = 0; i < listCanBeRoot.Count; i++)
+                            {
+                                int count = listCanBeRoot[i].CountHasSameTopValueInConnect();
+                                if (count < minCount)
+                                {
+                                    minCount = count;
+                                    colorResult = listCanBeRoot[i];
+                                }
+                            }
+                        }
+                        else if (listCanBeRootFake.Count == listCanBeRoot.Count)
+                        {
+                            int minTypeDiff = 5;
+
+                            for (int i = 0; i < listCanBeRoot.Count; i++)
+                            {
+                                int countDiff = listCanBeRoot[i].listTypes.Count;
+                                if (countDiff < minTypeDiff)
+                                {
+                                    minTypeDiff = countDiff;
+                                    colorResult = listCanBeRoot[i];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int maxValue = 0;
+                        foreach (var obj in countFrozenDictionary)
+                        {
+                            if (obj.Value >= maxValue)
+                            {
+                                maxValue = obj.Value;
+                                colorResult = obj.Key;
+                            }
+                        }
+
+                        return colorResult;
+                    }
+                }
+            }
+
+
+            // if hasnot frozen colorplate
             foreach (ColorPlate c in listDataConnect)
             {
                 if (c.listTypes.Count < 2) continue;

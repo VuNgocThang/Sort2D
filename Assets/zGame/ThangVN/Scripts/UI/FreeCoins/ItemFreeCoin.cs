@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemFreeCoin : MonoBehaviour
 {
-    public GameObject iconCoin, iconHeart, imgActive, imgInActive, iconAds;
+    public GameObject iconCoin, iconHeart, imgActive, imgInActive, iconAds, imgClaimed;
     public TextMeshProUGUI txtCountCoin, txtInactive;
     public EasyButton btnClaim;
     public bool isClaimed;
     public int countCoin, index;
-
+    public Image imgCoin;
+    public List<Sprite> sprites;
 
     private void Awake()
     {
@@ -35,7 +37,9 @@ public class ItemFreeCoin : MonoBehaviour
 
         for (int i = 0; i < SaveGame.DataFreeCoin.listDataFreeCoin.Count; i++)
         {
-            Debug.Log(SaveGame.DataFreeCoin.listDataFreeCoin[i].index);
+            if (i >= 2) imgCoin.sprite = sprites[1];
+            else imgCoin.sprite = sprites[0];
+            //Debug.Log(SaveGame.DataFreeCoin.listDataFreeCoin[i].index);
             if (SaveGame.DataFreeCoin.listDataFreeCoin[i].index == index)
             {
                 isClaimed = SaveGame.DataFreeCoin.listDataFreeCoin[i].isClaimed;
@@ -56,13 +60,15 @@ public class ItemFreeCoin : MonoBehaviour
         if (isClaimed)
         {
             iconAds.SetActive(false);
-            txtInactive.text = "Claimed";
+            imgClaimed.SetActive(true);
+            //txtInactive.text = "Claimed";
 
         }
         else
         {
+            imgClaimed.SetActive(false);
             iconAds.SetActive(true);
-            txtInactive.text = "Free";
+            //txtInactive.text = "Free";
         }
     }
 
@@ -93,7 +99,8 @@ public class ItemFreeCoin : MonoBehaviour
     {
         imgActive.SetActive(false);
         imgInActive.SetActive(true);
-        txtInactive.text = "Claimed";
+        imgClaimed.SetActive(true);
+        //txtInactive.text = "Claimed";
         iconAds.SetActive(false);
         Debug.Log("Save");
         SaveGame.DataFreeCoin.listDataFreeCoin.Add(new DataFreeCoin

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PopupSettingHome : Popup
 {
-    public EasyButton btnSound, btnMusic, btnVibrate;
-    public GameObject imgMusicOff, imgSoundOff, imgVibrateOff;
+    public EasyButton btnSound, btnMusic, btnVibrate, btnSoundOff, btnMusicOff, btnVibrateOff;
+    //public GameObject imgMusicOff, imgSoundOff, imgVibrateOff;
     public static async void Show()
     {
         PopupSettingHome pop = await ManagerPopup.ShowPopup<PopupSettingHome>();
@@ -29,14 +29,33 @@ public class PopupSettingHome : Popup
         {
             ToggleBtnVibrate();
         });
+        btnMusicOff.OnClick(() =>
+        {
+            ToggleBtnMusic();
+        });
+        btnSoundOff.OnClick(() =>
+        {
+            ToggleBtnSound();
+        });
+        btnVibrateOff.OnClick(() =>
+        {
+            ToggleBtnVibrate();
+        });
     }
 
     public override void Init()
     {
         base.Init();
-        imgMusicOff.SetActive(!SaveGame.Music);
-        imgSoundOff.SetActive(!SaveGame.Sound);
-        imgVibrateOff.SetActive(!SaveGame.Vibrate);
+        //imgMusicOff.SetActive(!SaveGame.Music);
+        //imgSoundOff.SetActive(!SaveGame.Sound);
+        //imgVibrateOff.SetActive(!SaveGame.Vibrate);
+        btnMusic.gameObject.SetActive(SaveGame.Music);
+        btnSound.gameObject.SetActive(SaveGame.Sound);
+        btnVibrate.gameObject.SetActive(SaveGame.Vibrate);
+
+        btnMusicOff.gameObject.SetActive(!SaveGame.Music);
+        btnSoundOff.gameObject.SetActive(!SaveGame.Sound);
+        btnVibrateOff.gameObject.SetActive(!SaveGame.Vibrate);
     }
 
     void ToggleBtnMusic()
@@ -49,7 +68,8 @@ public class PopupSettingHome : Popup
         }
 
         SaveGame.Music = !SaveGame.Music;
-        imgMusicOff.SetActive(!SaveGame.Music);
+        StartCoroutine(Wait(btnMusic.gameObject, btnMusicOff.gameObject, SaveGame.Music));
+
     }
 
     void ToggleBtnSound()
@@ -58,14 +78,21 @@ public class PopupSettingHome : Popup
         else ManagerAudio.UnMuteSound();
 
         SaveGame.Sound = !SaveGame.Sound;
-        imgSoundOff.SetActive(!SaveGame.Sound);
+        StartCoroutine(Wait(btnSound.gameObject, btnSoundOff.gameObject, SaveGame.Sound));
     }
     void ToggleBtnVibrate()
     {
         //if (SaveGame.Vibrate) ManagerAudio.MuteSound();
         //else ManagerAudio.UnMuteSound();
         SaveGame.Vibrate = !SaveGame.Vibrate;
-        imgVibrateOff.SetActive(!SaveGame.Vibrate);
+        StartCoroutine(Wait(btnVibrate.gameObject, btnVibrateOff.gameObject, SaveGame.Vibrate));
+    }
+
+    IEnumerator Wait(GameObject btnOn, GameObject btnOff, bool isActive)
+    {
+        yield return new WaitForSeconds(0.2f);
+        btnOn.SetActive(isActive);
+        btnOff.SetActive(!isActive);
     }
 
 }

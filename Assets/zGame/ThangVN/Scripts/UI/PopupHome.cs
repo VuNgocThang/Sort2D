@@ -20,7 +20,7 @@ public class PopupHome : MonoBehaviour
     [SerializeField] GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
 
     [SerializeField] Image iconItem, imgTextName;
-    [SerializeField] TextMeshProUGUI txtExplain;
+    [SerializeField] TextMeshProUGUI txtNameBooster, txtExplain;
     [SerializeField] HandDrag handDrag;
     [SerializeField] ButtonBoosterHammer btnHammer;
     [SerializeField] ButtonBoosterRefresh btnRefresh;
@@ -121,10 +121,11 @@ public class PopupHome : MonoBehaviour
 
     private void Update()
     {
+
         if (!SaveGame.Challenges)
         {
             imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
-            txtPoint.text = $"{LogicGame.Instance.point}/{LogicGame.Instance.maxPoint}";
+            txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point}</color><color=#3A2B74>/{LogicGame.Instance.maxPoint} </color>";
         }
         else
         {
@@ -152,8 +153,9 @@ public class PopupHome : MonoBehaviour
         {
             if (LogicGame.Instance.point >= LogicGame.Instance.maxPoint) LogicGame.Instance.point = LogicGame.Instance.maxPoint;
 
-            imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
-            txtPoint.text = $"{LogicGame.Instance.point} / {LogicGame.Instance.maxPoint}";
+            if (imgFill != null)
+                imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
+            txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point} </color>/ <color=#3A2B74>{LogicGame.Instance.maxPoint} </color>";
 
         }
         else
@@ -202,7 +204,7 @@ public class PopupHome : MonoBehaviour
     {
         itemObj.SetActive(true);
         top.SetActive(false);
-        bot.SetActive(false);
+        //bot.SetActive(false);
         nSpawn.SetActive(false);
         LogicGame.Instance.isPauseGame = true;
 
@@ -218,7 +220,7 @@ public class PopupHome : MonoBehaviour
     {
         itemObj.SetActive(true);
         top.SetActive(false);
-        bot.SetActive(false);
+        //bot.SetActive(false);
         nSpawn.SetActive(false);
         LogicGame.Instance.isPauseGame = true;
 
@@ -248,7 +250,7 @@ public class PopupHome : MonoBehaviour
 
         itemObj.SetActive(false);
         top.SetActive(true);
-        bot.SetActive(true);
+        //bot.SetActive(true);
         nSpawn.SetActive(true);
         LogicGame.Instance.RecursiveMerge();
     }
@@ -261,6 +263,7 @@ public class PopupHome : MonoBehaviour
             {
                 imgTextName.sprite = boosterData.listBooster[i].spriteText;
                 iconItem.sprite = boosterData.listBooster[i].spriteIcon;
+                txtNameBooster.text = boosterData.listBooster[i].nameBooster;
                 txtExplain.text = boosterData.listBooster[i].textExplain;
             }
         }
@@ -269,9 +272,10 @@ public class PopupHome : MonoBehaviour
     IEnumerator ShowTarget()
     {
         LogicGame.Instance.isPauseGame = true;
+        yield return null;
         nTargetPigment.SetActive(true);
         txtLevelInTarget.text = $"Level {SaveGame.Level + 1}";
-        txtTargetPigment.text = LogicGame.Instance.colorPlateData.pigment.ToString();
+        txtTargetPigment.text = LogicGame.Instance.pigment.ToString();
         animPigment.Play("Show");
 
         yield return new WaitForSeconds(1f);
@@ -297,6 +301,7 @@ public class PopupHome : MonoBehaviour
     IEnumerator ShowText()
     {
         LogicGame.Instance.isPauseGame = true;
+        yield return null;
         nChallenges.SetActive(true);
         if (nChallenges.activeSelf)
             animChallenges.Play("Show");

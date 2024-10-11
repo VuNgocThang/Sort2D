@@ -69,6 +69,9 @@ public class ColorPlate : MonoBehaviour
     public int pointToUnLock;
     public int countFrozen;
     public int countMaxDiff;
+    public AnimationCurve curve;
+    public AnimationCurve curveMoveUp;
+    public TimerConfigData timerConfigData;
 
     private void Start()
     {
@@ -97,26 +100,67 @@ public class ColorPlate : MonoBehaviour
         Col = col;
         gameObject.name = $"Cell ({row}, {col})";
     }
-    List<int> listtest = new List<int>()
-    {
-        0, 1, 2
-    };
+
     public void InitColor()
     {
-        int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
-        //int r = UnityEngine.Random.Range(0, listtest.Count);
-        //int type = listtest[r];
+        LevelData levelData = customRatio.listLevelData[SaveGame.Level];
 
-        GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-        listTypes.Add(group);
-
-        int randomCount = UnityEngine.Random.Range(1, 5);
-
-        for (int j = 0; j < randomCount; j++)
+        listTypes.Clear();
+        List<int> listDiff = new List<int>();
+        int randomListTypeCount = -1;
+        int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
+        for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
         {
-            group.listPlates.Add(group.type);
-            ListValue.Add(group.type);
+            if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
+            {
+                randomListTypeCount = i + 1;
+                break;
+            }
+
+            randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
         }
+
+        randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
+
+
+        int t = 0;
+        while (listDiff.Count < randomListTypeCount && t < 1000)
+        {
+            int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
+            if (!listDiff.Contains(type))
+                listDiff.Add(type);
+            ++t;
+        }
+
+        foreach (int type in listDiff)
+        {
+            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+            listTypes.Add(group);
+
+            int remainingCount = 10 - ListValue.Count;
+            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
+            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
+
+            for (int j = 0; j < randomCount; j++)
+            {
+                if (ListValue.Count >= 10)
+                {
+                    break;
+                }
+
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
+            }
+        }
+
+        //foreach (int type in listDiff)
+        //{
+        //    GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+        //    listTypes.Add(group);
+
+        //    group.listPlates.Add(group.type);
+        //    ListValue.Add(group.type);
+        //}
 
         InitValue(this.transform);
     }
@@ -124,7 +168,6 @@ public class ColorPlate : MonoBehaviour
     public void SpawnSpecialColor(GetColorNew getColorNew)
     {
         Init(getColorNew);
-
         GroupEnum group = new GroupEnum { type = ColorEnum.Random };
         listTypes.Add(group);
         group.listPlates.Add(group.type);
@@ -138,6 +181,31 @@ public class ColorPlate : MonoBehaviour
         InitGroupEnum();
         InitValue(this.transform, isFirst);
     }
+
+    public void InitColorExisted(List<CurrentEnum> listCurrentEnum)
+    {
+        InitExistedValue(listCurrentEnum);
+
+        InitValue(this.transform);
+    }
+
+    public void InitExistedValue(List<CurrentEnum> listCurrentEnum)
+    {
+        listTypes.Clear();
+
+        for (int i = 0; i < listCurrentEnum.Count; i++)
+        {
+            GroupEnum group = new GroupEnum { type = (ColorEnum)listCurrentEnum[i].indexEnum };
+            listTypes.Add(group);
+
+            for (int j = 0; j < listCurrentEnum[i].countEnum; j++)
+            {
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
+            }
+        }
+    }
+
     public void InitGroupEnum()
     {
         LevelData levelData = customRatio.listLevelData[0];
@@ -148,83 +216,74 @@ public class ColorPlate : MonoBehaviour
         int randomListTypeCount = -1;
         int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
 
-        if (rdRatioCountInStack == 99)
+
+        for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
         {
-            GroupEnum group = new GroupEnum { type = ColorEnum.Random };
-            listTypes.Add(group);
-            group.listPlates.Add(group.type);
-            ListValue.Add(group.type);
-        }
-        else
-        {
-            for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
+            if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
             {
-                if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
+                randomListTypeCount = i + 1;
+                break;
+            }
+
+            randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
+        }
+        //Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
+        //Debug.Log("số lượng màu khác nhau: " + randomListTypeCount);
+
+        while (listDiff.Count < randomListTypeCount)
+        {
+            int randomCountPerStack = -1;
+            int rdRatioColorInStack = UnityEngine.Random.Range(0, 100);
+            //Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
+
+            for (int i = 0; i < levelData.listRatioSpawnColor.Count; i++)
+            {
+                if (levelData.listRatioSpawnColor[i] > rdRatioColorInStack)
                 {
-                    randomListTypeCount = i + 1;
+                    randomCountPerStack = i;
                     break;
                 }
 
-                randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
+                randomCountPerStack = levelData.listRatioSpawnColor.Count;
             }
-            //Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
-            //Debug.Log("số lượng màu khác nhau: " + randomListTypeCount);
+            //Debug.Log("màu được spawn: " + randomCountPerStack);
 
-            while (listDiff.Count < randomListTypeCount)
-            {
-                int randomCountPerStack = -1;
-                int rdRatioColorInStack = UnityEngine.Random.Range(0, 100);
-                //Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
+            listDiff.Add(randomCountPerStack);
+        }
 
-                for (int i = 0; i < levelData.listRatioSpawnColor.Count; i++)
-                {
-                    if (levelData.listRatioSpawnColor[i] > rdRatioColorInStack)
-                    {
-                        randomCountPerStack = i;
-                        break;
-                    }
+        //int randomListTypeCount = 3;
 
-                    randomCountPerStack = levelData.listRatioSpawnColor.Count;
-                }
-                //Debug.Log("màu được spawn: " + randomCountPerStack);
+        //while (listDiff.Count < randomListTypeCount)
+        //{
+        //    listDiff.Add(UnityEngine.Random.Range(0, 7));
+        //}
 
-                listDiff.Add(randomCountPerStack);
-            }
+        foreach (int type in listDiff)
+        {
+            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+            listTypes.Add(group);
 
-            //int randomListTypeCount = 3;
+            //int randomCount = UnityEngine.Random.Range(1, 4);
 
-            //while (listDiff.Count < randomListTypeCount)
+            //for (int j = 0; j < randomCount; j++)
             //{
-            //    listDiff.Add(UnityEngine.Random.Range(0, 7));
+            //    group.listPlates.Add(group.type);
+            //    ListValue.Add(group.type);
             //}
 
-            foreach (int type in listDiff)
+            int remainingCount = 10 - ListValue.Count;
+            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
+            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
+
+            for (int j = 0; j < randomCount; j++)
             {
-                GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-                listTypes.Add(group);
-
-                //int randomCount = UnityEngine.Random.Range(1, 4);
-
-                //for (int j = 0; j < randomCount; j++)
-                //{
-                //    group.listPlates.Add(group.type);
-                //    ListValue.Add(group.type);
-                //}
-
-                int remainingCount = 10 - ListValue.Count;
-                int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
-                int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
-
-                for (int j = 0; j < randomCount; j++)
+                if (ListValue.Count >= 10)
                 {
-                    if (ListValue.Count >= 10)
-                    {
-                        break;
-                    }
-
-                    group.listPlates.Add(group.type);
-                    ListValue.Add(group.type);
+                    break;
                 }
+
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
             }
         }
     }
@@ -258,38 +317,93 @@ public class ColorPlate : MonoBehaviour
             if (i >= ListColor.Count)
             {
                 LogicColor color = GetColorNew();
-                color.Init((int)ListValue[i]);
+                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                Debug.Log("layer: " + layer);
+                color.Init((int)ListValue[i], layer);
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
 
                 color.transform.localScale = Vector3.one;
-
-                color.transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                color.transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 ListColor.Add(color);
             }
             else
             {
 
-                ListColor[i].gameObject.SetActive(true);
-                ListColor[i].Init((int)ListValue[i]);
-
                 if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.y) > 1)
                 {
+                    List<LogicColor> ListColorVisual = new List<LogicColor>();
+                    ListColorVisual.Add(ListColor[i]);
                     // Bieu dien o day
 
-                    Vector3 currentPos = ListColor[i].transform.localPosition;
-                    Debug.Log("i : " + i + " ___  " + ListColor[i].transform.localPosition);
-                    //ListColor[i].transform.DOLocalJump(new Vector3(0, i * GameConfig.OFFSET_PLATE, currentPos.z), 1, 1, GameConfig.TIME_MOVE);
-                    ListColor[i].transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), GameConfig.TIME_MOVE);
+                    //Vector3 currentPos = ListColor[i].transform.localPosition;
+                    float jumpPower = 0.5f + i * 0.1f;
+                    if (index == 0)
+                    {
+                        Debug.Log("000000000000000");
+
+                        LogicColor colorZ = ListColor[i];
+                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                        colorZ.transform.DOLocalJump(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, timerConfigData.timeMove)
+                            .OnStart(() =>
+                            {
+                                colorZ.spriteRender.sortingOrder = 11;
+                            })
+                            .OnComplete(() =>
+                            {
+                                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                                colorZ.spriteRender.sortingOrder = layer;
+                            })
+                            ;
+                    }
+                    else if (index == 1)
+                    {
+                        Debug.Log("111111111111");
+
+                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                        LogicColor colorZ = ListColor[i];
+
+                        colorZ.transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove)
+                            .SetEase(curve)
+                            //.SetEase(curveMoveUp)
+                            .OnStart(() =>
+                            {
+                                colorZ.spriteRender.sortingOrder = 11;
+                            })
+                            .OnComplete(() =>
+                            {
+                                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+
+                                colorZ.spriteRender.sortingOrder = layer;
+                            })
+                            ;
+                        ;
+                    }
+
+                    for (int j = 0; j < ListColorVisual.Count; j++)
+                    {
+                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                        ListColorVisual[j].transform.localPosition = new Vector3(randomX, ListColorVisual[j].transform.localPosition.y, ListColorVisual[j].transform.localPosition.z);
+                    }
                 }
                 else
                 {
-                    ListColor[i].transform.localPosition = new Vector3(0, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                    //Debug.Log("wtf");
+                    int layer = (8 - Row) > 1 ? 8 - Row : 1;
+
+                    ListColor[i].spriteRender.sortingOrder = layer;
+                    ListColor[i].transform.localPosition = new Vector3(ListColor[i].transform.localPosition.x, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
+
+
 
             }
         }
     }
+
 
     private void MoveDirection(int index, int i)
     {
@@ -400,6 +514,15 @@ public class ColorPlate : MonoBehaviour
             ListConnect.Add(colorPlate);
         }
     }
+
+    public void LinkColorPlateArrow(ColorPlate colorPlate)
+    {
+        if (colorPlate != null && !ListConnect.Contains(colorPlate))
+        {
+            ListConnect.Add(colorPlate);
+        }
+    }
+
     public List<ColorPlate> CheckNearByCanConnect(/*ColorPlate colorPlate*/)
     {
         List<ColorPlate> listSame = new List<ColorPlate>();
@@ -446,7 +569,8 @@ public class ColorPlate : MonoBehaviour
         //    isPlayingOnClick = true;
         //}
 
-        StartCoroutine(PlayAnim());
+        //StartCoroutine(PlayAnim());
+        StartCoroutine(PlayAnimClick());
     }
 
     public bool IsPlayingOnClick()
@@ -476,8 +600,42 @@ public class ColorPlate : MonoBehaviour
             anim.Play("Normal");
             isPlayingOnClick = false;
         }
+    }
 
+    public void PlayAnimArrow()
+    {
+        if (CheckArrow(ListConnect[0]) && !isPlayingOnClick)
+        {
+            logicVisual.PlayArrowCannotClick();
+        }
 
+        if (!CheckArrow(ListConnect[0]) && !isPlayingOnClick)
+        {
+            logicVisual.PlayArrowNormal();
+        }
+    }
+
+    bool CheckArrow(ColorPlate c)
+    {
+        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin || c.status == Status.CannotPlace || c.status == Status.Ads || c.status == Status.Empty) return true;
+        else return false;
+    }
+
+    IEnumerator PlayAnimClick()
+    {
+        isPlayingOnClick = true;
+        logicVisual.arrow.SetActive(false);
+        logicVisual.arrowClick.SetActive(true);
+        logicVisual.arrowCannotClick.SetActive(false);
+
+        logicVisual.arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
+            .OnComplete(() =>
+            {
+                logicVisual.arrowClick.transform.localScale = Vector3.one;
+            });
+        yield return new WaitForSeconds(0.15f);
+
+        isPlayingOnClick = false;
     }
 
     public void PlayAnimScale()
@@ -507,8 +665,12 @@ public class ColorPlate : MonoBehaviour
                 {
                     if (color.trail != null) color.trail.enabled = true;
 
-                    Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
-                    Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+                    // Camera overlay
+                    Vector3 viewportPos = new Vector3(targetUIPosition.position.x / Screen.width, targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
+                    Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
+
+                    //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
+                    //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
                     color.transform.DOMove(targetPos, 0.3f).OnComplete(() =>
                     {

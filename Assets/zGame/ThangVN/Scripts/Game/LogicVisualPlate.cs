@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LogicVisualPlate : MonoBehaviour
 {
@@ -58,16 +60,40 @@ public class LogicVisualPlate : MonoBehaviour
 
     public void PlayArrowCannotClick()
     {
-        arrowCannotClick.SetActive(true);
-        arrowClick.SetActive(false);
         arrow.SetActive(false);
+        arrowClick.SetActive(false);
+        arrowCannotClick.SetActive(true);
     }
 
-    public void PlayArrowCanClick()
+    public void PlayArrowNormal()
     {
-        Debug.Log("wtf arrow can click?>");
         arrow.SetActive(true);
+        arrowClick.SetActive(false);
         arrowCannotClick.SetActive(false);
+    }
+
+    public void PlayArrowClicked()
+    {
+        StartCoroutine(ClickArrow());
+    }
+
+    IEnumerator ClickArrow()
+    {
+        arrow.SetActive(false);
+        arrowClick.SetActive(true);
+        arrowCannotClick.SetActive(false);
+
+        arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
+            .OnComplete(() =>
+            {
+                arrowClick.transform.localScale = Vector3.one;
+            });
+        yield return new WaitForSeconds(0.15f);
+
+        arrow.SetActive(true);
+        arrowClick.SetActive(false);
+        arrowCannotClick.SetActive(false);
+
     }
 
     public void SetDirectionArrow(Status stt, bool isLocked)
@@ -107,12 +133,33 @@ public class LogicVisualPlate : MonoBehaviour
         }
     }
 
-    public void SetSpecialSquare(Status stt)
+    public void SetSpecialSquare(Status stt, int RowOffset)
     {
         switch (stt)
         {
             case Status.Frozen:
-                SetFrozen();
+                SetFrozenVisual(RowOffset);
+                break;
+            case Status.CannotPlace:
+                SetCannotPlace();
+                break;
+            case Status.LockCoin:
+                SetLockCoin();
+                break;
+            case Status.Ads:
+                SetAds();
+                break;
+            default:
+                return;
+        }
+    }
+
+    public void SetSpecialSquareExisted(Status stt, int countFrozen, int RowOffset)
+    {
+        switch (stt)
+        {
+            case Status.Frozen:
+                SetFrozen(countFrozen, RowOffset);
                 break;
             case Status.CannotPlace:
                 SetCannotPlace();
@@ -229,6 +276,7 @@ public class LogicVisualPlate : MonoBehaviour
         lockCoin.SetActive(true);
     }
 
+
     public void SetCannotPlace()
     {
         normal.SetActive(false);
@@ -245,7 +293,7 @@ public class LogicVisualPlate : MonoBehaviour
         cannotPlace.SetActive(true);
     }
 
-    public void SetFrozen()
+    public void SetFrozenVisual(int RowOffset)
     {
         normal.SetActive(true);
         cannotPlace.SetActive(false);
@@ -255,6 +303,39 @@ public class LogicVisualPlate : MonoBehaviour
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
+            //Debug.Log((7 - RowOffset) * 10 - 5);
+            //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+            int layer = (8 - RowOffset) > 1 ? 8 - RowOffset : 1;
+
+            listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
+        }
+    }
+
+    public void SetFrozen(int countFrozen, int RowOffset)
+    {
+        normal.SetActive(true);
+        cannotPlace.SetActive(false);
+        lockCoin.SetActive(false);
+        ads.SetActive(false);
+
+        for (int i = 0; i < listForzen.Count; i++)
+        {
+            listForzen[i].SetActive(true);
+            //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
+            int layer = (8 - RowOffset) > 1 ? 8 - RowOffset : 1;
+
+            listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
+
+        }
+
+        if (countFrozen == 2)
+        {
+            listForzen[0].SetActive(false);
+        }
+        else if (countFrozen == 1)
+        {
+            listForzen[0].SetActive(false);
+            listForzen[1].SetActive(false);
         }
     }
 

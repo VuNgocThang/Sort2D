@@ -64,6 +64,7 @@ namespace ntDev
         int scaleFlow = 0;
         public virtual void OnPointerDown(PointerEventData eventData)
         {
+            //Debug.Log(eventData.button + " ___ " + disable);
             if (eventData.button != PointerEventData.InputButton.Left || disable) return;
             if (enableSpriteFX && pressedSprite != null)
                 img.sprite = pressedSprite;

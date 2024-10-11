@@ -14,7 +14,9 @@ public static class GameConfig
 
     public static string LAST_HEART_LOSS = "LastHeartLoss";
 
-    public static float OFFSET_PLATE = 0.05f;
+    public static float OFFSET_PLATE = 0.1f;
+
+    public static float OFFSET_PLATE_Z = 0.1f;
 
     public static string TXT_REFRESH = "refresh tray to get new stack options";
 
@@ -87,4 +89,8 @@ public static class GameConfig
     }
 
     public static string DATACOIN = "DATACOIN";
+
+    public static string GAMESAVENORMAL = "GameSaveNormal";
+
+    public static string GAMESAVECHALLENGES = "GameSaveChallenges";
 }

@@ -16,6 +16,7 @@ public class NewColor
 {
     public int indexLevelUnlock;
     public Sprite spriteIcon;
+    public Sprite spriteBg;
     public NewColorEnum newColorEnum;
 }
 

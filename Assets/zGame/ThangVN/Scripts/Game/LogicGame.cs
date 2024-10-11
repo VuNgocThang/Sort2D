@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utilities.Common;
 using Color = UnityEngine.Color;
 
@@ -24,6 +25,7 @@ public class LogicGame : MonoBehaviour
     public const int RULE_COMPLETE = 10;
     [SerializeField] Camera cam;
     [SerializeField] Transform holder;
+    [SerializeField] Transform nParentArrow;
     [SerializeField] public Transform targetUIPosition;
 
     [SerializeField] public ColorPlateData colorPlateData;
@@ -34,8 +36,11 @@ public class LogicGame : MonoBehaviour
     [SerializeField] public List<ColorPlate> listSpawnNew;
     [SerializeField] public List<ColorPlate> ListColorPlate;
     [SerializeField] public List<ColorPlate> ListArrowPlate;
-    [HideInInspector] public int rows;
-    [HideInInspector] public int cols;
+    [SerializeField] public List<ColorPlate> ListCheckPlate;
+    /*[HideInInspector]*/
+    public int rows;
+    /*[HideInInspector]*/
+    public int cols;
     [SerializeField] public PopupHome homeInGame;
 
     [SerializeField] LayerMask layerArrow;
@@ -72,6 +77,7 @@ public class LogicGame : MonoBehaviour
     public int maxPoint;
     public int gold;
     public int pigment;
+    public int countRevive;
 
     int pointSpawnSpecial = 100;
     [SerializeField] RectTransform slot_5;
@@ -85,11 +91,17 @@ public class LogicGame : MonoBehaviour
     public bool isUsingHammer;
     public bool isUsingHand;
     public Hammer hammer;
+    public HammerSpineEvent hammerSpine;
     [SerializeField] public Canvas canvasTutorial;
     public Tutorial tutorial;
 
     int countSpawnSpecial = 0;
     [SerializeField] bool isHadSpawnSpecial = false;
+    [SerializeField] SpineSelectionChange spineSelection;
+    [SerializeField] ControllerAnimState ControllerAnimState;
+    [SerializeField] TimerConfigData timerConfigData;
+    [SerializeField] SpawnBookTest spawnBook;
+
     LogicColor GetColorNew()
     {
         return listColors.GetClone();
@@ -105,14 +117,24 @@ public class LogicGame : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
-        //Debug.Log("Load scene Game: " + SaveGame.Challenges);
-        //Debug.Log(SaveGame.Heart + " heart");
         Refresh();
         //InitPlateSpawn(false);
-
+        LoadSaveData();
         LoadData();
+        InitListCheckPlate();
         InitNextPlate();
+        RecursiveMerge();
     }
+    //void Test(int count)
+    //{
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        if (i != 0 && i != count - 1)
+    //        {
+    //            Debug.Log("__" + i + "__");
+    //        }
+    //    }
+    //}
 
     private void Refresh()
     {
@@ -123,6 +145,7 @@ public class LogicGame : MonoBehaviour
         isPauseGame = false;
         listColors.Refresh();
         countDiff = 2;
+        countRevive = 1;
         //countMove = 2;
         point = 0;
         //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
@@ -135,7 +158,7 @@ public class LogicGame : MonoBehaviour
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
 
 
-        ResetPosSpawn();
+        //ResetPosSpawn();
 
     }
 
@@ -165,19 +188,60 @@ public class LogicGame : MonoBehaviour
 
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
+        ResetNDesk();
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
-        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, transform, arrowPlatePrefab);
 
         if (SaveGame.Challenges)
         {
-            LoadLevelChallenges();
+            if (saveGameChallenges == null) LoadLevelChallenges();
+            else LoadSaveChallengesData();
         }
         else
         {
-            LoadLevelNormal();
+            maxPoint = colorPlateData.goalScore;
+            gold = colorPlateData.gold;
+            pigment = colorPlateData.pigment;
+
+            if (saveGameNormal == null) LoadLevelNormal();
+            else LoadSaveNormalData();
         }
-        //DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
-        //countDiffMax = dataLevel.CountDiff;
+
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
+        DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
+        countDiffMax = dataLevel.CountDiff;
+    }
+
+    void InitListCheckPlate()
+    {
+        for (int i = 0; i < ListArrowPlate.Count; i++)
+        {
+            if (!ListCheckPlate.Contains(ListArrowPlate[i].ListConnect[0]))
+            {
+                ListCheckPlate.Add(ListArrowPlate[i].ListConnect[0]);
+            }
+        }
+    }
+    [SerializeField] GameObject testStack;
+    void ResetNDesk()
+    {
+
+        if (cols >= rows)
+        {
+            float y = 0.3f * (6 - cols);
+            testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+
+            float scale = 6f / cols;
+            holder.localScale = new Vector3(scale, scale, scale);
+        }
+        else
+        {
+            float y = 0.3f * (6 - rows);
+            testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+
+            float scale = 6f / rows;
+            holder.localScale = new Vector3(scale, scale, scale);
+        }
+
     }
     void LoadLevelChallenges()
     {
@@ -186,7 +250,7 @@ public class LogicGame : MonoBehaviour
             int index = colorPlateData.listSpecialData[i].Row * cols + colorPlateData.listSpecialData[i].Col;
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
+            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
         }
 
         for (int i = 0; i < colorPlateData.listArrowData.Count; i++)
@@ -222,11 +286,13 @@ public class LogicGame : MonoBehaviour
             int index = colorPlateData.listSpecialData[i].Row * cols + colorPlateData.listSpecialData[i].Col;
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status);
 
+            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
             if (ListColorPlate[index].status == Status.Frozen)
             {
                 ListColorPlate[index].countFrozen = 3;
+                ListColorPlate[index].Init(GetColorNew);
+                ListColorPlate[index].InitColor();
             }
 
             if (ListColorPlate[index].status == Status.LockCoin)
@@ -279,37 +345,65 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[index].logicVisual.DeletePlate();
         }
 
-        maxPoint = colorPlateData.goalScore;
-        gold = colorPlateData.gold;
-        pigment = colorPlateData.pigment;
+
     }
 
     #region InitNextPlate
     public void ShufflePlateSpawn()
     {
-        for (int i = 0; i < listSpawnNew.Count; i++)
+        //for (int i = 0; i < listSpawnNew.Count; i++)
+        //{
+        //    listSpawnNew[i].Init(GetColorNew);
+        //}
+
+        //Sequence sequence = DOTween.Sequence();
+
+        //for (int i = 0; i < listSpawnNew.Count; i++)
+        //{
+        //    int index = i;
+
+        //    sequence.AppendCallback(() =>
+        //    {
+        //        listSpawnNew[index].Init(GetColorNew);
+        //        listSpawnNew[index].InitColor();
+
+        //        foreach (LogicColor c in listSpawnNew[index].ListColor)
+        //        {
+        //            c.transform.localPosition = new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
+        //        }
+
+        //        foreach (LogicColor c in listSpawnNew[index].ListColor)
+        //        {
+        //            c.transform.DOLocalMoveX(0, 0.3f);
+        //        }
+        //    });
+        //    sequence.AppendInterval(0.2f);
+        //}
+
+        for (int i = 0; i < listNextPlate.Count; i++)
         {
-            listSpawnNew[i].Init(GetColorNew);
+            listNextPlate[i].Init(GetColorNew);
         }
 
         Sequence sequence = DOTween.Sequence();
 
-        for (int i = 0; i < listSpawnNew.Count; i++)
+        for (int i = 0; i < listNextPlate.Count; i++)
         {
             int index = i;
 
             sequence.AppendCallback(() =>
             {
-                listSpawnNew[index].Init(GetColorNew);
-                listSpawnNew[index].InitColor();
+                listNextPlate[index].Init(GetColorNew);
+                listNextPlate[index].InitColor();
 
-                foreach (LogicColor c in listSpawnNew[index].ListColor)
+                foreach (LogicColor c in listNextPlate[index].ListColor)
                 {
                     c.transform.localPosition = new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
                 }
 
-                foreach (LogicColor c in listSpawnNew[index].ListColor)
+                foreach (LogicColor c in listNextPlate[index].ListColor)
                 {
+                    float randomX = UnityEngine.Random.Range(-0.5f, 0.5f);
                     c.transform.DOLocalMoveX(0, 0.3f);
                 }
             });
@@ -349,15 +443,15 @@ public class LogicGame : MonoBehaviour
     //    }
     //}
 
-    void InitNextPlate()
+    public void InitNextPlate()
     {
         for (int i = 0; i < listNextPlate.Count; i++)
         {
             if (listNextPlate[i].ListValue.Count == 0)
             {
                 listNextPlate[i].Init(GetColorNew);
-                if (i == 0) listNextPlate[i].InitRandom(true);
-                else listNextPlate[i].InitRandom(false);
+                if (i == 0) listNextPlate[i].InitColor();
+                else listNextPlate[i].InitColor();
             }
         }
     }
@@ -372,19 +466,19 @@ public class LogicGame : MonoBehaviour
 
     void SwitchNextPlate(object e)
     {
-        listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.2f).SetEase(Ease.OutCirc);
-        listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.2f).SetEase(Ease.InCirc);
-        foreach (LogicColor c in listNextPlate[0].ListColor)
-        {
-            c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
-        }
+        //listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.2f).SetEase(Ease.OutCirc);
+        //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.2f).SetEase(Ease.InCirc);
+        //foreach (LogicColor c in listNextPlate[0].ListColor)
+        //{
+        //    c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+        //}
 
-        foreach (LogicColor c in listNextPlate[1].ListColor)
-        {
-            c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-        }
+        //foreach (LogicColor c in listNextPlate[1].ListColor)
+        //{
+        //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+        //}
 
-        Swap(listNextPlate);
+        //Swap(listNextPlate);
     }
     float timeClick = -1;
 
@@ -402,7 +496,7 @@ public class LogicGame : MonoBehaviour
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-                timeClick = .5f;
+                timeClick = .8f;
                 Vector3 spawnPosition = GetMouseWorldPosition();
                 clickParticlePool.Spawn(spawnPosition, true);
 
@@ -421,14 +515,16 @@ public class LogicGame : MonoBehaviour
                         ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
                         ColorPlate holder = checkStatusHolder.CheckHolder(arrowPlate);
 
-                        ICheckListMove checkListMove = new CheckGetListMove();
-                        List<ColorPlate> listMove = checkListMove.GetListSlotVisual(arrowPlate);
+                        //ICheckListMove checkListMove = new CheckGetListMove();
+                        //List<ColorPlate> listMove = checkListMove.GetListSlotVisual(arrowPlate);
 
-                        arrowPlate.PlayAnimOnClick();
-                        ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
 
                         if (holder != null)
                         {
+                            spineSelection.ActionToIdle();
+                            ControllerAnimState.ActionToIdle();
+                            arrowPlate.PlayAnimOnClick();
+                            ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
                             //Debug.Log(arrowPlate.name + " __ " + holder.name);
                             SetColor(arrowPlate, holder);
 
@@ -482,10 +578,15 @@ public class LogicGame : MonoBehaviour
 
                             if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
 
-                            hammer.gameObject.SetActive(true);
-                            hammer.transform.position = plateSelect.transform.position + GameConfig.OFFSET_HAMMER;
-                            hammer.hitColorPlate = plateSelect.transform.position;
-                            hammer.colorPlateDestroy = plateSelect;
+                            //hammer.gameObject.SetActive(true);
+                            //hammer.transform.position = plateSelect.transform.position + GameConfig.OFFSET_HAMMER;
+                            //hammer.hitColorPlate = plateSelect.transform.position;
+                            //hammer.colorPlateDestroy = plateSelect;
+
+                            hammerSpine.gameObject.SetActive(true);
+                            hammerSpine.anim.transform.position = plateSelect.transform.position;
+                            hammerSpine.PlayAnim();
+                            hammerSpine.colorPlateDestroy = plateSelect;
 
                             SaveGame.Hammer--;
                             isUsingHammer = false;
@@ -521,41 +622,42 @@ public class LogicGame : MonoBehaviour
             StartCoroutine(RaiseEventWin());
         };
 
-        //if (!isMergeing)
-        //{
-        //    CheckClear();
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Z))
+        for (int i = 0; i < ListArrowPlate.Count; i++)
         {
-            countSpawnSpecial = 1;
-            isHadSpawnSpecial = true;
+            ListArrowPlate[i].PlayAnimArrow();
         }
 
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+            SaveGame.Level++;
+            ManagerEvent.ClearEvent();
+
+            SceneManager.LoadScene("SceneGame");
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+            SaveGame.Level--;
+            ManagerEvent.ClearEvent();
+
+            SceneManager.LoadScene("SceneGame");
+        }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             isLose = true;
-            Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
         }
 
-
-        //if (gameMode == GameMode.EditGame)
+        //if (!isMergeing)
         //{
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        Ray rayTest = cam.ScreenPointToRay(Input.mousePosition); ;
-        //        if (Physics.Raycast(rayTest, out var plate, 100f, layerArrow))
-        //        {
-        //            ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
-
-        //            plateSelect.Init(GetColorNew);
-        //            plateSelect.InitColor();
-
-        //            CheckLose();
-        //        }
-        //    }
+        //    CheckClear();
         //}
     }
 
@@ -598,10 +700,10 @@ public class LogicGame : MonoBehaviour
 
         }
 
-        //if (!isLose)
-        //{
-        //    CheckLose();
-        //}
+        if (!isLose)
+        {
+            CheckLose();
+        }
     }
 
     void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
@@ -614,7 +716,9 @@ public class LogicGame : MonoBehaviour
             {
                 Vector3 localPos = renderer.transform.localPosition;
                 renderer.transform.SetParent(startColorPlate.transform);
-                renderer.transform.localPosition = new Vector3(0, localPos.y, localPos.z);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
@@ -628,23 +732,52 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
 
-            Tweener t = null;
-            t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
-            listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
-            foreach (LogicColor c in listNextPlate[0].ListColor)
+            //return;
+
+            //Tween t = null;
+
+            foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
-                c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+                Vector3 localPos = renderer.transform.localPosition;
+                renderer.transform.SetParent(listNextPlate[0].transform);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                /*t = */
+                //renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
+                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                renderer.transform.localRotation = Quaternion.identity;
+                renderer.transform.localScale = Vector3.one;
             }
 
-            foreach (LogicColor c in listNextPlate[1].ListColor)
-            {
-                c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-            }
-            Swap(listNextPlate);
-            t.OnComplete(() =>
-            {
-                listNextPlate[1].InitRandom(false);
-            });
+            listNextPlate[0].ListValue.AddRange(listNextPlate[1].ListValue);
+            listNextPlate[0].ListColor.AddRange(listNextPlate[1].ListColor);
+            listNextPlate[0].listTypes.AddRange(listNextPlate[1].listTypes);
+            listNextPlate[0].InitValue(listNextPlate[0].transform);
+
+            listNextPlate[1].ListValue.Clear();
+            listNextPlate[1].ListColor.Clear();
+            listNextPlate[1].listTypes.Clear();
+
+            spawnBook.PlayAnimSpawn();
+            //Tweener t = null;
+            //t = listNextPlate[0].transform.DOMove(listNextPlate[1].transform.position, 0.3f).SetEase(Ease.OutCirc);
+            //listNextPlate[1].transform.DOMove(listNextPlate[0].transform.position, 0.3f).SetEase(Ease.InCirc);
+            //t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
+            //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
+            //foreach (LogicColor c in listNextPlate[0].ListColor)
+            //{
+            //    c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
+            //}
+
+            //foreach (LogicColor c in listNextPlate[1].ListColor)
+            //{
+            //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
+            //}
+            //Swap(listNextPlate);
+            //t.OnComplete(() =>
+            //{
+            //    listNextPlate[1].InitColor();
+            //});
 
             float delay = 0f;
 
@@ -657,7 +790,15 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.SetParent(endColorPlate.transform);
 
                 Transform transformCache = renderer.transform;
-                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f).SetEase(curveMove));
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+                sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
+                                                .SetEase(curveMove)
+                    //.OnComplete(() =>
+                    //{
+                    //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                    //})
+                    );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
                 renderer.transform.localRotation = Quaternion.identity;
@@ -693,7 +834,7 @@ public class LogicGame : MonoBehaviour
 
                         if (listDataConnect.Count <= 1)
                         {
-                            //if (!isLose) CheckLose();
+                            if (!isLose) CheckLose();
                         }
                         else
                         {
@@ -718,7 +859,7 @@ public class LogicGame : MonoBehaviour
                     Sequence sequenceSpecial = DOTween.Sequence();
 
                     sequenceSpecial.AppendCallback(() =>
-                        chargingParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true)
+                        chargingParticlePool.Spawn(endColorPlate.transform.position, true)
                     );
 
                     sequenceSpecial.AppendInterval(0.5f);
@@ -734,7 +875,7 @@ public class LogicGame : MonoBehaviour
 
                     sequenceSpecial.AppendCallback(() =>
                         {
-                            changeColorParticlePool.Spawn(endColorPlate.transform.position + new Vector3(0, 1.2f, 0), true);
+                            changeColorParticlePool.Spawn(endColorPlate.transform.position, true);
                             RecursiveMerge();
 
                         }
@@ -942,6 +1083,7 @@ public class LogicGame : MonoBehaviour
                 //if (!isPauseGame)
                 //{
 
+                ControllerAnimState.ActionToBonus();
                 timerRun += 0.2f;
 
                 colorPlate.InitClear(true);
@@ -1019,18 +1161,27 @@ public class LogicGame : MonoBehaviour
                     endColorPlate.ListValue.Add(startColorPlate.TopValue);
                     endColorPlate.ListColor.Add(startColorPlate.TopColor);
 
+
                     startColorPlate.ListValue.RemoveAt(startColorPlate.ListValue.Count - 1);
                     startColorPlate.ListColor.RemoveAt(startColorPlate.ListColor.Count - 1);
 
-                    endColorPlate.InitValue(endColorPlate.transform, false, -1);
+                    if (startColorPlate.Col == endColorPlate.Col)
+                    {
+                        endColorPlate.InitValue(endColorPlate.transform, true, 1);
 
+                    }
+                    else if (startColorPlate.Row == endColorPlate.Row)
+                    {
+
+                        endColorPlate.InitValue(endColorPlate.transform, true, 0);
+                    }
                 }
             });
 
             //timerRun += 0.13f;
 
-            sequence.AppendInterval(0.1f);
-            timerRun += 0.15f;
+            sequence.AppendInterval(timerConfigData.timeMerge);
+            timerRun += timerConfigData.timeRun;
         }
         //timerRun += 0.2f;
         //timerRun += 0.1f * count + 0.5f;
@@ -1040,18 +1191,23 @@ public class LogicGame : MonoBehaviour
 
     void CheckLose()
     {
-        bool allPlaced = true;
+        //bool allPlaced = true;
         int countZeroListValues = 0;
 
 
-        for (int i = 0; i < ListArrowPlate.Count; i++)
+        for (int i = 0; i < ListCheckPlate.Count; i++)
         {
-            if (ListArrowPlate[i].ListValue.Count == 0)
+            if (ListCheckPlate[i].ListValue.Count == 0)
             {
-                countZeroListValues++;
+                if (!CheckColorPlateValue(ListCheckPlate[i]))
+                {
+                    //Debug.Log(ListCheckPlate[i].name);
+                    countZeroListValues++;
+                }
             }
-        }
 
+        }
+        //Debug.Log("countZeroListValues: " + countZeroListValues);
         if (countZeroListValues > 2)
         {
             homeInGame.imgDanger.SetActive(false);
@@ -1064,25 +1220,37 @@ public class LogicGame : MonoBehaviour
             //Debug.LogWarning(" Show Danger");
         }
 
-        for (int i = 0; i < ListArrowPlate.Count; i++)
-        {
-            if (ListArrowPlate[i].ListValue.Count == 0)
-            {
-                allPlaced = false;
-                break;
-            }
-        }
-
-        if (allPlaced && !isMergeing && !isLose)
+        if (countZeroListValues == 0 && !isMergeing)
         {
             isLose = true;
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+            if (SaveGame.Challenges)
+            {
+                saveGameChallenges = null;
+                PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
+            }
+
             Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
         }
     }
+
+    bool CheckColorPlateValue(ColorPlate colorPlateCheck)
+    {
+
+        if (colorPlateCheck.isLocked || colorPlateCheck.status == Status.CannotPlace || colorPlateCheck.countFrozen != 0 || colorPlateCheck.status == Status.Ads)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     IEnumerator RaiseEventLose()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         if (!SaveGame.Challenges)
             ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
         else ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
@@ -1090,10 +1258,16 @@ public class LogicGame : MonoBehaviour
     void CheckWin()
     {
         isWin = true;
+
+        SaveGame.IsShowBook = false;
         Debug.Log(point + " __ " + gold + " __ " + pigment);
         Debug.Log("check win");
         if (SaveGame.Level < 19)
             SaveGame.Level++;
+
+        saveGameNormal = null;
+        PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
         foreach (ColorPlate c in ListColorPlate)
         {
             if (c.ListValue.Count == 0 || c.status == Status.Empty) continue;
@@ -1113,6 +1287,7 @@ public class LogicGame : MonoBehaviour
 
     public void ReviveGame()
     {
+        countRevive--;
         StartCoroutine(ClearSomeArrows());
     }
 
@@ -1120,17 +1295,17 @@ public class LogicGame : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        if (ListArrowPlate.Count >= 4)
+        if (ListCheckPlate.Count >= 4)
         {
             List<ColorPlate> newListRevive = new List<ColorPlate>();
             while (newListRevive.Count < 3)
             {
-                int randomIndex = UnityEngine.Random.Range(0, ListArrowPlate.Count);
+                int randomIndex = UnityEngine.Random.Range(0, ListCheckPlate.Count);
 
-                if (!newListRevive.Contains(ListArrowPlate[randomIndex]))
+                if (!newListRevive.Contains(ListCheckPlate[randomIndex]))
                 {
                     Debug.Log("randomIndex: " + randomIndex);
-                    newListRevive.Add(ListArrowPlate[randomIndex]);
+                    newListRevive.Add(ListCheckPlate[randomIndex]);
                 }
             }
 
@@ -1151,5 +1326,236 @@ public class LogicGame : MonoBehaviour
             homeInGame.imgDanger.SetActive(false);
         }
     }
+
+    #region SaveDataProgress
+    public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();
+    public SaveCurrentChallenges saveGameChallenges = new SaveCurrentChallenges();
+
+    private void OnApplicationQuit()
+    {
+        SaveDataGame();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            Debug.Log("Páue");
+            SaveDataGame();
+        }
+        else
+        {
+            Debug.Log("UnPause");
+        }
+    }
+
+    public void SaveDataGame()
+    {
+        if (!SaveGame.Challenges)
+        {
+            SaveGameNormal();
+        }
+        else
+        {
+            SaveGameChallenges();
+        }
+    }
+
+    void SaveGameNormal()
+    {
+        SaveCurrentDataGame currentData = new SaveCurrentDataGame();
+
+        currentData.currentPoint = point;
+
+        List<ColorPlateInTable> listColorPlateInTable = new List<ColorPlateInTable>();
+
+        for (int i = 0; i < ListColorPlate.Count; i++)
+        {
+            List<CurrentEnum> listCurrentEnum = new List<CurrentEnum>();
+
+            for (int j = 0; j < ListColorPlate[i].listTypes.Count; j++)
+            {
+                CurrentEnum currentEnum = new CurrentEnum();
+
+                currentEnum.indexEnum = (int)ListColorPlate[i].listTypes[j].type;
+                currentEnum.countEnum = ListColorPlate[i].listTypes[j].listPlates.Count;
+                listCurrentEnum.Add(currentEnum);
+            }
+
+            ColorPlateInTable colorPlateInTable = new ColorPlateInTable()
+            {
+                typeColorPlate = (int)ListColorPlate[i].status,
+                countFrozen = ListColorPlate[i].countFrozen,
+                pointToUnlock = ListColorPlate[i].pointToUnLock,
+                listEnum = listCurrentEnum,
+            };
+
+            listColorPlateInTable.Add(colorPlateInTable);
+        }
+
+        currentData.ListColorPlate = listColorPlateInTable;
+        saveGameNormal = currentData;
+        string gameSaveData = JsonUtility.ToJson(saveGameNormal);
+        PlayerPrefs.SetString(GameConfig.GAMESAVENORMAL, gameSaveData);
+        PlayerPrefs.Save();
+    }
+
+    void SaveGameChallenges()
+    {
+        SaveCurrentChallenges currentData = new SaveCurrentChallenges();
+
+        currentData.currentPoint = point;
+
+        List<ColorPlateInTable> listColorPlateInTable = new List<ColorPlateInTable>();
+
+        for (int i = 0; i < ListColorPlate.Count; i++)
+        {
+            List<CurrentEnum> listCurrentEnum = new List<CurrentEnum>();
+
+            for (int j = 0; j < ListColorPlate[i].listTypes.Count; j++)
+            {
+                CurrentEnum currentEnum = new CurrentEnum();
+
+                currentEnum.indexEnum = (int)ListColorPlate[i].listTypes[j].type;
+                currentEnum.countEnum = ListColorPlate[i].listTypes[j].listPlates.Count;
+                listCurrentEnum.Add(currentEnum);
+            }
+
+            ColorPlateInTable colorPlateInTable = new ColorPlateInTable()
+            {
+                typeColorPlate = (int)ListColorPlate[i].status,
+                countFrozen = ListColorPlate[i].countFrozen,
+                pointToUnlock = ListColorPlate[i].pointToUnLock,
+                listEnum = listCurrentEnum,
+            };
+
+            listColorPlateInTable.Add(colorPlateInTable);
+        }
+
+        currentData.ListColorPlate = listColorPlateInTable;
+        saveGameChallenges = currentData;
+
+        string gameSaveData = JsonUtility.ToJson(saveGameChallenges);
+        PlayerPrefs.SetString(GameConfig.GAMESAVECHALLENGES, gameSaveData);
+        PlayerPrefs.Save();
+    }
+
+    void LoadSaveData()
+    {
+        if (!SaveGame.Challenges)
+        {
+            string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
+            if (string.IsNullOrEmpty(gameSaveData))
+            {
+                Debug.Log("nullll");
+                saveGameNormal = null;
+                return;
+            }
+
+            saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
+        }
+        else
+        {
+            string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVECHALLENGES, "");
+            if (string.IsNullOrEmpty(gameSaveData))
+            {
+                Debug.Log("nullll");
+                saveGameChallenges = null;
+                return;
+            }
+
+            saveGameChallenges = JsonUtility.FromJson<SaveCurrentChallenges>(gameSaveData);
+        }
+    }
+
+    void LoadSaveNormalData()
+    {
+        Debug.Log("saveGameNormal.currentPoint: " + saveGameNormal.currentPoint);
+        point = saveGameNormal.currentPoint;
+
+        for (int i = 0; i < saveGameNormal.ListColorPlate.Count; i++)
+        {
+            //Debug.Log(saveGameNormal.ListColorPlate[i].typeColorPlate + " ___ " + saveGameNormal.ListColorPlate[i].listEnum.Count);
+
+            ListColorPlate[i].status = (Status)saveGameNormal.ListColorPlate[i].typeColorPlate;
+
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameNormal.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
+
+            if (ListColorPlate[i].status == Status.Frozen)
+            {
+                ListColorPlate[i].countFrozen = saveGameNormal.ListColorPlate[i].countFrozen;
+            }
+
+            if (ListColorPlate[i].status == Status.LockCoin)
+            {
+                ListColorPlate[i].isLocked = true;
+                ListColorPlate[i].pointToUnLock = saveGameNormal.ListColorPlate[i].pointToUnlock;
+                ListColorPlate[i].txtPointUnlock.text = saveGameNormal.ListColorPlate[i].pointToUnlock.ToString();
+                ListColorPlate[i].txtPointUnlock.gameObject.SetActive(true);
+            }
+
+            if (ListColorPlate[i].status == Status.Empty)
+            {
+                ListColorPlate[i].logicVisual.DeletePlate();
+            }
+
+            if (ListColorPlate[i].status == Status.None)
+            {
+                ListColorPlate[i].logicVisual.Refresh();
+            }
+
+            ListColorPlate[i].Init(GetColorNew);
+
+            ListColorPlate[i].InitColorExisted(saveGameNormal.ListColorPlate[i].listEnum);
+
+        }
+    }
+
+
+    void LoadSaveChallengesData()
+    {
+        //Debug.Log("saveGameChallenges.currentPoint: " + saveGameChallenges.currentPoint);
+        point = saveGameChallenges.currentPoint;
+
+        for (int i = 0; i < saveGameChallenges.ListColorPlate.Count; i++)
+        {
+            //Debug.Log(saveGameChallenges.ListColorPlate[i].typeColorPlate + " ___ " + saveGameChallenges.ListColorPlate[i].listEnum.Count);
+
+            ListColorPlate[i].status = (Status)saveGameChallenges.ListColorPlate[i].typeColorPlate;
+
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameChallenges.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
+
+            if (ListColorPlate[i].status == Status.Frozen)
+            {
+                ListColorPlate[i].countFrozen = saveGameChallenges.ListColorPlate[i].countFrozen;
+            }
+
+            if (ListColorPlate[i].status == Status.LockCoin)
+            {
+                ListColorPlate[i].isLocked = true;
+                ListColorPlate[i].pointToUnLock = saveGameChallenges.ListColorPlate[i].pointToUnlock;
+                ListColorPlate[i].txtPointUnlock.text = saveGameChallenges.ListColorPlate[i].pointToUnlock.ToString();
+                ListColorPlate[i].txtPointUnlock.gameObject.SetActive(true);
+            }
+
+            if (ListColorPlate[i].status == Status.Empty)
+            {
+                ListColorPlate[i].logicVisual.DeletePlate();
+            }
+
+            if (ListColorPlate[i].status == Status.None)
+            {
+                ListColorPlate[i].logicVisual.Refresh();
+            }
+
+            ListColorPlate[i].Init(GetColorNew);
+
+            ListColorPlate[i].InitColorExisted(saveGameChallenges.ListColorPlate[i].listEnum);
+
+        }
+    }
+
+    #endregion
+
 
 }

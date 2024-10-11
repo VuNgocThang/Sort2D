@@ -29,6 +29,7 @@ public class PopupLose : Popup
             //{
             //    PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             //    SaveGame.Heart--;
+            SaveGame.Heart++;
             LogicGame.Instance.ReviveGame();
             Hide();
             LogicGame.Instance.isPauseGame = false;
@@ -78,8 +79,19 @@ public class PopupLose : Popup
     public override void Init()
     {
         base.Init();
+        if (LogicGame.Instance.countRevive == 0) btnRevive.gameObject.SetActive(false);
+        else btnRevive.gameObject.SetActive(true);
+
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPopupLose);
+        //Debug.Log("Heart: " + SaveGame.Heart);
+        if (SaveGame.Heart > 0)
+            SaveGame.Heart--;
+
         InitHeart();
+
+        if (SaveGame.Heart == GameConfig.MAX_HEART)
+            PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
+
         Debug.Log("init popup lose");
     }
 

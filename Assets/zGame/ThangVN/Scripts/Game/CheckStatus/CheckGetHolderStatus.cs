@@ -28,7 +28,7 @@ public class CheckGetHolderStatus : ICheckStatus
     bool IsBreak(ColorPlate c)
     {
         if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin || c.status == Status.CannotPlace || c.status == Status.Ads
-            || c.status == Status.Left || c.status == Status.Right || c.status == Status.Up || c.status == Status.Down) return true;
+            || c.status == Status.Left || c.status == Status.Right || c.status == Status.Up || c.status == Status.Down || c.status == Status.Empty) return true;
         else return false;
     }
     ColorPlate CheckPossibleMoveRight(ColorPlate arrowRight)
@@ -47,16 +47,15 @@ public class CheckGetHolderStatus : ICheckStatus
                     {
                         break;
                     }
-                    else if (LogicGame.Instance.ListColorPlate[i].status == Status.SpeicalArrowRight)
-                    {
-                        CheckPossibleSpeicalArrowRight(LogicGame.Instance.ListColorPlate[i]);
-                    }
+                    //else if (LogicGame.Instance.ListColorPlate[i].status == Status.SpeicalArrowRight)
+                    //{
+                    //    CheckPossibleSpeicalArrowRight(LogicGame.Instance.ListColorPlate[i]);
+                    //}
                     else
                     {
                         maxCol = LogicGame.Instance.ListColorPlate[i].Col;
                         possiblePlate = LogicGame.Instance.ListColorPlate[i];
                     }
-
                 }
             }
         }
@@ -76,7 +75,7 @@ public class CheckGetHolderStatus : ICheckStatus
             //{
             //    return null;
             //}
-                return null;
+            return null;
         }
 
     }

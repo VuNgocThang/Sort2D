@@ -8,19 +8,22 @@ using UnityEngine.UI;
 
 public class PopupDecor : Popup
 {
-    [SerializeField] EasyButton btnBack, btnGallery, btnPlusColorPlate;
+    [SerializeField] EasyButton btnBack, btnPlusColorPlate;
     [SerializeField] RectTransform select;
     [SerializeField] List<GameObject> listSelect;
     [SerializeField] TextMeshProUGUI txtColorPlate;
+    [SerializeField] BookItem bookItemPrefab;
+    [SerializeField] List<BookItem> listBookItems;
+    [SerializeField] Transform nContent;
+    [SerializeField] List<BookDecorated> listBookDecorated;
+    [SerializeField] DataConfigDecor dataBookConfig;
+    [SerializeField] List<float> listProgress;
+    [SerializeField] ScrollRect scrollRect;
+
 
     private void Awake()
     {
         btnBack.OnClick(() => BackHome());
-
-        btnGallery.OnClick(() =>
-        {
-            PopupGallery.Show();
-        });
 
         btnPlusColorPlate.OnClick(() => PopupGoToLevel.Show());
     }
@@ -32,87 +35,72 @@ public class PopupDecor : Popup
         pop.Init();
     }
 
-    public static async void ShowWithAnim(int start, int end, float duration)
-    {
-        PopupDecor pop = await ManagerPopup.ShowPopup<PopupDecor>();
-        HomeUI.Instance.animator.Play("Hide");
-
-        pop.InitWithAnim(start, end, duration);
-    }
-
     public override void Init()
     {
         base.Init();
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = false;
+        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = false;
         txtColorPlate.text = SaveGame.Pigment.ToString();
 
-        for (int i = 0; i < listSelect.Count; i++)
+        //for (int i = 0; i < listSelect.Count; i++)
+        //{
+        //    listSelect[i].SetActive(false);
+        //}
+        //if (LogicSetupRoom.instance.listGameObject.Count > SaveGame.CurrentObject)
+        //{
+        //    listSelect[SaveGame.CurrentObject].SetActive(true);
+        //    LogicSetupRoom.instance.listGameObject[SaveGame.CurrentObject].SetActive(true);
+        //    SaveGame.CanShow = true;
+        //}
+        for (int i = 0; i < listBookItems.Count; i++)
         {
-            listSelect[i].SetActive(false);
+            listBookItems[i].gameObject.SetActive(false);
         }
-        if (LogicSetupRoom.instance.listGameObject.Count > SaveGame.CurrentObject)
+
+        listBookItems.Clear();
+        listProgress.Clear();
+
+        LoadDataBook();
+
+
+        for (int i = 0; i < dataBookConfig.listDataBooks.Count; i++)
         {
-            listSelect[SaveGame.CurrentObject].SetActive(true);
-            LogicSetupRoom.instance.listGameObject[SaveGame.CurrentObject].SetActive(true);
-            SaveGame.CanShow = true;
+            BookItem book = Instantiate(bookItemPrefab, nContent);
+            book.Init(i, dataBookConfig.listDataBooks[i].titleBook);
+            listBookItems.Add(book);
         }
+
+        for (int i = 0; i < listProgress.Count; i++)
+        {
+            listBookItems[i].InitProgressText(listProgress[i]);
+        }
+
+        //scrollRect.verticalNormalizedPosition = 1f;
 
     }
 
-    public void InitWithAnim(int start, int end, float duration)
+    void LoadDataBook()
     {
-        base.Init();
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = false;
+        listBookDecorated = SaveGame.ListBookDecorated.listBookDecorated;
 
-        StartCoroutine(CountPigment(start, end, duration));
-
-        for (int i = 0; i < listSelect.Count; i++)
+        for (int i = 0; i < listBookDecorated.Count; i++)
         {
-            listSelect[i].SetActive(false);
-        }
-        if (LogicSetupRoom.instance.listGameObject.Count > SaveGame.CurrentObject)
-        {
-            listSelect[SaveGame.CurrentObject].SetActive(true);
-            LogicSetupRoom.instance.listGameObject[SaveGame.CurrentObject].SetActive(true);
-            SaveGame.CanShow = true;
+            listProgress.Add(listBookDecorated[i].progress);
         }
     }
 
-    private IEnumerator CountPigment(int start, int end, float duration)
-    {
-        HomeUI.Instance.animUsePigment.Play("Show");
-
-        yield return new WaitForSeconds(0.3f);
-
-        float elapsed = 0.0f;
-
-        int currentPigment = start;
-
-        while (elapsed < duration)
-        {
-            Debug.Log(elapsed);
-            elapsed += Time.deltaTime;
-            currentPigment = (int)Mathf.Lerp(start, end, elapsed / duration);
-            txtColorPlate.text = currentPigment.ToString();
-            yield return null;
-        }
-
-        currentPigment = end;
-        txtColorPlate.text = currentPigment.ToString();
-    }
 
     public override void Hide()
     {
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
+        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
         base.Hide();
     }
 
     public void BackHome()
     {
-        Debug.Log("BACKHOME");
+        Debug.Log("BackHome");
         HomeUI.Instance.animator.Play("Show");
         HomeUI.Instance.DisableObject();
-        ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
+        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
 
         base.Hide();
     }

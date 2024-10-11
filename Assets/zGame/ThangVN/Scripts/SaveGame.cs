@@ -33,7 +33,7 @@ public static class SaveGame
         }
         get
         {
-            if (sound == -1) sound = ES3.Load(SOUND, 1);
+            if (sound == -1) sound = ES3.Load(SOUND, 0);
             return sound == 1;
         }
     }
@@ -50,7 +50,7 @@ public static class SaveGame
         }
         get
         {
-            if (music == -1) music = ES3.Load(MUSIC, 1);
+            if (music == -1) music = ES3.Load(MUSIC, 0);
             return music == 1;
         }
     }
@@ -84,7 +84,7 @@ public static class SaveGame
         }
         get
         {
-            if (level == -1) level = ES3.Load(LEVEL, 20);
+            if (level == -1) level = ES3.Load(LEVEL, 0);
             return level;
         }
     }
@@ -263,6 +263,23 @@ public static class SaveGame
         }
     }
 
+    const string ISSHOWBOOK = "ISSHOWBOOK";
+    static int isShowBook = -1;
+    public static bool IsShowBook
+    {
+        set
+        {
+            ES3.Save(ISSHOWBOOK, value ? 1 : 0);
+            isShowBook = value ? 1 : 0;
+        }
+        get
+        {
+            if (isShowBook == -1) isShowBook = ES3.Load(ISSHOWBOOK, 0);
+            return isShowBook == 1;
+        }
+    }
+
+
     const string ISSHOWHAMMER = "ISSHOWHAMMER";
     static int isShowHammder = -1;
 
@@ -397,6 +414,75 @@ public static class SaveGame
                 });
             }
             return listRoomPainted;
+        }
+    }
+
+    const string LISTBOOKDATA = "LISTBOOKDATA";
+    static ListBookDecorated listBookDecorated;
+
+    public static ListBookDecorated ListBookDecorated
+    {
+        set
+        {
+            listBookDecorated = value;
+            ES3.Save(LISTBOOKDATA, listBookDecorated);
+        }
+        get
+        {
+            if (listBookDecorated == null)
+            {
+                listBookDecorated = ES3.Load(LISTBOOKDATA, new ListBookDecorated
+                {
+                    listBookDecorated = new List<BookDecorated>()
+                    {
+                        new BookDecorated()
+                        {
+                            idBookDecorated = 0,
+                            progress = 0,
+                            isPainted = false,
+                            listItemDecorated = new List<ItemDecorated>()
+                            {
+
+                            }
+                        }
+                    }
+                });
+            }
+            return listBookDecorated;
+        }
+    }
+
+    const string CURRENTBOOK = "CURRENTBOOK";
+    static int currentBook = -1;
+
+    public static int CurrentBook
+    {
+        set
+        {
+            ES3.Save(CURRENTBOOK, value);
+            currentBook = value;
+        }
+        get
+        {
+            if (currentBook == -1) currentBook = ES3.Load(CURRENTBOOK, 0);
+            return currentBook;
+        }
+    }
+
+    const string MAXCURRENTBOOK = "MAXCURRENTBOOK";
+    static int maxCurrentBook = -1;
+
+    public static int MaxCurrentBook
+    {
+        set
+        {
+            ES3.Save(MAXCURRENTBOOK, value);
+            maxCurrentBook = value;
+        }
+        get
+        {
+            if (maxCurrentBook == -1) maxCurrentBook = ES3.Load(MAXCURRENTBOOK, 0);
+            return maxCurrentBook;
         }
     }
 

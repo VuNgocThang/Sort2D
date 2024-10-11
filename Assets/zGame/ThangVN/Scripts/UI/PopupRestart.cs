@@ -22,14 +22,18 @@ namespace ThangVN
         {
             btnRestart.OnClick(() =>
             {
+                InitHeart();
+
                 if (SaveGame.Heart > 0)
                 {
-                    PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
-                    SaveGame.Heart--;
-                    Debug.Log("heart -- " + SaveGame.Heart);
                     LoadScene("SceneGame");
                 }
-                else LoadScene("SceneHome");
+                else
+                {
+                    // Logic Heart == 0, Show Popup OutOfHeart
+                    PopupOutOfHeart.Show();
+                    //LoadScene("SceneHome");
+                }
             });
         }
 
@@ -38,10 +42,30 @@ namespace ThangVN
             base.Init();
         }
 
+        void InitHeart()
+        {
+            if (PlayerPrefs.HasKey(GameConfig.LAST_HEART_LOSS))
+            {
+                float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
+
+                int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
+
+                if (GameConfig.MAX_HEART >= SaveGame.Heart)
+                {
+                    SaveGame.Heart += increaseHeart;
+                    SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
+                }
+
+                DateTime timer = DateTime.Now + TimeSpan.FromSeconds(increaseHeart * GameConfig.TIME_COUNT_DOWN);
+
+                //PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, timer.ToString());
+            }
+        }
+
         public override void Hide()
         {
             base.Hide();
-            Debug.Log("Hide popup lose");
+            Debug.Log("Hide popup Restart");
         }
 
         void LoadScene(string strScene)

@@ -11,6 +11,7 @@ namespace EasyUI.Toast
 
     public enum ToastColor
     {
+        White,
         Black,
         Red,
         Purple,
@@ -63,7 +64,7 @@ namespace EasyUI.Toast
         public static void Show(string text, float duration)
         {
             Prepare();
-            toastUI.Init(text, duration, ToastColor.Black, ToastPosition.MiddleCenter);
+            toastUI.Init(text, duration, ToastColor.White, ToastPosition.MiddleCenter);
         }
 
         public static void Show(string text, float duration, ToastPosition position)

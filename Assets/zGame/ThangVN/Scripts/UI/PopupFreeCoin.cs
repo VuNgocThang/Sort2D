@@ -13,7 +13,7 @@ public class PopupFreeCoin : Popup
     public Transform nContent;
     public List<ItemFreeCoin> listItem;
     public EasyButton btnClaime50;
-    [SerializeField] GameObject imgActive, imgDeactive;
+    [SerializeField] GameObject imgActive, imgDeactive, imgClaimed, icon;
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_FREECOIN, UpdateListContent);
@@ -94,11 +94,16 @@ public class PopupFreeCoin : Popup
         {
             imgActive.SetActive(false);
             imgDeactive.SetActive(true);
+            icon.SetActive(false);
+            imgClaimed.SetActive(true);
+
         }
         else
         {
             imgActive.SetActive(true);
             imgDeactive.SetActive(false);
+            icon.SetActive(true);
+            imgClaimed.SetActive(false);
         }
     }
 
