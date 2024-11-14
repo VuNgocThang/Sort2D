@@ -96,7 +96,7 @@ public class HandDrag : MonoBehaviour
 
     bool CheckConditionToPut(ColorPlate targetPlate)
     {
-        if (targetPlate.status == Status.Frozen || targetPlate.isLocked || targetPlate.status == Status.Ads 
+        if (targetPlate.status == Status.Frozen || targetPlate.isLocked || targetPlate.status == Status.Ads
             || targetPlate.status == Status.CannotPlace || targetPlate.status == Status.Empty) return false;
         else return true;
     }
@@ -118,7 +118,15 @@ public class HandDrag : MonoBehaviour
                     for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                     {
                         LogicColor c = selectingPlate.ListColor[i];
-                        c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
+                        if (i == selectingPlate.ListColor.Count - 1)
+                        {
+                            c.transform.DOLocalMove(new Vector3(0, 0, -0.1f), 0.3f);
+                        }
+                        else
+                        {
+                            c.transform.DOLocalMove(new Vector3(0, 0, 0), 0.3f);
+                        }
+                        //c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
                     }
 
                     selectingPlate.circleZZZ.SetActive(false);
@@ -140,7 +148,15 @@ public class HandDrag : MonoBehaviour
                 for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                 {
                     LogicColor c = selectingPlate.ListColor[i];
-                    c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
+                    if (i == selectingPlate.ListColor.Count - 1)
+                    {
+                        c.transform.DOLocalMove(new Vector3(0, 0, -0.1f), 0.3f);
+                    }
+                    else
+                    {
+                        c.transform.DOLocalMove(new Vector3(0, 0, 0), 0.3f);
+                    }
+                    //c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
                 }
             }
         }
@@ -151,7 +167,15 @@ public class HandDrag : MonoBehaviour
                 for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                 {
                     LogicColor c = selectingPlate.ListColor[i];
-                    c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
+                    if (i == selectingPlate.ListColor.Count - 1)
+                    {
+                        c.transform.DOLocalMove(new Vector3(0, 0, -0.1f), 0.3f);
+                    }
+                    else
+                    {
+                        c.transform.DOLocalMove(new Vector3(0, 0, 0), 0.3f);
+                    }
+                    //c.transform.DOLocalMove(new Vector3(0, i * GameConfig.OFFSET_PLATE, 0), 0.3f);
                 }
 
                 selectingPlate.circleZZZ.SetActive(false);
