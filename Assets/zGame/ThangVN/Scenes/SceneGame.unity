@@ -2339,6 +2339,24 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 586633393}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &586633395 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8076888606901782693, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+    type: 3}
+  m_PrefabInstance: {fileID: 586633393}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &586633396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8947584224785460609, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+    type: 3}
+  m_PrefabInstance: {fileID: 586633393}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29c6f254637605e408d04481b2591ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &603901193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,11 +2386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e8900dc4ea06242b9cbd07449074b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 0
+  gameMode: 1
   cam: {fileID: 330585545}
-  holder: {fileID: 0}
-  nParentArrow: {fileID: 0}
-  targetUIPosition: {fileID: 0}
+  holder: {fileID: 1048348263}
+  nParentArrow: {fileID: 1923326692}
+  targetUIPosition: {fileID: 586633395}
   colorPlateData:
     listSpecialData: []
     listArrowData: []
@@ -2383,37 +2401,47 @@ MonoBehaviour:
     goalScore: 0
     gold: 0
     pigment: 0
-  colorPLatePrefab: {fileID: 0}
-  arrowPlatePrefab: {fileID: 0}
-  listNextPlate: []
+  colorPLatePrefab: {fileID: 7164750557717306792, guid: acdee9a02f93bc74a9e74bdd9337dd27,
+    type: 3}
+  arrowPlatePrefab: {fileID: 7951668350891572787, guid: 51f43603707592545ab889e6e9e28f7c,
+    type: 3}
+  listNextPlate:
+  - {fileID: 1689702705}
+  - {fileID: 1900725513}
   listSpawnNew: []
   ListColorPlate: []
   ListArrowPlate: []
   ListCheckPlate: []
-  rows: 0
-  cols: 0
-  homeInGame: {fileID: 0}
+  rows: 7
+  cols: 6
+  homeInGame: {fileID: 586633396}
   layerArrow:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   layerPlateSpawn:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   layerUsingItem:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   layerPlate:
     serializedVersion: 2
-    m_Bits: 0
-  listColors: []
+    m_Bits: 128
+  listColors:
+  - {fileID: 1576420974}
   colorRoot: {fileID: 0}
-  clickParticle: {fileID: 0}
-  eatParticle: {fileID: 0}
-  unlockParticle: {fileID: 0}
-  specialParticle: {fileID: 0}
-  chargingParticle: {fileID: 0}
-  changeColorParticle: {fileID: 0}
-  frostExplosion: {fileID: 0}
+  clickParticle: {fileID: 19806788, guid: 50d0fe6b9b19b564c99c9fbacb1f84ce, type: 3}
+  eatParticle: {fileID: 198756107662936000, guid: d1d555ad63ed45e42956709381abb20e,
+    type: 3}
+  unlockParticle: {fileID: 19890288, guid: fa8121edecf759a4cbb554c98f0e2a7e, type: 3}
+  specialParticle: {fileID: 9462612554704146, guid: 2094b8d58fed9a844aaaa633d9a054b9,
+    type: 3}
+  chargingParticle: {fileID: 1866141755041330477, guid: b54269d123d9dd949955e03233b8e428,
+    type: 3}
+  changeColorParticle: {fileID: 1894213439863824768, guid: e9a879a083df01645bc5a9ba6589bcb0,
+    type: 3}
+  frostExplosion: {fileID: 8848646862083521740, guid: b53ac6a1ec290fc4b9cb11beb562173f,
+    type: 3}
   isMergeing: 0
   isLose: 0
   isWin: 0
@@ -2423,29 +2451,47 @@ MonoBehaviour:
   gold: 0
   pigment: 0
   countRevive: 0
-  slot_5: {fileID: 0}
-  slot_6: {fileID: 0}
+  slot_5: {fileID: 6383414}
+  slot_6: {fileID: 1090910940}
   curveMove:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  setMapManager: {fileID: 0}
+  setMapManager: {fileID: 25859537}
   countDiff: 0
   countDiffMax: 0
   isUsingHammer: 0
   isUsingHand: 0
   hammer: {fileID: 0}
-  hammerSpine: {fileID: 0}
-  canvasTutorial: {fileID: 0}
-  tutorial: {fileID: 0}
+  hammerSpine: {fileID: 1863335191}
+  canvasTutorial: {fileID: 799753859}
+  tutorial: {fileID: 2108822597}
   isHadSpawnSpecial: 0
-  spineSelection: {fileID: 0}
-  ControllerAnimState: {fileID: 0}
-  timerConfigData: {fileID: 0}
-  spawnBook: {fileID: 0}
-  testStack: {fileID: 0}
+  spineSelection: {fileID: 185965153}
+  ControllerAnimState: {fileID: 185965154}
+  timerConfigData: {fileID: 11400000, guid: 40cf14b65efec8446bf8388a8b0f41fb, type: 2}
+  spawnBook: {fileID: 1470162236}
+  testStack: {fileID: 1305653334}
   timerRun: -1
   listSteps: []
   listNearByCanConnect: []
@@ -4940,6 +4986,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1576420972}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1576420974 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5094295357218634597, guid: e0eb158d28652234ca3bff7ea1e7a6bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1576420972}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71918bf8ac0bbf42a5a91cfc50dc25a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1670922796
 GameObject:
   m_ObjectHideFlags: 0
