@@ -1084,7 +1084,7 @@ public class LogicGame : MonoBehaviour
                 //{
 
                 ControllerAnimState.ActionToBonus();
-                timerRun += 0.2f;
+                timerRun += timerConfigData.timeRun;
 
                 colorPlate.InitClear(true);
                 colorPlate.DecreaseCountFrozenNearBy();
