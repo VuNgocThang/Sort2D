@@ -305,7 +305,7 @@ public class LogicVisualPlate : MonoBehaviour
             listForzen[i].SetActive(true);
             //Debug.Log((7 - RowOffset) * 10 - 5);
             //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
-            int layer = (8 - RowOffset) > 1 ? 8 - RowOffset : 1;
+            int layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
 
             listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
         }
@@ -322,7 +322,7 @@ public class LogicVisualPlate : MonoBehaviour
         {
             listForzen[i].SetActive(true);
             //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
-            int layer = (8 - RowOffset) > 1 ? 8 - RowOffset : 1;
+            int layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
 
             listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
 

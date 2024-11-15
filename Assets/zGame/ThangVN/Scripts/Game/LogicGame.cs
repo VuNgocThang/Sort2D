@@ -725,8 +725,9 @@ public class LogicGame : MonoBehaviour
             startColorPlate.ListValue.AddRange(listNextPlate[0].ListValue);
             startColorPlate.ListColor.AddRange(listNextPlate[0].ListColor);
             startColorPlate.listTypes.AddRange(listNextPlate[0].listTypes);
+          
 
-            startColorPlate.InitValue(startColorPlate.transform);
+            startColorPlate.InitValue(startColorPlate.transform, -1, endColorPlate.Row);
             listNextPlate[0].ListValue.Clear();
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
@@ -821,6 +822,7 @@ public class LogicGame : MonoBehaviour
             endColorPlate.ListColor.AddRange(ListColorMid);
             endColorPlate.listTypes.AddRange(listTypes);
             endColorPlate.ListValue.AddRange(listValueMid);
+            Debug.Log(endColorPlate.name);
 
             sq.OnComplete(() =>
             {
@@ -1166,13 +1168,13 @@ public class LogicGame : MonoBehaviour
 
                     if (startColorPlate.Col == endColorPlate.Col)
                     {
-                        endColorPlate.InitValue(endColorPlate.transform, true, 1);
+                        endColorPlate.InitValue(endColorPlate.transform, 1);
 
                     }
                     else if (startColorPlate.Row == endColorPlate.Row)
                     {
 
-                        endColorPlate.InitValue(endColorPlate.transform, true, 0);
+                        endColorPlate.InitValue(endColorPlate.transform, 0);
                     }
                 }
             });

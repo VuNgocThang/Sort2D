@@ -172,14 +172,14 @@ public class ColorPlate : MonoBehaviour
         listTypes.Add(group);
         group.listPlates.Add(group.type);
         ListValue.Add(group.type);
-        InitValue(this.transform, true);
+        InitValue(this.transform);
     }
 
     #region old gameplay spawn
-    public void InitRandom(bool isFirst = true)
+    public void InitRandom()
     {
         InitGroupEnum();
-        InitValue(this.transform, isFirst);
+        InitValue(this.transform);
     }
 
     public void InitColorExisted(List<CurrentEnum> listCurrentEnum)
@@ -304,21 +304,27 @@ public class ColorPlate : MonoBehaviour
             ListValue.Add(group.type);
         }
 
-        InitValue(this.transform, true);
+        InitValue(this.transform);
 
     }
 
     public AnimationCurve customCurve;
 
-    public void InitValue(Transform transform = null, bool isFirst = true, int index = -1)
+    public void InitValue(Transform transform = null, int index = -1, int ROW = -1)
     {
         for (int i = 0; i < ListValue.Count; ++i)
         {
             if (i >= ListColor.Count)
             {
                 LogicColor color = GetColorNew();
-                int layer = (8 - Row) > 1 ? 8 - Row : 1;
-                Debug.Log("layer: " + layer);
+                int layer = 0;
+                Debug.Log("ROW: " + ROW);
+                if (ROW != -1)
+                    layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+                else
+                    layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
+
+                Debug.Log("layerCheck_1: " + layer);
                 color.Init((int)ListValue[i], layer);
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
@@ -330,6 +336,7 @@ public class ColorPlate : MonoBehaviour
             }
             else
             {
+                Debug.Log("ROW_2: " + ROW);
 
                 if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.y) > 1)
                 {
@@ -353,7 +360,14 @@ public class ColorPlate : MonoBehaviour
                             })
                             .OnComplete(() =>
                             {
-                                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                                int layer = 0;
+                                if (ROW != -1)
+                                    layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+                                else
+                                    layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
+                                Debug.Log("layerCheck_2: " + layer);
+
+                                //int layer = (GameConfig.OFFSET_LAYER - Row) > 1 ? GameConfig.OFFSET_LAYER - Row : 1;
                                 colorZ.spriteRender.sortingOrder = layer;
                             })
                             ;
@@ -374,7 +388,14 @@ public class ColorPlate : MonoBehaviour
                             })
                             .OnComplete(() =>
                             {
-                                int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                                int layer = 0;
+                                if (ROW != -1)
+                                    layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+                                else
+                                    layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
+                                Debug.Log("layerCheck_3: " + layer);
+
+                                //int layer = (GameConfig.OFFSET_LAYER - Row) > 1 ? GameConfig.OFFSET_LAYER - Row : 1;
 
                                 colorZ.spriteRender.sortingOrder = layer;
                             })
@@ -392,7 +413,11 @@ public class ColorPlate : MonoBehaviour
                 else
                 {
                     //Debug.Log("wtf");
-                    int layer = (8 - Row) > 1 ? 8 - Row : 1;
+                    int layer = 0;
+                    if (ROW != -1)
+                        layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+                    else
+                        layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
 
                     ListColor[i].spriteRender.sortingOrder = layer;
                     ListColor[i].transform.localPosition = new Vector3(ListColor[i].transform.localPosition.x, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
