@@ -8,7 +8,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilities.Common;
-using Color = UnityEngine.Color;
 
 public enum GameMode
 {
