@@ -1,3 +1,4 @@
+using BaseGame;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
@@ -133,6 +134,7 @@ public class HandDrag : MonoBehaviour
                 else /*if (colorPlate.status != Status.CannotPlace)*/
                 {
                     //Move to new Plate
+                    ManagerAudio.PlaySound(ManagerAudio.Data.soundSwap);
                     selectingPlate.circleZZZ.SetActive(false);
                     LogicGame.Instance.SetColorUsingSwapItem(selectingPlate, colorPlate);
                     LogicGame.Instance.isUsingHand = false;

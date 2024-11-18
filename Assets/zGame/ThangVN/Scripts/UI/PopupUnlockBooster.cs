@@ -1,3 +1,4 @@
+using BaseGame;
 using DG.Tweening;
 using ntDev;
 using System.Collections;
@@ -25,6 +26,8 @@ namespace ThangVN
         {
             base.Init();
             LogicGame.Instance.isPauseGame = true;
+            ManagerAudio.PlaySound(ManagerAudio.Data.soundUnlockBooster);
+
             Debug.Log("Show" + index);
 
             for (int i = 0; i < boosterData.listBooster.Count; i++)

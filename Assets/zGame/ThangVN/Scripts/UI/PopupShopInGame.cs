@@ -1,8 +1,7 @@
+using BaseGame;
 using DG.Tweening;
 using ntDev;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,6 +86,7 @@ public class PopupShopInGame : Popup
                     if (GameConfig.EnoughCoinBuySwap)
                     {
                         Debug.Log("swap");
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
                         SaveGame.Coin -= GameConfig.COIN_SWAP;
                         SaveGame.Swap++;
                     }
@@ -102,6 +102,8 @@ public class PopupShopInGame : Popup
                     if (GameConfig.EnoughCoinBuyHammer)
                     {
                         Debug.Log("Hammer");
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
+
                         SaveGame.Coin -= GameConfig.COIN_HAMMER;
                         SaveGame.Hammer++;
                     }
@@ -120,6 +122,8 @@ public class PopupShopInGame : Popup
                     if (GameConfig.EnoughCoinBuyRefresh)
                     {
                         Debug.Log("Refresh");
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
+
                         SaveGame.Coin -= GameConfig.COIN_REFRESH;
                         SaveGame.Refresh++;
                     }

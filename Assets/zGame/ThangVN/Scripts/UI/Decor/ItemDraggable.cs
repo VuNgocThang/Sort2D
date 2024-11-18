@@ -1,3 +1,4 @@
+using BaseGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +66,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover))
         {
+            ManagerAudio.PlaySound(ManagerAudio.Data.soundStickers);
+
             if (distance <= 100)
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);

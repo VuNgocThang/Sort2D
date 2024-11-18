@@ -1,3 +1,4 @@
+using BaseGame;
 using DG.Tweening;
 using ntDev;
 using Spine.Unity;
@@ -64,6 +65,7 @@ public class PopupUnlockColor : Popup
     IEnumerator PlayAnimation()
     {
         yield return new WaitForSeconds(0.3f);
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundNewBook);
         spineBox.gameObject.SetActive(true);
         PlaySpine(DROP, false);
         yield return new WaitForSeconds(0.8f);

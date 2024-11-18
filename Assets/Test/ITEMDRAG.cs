@@ -1,4 +1,5 @@
-﻿using ntDev;
+﻿using BaseGame;
+using ntDev;
 using Spine;
 using System.Collections;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ public class ITEMDRAG : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         Debug.Log("distance: " + distance);
         if (distance <= 100)
         {
+            ManagerAudio.PlaySound(ManagerAudio.Data.soundStickers);
             this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
             rectTransform.anchoredPosition = Vector2.zero;
             linkedSlot.imgLine.gameObject.SetActive(false);

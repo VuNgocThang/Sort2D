@@ -1,3 +1,4 @@
+using BaseGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class SpawnBookTest : MonoBehaviour
     public void Spawn()
     {
         LogicGame.Instance.InitNextPlate();
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundOpenBox);
         //Debug.Log("Spawn Book");
     }
 }

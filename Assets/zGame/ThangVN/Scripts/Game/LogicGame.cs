@@ -408,6 +408,8 @@ public class LogicGame : MonoBehaviour
             });
             sequence.AppendInterval(0.2f);
         }
+
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundRefresh);
     }
 
     //public void InitPlateSpawn(object e)
@@ -725,7 +727,7 @@ public class LogicGame : MonoBehaviour
             startColorPlate.ListValue.AddRange(listNextPlate[0].ListValue);
             startColorPlate.ListColor.AddRange(listNextPlate[0].ListColor);
             startColorPlate.listTypes.AddRange(listNextPlate[0].listTypes);
-          
+
 
             startColorPlate.InitValue(startColorPlate.transform, -1, endColorPlate.Row);
             listNextPlate[0].ListValue.Clear();
@@ -1133,12 +1135,27 @@ public class LogicGame : MonoBehaviour
     //{
     //    Debug.Log(listSteps[i].nearByColorPlate + " to " + listSteps[i].rootColorPlate);
     //}
+
+    void SoundMerge()
+    {
+        int random = UnityEngine.Random.Range(0, 2);
+        if (random == 0)
+        {
+            ManagerAudio.PlaySound(ManagerAudio.Data.soundMerge);
+        }
+        else
+        {
+            ManagerAudio.PlaySound(ManagerAudio.Data.soundMerge);
+        }
+    }
     void Merge(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
         timerRun = 0;
         isMergeing = true;
         int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
         Sequence sequence = DOTween.Sequence();
+
+        SoundMerge();
 
         for (int i = count - 1; i >= 0; i--)
         {
@@ -1152,7 +1169,6 @@ public class LogicGame : MonoBehaviour
                 {
                     startColorPlate.TopColor.transform.SetParent(endColorPlate.transform);
 
-                    ManagerAudio.PlaySound(ManagerAudio.Data.soundMerge);
 
                     endColorPlate.listTypes[endColorPlate.listTypes.Count - 1].listPlates.Add(startColorPlate.TopValue);
                     startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Remove(startColorPlate.TopValue);

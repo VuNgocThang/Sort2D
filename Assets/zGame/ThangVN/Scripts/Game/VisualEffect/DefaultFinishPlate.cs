@@ -50,7 +50,12 @@ public class DefaultFinishPlate : IVisualPlate
                         mainC.startColor = SwitchColor(colorEnum);
                     }
 
-                    color.transform.DOMove(targetPos, 0.5f).OnComplete(() =>
+                    color.transform.DOMove(targetPos, 0.5f)
+                    .OnStart(() =>
+                    {
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
+                    })
+                    .OnComplete(() =>
                     {
                         if (plusPoint)
                             ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);

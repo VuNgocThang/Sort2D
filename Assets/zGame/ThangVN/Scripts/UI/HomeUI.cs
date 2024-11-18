@@ -61,7 +61,11 @@ public class HomeUI : MonoBehaviour
 
         SaveGame.Challenges = false;
         animator.Play("Show");
-        if (SaveGame.Music) ManagerAudio.PlayMusic(ManagerAudio.Data.musicBG);
+        if (SaveGame.Music)
+        {
+            Debug.Log("Play music");
+            ManagerAudio.PlayMusic(ManagerAudio.Data.musicBG);
+        }
         else ManagerAudio.PauseMusic();
 
         InitHeart();

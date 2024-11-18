@@ -1,3 +1,4 @@
+using BaseGame;
 using Spine;
 using Spine.Unity;
 using System.Collections;
@@ -33,6 +34,8 @@ public class HammerSpineEvent : MonoBehaviour
     {
         if (colorPlateDestroy == null) return;
         colorPlateDestroy.ClearAll();
+
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundHammer);
 
         smoke.transform.localPosition = anim.transform.localPosition;
         smoke.gameObject.SetActive(true);

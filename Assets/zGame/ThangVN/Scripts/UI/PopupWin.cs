@@ -198,11 +198,14 @@ public class PopupWin : Popup
 
     public void UpdateMoney(int targetMoney)
     {
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
         StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
     }
 
     public void UpdatePigment(int targetPigment)
     {
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimPigment);
+
         StartCoroutine(CountPigment(currentPigment, targetPigment, duration));
     }
 
