@@ -79,11 +79,18 @@ public class ListBookDecorated
     public List<BookDecorated> listBookDecorated;
 }
 
+[Serializable]
+public class ColorDecor
+{
+    public Color color;
+}
+
 
 
 [CreateAssetMenu(fileName = "DataConfigDecor", menuName = "ScriptableObjects/DataConfigDecor")]
 
 public class DataConfigDecor : ScriptableObject
 {
+    public List<ColorDecor> listColorDecor;
     public List<DataBook> listDataBooks;
 }
