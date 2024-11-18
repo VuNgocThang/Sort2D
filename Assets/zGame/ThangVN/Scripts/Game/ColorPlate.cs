@@ -318,13 +318,13 @@ public class ColorPlate : MonoBehaviour
             {
                 LogicColor color = GetColorNew();
                 int layer = 0;
-                Debug.Log("ROW: " + ROW);
+                //Debug.Log("ROW: " + ROW);
                 if (ROW != -1)
                     layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
                 else
                     layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
 
-                Debug.Log("layerCheck_1: " + layer);
+                //Debug.Log("layerCheck_1: " + layer);
                 color.Init((int)ListValue[i], layer);
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
@@ -336,7 +336,7 @@ public class ColorPlate : MonoBehaviour
             }
             else
             {
-                Debug.Log("ROW_2: " + ROW);
+                //Debug.Log("ROW_2: " + ROW);
 
                 if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.y) > 1)
                 {
