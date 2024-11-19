@@ -1,33 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class CurveMove : MonoBehaviour
+public static class CurveMove
 {
-    //public Transform pointA; // Điểm bắt đầu
-    //public Transform pointB; // Điểm kết thúc
-    //public Transform controlPoint; // Điểm điều khiển tạo đường cong
-    public float speed = 1f; // Tốc độ di chuyển
-
-    private float t = 0f; // Giá trị t từ 0 đến 1 để nội suy trên đường cong
-
-    void Update()
-    {
-      
-    }
-
-    public void Move(Transform pointA, Transform pointB, Transform controlPoint, float t)
+    public static void Move(Transform color, Vector3 from, Vector3 to, Vector3 midPoint, float t)
     {
         // Tính vị trí trên đường cong Bezier
-        Vector3 newPosition = CalculateQuadraticBezierPoint(t, pointA.position, controlPoint.position, pointB.position);
+        Vector3 newPosition = CalculateQuadraticBezierPoint(t, from, midPoint, to);
 
         // Di chuyển đối tượng đến vị trí mới
-        transform.position = newPosition;
+
+        color.localPosition = newPosition;
+        Debug.Log(color.localPosition);
     }
 
-    // Hàm tính toán điểm trên đường cong Bezier
-    private Vector2 CalculateQuadraticBezierPoint(float t, Vector3 a, Vector3 b, Vector3 c)
+    public static Vector3 CalculateQuadraticBezierPoint(float t, Vector3 a, Vector3 b, Vector3 c)
     {
         float u = 1 - t;
         float tt = t * t;

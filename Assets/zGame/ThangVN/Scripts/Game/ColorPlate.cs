@@ -5,6 +5,7 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Unity.Mathematics;
 
 public enum ColorEnum
 {
@@ -318,13 +319,11 @@ public class ColorPlate : MonoBehaviour
             {
                 LogicColor color = GetColorNew();
                 int layer = 0;
-                //Debug.Log("ROW: " + ROW);
                 if (ROW != -1)
                     layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
                 else
                     layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
 
-                //Debug.Log("layerCheck_1: " + layer);
                 color.Init((int)ListValue[i], layer);
                 color.transform.SetParent(transform);
                 color.transform.localRotation = Quaternion.identity;
@@ -336,83 +335,71 @@ public class ColorPlate : MonoBehaviour
             }
             else
             {
-                //Debug.Log("ROW_2: " + ROW);
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1 || Math.Abs(ListColor[i].transform.localPosition.y) > 1)
+                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1)
                 {
-                    List<LogicColor> ListColorVisual = new List<LogicColor>();
-                    ListColorVisual.Add(ListColor[i]);
-                    // Bieu dien o day
+                    if (index != 0) return;
 
-                    //Vector3 currentPos = ListColor[i].transform.localPosition;
-                    float jumpPower = 0.5f + i * 0.1f;
-                    if (index == 0)
-                    {
-                        Debug.Log("000000000000000");
+                    LogicColor colorZ = ListColor[i];
 
-                        LogicColor colorZ = ListColor[i];
-                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                    float x = colorZ.transform.localPosition.x / 2;
+                    float z = -i * GameConfig.OFFSET_PLATE;
 
-                        colorZ.transform.DOLocalJump(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), jumpPower, 1, timerConfigData.timeMove)
-                            .OnStart(() =>
-                            {
-                                colorZ.spriteRender.sortingOrder = 11;
-                            })
-                            .OnComplete(() =>
-                            {
-                                int layer = 0;
-                                if (ROW != -1)
-                                    layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
-                                else
-                                    layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
-                                Debug.Log("layerCheck_2: " + layer);
+                    Vector3 from = colorZ.transform.localPosition;
+                    Vector3 to = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                    Vector3 midPoint = new Vector3(x, -0.7f, z);
 
-                                //int layer = (GameConfig.OFFSET_LAYER - Row) > 1 ? GameConfig.OFFSET_LAYER - Row : 1;
-                                colorZ.spriteRender.sortingOrder = layer;
-                            })
-                            ;
-                    }
-                    else if (index == 1)
-                    {
-                        Debug.Log("111111111111");
+                    colorZ.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
+                        .OnStart(() =>
+                        {
+                            colorZ.spriteRender.sortingOrder = 15;
 
-                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-                        LogicColor colorZ = ListColor[i];
+                        })
+                        .OnComplete(() =>
+                        {
+                            int layer = 0;
+                            if (ROW != -1)
+                                layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+                            else
+                                layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
 
-                        colorZ.transform.DOLocalMove(new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), timerConfigData.timeMove)
-                            .SetEase(curve)
-                            //.SetEase(curveMoveUp)
-                            .OnStart(() =>
-                            {
-                                colorZ.spriteRender.sortingOrder = 11;
-                            })
-                            .OnComplete(() =>
-                            {
-                                int layer = 0;
-                                if (ROW != -1)
-                                    layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
-                                else
-                                    layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
-                                Debug.Log("layerCheck_3: " + layer);
-
-                                //int layer = (GameConfig.OFFSET_LAYER - Row) > 1 ? GameConfig.OFFSET_LAYER - Row : 1;
-
-                                colorZ.spriteRender.sortingOrder = layer;
-                            })
-                            ;
+                            colorZ.spriteRender.sortingOrder = layer;
+                        })
                         ;
-                    }
+                }
+                else if (Math.Abs(ListColor[i].transform.localPosition.y + ListColor[i].transform.localPosition.z) > 1)
+                {
+                    if (index != 1 && index != 2) return;
+                    LogicColor colorZ = ListColor[i];
 
-                    for (int j = 0; j < ListColorVisual.Count; j++)
-                    {
-                        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                    float y = colorZ.transform.localPosition.y / 2;
+                    float z = -i * GameConfig.OFFSET_PLATE;
 
-                        ListColorVisual[j].transform.localPosition = new Vector3(randomX, ListColorVisual[j].transform.localPosition.y, ListColorVisual[j].transform.localPosition.z);
-                    }
+                    Vector3 from = colorZ.transform.localPosition;
+                    Vector3 to = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+                    Vector3 midPoint = new Vector3(-0.7f, y, z);
+
+                    colorZ.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
+                        .OnStart(() =>
+                        {
+                            colorZ.spriteRender.sortingOrder = 15;
+
+                        })
+                        .OnComplete(() =>
+                        {
+                            int layer = 0;
+                            if (ROW != -1)
+                                layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+                            else
+                                layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
+
+                            colorZ.spriteRender.sortingOrder = layer;
+                        })
+                        ;
                 }
                 else
                 {
-                    //Debug.Log("wtf");
                     int layer = 0;
                     if (ROW != -1)
                         layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
@@ -420,11 +407,7 @@ public class ColorPlate : MonoBehaviour
                         layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
 
                     ListColor[i].spriteRender.sortingOrder = layer;
-                    ListColor[i].transform.localPosition = new Vector3(ListColor[i].transform.localPosition.x, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
                 }
-
-
-
             }
         }
     }

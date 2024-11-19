@@ -1184,13 +1184,13 @@ public class LogicGame : MonoBehaviour
 
                     if (startColorPlate.Col == endColorPlate.Col)
                     {
-                        endColorPlate.InitValue(endColorPlate.transform, 1);
+                        endColorPlate.InitValue(endColorPlate.transform, 1, endColorPlate.Row);
 
                     }
                     else if (startColorPlate.Row == endColorPlate.Row)
                     {
 
-                        endColorPlate.InitValue(endColorPlate.transform, 0);
+                        endColorPlate.InitValue(endColorPlate.transform, 0, endColorPlate.Row);
                     }
                 }
             });
