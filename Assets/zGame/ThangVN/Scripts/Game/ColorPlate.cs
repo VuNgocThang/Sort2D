@@ -311,164 +311,88 @@ public class ColorPlate : MonoBehaviour
 
     public AnimationCurve customCurve;
 
-    public void InitValue(Transform transform = null, int index = -1, int ROW = -1)
+    public void InitValue(Transform transform = null, int index = -1, int _Row = -1)
     {
         for (int i = 0; i < ListValue.Count; ++i)
         {
             if (i >= ListColor.Count)
             {
-                LogicColor color = GetColorNew();
-                int layer = 0;
-                if (ROW != -1)
-                    layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
-                else
-                    layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
-
-                color.Init((int)ListValue[i], layer);
-                color.transform.SetParent(transform);
-                color.transform.localRotation = Quaternion.identity;
-
-                color.transform.localScale = Vector3.one;
-                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-                color.transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
-                ListColor.Add(color);
+                CreateNewColor(transform, _Row, i);
             }
             else
             {
-                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-
-                if (Math.Abs(ListColor[i].transform.localPosition.x) > 1)
-                {
-                    if (index != 0) return;
-
-                    LogicColor colorZ = ListColor[i];
-
-                    float x = colorZ.transform.localPosition.x / 2;
-                    float z = -i * GameConfig.OFFSET_PLATE;
-
-                    Vector3 from = colorZ.transform.localPosition;
-                    Vector3 to = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
-                    Vector3 midPoint = new Vector3(x, -0.7f, z);
-
-                    colorZ.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
-                        .OnStart(() =>
-                        {
-                            colorZ.spriteRender.sortingOrder = 15;
-
-                        })
-                        .OnComplete(() =>
-                        {
-                            int layer = 0;
-                            if (ROW != -1)
-                                layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
-                            else
-                                layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
-
-                            colorZ.spriteRender.sortingOrder = layer;
-                        })
-                        ;
-                }
-                else if (Math.Abs(ListColor[i].transform.localPosition.y + ListColor[i].transform.localPosition.z) > 1)
-                {
-                    if (index != 1 && index != 2) return;
-                    LogicColor colorZ = ListColor[i];
-
-                    float y = colorZ.transform.localPosition.y / 2;
-                    float z = -i * GameConfig.OFFSET_PLATE;
-
-                    Vector3 from = colorZ.transform.localPosition;
-                    Vector3 to = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
-                    Vector3 midPoint = new Vector3(-0.7f, y, z);
-
-                    colorZ.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
-                        .OnStart(() =>
-                        {
-                            colorZ.spriteRender.sortingOrder = 15;
-
-                        })
-                        .OnComplete(() =>
-                        {
-                            int layer = 0;
-                            if (ROW != -1)
-                                layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
-                            else
-                                layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
-
-                            colorZ.spriteRender.sortingOrder = layer;
-                        })
-                        ;
-                }
-                else
-                {
-                    int layer = 0;
-                    if (ROW != -1)
-                        layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
-                    else
-                        layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
-
-                    ListColor[i].spriteRender.sortingOrder = layer;
-                }
+                UpdateExistingColor(index, _Row, i);
             }
         }
     }
 
-
-    private void MoveDirection(int index, int i)
+    private void CreateNewColor(Transform transform, int _Row, int i)
     {
-        if (index == 0)
-        {
-            // same col, row end > row start
-            ListColor[i].transform.localEulerAngles
-                                    = new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z - 180f);
+        LogicColor color = GetColorNew();
+        int layer = CalculateLayer(_Row);
 
-            ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z + 180f), GameConfig.TIME_MOVE, RotateMode.Fast)
-               .OnComplete(() =>
-               {
-                   ListColor[i].transform.localEulerAngles = Vector3.zero;
-               });
+        color.Init((int)ListValue[i], layer);
+        color.transform.SetParent(transform);
+        color.transform.localRotation = Quaternion.identity;
+
+        color.transform.localScale = Vector3.one;
+        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+        color.transform.localPosition = new Vector3(randomX, i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE);
+        ListColor.Add(color);
+    }
+
+    private void UpdateExistingColor(int index, int ROW, int i)
+    {
+        LogicColor colorZ = ListColor[i];
+        float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+
+        if (Math.Abs(colorZ.transform.localPosition.x) > 1)
+        {
+            if (index != 0) return;
+
+            Vector3 midPoint = new Vector3(colorZ.transform.localPosition.x / 2, -0.7f, -i * GameConfig.OFFSET_PLATE);
+            CreatePathAnimation(colorZ, randomX, ROW, i, midPoint);
         }
-        else if (index == 1)
+        else if (Math.Abs(colorZ.transform.localPosition.y + colorZ.transform.localPosition.z) > 1)
         {
-            // same row, col end < col start
-            ListColor[i].transform.localEulerAngles
-                                   = new Vector3(ListColor[i].transform.localEulerAngles.x - 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z);
+            if (index != 1 && index != 2) return;
 
-            ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x + 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z), GameConfig.TIME_MOVE, RotateMode.Fast)
-               .OnComplete(() =>
-               {
-                   ListColor[i].transform.localEulerAngles = Vector3.zero;
-               });
-        }
-        else if (index == 2)
-        {
-            // same row, col end > col start
-            ListColor[i].transform.localEulerAngles
-                                   = new Vector3(ListColor[i].transform.localEulerAngles.x + 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z);
-
-            ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x - 180f, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z), GameConfig.TIME_MOVE, RotateMode.Fast)
-               .OnComplete(() =>
-               {
-                   ListColor[i].transform.localEulerAngles = Vector3.zero;
-               });
+            Vector3 midPoint = new Vector3(-0.7f, colorZ.transform.localPosition.y / 2, -i * GameConfig.OFFSET_PLATE);
+            CreatePathAnimation(colorZ, randomX, ROW, i, midPoint);
         }
         else
         {
-            // same col, row end < row start
-            ListColor[i].transform.localEulerAngles
-                                    = new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z + 180f);
-
-            ListColor[i].transform.DOLocalRotate
-               (new Vector3(ListColor[i].transform.localEulerAngles.x, ListColor[i].transform.localEulerAngles.y, ListColor[i].transform.localEulerAngles.z - 180f), GameConfig.TIME_MOVE, RotateMode.Fast)
-               .OnComplete(() =>
-               {
-                   ListColor[i].transform.localEulerAngles = Vector3.zero;
-               });
+            int layer = CalculateLayer(ROW);
+            colorZ.spriteRender.sortingOrder = layer;
         }
     }
 
+    private int CalculateLayer(int ROW)
+    {
+        int layer = 0;
+        if (ROW != -1)
+            layer = (GameConfig.OFFSET_LAYER - ROW) > 1 ? GameConfig.OFFSET_LAYER - ROW : 1;
+        else
+            layer = (GameConfig.OFFSET_LAYER - this.Row) > 1 ? GameConfig.OFFSET_LAYER - this.Row : 1;
+        return layer;
+    }
+
+    private void CreatePathAnimation(LogicColor color, float randomX, int ROW, int index, Vector3 midPoint)
+    {
+        Vector3 from = color.transform.localPosition;
+        Vector3 to = new Vector3(randomX, index * GameConfig.OFFSET_PLATE, -index * GameConfig.OFFSET_PLATE);
+
+        color.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
+            .OnStart(() =>
+            {
+                color.spriteRender.sortingOrder = 15;
+            })
+            .OnComplete(() =>
+            {
+                int layer = CalculateLayer(ROW);
+                color.spriteRender.sortingOrder = layer;
+            });
+    }
 
     public ColorEnum CheckClearEnum()
     {
