@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ public class DataItemDecor
     public Sprite spriteIcon;
     public Sprite sprite;
     public bool isPainted;
+    public bool isBought;
 }
 
 [Serializable]
@@ -52,6 +52,7 @@ public class ItemDecorated
 {
     public int idItemDecorated;
     public bool isPainted;
+    public bool isBought;
     public bool isTruePos;
     //public ItemPosition position;
     public float x;

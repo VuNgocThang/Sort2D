@@ -15,7 +15,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
     [SerializeField] TextMeshProUGUI txtNameBook;
     [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, bgNewBook;
-    ItemDraggable currentItemDrag;
+    [SerializeField] ItemDraggable currentItemDrag;
     [SerializeField] Transform nParent, nParentSlot, nContent;
     public List<ImageItem> listItems;
     public List<Slot> slots;
@@ -38,6 +38,10 @@ public class PopupDecorateBook : Popup
         btnSelectBgColor.OnClick(() => OnSelect(false));
         btnBack.OnClick(() =>
         {
+            currentItemDrag.linkedSlot.imgLine.gameObject.SetActive(false);
+            currentItemDrag.SetActive(false);
+            currentItemDrag = null;
+
             base.Hide();
             PopupBookItem.Show(SaveGame.CurrentBook);
         });
@@ -111,6 +115,7 @@ public class PopupDecorateBook : Popup
         for (int i = 0; i < dataBook.listDataItemDecor.Count; i++)
         {
             ItemDecor item = Instantiate(itemDecorPrefab, nContent);
+            item.id = dataBook.listDataItemDecor[i].idItemDecor;
             item.imageItem.id = dataBook.listDataItemDecor[i].idItemDecor;
             item.imageItem.img.sprite = dataBook.listDataItemDecor[i].spriteIcon;
             item.imageItem.img.SetNativeSize();
@@ -119,6 +124,21 @@ public class PopupDecorateBook : Popup
             listItemDecors.Add(item);
             sprites.Add(dataBook.listDataItemDecor[i].sprite);
         }
+
+        for (int i = 0; i < listItemDecors.Count; i++)
+        {
+            for (int j = 0; j < bookDecorated.listItemDecorated.Count; j++)
+            {
+                if (bookDecorated.listItemDecorated[j].idItemDecorated == listItemDecors[i].id)
+                {
+                    if (!bookDecorated.listItemDecorated[j].isBought) return;
+
+                    listItems[i].isBought = true;
+                    listItemDecors[i].btnBuy.gameObject.SetActive(false);
+                }
+            }
+        }
+
 
         Dictionary<int, ImageItem> itemDict = listItems.ToDictionary(item => item.id);
 
@@ -129,6 +149,8 @@ public class PopupDecorateBook : Popup
             // Kiểm tra nếu item tồn tại trong dictionary
             if (itemDict.TryGetValue(idItemDecorated, out ImageItem itemData))
             {
+                if (!bookDecorated.listItemDecorated[i].isPainted) return;
+
                 itemData.isPainted = true;
                 itemData.img.gameObject.SetActive(false);
 
@@ -149,8 +171,6 @@ public class PopupDecorateBook : Popup
                 }
             }
         }
-
-
         //for (int i = 0; i < listItems.Count; i++)
         //{
         //    for (int j = 0; j < bookDecorated.listItemDecorated.Count; j++)
@@ -183,6 +203,7 @@ public class PopupDecorateBook : Popup
 
     public override void Hide()
     {
+
         base.Hide();
     }
 

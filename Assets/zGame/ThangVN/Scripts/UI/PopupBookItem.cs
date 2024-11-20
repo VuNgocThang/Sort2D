@@ -109,6 +109,8 @@ public class PopupBookItem : Popup
 
         for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
         {
+            if (!bookDecorated.listItemDecorated[i].isPainted) continue;
+
             int idIndex = bookDecorated.listItemDecorated[i].idItemDecorated;
             for (int j = 0; j < slots.Count; j++)
             {

@@ -67,6 +67,7 @@ public class TESTUIMOVEMENT : MonoBehaviour
         for (int i = 0; i < dataBook.listDataItemDecor.Count; i++)
         {
             ItemDecor item = Instantiate(itemDecorPrefab, nContent);
+            item.id = dataBook.listDataItemDecor[i].idItemDecor;
             item.imgItem.id = dataBook.listDataItemDecor[i].idItemDecor;
             item.imgItem.img.sprite = dataBook.listDataItemDecor[i].spriteIcon;
             item.txtCost.text = dataBook.listDataItemDecor[i].cost.ToString();

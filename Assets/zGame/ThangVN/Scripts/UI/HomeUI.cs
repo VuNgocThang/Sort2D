@@ -84,7 +84,12 @@ public class HomeUI : MonoBehaviour
 
         listBook = SaveGame.ListBookDecorated;
 
-        currentParts = listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated.Count;
+        int count = 0;
+        for (int i = 0; i < listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated.Count; i++)
+        {
+            if (listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
+        }
+        currentParts = count;
         //if (!listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].isPainted) currentParts++;
 
         imgProgressTask.fillAmount = currentParts / totalParts;

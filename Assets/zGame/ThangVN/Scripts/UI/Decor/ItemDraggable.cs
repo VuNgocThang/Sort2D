@@ -15,7 +15,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     Vector2 originalPosition;
     PopupDecorateBook popupDecorateBook;
     ImageItem linkedImageItem;
-    Slot linkedSlot;
+    public Slot linkedSlot;
     [SerializeField] Color defaultColor = new Color(255, 255, 255, 255);
     [SerializeField] Color redColor = new Color(150, 50, 50, 255);
 
@@ -140,28 +140,35 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         for (int i = 0; i < listItemDecoratedCache.Count; i++)
         {
             Debug.Log($"listItemDecoratedCache[{i}].idItemDecorated: " + listItemDecoratedCache[i].idItemDecorated);
+            if (listItemDecoratedCache[i].idItemDecorated == id)
+            {
+                listItemDecoratedCache[i].isPainted = true;
+                listItemDecoratedCache[i].x = rectTransform.anchoredPosition.x;
+                listItemDecoratedCache[i].y = rectTransform.anchoredPosition.y;
+                listItemDecoratedCache[i].isTruePos = isTruePos;
+            }
         }
-        //return;
-        ItemDecorated itemDecorated = new ItemDecorated();
-        itemDecorated.idItemDecorated = id;
-        itemDecorated.isPainted = true;
-        itemDecorated.x = rectTransform.anchoredPosition.x;
-        itemDecorated.y = rectTransform.anchoredPosition.y;
-        itemDecorated.isTruePos = isTruePos;
+        ////return;
+        //ItemDecorated itemDecorated = new ItemDecorated();
+        //itemDecorated.idItemDecorated = id;
+        //itemDecorated.isPainted = true;
+        //itemDecorated.x = rectTransform.anchoredPosition.x;
+        //itemDecorated.y = rectTransform.anchoredPosition.y;
+        //itemDecorated.isTruePos = isTruePos;
+
+        ////for (int i = 0; i < listItemDecoratedCache.Count; i++)
+        ////{
+        ////    if (listItemDecoratedCache[i].idItemDecorated != id)
+        ////    {
+
+        ////    }
+        ////}
+        //listItemDecoratedCache.Add(itemDecorated);
 
         //for (int i = 0; i < listItemDecoratedCache.Count; i++)
         //{
-        //    if (listItemDecoratedCache[i].idItemDecorated != id)
-        //    {
-
-        //    }
+        //    Debug.Log($"listItemDecoratedCache[{i}].idItemDecorated: " + listItemDecoratedCache[i].idItemDecorated);
         //}
-        listItemDecoratedCache.Add(itemDecorated);
-
-        for (int i = 0; i < listItemDecoratedCache.Count; i++)
-        {
-            Debug.Log($"listItemDecoratedCache[{i}].idItemDecorated: " + listItemDecoratedCache[i].idItemDecorated);
-        }
 
         int countProgress = 0;
 
@@ -188,12 +195,21 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     void OpenNewBook()
     {
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
+
+        int count = 0;
+        for (int i = 0; i < dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count; i++)
+        {
+            if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
+        }
+
         for (int i = 0; i < popupDecorateBook.dataConfigDecor.listDataBooks.Count; i++)
         {
             int idBook = popupDecorateBook.dataConfigDecor.listDataBooks[i].idBook;
+
             if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].idBookDecorated == idBook)
             {
-                if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count == popupDecorateBook.dataConfigDecor.listDataBooks[i].totalParts - 1)
+                //if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count == popupDecorateBook.dataConfigDecor.listDataBooks[i].totalParts - 1)
+                if (count == popupDecorateBook.dataConfigDecor.listDataBooks[i].totalParts - 1)
                 {
                     Debug.Log(" Open New Book");
                     SaveGame.MaxCurrentBook = idBook + 1;
@@ -210,6 +226,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
                     SaveGame.ListBookDecorated = dataCache;
                     PopupNewBook.Show();
+                    break;
 
                 }
             }
