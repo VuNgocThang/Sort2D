@@ -87,7 +87,8 @@ public class PopupShopInGame : Popup
                     {
                         Debug.Log("swap");
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
-                        SaveGame.Coin -= GameConfig.COIN_SWAP;
+                        //SaveGame.Coin -= GameConfig.COIN_SWAP;
+                        GameManager.SubGold(GameConfig.COIN_SWAP);
                         SaveGame.Swap++;
                     }
                 }
@@ -104,7 +105,9 @@ public class PopupShopInGame : Popup
                         Debug.Log("Hammer");
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
 
-                        SaveGame.Coin -= GameConfig.COIN_HAMMER;
+                        //SaveGame.Coin -= GameConfig.COIN_HAMMER;
+                        GameManager.SubGold(GameConfig.COIN_HAMMER);
+
                         SaveGame.Hammer++;
                     }
                 }
@@ -124,7 +127,9 @@ public class PopupShopInGame : Popup
                         Debug.Log("Refresh");
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
 
-                        SaveGame.Coin -= GameConfig.COIN_REFRESH;
+                        //SaveGame.Coin -= GameConfig.COIN_REFRESH;
+                        GameManager.SubGold(GameConfig.COIN_REFRESH);
+
                         SaveGame.Refresh++;
                     }
                 }

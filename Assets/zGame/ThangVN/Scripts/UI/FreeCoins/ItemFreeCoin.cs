@@ -81,7 +81,8 @@ public class ItemFreeCoin : MonoBehaviour
             // reward ads here
             if (countCoin > 0)
             {
-                SaveGame.Coin += countCoin;
+                //SaveGame.Coin += countCoin;
+                GameManager.AddGold(countCoin);
                 isClaimed = true;
                 Debug.Log($" claimed {countCoin}");
                 UpdateStateClaim();

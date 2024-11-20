@@ -47,7 +47,8 @@ public class PopupWin : Popup
             //ReceiveReward();
             ManagerEvent.ClearEvent();
             //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
-            /*else*/ StartCoroutine(LoadScene("SceneGame"));
+            /*else*/
+            StartCoroutine(LoadScene("SceneGame"));
         });
 
         btnHome.OnClick(() =>
@@ -63,14 +64,17 @@ public class PopupWin : Popup
 
         btnClaimX2.OnClick(() =>
         {
-            SaveGame.Coin += LogicGame.Instance.gold;
-            SaveGame.Pigment += LogicGame.Instance.pigment;
+            //SaveGame.Coin += LogicGame.Instance.gold;
+            //SaveGame.Pigment += LogicGame.Instance.pigment;
+            GameManager.AddGold(LogicGame.Instance.gold);
+            GameManager.AddPigment(LogicGame.Instance.pigment);
             InitPile();
             ReceiveReward();
 
             ManagerEvent.ClearEvent();
             //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
-            /*else*/ StartCoroutine(LoadScene("SceneGame"));
+            /*else*/
+            StartCoroutine(LoadScene("SceneGame"));
 
         });
     }
@@ -92,8 +96,10 @@ public class PopupWin : Popup
         txtGoldReward.text = LogicGame.Instance.gold.ToString();
         txtPigmentReward.text = LogicGame.Instance.pigment.ToString();
 
-        SaveGame.Coin += LogicGame.Instance.gold;
-        SaveGame.Pigment += LogicGame.Instance.pigment;
+        //SaveGame.Coin += LogicGame.Instance.gold;
+        //SaveGame.Pigment += LogicGame.Instance.pigment;
+        GameManager.AddGold(LogicGame.Instance.gold);
+        GameManager.AddPigment(LogicGame.Instance.pigment);
     }
 
     private void Update()

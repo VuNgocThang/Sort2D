@@ -17,8 +17,8 @@ public class ToolSelectLevel : MonoBehaviour
             SaveGame.Refresh += 5;
         });
 
-        btnPlusCoin.OnClick(() => SaveGame.Coin += 500);
-        btnPlusPigment.OnClick(() => SaveGame.Pigment += 500);
+        btnPlusCoin.OnClick(() => GameManager.AddGold(500));
+        btnPlusPigment.OnClick(() => GameManager.AddPigment(500));
 
         btnExitTool.OnClick(() => gameObject.SetActive(false));
     }

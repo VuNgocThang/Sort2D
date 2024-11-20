@@ -72,7 +72,7 @@ public class PopupSetupRoom : Popup
                     {
                         start = SaveGame.Pigment;
 
-                        SaveGame.Pigment -= 300;
+                        GameManager.SubPigment(300);
                     }
 
                     //Todo Chua co room thi ad data room moi vao
@@ -121,7 +121,7 @@ public class PopupSetupRoom : Popup
                 if (SaveGame.Pigment >= 300)
                 {
                     start = SaveGame.Pigment;
-                    SaveGame.Pigment -= 300;
+                    GameManager.SubPigment(300);
                 }
                 UpdateExistedRoom();
 

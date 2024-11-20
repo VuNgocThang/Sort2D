@@ -81,7 +81,8 @@ public class PopupFreeCoin : Popup
 
     public void Claimed50()
     {
-        SaveGame.Coin += 50;
+        //SaveGame.Coin += 50;
+        GameManager.AddGold(50);
         SaveGame.DataFreeCoin.isClaimed50 = true;
         SaveGame.DataFreeCoin = SaveGame.DataFreeCoin;
 
