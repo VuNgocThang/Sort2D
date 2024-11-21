@@ -38,6 +38,7 @@ public class DataBook
     public int totalParts;
     public List<DataItemDecor> listDataItemDecor;
     public List<DataSlot> listDataSlots;
+    public List<ColorDecor> listColorDecor;
 }
 
 //data save
@@ -92,6 +93,5 @@ public class ColorDecor
 
 public class DataConfigDecor : ScriptableObject
 {
-    public List<ColorDecor> listColorDecor;
     public List<DataBook> listDataBooks;
 }

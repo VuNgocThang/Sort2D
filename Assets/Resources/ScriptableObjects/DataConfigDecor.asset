@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c715906de34761e4abdb609962383ca0, type: 3}
   m_Name: DataConfigDecor
   m_EditorClassIdentifier: 
-  listColorDecor:
-  - color: {r: 0.6117647, g: 0.17254902, b: 0.2, a: 1}
-  - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
-  - color: {r: 0.38431373, g: 0.19215687, b: 0.4745098, a: 1}
   listDataBooks:
   - idBook: 0
     titleBook: The Secret Book
@@ -26,21 +22,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -54,6 +54,10 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor:
+    - color: {r: 0, g: 0, b: 0, a: 0}
+    - color: {r: 0, g: 0, b: 0, a: 0}
+    - color: {r: 0, g: 0, b: 0, a: 0}
   - idBook: 1
     titleBook: The Secret Book 1
     totalParts: 5
@@ -63,21 +67,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -91,6 +99,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 2
     titleBook: The Secret Book 2
     totalParts: 5
@@ -100,21 +109,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -128,6 +141,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 3
     titleBook: The Secret Book 3
     totalParts: 5
@@ -137,21 +151,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -165,6 +183,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 4
     titleBook: The Secret Book 4
     totalParts: 5
@@ -174,21 +193,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -202,6 +225,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 5
     titleBook: The Secret Book 5
     totalParts: 5
@@ -211,21 +235,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -239,6 +267,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 6
     titleBook: The Secret Book 6
     totalParts: 5
@@ -248,21 +277,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -276,6 +309,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 7
     titleBook: The Secret Book 7
     totalParts: 5
@@ -285,21 +319,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -313,6 +351,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 8
     titleBook: The Secret Book 8
     totalParts: 5
@@ -322,21 +361,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -350,6 +393,7 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []
   - idBook: 9
     titleBook: The Secret Book 9
     totalParts: 5
@@ -359,21 +403,25 @@ MonoBehaviour:
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 1
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 2
       cost: 1200
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
+      isBought: 0
     - idItemDecor: 3
       cost: 1234
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
+      isBought: 0
     listDataSlots:
     - idSlot: 2
       spriteLine: {fileID: 21300000, guid: f0bf3fa0708bd2a458cfc8b68e66801e, type: 3}
@@ -387,3 +435,4 @@ MonoBehaviour:
     - idSlot: 0
       spriteLine: {fileID: 21300000, guid: 7ea6bf016921a7546a0fb7873b4016d2, type: 3}
       pos: {x: 72, y: -18}
+    listColorDecor: []

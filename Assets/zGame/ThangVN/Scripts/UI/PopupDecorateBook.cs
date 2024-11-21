@@ -28,8 +28,8 @@ public class PopupDecorateBook : Popup
 
     public DataConfigDecor dataConfigDecor;
     public float total;
-    DataBook dataBook;
 
+    public DataBook dataBook;
     [SerializeField] BookDecorated bookDecorated;
 
     private void Awake()
@@ -38,9 +38,12 @@ public class PopupDecorateBook : Popup
         btnSelectBgColor.OnClick(() => OnSelect(false));
         btnBack.OnClick(() =>
         {
-            currentItemDrag.linkedSlot.imgLine.gameObject.SetActive(false);
-            currentItemDrag.SetActive(false);
-            currentItemDrag = null;
+            if (currentItemDrag != null)
+            {
+                currentItemDrag.linkedSlot.imgLine.gameObject.SetActive(false);
+                currentItemDrag.SetActive(false);
+                currentItemDrag = null;
+            }
 
             base.Hide();
             PopupBookItem.Show(SaveGame.CurrentBook);
