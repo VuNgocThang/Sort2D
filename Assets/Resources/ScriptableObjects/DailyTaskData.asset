@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526d76eeca24c0543b9e300f0c09cb23, type: 3}
+  m_Name: DailyTaskData
+  m_EditorClassIdentifier: 
+  listTasks:
+  - taskType: 1
+    taskName: Complete 3 levels
+    starReward: 5
+    taskGoal:
+      reach: 3
+      currentProgress: 0
+  - taskType: 0
+    taskName: Use Booster 3 times
+    starReward: 3
+    taskGoal:
+      reach: 3
+      currentProgress: 0

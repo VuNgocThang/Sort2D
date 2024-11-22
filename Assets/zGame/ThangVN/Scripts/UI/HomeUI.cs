@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class HomeUI : MonoBehaviour
 {
     public static HomeUI Instance;
-    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay;
+    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay, btnDailyTask;
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
     [SerializeField] float countdownTimer, totalParts, currentParts;
@@ -51,6 +51,11 @@ public class HomeUI : MonoBehaviour
             SaveGame.Challenges = false;
             ManagerEvent.ClearEvent();
             StartCoroutine(LoadScene("SceneGame"));
+        });
+
+        btnDailyTask.OnClick(() =>
+        {
+            Debug.Log("show popup daily task");
         });
     }
 
