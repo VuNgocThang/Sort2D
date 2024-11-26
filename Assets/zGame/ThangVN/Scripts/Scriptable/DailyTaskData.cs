@@ -30,6 +30,11 @@ public class TaskGoal
     {
         return currentProgress >= reach;
     }
+
+    public void ResetData()
+    {
+        currentProgress = 0;
+    }
 }
 
 [Serializable]
@@ -38,9 +43,16 @@ public class TaskData
     public TaskType taskType;
     public string taskName;
     public int starReward;
+    public bool isClaimed;
 
     public TaskGoal taskGoal;
-   
+
+}
+
+[Serializable]
+public class DailyTaskSaved
+{
+    public List<TaskData> listTaskSaved;
 }
 
 [CreateAssetMenu(fileName = "DailyTaskData", menuName = "ScriptableObjects/DailyTaskData")]

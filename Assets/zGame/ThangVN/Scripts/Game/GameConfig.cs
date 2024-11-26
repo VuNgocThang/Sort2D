@@ -95,4 +95,6 @@ public static class GameConfig
     public static string GAMESAVENORMAL = "GameSaveNormal";
 
     public static string GAMESAVECHALLENGES = "GameSaveChallenges";
+
+    public static string TASK_DATA = "TaskData";
 }

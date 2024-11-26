@@ -55,6 +55,7 @@ public class HomeUI : MonoBehaviour
 
         btnDailyTask.OnClick(() =>
         {
+            PopupDailyTask.Show();
             Debug.Log("show popup daily task");
         });
     }
@@ -68,7 +69,7 @@ public class HomeUI : MonoBehaviour
         animator.Play("Show");
         if (SaveGame.Music)
         {
-            Debug.Log("Play music");
+            //Debug.Log("Play music");
             ManagerAudio.PlayMusic(ManagerAudio.Data.musicBG);
         }
         else ManagerAudio.PauseMusic();

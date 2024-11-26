@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listTasks:
   - taskType: 1
-    taskName: Complete 3 levels
+    taskName: Completed 3 Levels
     starReward: 5
     taskGoal:
       reach: 3
       currentProgress: 0
-  - taskType: 0
-    taskName: Use Booster 3 times
-    starReward: 3
+  - taskType: 3
+    taskName: Merge 50 times
+    starReward: 10
     taskGoal:
-      reach: 3
+      reach: 50
       currentProgress: 0
