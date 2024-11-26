@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
+using UnityEngine.SceneManagement;
 
 public class PopupBonusLevel : Popup
 {
@@ -27,10 +28,14 @@ public class PopupBonusLevel : Popup
     void MoveToLevelBonus()
     {
         SaveGame.PlayBonus = true;
+        ManagerEvent.ClearEvent();
+        SceneManager.LoadScene("SceneGame");
     }
 
     void MoveToLevelNormal()
     {
         SaveGame.PlayBonus = false;
-    }   
+        ManagerEvent.ClearEvent();
+        SceneManager.LoadScene("SceneGame");
+    }
 }

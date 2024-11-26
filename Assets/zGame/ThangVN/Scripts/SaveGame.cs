@@ -557,4 +557,21 @@ public static class SaveGame
             return playBonus == 1;
         }
     }
+
+    const string LEVELBONUS = "LEVELBONUS";
+    static int levelBonus = -1;
+
+    public static int LevelBonus
+    {
+        set
+        {
+            ES3.Save(LEVELBONUS, value);
+            levelBonus = value;
+        }
+        get
+        {
+            if (levelBonus == -1) levelBonus = ES3.Load(LEVELBONUS, 0);
+            return levelBonus;
+        }
+    }
 }

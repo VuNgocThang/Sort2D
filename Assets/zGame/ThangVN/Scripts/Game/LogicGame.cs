@@ -608,7 +608,7 @@ public class LogicGame : MonoBehaviour
             }
         }
 
-        if (point >= maxPoint && !isWin && !isContiuneMerge && !SaveGame.Challenges)
+        if (point >= maxPoint && !isWin && !isContiuneMerge && GameManager.IsNormalGame())
         {
             CheckWin();
             StartCoroutine(RaiseEventWin());
@@ -645,6 +645,12 @@ public class LogicGame : MonoBehaviour
         {
             isLose = true;
             StartCoroutine(RaiseEventLose());
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            CheckWin();
+            StartCoroutine(RaiseEventWin());
         }
 
         //if (!isMergeing)
@@ -1270,11 +1276,26 @@ public class LogicGame : MonoBehaviour
         SaveGame.IsShowBook = false;
         Debug.Log(point + " __ " + gold + " __ " + pigment);
         Debug.Log("check win");
-        if (SaveGame.Level < 19)
-            SaveGame.Level++;
 
-        saveGameNormal = null;
-        PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+        if (GameManager.IsNormalGame())
+        {
+            if (SaveGame.Level < 19)
+                SaveGame.Level++;
+
+            saveGameNormal = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+        }
+        else if (GameManager.IsBonusGame())
+        {
+            if (SaveGame.LevelBonus < 19)
+                SaveGame.LevelBonus++;
+
+            saveGameBonus = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVEBONUS);
+        }
+
+
 
         foreach (ColorPlate c in ListColorPlate)
         {
@@ -1472,7 +1493,7 @@ public class LogicGame : MonoBehaviour
 
             saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
         }
-        else if (GameManager.IsChallengesGame()) 
+        else if (GameManager.IsChallengesGame())
         {
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVECHALLENGES, "");
             if (string.IsNullOrEmpty(gameSaveData))

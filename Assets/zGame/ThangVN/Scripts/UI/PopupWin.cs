@@ -42,14 +42,17 @@ public class PopupWin : Popup
     {
         btnContinue.OnClick(() =>
         {
-            PopupBonusLevel.Show();
-
-            //InitPile();
-            //ReceiveReward();
-            ManagerEvent.ClearEvent();
-            //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
-            /*else*/
-            StartCoroutine(LoadScene("SceneGame"));
+            if (GameManager.ShowPopupBonus())
+                PopupBonusLevel.Show();
+            else
+            {
+                //InitPile();
+                //ReceiveReward();
+                ManagerEvent.ClearEvent();
+                //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
+                /*else*/
+                StartCoroutine(LoadScene("SceneGame"));
+            }
         });
 
         btnHome.OnClick(() =>
@@ -65,18 +68,23 @@ public class PopupWin : Popup
 
         btnClaimX2.OnClick(() =>
         {
+
             //SaveGame.Coin += LogicGame.Instance.gold;
             //SaveGame.Pigment += LogicGame.Instance.pigment;
             GameManager.AddGold(LogicGame.Instance.gold);
             GameManager.AddPigment(LogicGame.Instance.pigment);
-            InitPile();
-            ReceiveReward();
+            //InitPile();
+            //ReceiveReward();
 
             ManagerEvent.ClearEvent();
             //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
             /*else*/
-            StartCoroutine(LoadScene("SceneGame"));
-
+            if (GameManager.ShowPopupBonus())
+                PopupBonusLevel.Show();
+            else
+            {
+                StartCoroutine(LoadScene("SceneGame"));
+            }
         });
     }
 

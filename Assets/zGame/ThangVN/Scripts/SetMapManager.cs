@@ -90,6 +90,11 @@ public class SetMapManager : MonoBehaviour
         {
             filePath = Resources.Load<TextAsset>($"LevelData/Level_{1000}").ToString();
         }
+        else if (GameManager.IsBonusGame())
+        {
+            // change file Path => Bonus Level
+            filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
+        }
         colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
     }
 

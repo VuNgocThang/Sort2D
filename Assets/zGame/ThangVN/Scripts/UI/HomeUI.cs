@@ -49,8 +49,13 @@ public class HomeUI : MonoBehaviour
         btnPlay.OnClick(() =>
         {
             SaveGame.Challenges = false;
-            ManagerEvent.ClearEvent();
-            StartCoroutine(LoadScene("SceneGame"));
+            if (SaveGame.PlayBonus)
+                PopupBonusLevel.Show();
+            else
+            {
+                ManagerEvent.ClearEvent();
+                StartCoroutine(LoadScene("SceneGame"));
+            }
         });
 
         btnDailyTask.OnClick(() =>
