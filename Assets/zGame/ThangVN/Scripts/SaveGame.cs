@@ -540,4 +540,21 @@ public static class SaveGame
         }
     }
 
+
+    const string PLAYBONUS = "PLAYBONUS";
+    static int playBonus = -1;
+
+    public static bool PlayBonus
+    {
+        set
+        {
+            ES3.Save(PLAYBONUS, value ? 1 : 0);
+            playBonus = value ? 1 : 0;
+        }
+        get
+        {
+            if (playBonus == -1) playBonus = ES3.Load(PLAYBONUS, 0);
+            return playBonus == 1;
+        }
+    }
 }

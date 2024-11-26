@@ -118,22 +118,13 @@ public class LogicGame : MonoBehaviour
         Application.targetFrameRate = 60;
         Refresh();
         //InitPlateSpawn(false);
+
         LoadSaveData();
         LoadData();
         InitListCheckPlate();
         InitNextPlate();
         RecursiveMerge();
     }
-    //void Test(int count)
-    //{
-    //    for (int i = 0; i < count; i++)
-    //    {
-    //        if (i != 0 && i != count - 1)
-    //        {
-    //            Debug.Log("__" + i + "__");
-    //        }
-    //    }
-    //}
 
     private void Refresh()
     {
@@ -1256,7 +1247,6 @@ public class LogicGame : MonoBehaviour
 
     bool CheckColorPlateValue(ColorPlate colorPlateCheck)
     {
-
         if (colorPlateCheck.isLocked || colorPlateCheck.status == Status.CannotPlace || colorPlateCheck.countFrozen != 0 || colorPlateCheck.status == Status.Ads)
         {
             return true;

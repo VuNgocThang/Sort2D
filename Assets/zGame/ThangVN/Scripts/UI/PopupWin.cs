@@ -40,9 +40,10 @@ public class PopupWin : Popup
 
     private void Awake()
     {
-
         btnContinue.OnClick(() =>
         {
+            PopupBonusLevel.Show();
+
             //InitPile();
             //ReceiveReward();
             ManagerEvent.ClearEvent();
