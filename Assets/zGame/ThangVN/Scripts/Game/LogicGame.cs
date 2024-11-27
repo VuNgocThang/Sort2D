@@ -50,6 +50,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ColorPlate colorRoot;
 
     [SerializeField] private ParticleSystem clickParticle;
+    [SerializeField] private ParticleSystem arrowClickParticle;
     [SerializeField] private ParticleSystem eatParticle;
     [SerializeField] private ParticleSystem unlockParticle;
     [SerializeField] private ParticleSystem specialParticle;
@@ -59,6 +60,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ParticleSystem colorBook;
 
     public CustomPool<ParticleSystem> clickParticlePool;
+    public CustomPool<ParticleSystem> arrowClickParticlePool;
     public CustomPool<ParticleSystem> eatParticlePool;
     public CustomPool<ParticleSystem> unlockParticlePool;
     public CustomPool<ParticleSystem> specialParticlePool;
@@ -144,6 +146,7 @@ public class LogicGame : MonoBehaviour
         point = 0;
         //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
         clickParticlePool = new CustomPool<ParticleSystem>(clickParticle, 5, transform, false);
+        arrowClickParticlePool = new CustomPool<ParticleSystem>(arrowClickParticle, 5, transform, false);
         eatParticlePool = new CustomPool<ParticleSystem>(eatParticle, 5, transform, false);
         unlockParticlePool = new CustomPool<ParticleSystem>(unlockParticle, 5, transform, false);
         specialParticlePool = new CustomPool<ParticleSystem>(specialParticle, 2, transform, false);
@@ -507,6 +510,8 @@ public class LogicGame : MonoBehaviour
                         ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
 
                         if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0) return;
+
+                        arrowClickParticlePool.Spawn(arrowPlate.transform.position, true);
 
                         ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
                         ColorPlate holder = checkStatusHolder.CheckHolder(arrowPlate);

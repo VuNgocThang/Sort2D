@@ -7,6 +7,7 @@ public class ParticlePool : MonoBehaviour
     public enum TypeParticle
     {
         Click,
+        ArrowClick,
         Eat,
         Move,
         Unlock,
@@ -27,6 +28,10 @@ public class ParticlePool : MonoBehaviour
         if (typeParticle == TypeParticle.Click)
         {
             LogicGame.Instance.clickParticlePool.Release(particle);
+        }
+        else if (typeParticle == TypeParticle.ArrowClick)
+        {
+            LogicGame.Instance.arrowClickParticlePool.Release(particle);
         }
         else if (typeParticle == TypeParticle.Eat)
         {
@@ -53,7 +58,6 @@ public class ParticlePool : MonoBehaviour
         }
         else if (typeParticle == TypeParticle.UpgradeSparkles)
         {
-            LogicSetupRoom.instance.upgradeSparklesParticleePool.Release(particle);
         }
         else if (typeParticle == TypeParticle.FrostExplosion)
         {

@@ -80,7 +80,7 @@ public class PopupSetupRoom : Popup
 
                     // todo particle
 
-                    LogicSetupRoom.instance.PlayParticle(SaveGame.CurrentObject);
+                    //LogicSetupRoom.instance.PlayParticle(SaveGame.CurrentObject);
 
                     for (int i = 0; i < LogicSetupRoom.instance.listRoomObject.Count; i++)
                     {

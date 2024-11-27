@@ -22,15 +22,15 @@ public class LogicSetupRoom : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] List<ListObjetRoomPainted> listRoomPainted;
     [SerializeField] EventSystem currentEvent;
-    [SerializeField] private ParticleSystem upgradeSparklesParticle;
+    //[SerializeField] private ParticleSystem upgradeSparklesParticle;
 
-    public CustomPool<ParticleSystem> upgradeSparklesParticleePool;
+    //public CustomPool<ParticleSystem> upgradeSparklesParticleePool;
 
 
     private void Start()
     {
         Application.targetFrameRate = 60;
-        upgradeSparklesParticleePool = new CustomPool<ParticleSystem>(upgradeSparklesParticle, 2, transform, false);
+        //upgradeSparklesParticleePool = new CustomPool<ParticleSystem>(upgradeSparklesParticle, 2, transform, false);
 
         SaveGame.CanShow = false;
         listRoomPainted = SaveGame.ListRoomPainted.listRoomPainted;
@@ -131,6 +131,6 @@ public class LogicSetupRoom : MonoBehaviour
     public void PlayParticle(int index)
     {
         Debug.Log("Play particle");
-        upgradeSparklesParticleePool.Spawn(listUpgrades[index].position, true);
+        //upgradeSparklesParticleePool.Spawn(listUpgrades[index].position, true);
     }
 }
