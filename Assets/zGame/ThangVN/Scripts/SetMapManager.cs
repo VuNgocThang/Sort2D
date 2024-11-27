@@ -81,12 +81,12 @@ public class SetMapManager : MonoBehaviour
     public void LoadData()
     {
         string filePath = "";
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
         {
             //Debug.Log("Level: " + SaveGame.Level);
             filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.Level}").ToString();
         }
-        else
+        else if (GameManager.IsChallengesGame())
         {
             filePath = Resources.Load<TextAsset>($"LevelData/Level_{1000}").ToString();
         }

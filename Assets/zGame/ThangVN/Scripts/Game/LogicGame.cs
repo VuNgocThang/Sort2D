@@ -181,12 +181,12 @@ public class LogicGame : MonoBehaviour
         ResetNDesk();
         setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
 
-        if (SaveGame.Challenges)
+        if (GameManager.IsChallengesGame())
         {
             if (saveGameChallenges == null) LoadLevelChallenges();
             else LoadSaveChallengesData();
         }
-        else
+        else if (GameManager.IsNormalGame())
         {
             maxPoint = colorPlateData.goalScore;
             gold = colorPlateData.gold;
@@ -1234,7 +1234,7 @@ public class LogicGame : MonoBehaviour
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
-            if (SaveGame.Challenges)
+            if (GameManager.IsChallengesGame())
             {
                 saveGameChallenges = null;
                 PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
@@ -1258,9 +1258,10 @@ public class LogicGame : MonoBehaviour
     IEnumerator RaiseEventLose()
     {
         yield return new WaitForSeconds(1f);
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
             ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
-        else ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
+        else if (GameManager.IsChallengesGame())
+            ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
     }
     void CheckWin()
     {
@@ -1337,6 +1338,7 @@ public class LogicGame : MonoBehaviour
     #region SaveDataProgress
     public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();
     public SaveCurrentChallenges saveGameChallenges = new SaveCurrentChallenges();
+    public SaveCurrentPlayBonus saveGameBonus = new SaveCurrentPlayBonus();
 
     private void OnApplicationQuit()
     {
@@ -1358,13 +1360,17 @@ public class LogicGame : MonoBehaviour
 
     public void SaveDataGame()
     {
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
         {
             SaveGameNormal();
         }
-        else
+        else if (GameManager.IsChallengesGame())
         {
             SaveGameChallenges();
+        }
+        else if (GameManager.IsBonusGame())
+        {
+            SaveGameBonus();
         }
     }
 
@@ -1447,9 +1453,14 @@ public class LogicGame : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    void SaveGameBonus()
+    {
+
+    }
+
     void LoadSaveData()
     {
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
         {
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
             if (string.IsNullOrEmpty(gameSaveData))
@@ -1461,7 +1472,7 @@ public class LogicGame : MonoBehaviour
 
             saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
         }
-        else
+        else if (GameManager.IsChallengesGame()) 
         {
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVECHALLENGES, "");
             if (string.IsNullOrEmpty(gameSaveData))
@@ -1562,7 +1573,10 @@ public class LogicGame : MonoBehaviour
         }
     }
 
+    void LoadSaveBonusLevel()
+    {
+
+    }
+
     #endregion
-
-
 }

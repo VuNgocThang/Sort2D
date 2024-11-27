@@ -100,13 +100,13 @@ public class PopupHome : MonoBehaviour
         btnSwap.Init();
         btnRefresh.Init();
 
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
         {
             nLevel.SetActive(true);
             nScoreChallenges.SetActive(false);
             StartCoroutine(ShowTarget());
         }
-        else
+        else if (GameManager.IsChallengesGame())
         {
             nLevel.SetActive(false);
             nBar.SetActive(false);
@@ -122,12 +122,12 @@ public class PopupHome : MonoBehaviour
     private void Update()
     {
 
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
         {
             imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
             txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point}</color><color=#3A2B74>/{LogicGame.Instance.maxPoint} </color>";
         }
-        else
+        else if (GameManager.IsChallengesGame())
         {
             txtCurrentScore.text = $"{LogicGame.Instance.point}";
 
@@ -149,7 +149,7 @@ public class PopupHome : MonoBehaviour
 
         LogicGame.Instance.point += (int)e;
 
-        if (!SaveGame.Challenges)
+        if (GameManager.IsNormalGame())
         {
             if (LogicGame.Instance.point >= LogicGame.Instance.maxPoint) LogicGame.Instance.point = LogicGame.Instance.maxPoint;
 
@@ -158,7 +158,7 @@ public class PopupHome : MonoBehaviour
             txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point} </color>/ <color=#3A2B74>{LogicGame.Instance.maxPoint} </color>";
 
         }
-        else
+        else if (GameManager.IsChallengesGame())
         {
             txtCurrentScore.text = $"{LogicGame.Instance.point}";
 

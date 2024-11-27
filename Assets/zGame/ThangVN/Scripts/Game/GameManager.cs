@@ -29,4 +29,19 @@ public static class GameManager
         ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
         SaveGame.Coin += _addGold;
     }
+
+    public static bool IsNormalGame()
+    {
+        return (!SaveGame.Challenges && !SaveGame.PlayBonus);
+    }
+
+    public static bool IsChallengesGame()
+    {
+        return SaveGame.Challenges;
+    }
+
+    public static bool IsBonusGame()
+    {
+        return SaveGame.PlayBonus;
+    }
 }
