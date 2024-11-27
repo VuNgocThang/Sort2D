@@ -179,7 +179,7 @@ public class HomeUI : MonoBehaviour
         //}
 
         txtHeart.text = SaveGame.Heart.ToString();
-    }
+    }  
 
     IEnumerator LoadScene(string str)
     {

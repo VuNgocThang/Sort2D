@@ -39,6 +39,11 @@ public class DataBook
     public List<DataItemDecor> listDataItemDecor;
     public List<DataSlot> listDataSlots;
     public List<ColorDecor> listColorDecor;
+
+    //public bool IsPainted()
+    //{
+    //    return ()
+    //}
 }
 
 //data save

@@ -16,10 +16,10 @@ public class PopupDecor : Popup
     [SerializeField] List<BookItem> listBookItems;
     [SerializeField] Transform nContent;
     [SerializeField] List<BookDecorated> listBookDecorated;
-    [SerializeField] DataConfigDecor dataBookConfig;
     [SerializeField] List<float> listProgress;
     [SerializeField] ScrollRect scrollRect;
 
+    [SerializeField] DataConfigDecor dataBookConfig;
 
     private void Awake()
     {
@@ -65,7 +65,7 @@ public class PopupDecor : Popup
         for (int i = 0; i < dataBookConfig.listDataBooks.Count; i++)
         {
             BookItem book = Instantiate(bookItemPrefab, nContent);
-            book.Init(i, dataBookConfig.listDataBooks[i].titleBook);
+            book.Init(i, dataBookConfig.listDataBooks[i].titleBook, dataBookConfig);
             listBookItems.Add(book);
         }
 

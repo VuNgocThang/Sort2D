@@ -134,7 +134,7 @@ public class PopupDecorateBook : Popup
             {
                 if (bookDecorated.listItemDecorated[j].idItemDecorated == listItemDecors[i].id)
                 {
-                    if (!bookDecorated.listItemDecorated[j].isBought) return;
+                    if (!bookDecorated.listItemDecorated[j].isBought) continue;
 
                     listItems[i].isBought = true;
                     listItemDecors[i].btnBuy.gameObject.SetActive(false);
@@ -152,7 +152,7 @@ public class PopupDecorateBook : Popup
             // Kiểm tra nếu item tồn tại trong dictionary
             if (itemDict.TryGetValue(idItemDecorated, out ImageItem itemData))
             {
-                if (!bookDecorated.listItemDecorated[i].isPainted) return;
+                if (!bookDecorated.listItemDecorated[i].isPainted) continue;
 
                 itemData.isPainted = true;
                 itemData.img.gameObject.SetActive(false);
