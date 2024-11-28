@@ -50,25 +50,25 @@ public class DefaultFinishPlate : IVisualPlate
                         mainC.startColor = SwitchColor(colorEnum);
                     }
 
-                    color.transform.DOMove(targetPos, 0.5f)
-                    .OnStart(() =>
-                    {
-                        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
-                    })
-                    .OnComplete(() =>
-                    {
-                        if (plusPoint)
-                            ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+                    color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
+                        .OnStart(() =>
+                        {
+                            ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
+                        })
+                        .OnComplete(() =>
+                        {
+                            if (plusPoint)
+                                ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
 
-                        Debug.Log(LogicGame.Instance.point + " ____POINT");
-                        LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
-                        LogicGame.Instance.IncreaseCountDiff();
-                        LogicGame.Instance.SpawnSpecialColor();
+                            Debug.Log(LogicGame.Instance.point + " ____POINT");
+                            LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
+                            LogicGame.Instance.IncreaseCountDiff();
+                            LogicGame.Instance.SpawnSpecialColor();
 
-                        //color.trail.enabled = false;
-                        color.trail.SetActive(false);
-                        color.gameObject.SetActive(false);
-                    });
+                            //color.trail.enabled = false;
+                            color.trail.SetActive(false);
+                            color.gameObject.SetActive(false);
+                        });
                 }));
             }
             else

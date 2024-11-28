@@ -53,6 +53,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ParticleSystem arrowClickParticle;
     [SerializeField] private ParticleSystem eatParticle;
     [SerializeField] private ParticleSystem unlockParticle;
+    [SerializeField] private ParticleSystem unlockAdsParticle;
     [SerializeField] private ParticleSystem specialParticle;
     [SerializeField] private ParticleSystem chargingParticle;
     [SerializeField] private ParticleSystem changeColorParticle;
@@ -63,6 +64,7 @@ public class LogicGame : MonoBehaviour
     public CustomPool<ParticleSystem> arrowClickParticlePool;
     public CustomPool<ParticleSystem> eatParticlePool;
     public CustomPool<ParticleSystem> unlockParticlePool;
+    public CustomPool<ParticleSystem> unlockAdsParticlePool;
     public CustomPool<ParticleSystem> specialParticlePool;
     public CustomPool<ParticleSystem> chargingParticlePool;
     public CustomPool<ParticleSystem> changeColorParticlePool;
@@ -149,6 +151,7 @@ public class LogicGame : MonoBehaviour
         arrowClickParticlePool = new CustomPool<ParticleSystem>(arrowClickParticle, 5, transform, false);
         eatParticlePool = new CustomPool<ParticleSystem>(eatParticle, 5, transform, false);
         unlockParticlePool = new CustomPool<ParticleSystem>(unlockParticle, 5, transform, false);
+        unlockAdsParticlePool = new CustomPool<ParticleSystem>(unlockAdsParticle, 5, transform, false);
         specialParticlePool = new CustomPool<ParticleSystem>(specialParticle, 2, transform, false);
         chargingParticlePool = new CustomPool<ParticleSystem>(chargingParticle, 2, transform, false);
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
@@ -601,6 +604,7 @@ public class LogicGame : MonoBehaviour
 
                         if (adsPlate.status != Status.Ads) return;
 
+                        unlockAdsParticlePool.Spawn(adsPlate.transform.position, true);
                         Debug.Log(" Watch Ads to Unlock AdsPlate");
                         adsPlate.status = Status.None;
                         adsPlate.logicVisual.Refresh();
@@ -762,6 +766,16 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
+            Sequence sqSpawn = DOTween.Sequence();
+            listNextPlate[0].transform.localPosition = new Vector3(listNextPlate[0].transform.localPosition.x,
+                                                                    listNextPlate[0].transform.localPosition.y + 0.5f,
+                                                                    listNextPlate[0].transform.localPosition.z);
+
+            sqSpawn.AppendInterval(0.5f);
+
+            listNextPlate[0].transform.DOLocalMove(new Vector3(listNextPlate[0].transform.localPosition.x,
+                                                                    listNextPlate[0].transform.localPosition.y - 0.5f,
+                                                                    listNextPlate[0].transform.localPosition.z), 0.3f);
 
             listNextPlate[0].ListValue.AddRange(listNextPlate[1].ListValue);
             listNextPlate[0].ListColor.AddRange(listNextPlate[1].ListColor);
@@ -1325,7 +1339,7 @@ public class LogicGame : MonoBehaviour
     }
     IEnumerator RaiseEventWin()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(GameConfig.TIME_FLY + 1f);
         ManagerEvent.RaiseEvent(EventCMD.EVENT_WIN);
     }
     public bool IsInLayerMask(GameObject obj, LayerMask layerMask)

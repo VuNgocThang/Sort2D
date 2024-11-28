@@ -8,4 +8,5 @@ public class TimerConfigData : ScriptableObject
     public float timeMove;
     public float timeMerge;
     public float timeRun;
+    public float timeFly;
 }

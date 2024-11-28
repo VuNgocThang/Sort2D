@@ -605,7 +605,7 @@ public class ColorPlate : MonoBehaviour
                     //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
                     //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
-                    color.transform.DOMove(targetPos, 0.3f).OnComplete(() =>
+                    color.transform.DOMove(targetPos, GameConfig.TIME_FLY).OnComplete(() =>
                     {
                         //if (color.trail != null) color.trail.enabled = false;
                         if (color.trail != null) color.trail.SetActive(false);

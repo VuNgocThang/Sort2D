@@ -4815,7 +4815,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10002
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4860,6 +4860,7 @@ GameObject:
   - component: {fileID: 4236612116899194116}
   - component: {fileID: 4236612116899194115}
   - component: {fileID: 4236612116899194114}
+  - component: {fileID: 1106414399631310938}
   m_Layer: 0
   m_Name: Unlock_ads_VFX
   m_TagString: Untagged
@@ -9716,7 +9717,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10001
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9800,6 +9801,20 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1106414399631310938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236612116899194113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e598a87005327d4dbee2296292ee00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeParticle: 5
+  particle: {fileID: 0}
 --- !u!1 &4236612117542912948
 GameObject:
   m_ObjectHideFlags: 0
@@ -14664,7 +14679,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10000
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -19495,7 +19510,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10000
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
