@@ -6,7 +6,8 @@ public class LogicColor : MonoBehaviour
 {
     [SerializeField] public List<GameObject> listMeshes;
     //[SerializeField] public GameObject lockNoMove;
-    [SerializeField] public TrailRenderer trail;
+    //[SerializeField] public TrailRenderer trail;
+    public GameObject trail;
     public SpriteRenderer spriteRender;
 
     public void Init(int index, int layer)

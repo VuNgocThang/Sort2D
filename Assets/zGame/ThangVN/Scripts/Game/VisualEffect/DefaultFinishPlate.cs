@@ -29,8 +29,8 @@ public class DefaultFinishPlate : IVisualPlate
             {
                 sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f).OnComplete(() =>
                 {
-                    color.trail.enabled = true;
-
+                    //color.trail.enabled = true;
+                    color.trail.SetActive(true);
                     // Camera overlay
                     Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
                     Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
@@ -65,7 +65,8 @@ public class DefaultFinishPlate : IVisualPlate
                         LogicGame.Instance.IncreaseCountDiff();
                         LogicGame.Instance.SpawnSpecialColor();
 
-                        color.trail.enabled = false;
+                        //color.trail.enabled = false;
+                        color.trail.SetActive(false);
                         color.gameObject.SetActive(false);
                     });
                 }));

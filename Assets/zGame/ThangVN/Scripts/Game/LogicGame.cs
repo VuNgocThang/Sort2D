@@ -1305,6 +1305,8 @@ public class LogicGame : MonoBehaviour
         }
         else if (GameManager.IsBonusGame())
         {
+            SaveGame.PlayBonus = false;
+
             if (SaveGame.LevelBonus < 19)
                 SaveGame.LevelBonus++;
 

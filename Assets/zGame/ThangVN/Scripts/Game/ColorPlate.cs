@@ -595,7 +595,8 @@ public class ColorPlate : MonoBehaviour
             {
                 sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f).OnComplete(() =>
                 {
-                    if (color.trail != null) color.trail.enabled = true;
+                    //if (color.trail != null) color.trail.enabled = true;
+                    if (color.trail != null) color.trail.SetActive(true);
 
                     // Camera overlay
                     Vector3 viewportPos = new Vector3(targetUIPosition.position.x / Screen.width, targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
@@ -606,7 +607,9 @@ public class ColorPlate : MonoBehaviour
 
                     color.transform.DOMove(targetPos, 0.3f).OnComplete(() =>
                     {
-                        if (color.trail != null) color.trail.enabled = false;
+                        //if (color.trail != null) color.trail.enabled = false;
+                        if (color.trail != null) color.trail.SetActive(false);
+
                         color.gameObject.SetActive(false);
                     });
                 }));
