@@ -59,6 +59,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ParticleSystem changeColorParticle;
     [SerializeField] private ParticleSystem frostExplosion;
     [SerializeField] private ParticleSystem colorBook;
+    [SerializeField] private ParticleSystem magicRune;
 
     public CustomPool<ParticleSystem> clickParticlePool;
     public CustomPool<ParticleSystem> arrowClickParticlePool;
@@ -70,6 +71,7 @@ public class LogicGame : MonoBehaviour
     public CustomPool<ParticleSystem> changeColorParticlePool;
     public CustomPool<ParticleSystem> frostExplosionPool;
     public CustomPool<ParticleSystem> colorBookPool;
+    public CustomPool<ParticleSystem> magicRunePool;
 
     [SerializeField] ParticleSystem currentSpecialParticle;
 
@@ -157,6 +159,7 @@ public class LogicGame : MonoBehaviour
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
         colorBookPool = new CustomPool<ParticleSystem>(colorBook, 2, transform, false);
+        //magicRunePool = new CustomPool<ParticleSystem>(magicRune, 2, transform, false);
 
         //ResetPosSpawn();
 
@@ -530,6 +533,7 @@ public class LogicGame : MonoBehaviour
                             arrowPlate.PlayAnimOnClick();
                             ManagerAudio.PlaySound(ManagerAudio.Data.soundArrowButton);
                             //Debug.Log(arrowPlate.name + " __ " + holder.name);
+                            holder.magicRune.Play();
                             SetColor(arrowPlate, holder);
 
                             if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
@@ -752,7 +756,7 @@ public class LogicGame : MonoBehaviour
 
             //return;
 
-            //Tween t = null;
+            //Tween t = null; 
 
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
@@ -766,16 +770,6 @@ public class LogicGame : MonoBehaviour
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;
             }
-            Sequence sqSpawn = DOTween.Sequence();
-            listNextPlate[0].transform.localPosition = new Vector3(listNextPlate[0].transform.localPosition.x,
-                                                                    listNextPlate[0].transform.localPosition.y + 0.5f,
-                                                                    listNextPlate[0].transform.localPosition.z);
-
-            sqSpawn.AppendInterval(0.5f);
-
-            listNextPlate[0].transform.DOLocalMove(new Vector3(listNextPlate[0].transform.localPosition.x,
-                                                                    listNextPlate[0].transform.localPosition.y - 0.5f,
-                                                                    listNextPlate[0].transform.localPosition.z), 0.3f);
 
             listNextPlate[0].ListValue.AddRange(listNextPlate[1].ListValue);
             listNextPlate[0].ListColor.AddRange(listNextPlate[1].ListColor);

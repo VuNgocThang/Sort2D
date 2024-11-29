@@ -73,6 +73,7 @@ public class ColorPlate : MonoBehaviour
     public AnimationCurve curve;
     public AnimationCurve curveMoveUp;
     public TimerConfigData timerConfigData;
+    public ParticleSystem magicRune;
 
     private void Start()
     {
