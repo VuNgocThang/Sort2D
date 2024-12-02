@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83dbf566dd3b270418fb347e6b5a290d, type: 3}
+  m_Name: CustomerMissionData
+  m_EditorClassIdentifier: 
+  listLevelBonus:
+  - listCustomers:
+    - spriteCustomer: {fileID: 21300000, guid: 50ea5bcb7b683884ca62a33028905578, type: 3}
+      missions:
+      - missionType: 2
+        spriteMission: {fileID: 21300000, guid: 42af2b5ffccba534589719fa11282733,
+          type: 3}
+        quantity: 10
+    - spriteCustomer: {fileID: 21300000, guid: 50ea5bcb7b683884ca62a33028905578, type: 3}
+      missions:
+      - missionType: 0
+        spriteMission: {fileID: 21300000, guid: 6f62236852f322444a065f0781086155,
+          type: 3}
+        quantity: 15
+    - spriteCustomer: {fileID: 21300000, guid: 50ea5bcb7b683884ca62a33028905578, type: 3}
+      missions:
+      - missionType: 1
+        spriteMission: {fileID: 21300000, guid: 776d6a9394681564eb3e542969187491,
+          type: 3}
+        quantity: 20
+    - spriteCustomer: {fileID: 21300000, guid: 50ea5bcb7b683884ca62a33028905578, type: 3}
+      missions:
+      - missionType: 3
+        spriteMission: {fileID: 21300000, guid: 4c214be1439d3b94fba41dd83d8d2fc0,
+          type: 3}
+        quantity: 25

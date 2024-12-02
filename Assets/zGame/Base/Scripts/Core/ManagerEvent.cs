@@ -53,13 +53,13 @@ namespace ntDev
         EVENT_BUFF_OVER,
         EVENT_TUTORIAL_COMPLETE,
         EVENT_TUTORIAL_LOCK_ROOM,
-        
+
         EVENT_SPAWN_EFFECT,
         EVENT_SPAWN_POPUP,
         EVENT_SPAWN_CLOCK,
         EVENT_BUFF_SR_OVER,
         EVENT_BUFF_LS_CD_OVER,
-        
+
         EVENT_REFRESH_ROOM_LIST,
         EVENT_TOGGLE_MAIN_UI,
         EVENT_SPAWN_PLAYER,
@@ -73,7 +73,8 @@ namespace ntDev
         EVENT_FREECOIN,
         EVENT_CHALLENGES,
         EVENT_SELECT_ROOM,
-        EVENT_SPAWN_PLATE
+        EVENT_SPAWN_PLATE,
+        EVENT_MISSION_CUSTOMER
     }
 
     public static class ManagerEvent

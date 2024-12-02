@@ -662,16 +662,7 @@ public class ColorPlate : MonoBehaviour
     {
         if (currenPoint >= pointToUnLock && isLocked)
         {
-
             StartCoroutine(UnlockPlate());
-            //ParticleSystem unlock = LogicGame.Instance.unlockParticlePool.Spawn(this.transform.position, true);
-
-            //txtPointUnlock.gameObject.SetActive(false);
-            //logicVisual.SetVisualAfterUnlock(status);
-            //pointToUnLock = 0;
-            //isLocked = false;
-            //if (status == Status.LockCoin)
-            //    status = Status.None;
         }
     }
 

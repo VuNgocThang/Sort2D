@@ -648,16 +648,16 @@ public class LogicGame : MonoBehaviour
             SceneManager.LoadScene("SceneGame");
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            saveGameNormal = null;
-            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    saveGameNormal = null;
+        //    PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
-            SaveGame.Level--;
-            ManagerEvent.ClearEvent();
+        //    SaveGame.Level--;
+        //    ManagerEvent.ClearEvent();
 
-            SceneManager.LoadScene("SceneGame");
-        }
+        //    SceneManager.LoadScene("SceneGame");
+        //}
 
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -1105,6 +1105,8 @@ public class LogicGame : MonoBehaviour
 
     public void IncreaseCountDiff()
     {
+        // point config
+
         if (point >= 20) countDiff = 3;
         if (point >= 50) countDiff = 4;
         if (point >= 100) countDiff = 5;
@@ -1189,11 +1191,9 @@ public class LogicGame : MonoBehaviour
                     if (startColorPlate.Col == endColorPlate.Col)
                     {
                         endColorPlate.InitValue(endColorPlate.transform, 1, endColorPlate.Row);
-
                     }
                     else if (startColorPlate.Row == endColorPlate.Row)
-                    {
-
+                    { 
                         endColorPlate.InitValue(endColorPlate.transform, 0, endColorPlate.Row);
                     }
                 }
