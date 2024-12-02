@@ -780,31 +780,12 @@ public class LogicGame : MonoBehaviour
             listNextPlate[1].listTypes.Clear();
 
             spawnBook.PlayAnimSpawn();
-            //Tweener t = null;
-            //t = listNextPlate[0].transform.DOMove(listNextPlate[1].transform.position, 0.3f).SetEase(Ease.OutCirc);
-            //listNextPlate[1].transform.DOMove(listNextPlate[0].transform.position, 0.3f).SetEase(Ease.InCirc);
-            //t = listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.3f).SetEase(Ease.OutCirc);
-            //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.3f).SetEase(Ease.InCirc);
-            //foreach (LogicColor c in listNextPlate[0].ListColor)
-            //{
-            //    c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
-            //}
-
-            //foreach (LogicColor c in listNextPlate[1].ListColor)
-            //{
-            //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-            //}
-            //Swap(listNextPlate);
-            //t.OnComplete(() =>
-            //{
-            //    listNextPlate[1].InitColor();
-            //});
 
             float delay = 0f;
 
-            //Debug.Log($"=----------------End Position {endColorPlate.transform.position}");
-
             Sequence sq = DOTween.Sequence();
+            endColorPlate.isMoving = true;
+
             foreach (LogicColor renderer in startColorPlate.ListColor)
             {
                 Vector3 localPos = renderer.transform.localPosition;
@@ -849,6 +830,8 @@ public class LogicGame : MonoBehaviour
 
             sq.OnComplete(() =>
             {
+                endColorPlate.isMoving = false;
+
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
                     if (!isMergeing)

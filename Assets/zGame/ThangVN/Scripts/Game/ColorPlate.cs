@@ -74,12 +74,12 @@ public class ColorPlate : MonoBehaviour
     public AnimationCurve curveMoveUp;
     public TimerConfigData timerConfigData;
     public ParticleSystem magicRune;
+    public bool isMoving;
 
     private void Start()
     {
         if (LogicGame.Instance != null)
             targetUIPosition = LogicGame.Instance.targetUIPosition;
-
     }
 
     public void Init(GetColorNew getColorNew)
@@ -314,6 +314,8 @@ public class ColorPlate : MonoBehaviour
 
     public void InitValue(Transform transform = null, int index = -1, int _Row = -1)
     {
+        if (isMoving) return;
+
         for (int i = 0; i < ListValue.Count; ++i)
         {
             if (i >= ListColor.Count)
