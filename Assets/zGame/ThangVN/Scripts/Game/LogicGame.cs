@@ -1193,7 +1193,7 @@ public class LogicGame : MonoBehaviour
                         endColorPlate.InitValue(endColorPlate.transform, 1, endColorPlate.Row);
                     }
                     else if (startColorPlate.Row == endColorPlate.Row)
-                    { 
+                    {
                         endColorPlate.InitValue(endColorPlate.transform, 0, endColorPlate.Row);
                     }
                 }
@@ -1275,16 +1275,15 @@ public class LogicGame : MonoBehaviour
             ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
         else if (GameManager.IsChallengesGame())
             ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
-
+        else if (GameManager.IsBonusGame())
+            Debug.Log("Raise PopupLose BonusGame");
     }
     void CheckWin()
     {
         isWin = true;
-
         SaveGame.IsShowBook = false;
         Debug.Log(point + " __ " + gold + " __ " + pigment);
         Debug.Log("check win");
-
 
         if (GameManager.IsNormalGame())
         {
@@ -1314,11 +1313,13 @@ public class LogicGame : MonoBehaviour
             c.ClearAll();
         }
     }
+
     IEnumerator RaiseEventWin()
     {
         yield return new WaitForSeconds(GameConfig.TIME_FLY + 1f);
         ManagerEvent.RaiseEvent(EventCMD.EVENT_WIN);
     }
+
     public bool IsInLayerMask(GameObject obj, LayerMask layerMask)
     {
         return ((layerMask.value & (1 << obj.layer)) > 0);

@@ -7,14 +7,6 @@ public class SpawnBookTest : MonoBehaviour
 {
     [SerializeField] Animator animParent, animBox;
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    PlayAnimSpawn();
-        //}
-    }
-
     public void PlayAnimSpawn()
     {
         //Debug.Log("press R");
