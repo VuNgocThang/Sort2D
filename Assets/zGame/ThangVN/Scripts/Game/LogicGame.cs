@@ -701,7 +701,7 @@ public class LogicGame : MonoBehaviour
         else
         {
             isContiuneMerge = false;
-            CheckClear();
+            //CheckClear();
 
             if (isWin) return;
 
@@ -715,7 +715,7 @@ public class LogicGame : MonoBehaviour
             {
                 colorRoot = null;
                 isMergeing = false;
-                //CheckClear();
+                CheckClear();
             }
 
         }

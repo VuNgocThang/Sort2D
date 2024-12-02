@@ -196,7 +196,7 @@ public class HandDrag : MonoBehaviour
             for (int i = 0; i < selectingPlate.ListColor.Count; i++)
             {
                 LogicColor c = selectingPlate.ListColor[i];
-                c.transform.position = Vector3.MoveTowards(c.transform.position, hit.point + new Vector3(0, 1 + i * GameConfig.OFFSET_PLATE, 0), 1f);
+                c.transform.position = Vector3.MoveTowards(c.transform.position, hit.point + new Vector3(0, 1 + i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 1f);
             }
         }
 
@@ -204,7 +204,7 @@ public class HandDrag : MonoBehaviour
         if (Physics.Raycast(ray, out var hitPlateHolder, 100f, layerPlate))
         {
             selectingPlate.circleZZZ.SetActive(true);
-            selectingPlate.circleZZZ.transform.position = hitPlateHolder.transform.position + new Vector3(0, GameConfig.OFFSET_PLATE, 0);
+            selectingPlate.circleZZZ.transform.position = hitPlateHolder.transform.position /*+ new Vector3(0, GameConfig.OFFSET_PLATE, 0)*/;
         }
         else
         {
