@@ -2356,7 +2356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6708342125030060784, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 2002086104}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03610f6fcac981c4f9b49d02e5eb0567, type: 3}
 --- !u!224 &586633394 stripped
@@ -2383,6 +2387,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c6f254637605e408d04481b2591ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &586633397 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6708342125030060784, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+    type: 3}
+  m_PrefabInstance: {fileID: 586633393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &603901193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,7 +2606,6 @@ RectTransform:
   - {fileID: 2967214489146526622}
   - {fileID: 610300282}
   - {fileID: 1836200266}
-  - {fileID: 2002086104}
   m_Father: {fileID: 21368436}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6261,7 +6270,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 668929993}
+    m_TransformParent: {fileID: 586633397}
     m_Modifications:
     - target: {fileID: 329287301525450448, guid: d6eb480acca42384494fdfecd4047183,
         type: 3}
@@ -6368,10 +6377,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: MissionCustomerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2883443845719674561, guid: d6eb480acca42384494fdfecd4047183,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7459999640864383585, guid: d6eb480acca42384494fdfecd4047183,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: -945.27
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7837,7 +7851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8296152405724345758
 Transform:
   m_ObjectHideFlags: 0

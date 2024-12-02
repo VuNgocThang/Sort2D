@@ -93,7 +93,9 @@ public class SetMapManager : MonoBehaviour
         else if (GameManager.IsBonusGame())
         {
             // change file Path => Bonus Level
-            filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
+
+            filePath = Resources.Load<TextAsset>($"LevelData/Level_{1000}").ToString();
+            //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
         }
         colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
     }

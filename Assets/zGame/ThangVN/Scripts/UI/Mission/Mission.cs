@@ -65,4 +65,14 @@ public class Mission : MonoBehaviour
             txtCurrent.text = $"{current} /";
         }
     }
+
+    private void Update()
+    {
+
+    }
+
+    void CheckDone()
+    {
+
+    }
 }

@@ -1275,6 +1275,7 @@ public class LogicGame : MonoBehaviour
             ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
         else if (GameManager.IsChallengesGame())
             ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
+
     }
     void CheckWin()
     {
