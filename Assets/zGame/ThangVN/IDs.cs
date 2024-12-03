@@ -26,6 +26,5 @@ namespace ThangVN
 		public const int Level_19 = 18;
 		public const int Level_20 = 19;
 		#endregion
-
 	}
 }

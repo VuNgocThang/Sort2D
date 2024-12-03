@@ -110,6 +110,8 @@ public class LogicGame : MonoBehaviour
     [SerializeField] ControllerAnimState ControllerAnimState;
     [SerializeField] TimerConfigData timerConfigData;
     [SerializeField] SpawnBookTest spawnBook;
+    public DataLevel dataLevel;
+
 
     LogicColor GetColorNew()
     {
@@ -210,7 +212,7 @@ public class LogicGame : MonoBehaviour
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
-        DataLevel dataLevel = DataLevel.GetData(SaveGame.Level + 1);
+        dataLevel = DataLevel.GetData(SaveGame.Level + 1);
         countDiffMax = dataLevel.CountDiff;
     }
 
@@ -1106,7 +1108,6 @@ public class LogicGame : MonoBehaviour
     public void IncreaseCountDiff()
     {
         // point config
-
         if (point >= 20) countDiff = 3;
         if (point >= 50) countDiff = 4;
         if (point >= 100) countDiff = 5;
