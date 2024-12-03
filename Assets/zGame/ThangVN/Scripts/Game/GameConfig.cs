@@ -53,6 +53,8 @@ public static class GameConfig
 
     public static int OFFSET_LAYER = 10;
 
+    public static int MAX_LEVEL = 49;
+
     //public static Vector3 OFFSET_HAMMER = new Vector3(-1.84f, 0, -3.1f);
     //public static Vector3 OFFSET_HAMMER = new Vector3(-1.7f, 0f, -3.3f);
     public static Vector3 OFFSET_HAMMER = Vector3.zero;

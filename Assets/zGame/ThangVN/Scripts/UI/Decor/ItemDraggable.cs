@@ -24,6 +24,17 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    public void Init(Sprite sprite, int id, Vector2 pos, ImageItem imageItem, Slot slot)
+    {
+        this.imgItemDrag.sprite = sprite;
+        this.imgItemDrag.SetNativeSize();
+        this.id = id;
+        this.SetInParent(imageItem, slot);
+        this.rectTransform.anchoredPosition = pos;
+        this.transform.localScale = Vector3.one;
+        this.gameObject.SetActive(true);
+    }
+
     public void Initialize(ImageItem imageItem, Vector2 startPos, Slot slot)
     {
         originalPosition = startPos;

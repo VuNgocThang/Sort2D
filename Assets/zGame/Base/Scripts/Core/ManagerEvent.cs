@@ -74,7 +74,8 @@ namespace ntDev
         EVENT_CHALLENGES,
         EVENT_SELECT_ROOM,
         EVENT_SPAWN_PLATE,
-        EVENT_MISSION_CUSTOMER
+        EVENT_MISSION_CUSTOMER,
+        EVENT_CHANGE_COLOR
     }
 
     public static class ManagerEvent

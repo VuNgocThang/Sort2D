@@ -11,7 +11,7 @@ public class DataLevel
     public int CountDiff;
     public int[] Colors;
     public int[] Ratio;
-
+     
     static List<DataLevel> listData;
 
     public static List<DataLevel> GetListData()
@@ -30,7 +30,8 @@ public class DataLevel
         List<DataLevel> list = GetListData();
         foreach (DataLevel d in list)
         {
-            if (d.ID == id - 1)
+            // start ID from zero 
+            if (d.ID == id/* - 1*/)
                 return d;
         }
         return null;

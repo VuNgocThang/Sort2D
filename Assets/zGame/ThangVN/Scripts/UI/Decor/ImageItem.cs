@@ -13,7 +13,6 @@ public class ImageItem : MonoBehaviour
 
     private void Awake()
     {
-
         btn.OnClick(() =>
         {
             if (isBought)
@@ -30,5 +29,12 @@ public class ImageItem : MonoBehaviour
                 Debug.Log("can't selected");
             }
         });
+    }
+
+    public void Init(int id, Sprite sprite)
+    {
+        this.id = id;
+        img.sprite = sprite;
+        img.SetNativeSize();
     }
 }

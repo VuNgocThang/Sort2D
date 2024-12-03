@@ -22,9 +22,13 @@ public class ItemDecor : MonoBehaviour
         });
     }
 
-    public void BuyImageItem()
+    public void Init(int id, int cost, Sprite sprite)
     {
+        this.id = id;
+        this.cost = cost;
 
+        imageItem.Init(id, sprite);
+        txtCost.text = cost.ToString();
     }
 
     void SaveBoughtItemDecor()

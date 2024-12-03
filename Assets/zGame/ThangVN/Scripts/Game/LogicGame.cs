@@ -82,6 +82,7 @@ public class LogicGame : MonoBehaviour
     public bool isWin = false;
     public bool isPauseGame = false;
     public static bool isContiuneMerge = false;
+    public bool isMoving = false;
     public int point;
     public int maxPoint;
     public int gold;
@@ -212,7 +213,7 @@ public class LogicGame : MonoBehaviour
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
-        dataLevel = DataLevel.GetData(SaveGame.Level + 1);
+        dataLevel = DataLevel.GetData(SaveGame.Level /*+ 1*/);
         countDiffMax = dataLevel.CountDiff;
     }
 
@@ -787,6 +788,7 @@ public class LogicGame : MonoBehaviour
 
             Sequence sq = DOTween.Sequence();
             endColorPlate.isMoving = true;
+            isMoving = true;
 
             foreach (LogicColor renderer in startColorPlate.ListColor)
             {
@@ -833,6 +835,7 @@ public class LogicGame : MonoBehaviour
             sq.OnComplete(() =>
             {
                 endColorPlate.isMoving = false;
+                isMoving = false;
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
@@ -1288,24 +1291,33 @@ public class LogicGame : MonoBehaviour
 
         if (GameManager.IsNormalGame())
         {
-            if (SaveGame.Level < 19)
+            if (SaveGame.Level < GameConfig.MAX_LEVEL)
                 SaveGame.Level++;
 
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+            if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
+            {
+                Debug.Log("fuck! van con");
+            }
+            else
+            {
+                Debug.Log("clear");
+            }
         }
         else if (GameManager.IsBonusGame())
         {
             SaveGame.PlayBonus = false;
 
-            if (SaveGame.LevelBonus < 19)
+            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL)
                 SaveGame.LevelBonus++;
 
             saveGameBonus = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVEBONUS);
         }
 
-
+        PlayerPrefs.Save();
 
         foreach (ColorPlate c in ListColorPlate)
         {
@@ -1495,6 +1507,15 @@ public class LogicGame : MonoBehaviour
     {
         if (GameManager.IsNormalGame())
         {
+            if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
+            {
+                Debug.Log("fuck! van con");
+            }
+            else
+            {
+                Debug.Log("clear");
+            }
+
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
             if (string.IsNullOrEmpty(gameSaveData))
             {
