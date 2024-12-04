@@ -163,8 +163,9 @@ public class LogicGame : MonoBehaviour
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
         colorBookPool = new CustomPool<ParticleSystem>(colorBook, 2, transform, false);
         //magicRunePool = new CustomPool<ParticleSystem>(magicRune, 2, transform, false);
-
         //ResetPosSpawn();
+        dataLevel = DataLevel.GetData(SaveGame.Level /*+ 1*/);
+        countDiffMax = dataLevel.CountDiff;
 
     }
 
@@ -213,8 +214,7 @@ public class LogicGame : MonoBehaviour
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
-        dataLevel = DataLevel.GetData(SaveGame.Level /*+ 1*/);
-        countDiffMax = dataLevel.CountDiff;
+       
     }
 
     void InitListCheckPlate()
@@ -586,7 +586,7 @@ public class LogicGame : MonoBehaviour
                         {
                             ColorPlate plateSelect = plate.collider.GetComponent<ColorPlate>();
 
-                            Debug.Log(plateSelect.name);
+                            //Debug.Log(plateSelect.name);
 
                             if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
 
