@@ -269,6 +269,16 @@ public class PopupDecorateBook : Popup
     public void SaveCurrentColor()
     {
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
+        List<BookDecorated> listBookDecoratedCache = dataCache.listBookDecorated;
+        List<ItemDecorated> listItemDecoratedCache = new List<ItemDecorated>();
+
+        for (int i = 0; i < listBookDecoratedCache.Count; i++)
+        {
+            if (listBookDecoratedCache[i].idBookDecorated == SaveGame.CurrentBook)
+            {
+                listItemDecoratedCache = listBookDecoratedCache[i].listItemDecorated;
+            }
+        }
 
         for (int i = 0; i < dataCache.listBookDecorated.Count; i++)
         {
@@ -278,8 +288,33 @@ public class PopupDecorateBook : Popup
             }
         }
 
+        UpdateCurrentProgressBookDecorated(listBookDecoratedCache, listItemDecoratedCache);
+
+        dataCache.listBookDecorated = listBookDecoratedCache;
         SaveGame.ListBookDecorated = dataCache;
         OpenNewBook();
+    }
+
+    private void UpdateCurrentProgressBookDecorated(List<BookDecorated> listBookDecoratedCache, List<ItemDecorated> listItemDecoratedCache)
+    {
+        int countProgress = 0;
+
+        for (int i = 0; i < listBookDecoratedCache.Count; i++)
+        {
+            if (listBookDecoratedCache[i].idBookDecorated == SaveGame.CurrentBook)
+            {
+                listBookDecoratedCache[i].listItemDecorated = listItemDecoratedCache;
+
+                for (int j = 0; j < listBookDecoratedCache[i].listItemDecorated.Count; j++)
+                {
+                    if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos) countProgress++;
+                }
+
+                if (listBookDecoratedCache[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
+
+                listBookDecoratedCache[i].progress = (float)countProgress / total;
+            }
+        }
     }
 
     public void OpenNewBook()
@@ -292,7 +327,7 @@ public class PopupDecorateBook : Popup
             if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
 
         }
-         
+
         if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].colorPainted != GameConfig.DEFAULT_COLOR) count++;
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
@@ -302,9 +337,11 @@ public class PopupDecorateBook : Popup
             if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].idBookDecorated == idBook)
             {
                 Debug.Log("count" + count);
+                Debug.Log("MaxCurrentBook: " + SaveGame.MaxCurrentBook + "  ____ " + idBook);
                 if (count == dataConfigDecor.listDataBooks[i].totalParts)
                 {
                     Debug.Log(" Open New Book");
+                    //if(SaveGame.MaxCurrentBook == idBook) return;
                     SaveGame.MaxCurrentBook = idBook + 1;
                     dataCache.listBookDecorated.Add(new BookDecorated()
                     {

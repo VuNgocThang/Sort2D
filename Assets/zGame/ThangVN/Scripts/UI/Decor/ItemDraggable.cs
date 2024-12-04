@@ -195,6 +195,8 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                     if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos) countProgress++;
                 }
 
+                if (listBookDecoratedCache[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
+
                 listBookDecoratedCache[i].progress = (float)countProgress / popupDecorateBook.total;
             }
         }

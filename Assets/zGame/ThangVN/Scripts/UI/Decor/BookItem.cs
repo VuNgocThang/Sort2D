@@ -87,10 +87,13 @@ public class BookItem : MonoBehaviour
                 {
                     if (dataCache.listBookDecorated[i].listItemDecorated[j].isPainted) countProgress++;
                 }
+
+                if (dataCache.listBookDecorated[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
             }
         }
 
-        if (countProgress == total - 1) IsReachMax = true;
+
+        if (countProgress == total) IsReachMax = true;
 
         return IsReachMax;
     }
