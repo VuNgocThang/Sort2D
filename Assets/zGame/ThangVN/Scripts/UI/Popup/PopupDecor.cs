@@ -75,7 +75,6 @@ public class PopupDecor : Popup
         }
 
         //scrollRect.verticalNormalizedPosition = 1f;
-
     }
 
     void LoadDataBook()

@@ -50,25 +50,27 @@ public class DefaultFinishPlate : IVisualPlate
                         mainC.startColor = SwitchColor(colorEnum);
                     }
 
-                    color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
-                        .OnStart(() =>
-                        {
-                            ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
-                        })
-                        .OnComplete(() =>
-                        {
-                            if (plusPoint)
-                                ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+                    CreatePathAnimation(color, targetPos, plusPoint, count);
 
-                            Debug.Log(LogicGame.Instance.point + " ____POINT");
-                            LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
-                            LogicGame.Instance.IncreaseCountDiff();
-                            LogicGame.Instance.SpawnSpecialColor();
+                    //color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
+                    //    .OnStart(() =>
+                    //    {
+                    //        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
+                    //    })
+                    //    .OnComplete(() =>
+                    //    {
+                    //        if (plusPoint)
+                    //            ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
 
-                            //color.trail.enabled = false;
-                            color.trail.SetActive(false);
-                            color.gameObject.SetActive(false);
-                        });
+                    //        Debug.Log(LogicGame.Instance.point + " ____POINT");
+                    //        LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
+                    //        LogicGame.Instance.IncreaseCountDiff();
+                    //        LogicGame.Instance.SpawnSpecialColor();
+
+                    //        //color.trail.enabled = false;
+                    //        color.trail.SetActive(false);
+                    //        color.gameObject.SetActive(false);
+                    //    });
                 }));
             }
             else
@@ -119,5 +121,35 @@ public class DefaultFinishPlate : IVisualPlate
         }
 
         return color;
+    }
+
+    void CreatePathAnimation(LogicColor color, Vector3 to, bool PlusPoint, int count)
+    {
+        Vector3 from = color.transform.position;
+
+        float randomX = Random.Range(0f, 2.5f);
+        float randomY = Random.Range(0f, 3.5f);
+
+        Vector3 midPoint = new Vector3(randomX, (from.y + to.y) / 2, 0);
+
+        color.transform.DOPath(new Vector3[] { from, midPoint, to }, 1f, PathType.CatmullRom)
+            .OnStart(() =>
+            {
+                ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
+            })
+            .OnComplete(() =>
+            {
+                if (PlusPoint)
+                    ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+
+                Debug.Log(LogicGame.Instance.point + " ____POINT");
+                LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
+                LogicGame.Instance.IncreaseCountDiff();
+                LogicGame.Instance.SpawnSpecialColor();
+
+                //color.trail.enabled = false;
+                color.trail.SetActive(false);
+                color.gameObject.SetActive(false);
+            });
     }
 }
