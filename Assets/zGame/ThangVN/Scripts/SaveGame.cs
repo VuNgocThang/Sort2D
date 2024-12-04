@@ -440,6 +440,7 @@ public static class SaveGame
                             idBookDecorated = 0,
                             progress = 0,
                             isPainted = false,
+                            colorPainted = GameConfig.DEFAULT_COLOR,
                             listItemDecorated = new List<ItemDecorated>()
                             {
 

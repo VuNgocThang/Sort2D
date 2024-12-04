@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopupBookItem : Popup
 {
@@ -10,7 +11,8 @@ public class PopupBookItem : Popup
 
     [SerializeField] EasyButton btnDecorate, btnBack;
     [SerializeField] TextMeshProUGUI txtProgress, txtNameBook, txtDecorate;
-    [SerializeField] BookDecorated bookDecorated;
+    [SerializeField] Image bgBook;
+
     public List<Slot> slots;
     public List<Sprite> sprites;
 
@@ -19,6 +21,7 @@ public class PopupBookItem : Popup
 
     [SerializeField] DataConfigDecor dataConfigDecor;
     DataBook dataBook;
+    [SerializeField] BookDecorated bookDecorated;
 
     private void Awake()
     {
@@ -59,8 +62,8 @@ public class PopupBookItem : Popup
             }
         }
         LoadDataBook();
+        ChangeColor();
         SpawnExistedItemInBook();
-
     }
 
     void LoadDataBook()
@@ -73,6 +76,11 @@ public class PopupBookItem : Popup
                 bookDecorated = SaveGame.ListBookDecorated.listBookDecorated[i];
             }
         }
+    }
+
+    void ChangeColor()
+    {
+        bgBook.color = bookDecorated.colorPainted;
     }
 
     void SpawnExistedItemInBook()

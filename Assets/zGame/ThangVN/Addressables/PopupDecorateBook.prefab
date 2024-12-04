@@ -611,6 +611,7 @@ MonoBehaviour:
     idBookDecorated: 0
     progress: 0
     isPainted: 0
+    colorPainted: {r: 0, g: 0, b: 0, a: 0}
     listItemDecorated: []
   btnTick: {fileID: 3105222042304713297}
   listItemSelectColor:
@@ -2563,6 +2564,7 @@ GameObject:
   - component: {fileID: 8869488191103953658}
   - component: {fileID: 7918324717272299406}
   - component: {fileID: 3105222042304713297}
+  - component: {fileID: 5212638785752109753}
   m_Layer: 5
   m_Name: btnTick
   m_TagString: Untagged
@@ -2649,7 +2651,28 @@ MonoBehaviour:
   Sound: 1
   enableScaleFX: 0
   enableSpriteFX: 0
-  animEasyButton: {fileID: 0}
+  animEasyButton: {fileID: 5212638785752109753}
+--- !u!95 &5212638785752109753
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707537660652142459}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96980111c305a9643a063e13411bc0d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7380034582822641250
 GameObject:
   m_ObjectHideFlags: 0

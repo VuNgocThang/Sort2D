@@ -71,6 +71,7 @@ public class BookDecorated
     public int idBookDecorated;
     public float progress;
     public bool isPainted;
+    public Color colorPainted;
     public List<ItemDecorated> listItemDecorated;
 }
 
