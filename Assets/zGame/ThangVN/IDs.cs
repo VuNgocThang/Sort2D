@@ -55,6 +55,20 @@ namespace ThangVN
 		public const int Level_48 = 47;
 		public const int Level_49 = 48;
 		public const int Level_50 = 49;
+		public const int Level_10001 = 10000;
+		public const int Level_10002 = 10001;
+		public const int Level_10003 = 10002;
+		public const int Level_10004 = 10003;
+		public const int Level_10005 = 10004;
+		public const int Level_10006 = 10005;
+		public const int Level_10007 = 10006;
+		public const int Level_10008 = 10007;
+		public const int Level_10009 = 10008;
+		public const int Level_10010 = 10009;
+		public const int Level_10011 = 10010;
+		public const int Level_10012 = 10011;
+		public const int Level_1001 = 1000;
 		#endregion
+		
 	}
 }

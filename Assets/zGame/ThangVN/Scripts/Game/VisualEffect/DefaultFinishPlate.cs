@@ -142,7 +142,7 @@ public class DefaultFinishPlate : IVisualPlate
                 if (PlusPoint)
                     ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
 
-                Debug.Log(LogicGame.Instance.point + " ____POINT");
+                //Debug.Log(LogicGame.Instance.point + " ____POINT");
                 LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
                 LogicGame.Instance.IncreaseCountDiff();
                 LogicGame.Instance.SpawnSpecialColor();

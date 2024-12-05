@@ -571,8 +571,25 @@ public static class SaveGame
         }
         get
         {
-            if (levelBonus == -1) levelBonus = ES3.Load(LEVELBONUS, 0);
+            if (levelBonus == -1) levelBonus = ES3.Load(LEVELBONUS, 10000);
             return levelBonus;
+        }
+    }
+
+    const string LEVELCHALLENGES = "LEVELCHALLENGES";
+    static int levelChallenges = -1;
+
+    public static int LevelChallenges
+    {
+        set
+        {
+            ES3.Save(LEVELCHALLENGES, value);
+            levelChallenges = value;
+        }
+        get
+        {
+            if (levelChallenges == -1) levelChallenges = ES3.Load(LEVELCHALLENGES, 1000);
+            return levelChallenges;
         }
     }
 }

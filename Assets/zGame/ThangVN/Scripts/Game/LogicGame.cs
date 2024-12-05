@@ -82,7 +82,6 @@ public class LogicGame : MonoBehaviour
     public bool isWin = false;
     public bool isPauseGame = false;
     public static bool isContiuneMerge = false;
-    public bool isMoving = false;
     public int point;
     public int maxPoint;
     public int gold;
@@ -95,12 +94,10 @@ public class LogicGame : MonoBehaviour
 
     public AnimationCurve curveMove;
     [SerializeField] SetMapManager setMapManager;
-    //[HideInInspector] public int countMove;
     public int countDiff;
     public int countDiffMax;
     public bool isUsingHammer;
     public bool isUsingHand;
-    public Hammer hammer;
     public HammerSpineEvent hammerSpine;
     [SerializeField] public Canvas canvasTutorial;
     public Tutorial tutorial;
@@ -149,9 +146,7 @@ public class LogicGame : MonoBehaviour
         listColors.Refresh();
         countDiff = 2;
         countRevive = 1;
-        //countMove = 2;
         point = 0;
-        //ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
         clickParticlePool = new CustomPool<ParticleSystem>(clickParticle, 5, transform, false);
         arrowClickParticlePool = new CustomPool<ParticleSystem>(arrowClickParticle, 5, transform, false);
         eatParticlePool = new CustomPool<ParticleSystem>(eatParticle, 5, transform, false);
@@ -164,7 +159,21 @@ public class LogicGame : MonoBehaviour
         colorBookPool = new CustomPool<ParticleSystem>(colorBook, 2, transform, false);
         //magicRunePool = new CustomPool<ParticleSystem>(magicRune, 2, transform, false);
         //ResetPosSpawn();
-        dataLevel = DataLevel.GetData(SaveGame.Level /*+ 1*/);
+
+        if (GameManager.IsNormalGame())
+        {
+            dataLevel = DataLevel.GetData(SaveGame.Level /*+ 1*/);
+
+        }
+        else if (GameManager.IsBonusGame())
+        {
+            dataLevel = DataLevel.GetData(SaveGame.LevelBonus);
+
+        }
+        else if (GameManager.IsChallengesGame())
+        {
+            dataLevel = DataLevel.GetData(SaveGame.LevelChallenges);
+        }
         countDiffMax = dataLevel.CountDiff;
 
     }
@@ -704,7 +713,6 @@ public class LogicGame : MonoBehaviour
         else
         {
             isContiuneMerge = false;
-            //CheckClear();
 
             if (isWin) return;
 
@@ -734,6 +742,7 @@ public class LogicGame : MonoBehaviour
         if (startColorPlate.ListValue.Count == 0)
         {
             if (listNextPlate[0].ListValue.Count == 0) return;
+
 
             foreach (LogicColor renderer in listNextPlate[0].ListColor)
             {
@@ -787,8 +796,9 @@ public class LogicGame : MonoBehaviour
             float delay = 0f;
 
             Sequence sq = DOTween.Sequence();
+
             endColorPlate.isMoving = true;
-            isMoving = true;
+
 
             foreach (LogicColor renderer in startColorPlate.ListColor)
             {
@@ -828,14 +838,14 @@ public class LogicGame : MonoBehaviour
             endColorPlate.ListColor.AddRange(ListColorMid);
             endColorPlate.listTypes.AddRange(listTypes);
             endColorPlate.ListValue.AddRange(listValueMid);
-            Debug.Log(endColorPlate.name);
+            //Debug.Log(endColorPlate.name);
 
             specialParticlePool.Release(currentSpecialParticle);
 
             sq.OnComplete(() =>
             {
                 endColorPlate.isMoving = false;
-                isMoving = false;
+                Debug.Log("start tinh list Step first");
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
@@ -854,8 +864,6 @@ public class LogicGame : MonoBehaviour
 
                             FindTarget findTarget = new FindTarget();
                             if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
-                            Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
-                            Debug.Log(" Color Root:" + colorRoot.name);
                             HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
                             HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
                             AddStepRecursivelyOtherRoot(colorRoot, listDataConnect, processedRoot, processedNearBy);
@@ -991,19 +999,20 @@ public class LogicGame : MonoBehaviour
 
     void ProcessRemainingPlates()
     {
+        Debug.Log("Start caculate de quy");
         colorRoot = null;
         isMergeing = false;
-        Debug.Log(" _________________________________________ ");
+        //Debug.Log(" _________________________________________ ");
         foreach (ColorPlate c in ListColorPlate)
         {
-            if (c.ListValue.Count == 0 || c.status == Status.Empty || c.countFrozen != 0) continue;
+            if (c.ListValue.Count == 0 || c.status == Status.Empty || c.countFrozen != 0 || c.isMoving) continue;
             List<ColorPlate> listDataConnect = new List<ColorPlate>();
             CheckNearByRecursive(listDataConnect, c);
             if (listDataConnect.Count <= 1) continue;
 
             FindTarget findTarget = new FindTarget();
             if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
-            Debug.Log("Root : " + colorRoot.name);
+            //Debug.Log("Root : " + colorRoot.name);
 
             HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
             HashSet<ColorPlate> processedRoot = new HashSet<ColorPlate>();
@@ -1162,6 +1171,9 @@ public class LogicGame : MonoBehaviour
     {
         timerRun = 0;
         isMergeing = true;
+
+        if (startColorPlate.isMoving || endColorPlate.isMoving) return;
+
         int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
         Sequence sequence = DOTween.Sequence();
 
@@ -1169,19 +1181,22 @@ public class LogicGame : MonoBehaviour
 
         for (int i = count - 1; i >= 0; i--)
         {
-            //float delay = 0.08f * (count - 1 - i);
-
             sequence.AppendCallback(() =>
             {
-                //    DOVirtual.DelayedCall(delay, () =>
-                //{
+                //Debug.Log("111111111");
                 if (startColorPlate.TopValue == endColorPlate.TopValue)
                 {
+                    //Debug.Log("22222222");
                     startColorPlate.TopColor.transform.SetParent(endColorPlate.transform);
 
 
                     endColorPlate.listTypes[endColorPlate.listTypes.Count - 1].listPlates.Add(startColorPlate.TopValue);
                     startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Remove(startColorPlate.TopValue);
+
+                    //if (startColorPlate.NearLastType())
+                    //{
+                    //    Debug.Log("fuck gan last");
+                    //}
 
                     startColorPlate.ClearLastType();
 
@@ -1203,14 +1218,10 @@ public class LogicGame : MonoBehaviour
                 }
             });
 
-            //timerRun += 0.13f;
-
             sequence.AppendInterval(timerConfigData.timeMerge);
             timerRun += timerConfigData.timeRun;
         }
-        //timerRun += 0.2f;
-        //timerRun += 0.1f * count + 0.5f;
-        sequence.Play();
+
         if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
     }
 
@@ -1286,8 +1297,8 @@ public class LogicGame : MonoBehaviour
     {
         isWin = true;
         SaveGame.IsShowBook = false;
-        Debug.Log(point + " __ " + gold + " __ " + pigment);
-        Debug.Log("check win");
+        //Debug.Log(point + " __ " + gold + " __ " + pigment);
+        //Debug.Log("check win");
 
         if (GameManager.IsNormalGame())
         {
@@ -1310,7 +1321,7 @@ public class LogicGame : MonoBehaviour
         {
             SaveGame.PlayBonus = false;
 
-            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL)
+            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
                 SaveGame.LevelBonus++;
 
             saveGameBonus = null;
@@ -1394,12 +1405,12 @@ public class LogicGame : MonoBehaviour
     {
         if (pause)
         {
-            Debug.Log("Páue");
+            //Debug.Log("Páue");
             SaveDataGame();
         }
         else
         {
-            Debug.Log("UnPause");
+            //Debug.Log("UnPause");
         }
     }
 

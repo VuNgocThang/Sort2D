@@ -47,6 +47,7 @@ public static class GameManager
 
     public static bool ShowPopupBonus()
     {
-        return (SaveGame.Level >= 5 && SaveGame.Level % 5 == 0);
+        return false;
+        //(SaveGame.Level >= 5 && SaveGame.Level % 5 == 0);
     }
 }

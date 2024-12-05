@@ -5,7 +5,6 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using Unity.Mathematics;
 
 public enum ColorEnum
 {
@@ -109,24 +108,49 @@ public class ColorPlate : MonoBehaviour
         listTypes.Clear();
         List<int> listDiff = new List<int>();
 
-        //// tỉ lệ spawn màu
-        //int randomListTypeCount = -1;
-        //int rdRatioListTypeCount = UnityEngine.Random.Range(0, 100);
-        //for (int i = 0; i < levelData.Ratio.Length; i++)
-        //{
-        //    if (levelData.Ratio[i] > rdRatioListTypeCount)
-        //    {
-        //        randomListTypeCount = i + 1;
-        //        break;
-        //    }
-
-        //    randomListTypeCount = levelData.Ratio.Length + 1;
-        //}
-
-        //randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
-
-
         // tỉ lệ số lượng màu trong 1 stacks
+        int randomCountInStacks = CalculateCountInStacks(levelData);
+
+        int t = 0;
+        while (listDiff.Count < randomCountInStacks && t < 1000)
+        {
+            // tỉ lệ spawn màu
+            int randomColor = CalculateRandomColor(levelData);
+
+            if (!listDiff.Contains(randomColor))
+                listDiff.Add(randomColor);
+
+            ++t;
+        }
+
+        foreach (int type in listDiff)
+        {
+            //Debug.Log("type: " + type + " __ " + (ColorEnum)type);
+            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+            listTypes.Add(group);
+
+            int remainingCount = 10 - ListValue.Count;
+            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
+            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
+            //int randomCount = UnityEngine.Random.Range(5, Mathf.Min(5, maxPossibleAdditions + 1));
+
+            for (int j = 0; j < randomCount; j++)
+            {
+                if (ListValue.Count >= 10)
+                {
+                    break;
+                }
+
+                group.listPlates.Add(group.type);
+                ListValue.Add(group.type);
+            }
+        }
+
+        InitValue(this.transform);
+    }
+
+    int CalculateCountInStacks(DataLevel levelData)
+    {
         int randomCountInStacks = -1;
         int rdRatioCountInStacks = UnityEngine.Random.Range(0, 100);
 
@@ -141,101 +165,28 @@ public class ColorPlate : MonoBehaviour
             randomCountInStacks = levelData.RatioInStacks.Length + 1;
         }
 
-        int t = 0;
-        while (listDiff.Count < randomCountInStacks && t < 1000)
-        {
-            int randomColor = -1;
-            int rdRatioType = UnityEngine.Random.Range(0, 100);
-            for (int i = 0; i < levelData.Ratio.Length; i++)
-            {
-                if (levelData.Ratio[i] > rdRatioType)
-                {
-                    randomColor = i;
-                    break;
-                }
-
-                randomColor = levelData.Ratio.Length;
-            }
-
-            Debug.Log("randomColor_before: " + randomColor);
-
-            randomColor = randomColor > LogicGame.Instance.countDiff - 1 ? LogicGame.Instance.countDiff - 1 : randomColor;
-
-            Debug.Log("randomColor_after: " + randomColor);
-
-            if (!listDiff.Contains(randomColor))
-            {
-                listDiff.Add(randomColor);
-            }
-
-            ++t;
-        }
-
-        //int t = 0;
-        //while (listDiff.Count < randomCountInStacks && t < 1000)
-        //{
-        //    int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
-        //    if (!listDiff.Contains(type))
-        //    {
-        //        listDiff.Add(type);
-        //    }
-
-        //    ++t;
-        //}
-
-        foreach (int type in listDiff)
-        {
-            Debug.Log("type: " + type + " __ " + (ColorEnum)type);
-            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-            listTypes.Add(group);
-
-            int remainingCount = 10 - ListValue.Count;
-            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
-            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
-
-            for (int j = 0; j < randomCount; j++)
-            {
-                if (ListValue.Count >= 10)
-                {
-                    break;
-                }
-
-                group.listPlates.Add(group.type);
-                ListValue.Add(group.type);
-            }
-        }
-
-        //foreach (int type in listDiff)
-        //{
-        //    GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-        //    listTypes.Add(group);
-
-        //    group.listPlates.Add(group.type);
-        //    ListValue.Add(group.type);
-        //}
-
-        InitValue(this.transform);
+        return randomCountInStacks;
+        //return 2;
     }
 
-    public int CalculateListType(DataLevel levelData)
+    int CalculateRandomColor(DataLevel levelData)
     {
-        int randomListTypeCount = -1;
-
-        int rdRatioListTypeCount = UnityEngine.Random.Range(0, 100);
+        int randomColor = -1;
+        int rdRatioType = UnityEngine.Random.Range(0, 100);
         for (int i = 0; i < levelData.Ratio.Length; i++)
         {
-            if (levelData.Ratio[i] > rdRatioListTypeCount)
+            if (levelData.Ratio[i] > rdRatioType)
             {
-                randomListTypeCount = i + 1;
+                randomColor = i;
                 break;
             }
 
-            randomListTypeCount = levelData.Ratio.Length + 1;
+            randomColor = levelData.Ratio.Length;
         }
 
-        randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
+        randomColor = randomColor > LogicGame.Instance.countDiff - 1 ? LogicGame.Instance.countDiff - 1 : randomColor;
 
-        return randomListTypeCount;
+        return randomColor;
     }
 
     public void SpawnSpecialColor(GetColorNew getColorNew)
@@ -271,98 +222,6 @@ public class ColorPlate : MonoBehaviour
         }
     }
 
-    #region old gameplay spawn
-    //public void InitRandom()
-    //{
-    //    InitGroupEnum();
-    //    InitValue(this.transform);
-    //}
-
-
-
-
-    //public void InitGroupEnum()
-    //{
-    //    LevelData levelData = customRatio.listLevelData[0];
-
-    //    listTypes.Clear();
-    //    HashSet<int> listDiff = new HashSet<int>();
-
-    //    int randomListTypeCount = -1;
-    //    int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
-
-
-    //    for (int i = 0; i < levelData.listRatioCountInStack.Count; i++)
-    //    {
-    //        if (levelData.listRatioCountInStack[i] > rdRatioCountInStack)
-    //        {
-    //            randomListTypeCount = i + 1;
-    //            break;
-    //        }
-
-    //        randomListTypeCount = levelData.listRatioCountInStack.Count + 1;
-    //    }
-    //    //Debug.Log("rdRatioCountInStack: " + rdRatioCountInStack);
-    //    //Debug.Log("số lượng màu khác nhau: " + randomListTypeCount);
-
-    //    while (listDiff.Count < randomListTypeCount)
-    //    {
-    //        int randomCountPerStack = -1;
-    //        int rdRatioColorInStack = UnityEngine.Random.Range(0, 100);
-    //        //Debug.Log("rdRatioColorInStack: " + rdRatioColorInStack);
-
-    //        for (int i = 0; i < levelData.listRatioSpawnColor.Count; i++)
-    //        {
-    //            if (levelData.listRatioSpawnColor[i] > rdRatioColorInStack)
-    //            {
-    //                randomCountPerStack = i;
-    //                break;
-    //            }
-
-    //            randomCountPerStack = levelData.listRatioSpawnColor.Count;
-    //        }
-    //        //Debug.Log("màu được spawn: " + randomCountPerStack);
-
-    //        listDiff.Add(randomCountPerStack);
-    //    }
-
-    //    //int randomListTypeCount = 3;
-
-    //    //while (listDiff.Count < randomListTypeCount)
-    //    //{
-    //    //    listDiff.Add(UnityEngine.Random.Range(0, 7));
-    //    //}
-
-    //    foreach (int type in listDiff)
-    //    {
-    //        GroupEnum group = new GroupEnum { type = (ColorEnum)type };
-    //        listTypes.Add(group);
-
-    //        //int randomCount = UnityEngine.Random.Range(1, 4);
-
-    //        //for (int j = 0; j < randomCount; j++)
-    //        //{
-    //        //    group.listPlates.Add(group.type);
-    //        //    ListValue.Add(group.type);
-    //        //}
-
-    //        int remainingCount = 10 - ListValue.Count;
-    //        int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
-    //        int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
-
-    //        for (int j = 0; j < randomCount; j++)
-    //        {
-    //            if (ListValue.Count >= 10)
-    //            {
-    //                break;
-    //            }
-
-    //            group.listPlates.Add(group.type);
-    //            ListValue.Add(group.type);
-    //        }
-    //    }
-    //}
-    #endregion
     public void ChangeSpecialColorPLate(ColorEnum colorEnum)
     {
         listTypes.Clear();
@@ -426,14 +285,14 @@ public class ColorPlate : MonoBehaviour
         {
             if (index != 0) return;
 
-            Vector3 midPoint = new Vector3(colorZ.transform.localPosition.x / 2, -0.7f, -i * GameConfig.OFFSET_PLATE);
+            Vector3 midPoint = new Vector3(colorZ.transform.localPosition.x / 2, -GameConfig.MID_POINT, -i * GameConfig.OFFSET_PLATE);
             CreatePathAnimation(colorZ, randomX, ROW, i, midPoint);
         }
         else if (Math.Abs(colorZ.transform.localPosition.y + colorZ.transform.localPosition.z) > 1)
         {
             if (index != 1 && index != 2) return;
 
-            Vector3 midPoint = new Vector3(-0.7f, colorZ.transform.localPosition.y / 2, -i * GameConfig.OFFSET_PLATE);
+            Vector3 midPoint = new Vector3(-GameConfig.MID_POINT, colorZ.transform.localPosition.y / 2, -i * GameConfig.OFFSET_PLATE);
             CreatePathAnimation(colorZ, randomX, ROW, i, midPoint);
         }
         else
@@ -513,7 +372,18 @@ public class ColorPlate : MonoBehaviour
             Debug.Log(transform.name + " plate clear listLastType");
             listTypes.RemoveAt(listTypes.Count - 1);
         }
+    }
 
+    public bool NearLastType()
+    {
+        bool IsNearLast = false;
+
+        if (listTypes[listTypes.Count - 1].listPlates.Count == 1)
+        {
+            return true;
+        }
+
+        return IsNearLast;
     }
     public void LinkColorPlate(ColorPlate colorPlate)
     {

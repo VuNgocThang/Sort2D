@@ -205,49 +205,4 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         SaveGame.ListBookDecorated = dataCache;
         Debug.Log("save item decorate");
     }
-
-    //void OpenNewBook()
-    //{
-    //    ListBookDecorated dataCache = SaveGame.ListBookDecorated;
-
-    //    int count = 0;
-    //    for (int i = 0; i < dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count; i++)
-    //    {
-    //        if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
-    //        if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].colorPainted != GameConfig.DEFAULT_COLOR) count++;
-    //    }
-
-    //    for (int i = 0; i < popupDecorateBook.dataConfigDecor.listDataBooks.Count; i++)
-    //    {
-    //        int idBook = popupDecorateBook.dataConfigDecor.listDataBooks[i].idBook;
-
-    //        if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].idBookDecorated == idBook)
-    //        {
-    //            if (count == popupDecorateBook.dataConfigDecor.listDataBooks[i].totalParts)
-    //            {
-    //                Debug.Log(" Open New Book");
-    //                SaveGame.MaxCurrentBook = idBook + 1;
-    //                dataCache.listBookDecorated.Add(new BookDecorated()
-    //                {
-    //                    idBookDecorated = idBook + 1,
-    //                    progress = 0,
-    //                    isPainted = false,
-    //                    colorPainted = GameConfig.DEFAULT_COLOR,
-    //                    listItemDecorated = new List<ItemDecorated>()
-    //                    {
-
-    //                    }
-    //                });
-
-    //                SaveGame.ListBookDecorated = dataCache;
-    //                PopupNewBook.Show();
-    //                break;
-
-    //            }
-    //        }
-
-    //    }
-
-
-    //}
 }
