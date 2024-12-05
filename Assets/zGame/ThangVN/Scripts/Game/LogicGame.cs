@@ -214,7 +214,7 @@ public class LogicGame : MonoBehaviour
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
-       
+
     }
 
     void InitListCheckPlate()

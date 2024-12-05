@@ -140,6 +140,11 @@ public class PopupHome : MonoBehaviour
         {
             SaveGame.Level++;
         }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ShuffleRandomColorSpawn();
+        }
     }
 
     void UpdatePoint(object e)

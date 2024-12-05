@@ -108,33 +108,84 @@ public class ColorPlate : MonoBehaviour
 
         listTypes.Clear();
         List<int> listDiff = new List<int>();
-        int randomListTypeCount = -1;
-        int rdRatioCountInStack = UnityEngine.Random.Range(0, 100);
-        for (int i = 0; i < levelData.Ratio.Length; i++)
+
+        //// tỉ lệ spawn màu
+        //int randomListTypeCount = -1;
+        //int rdRatioListTypeCount = UnityEngine.Random.Range(0, 100);
+        //for (int i = 0; i < levelData.Ratio.Length; i++)
+        //{
+        //    if (levelData.Ratio[i] > rdRatioListTypeCount)
+        //    {
+        //        randomListTypeCount = i + 1;
+        //        break;
+        //    }
+
+        //    randomListTypeCount = levelData.Ratio.Length + 1;
+        //}
+
+        //randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
+
+
+        // tỉ lệ số lượng màu trong 1 stacks
+        int randomCountInStacks = -1;
+        int rdRatioCountInStacks = UnityEngine.Random.Range(0, 100);
+
+        for (int i = 0; i < levelData.RatioInStacks.Length; i++)
         {
-            if (levelData.Ratio[i] > rdRatioCountInStack)
+            if (levelData.RatioInStacks[i] > rdRatioCountInStacks)
             {
-                randomListTypeCount = i + 1;
+                randomCountInStacks = i + 1;
                 break;
             }
 
-            randomListTypeCount = levelData.Ratio.Length + 1;
+            randomCountInStacks = levelData.RatioInStacks.Length + 1;
         }
 
-        randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
-
-
         int t = 0;
-        while (listDiff.Count < randomListTypeCount && t < 1000)
+        while (listDiff.Count < randomCountInStacks && t < 1000)
         {
-            int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
-            if (!listDiff.Contains(type))
-                listDiff.Add(type);
+            int randomColor = -1;
+            int rdRatioType = UnityEngine.Random.Range(0, 100);
+            for (int i = 0; i < levelData.Ratio.Length; i++)
+            {
+                if (levelData.Ratio[i] > rdRatioType)
+                {
+                    randomColor = i;
+                    break;
+                }
+
+                randomColor = levelData.Ratio.Length;
+            }
+
+            Debug.Log("randomColor_before: " + randomColor);
+
+            randomColor = randomColor > LogicGame.Instance.countDiff - 1 ? LogicGame.Instance.countDiff - 1 : randomColor;
+
+            Debug.Log("randomColor_after: " + randomColor);
+
+            if (!listDiff.Contains(randomColor))
+            {
+                listDiff.Add(randomColor);
+            }
+
             ++t;
         }
 
+        //int t = 0;
+        //while (listDiff.Count < randomCountInStacks && t < 1000)
+        //{
+        //    int type = UnityEngine.Random.Range(0, LogicGame.Instance.countDiff);
+        //    if (!listDiff.Contains(type))
+        //    {
+        //        listDiff.Add(type);
+        //    }
+
+        //    ++t;
+        //}
+
         foreach (int type in listDiff)
         {
+            Debug.Log("type: " + type + " __ " + (ColorEnum)type);
             GroupEnum group = new GroupEnum { type = (ColorEnum)type };
             listTypes.Add(group);
 
@@ -164,6 +215,27 @@ public class ColorPlate : MonoBehaviour
         //}
 
         InitValue(this.transform);
+    }
+
+    public int CalculateListType(DataLevel levelData)
+    {
+        int randomListTypeCount = -1;
+
+        int rdRatioListTypeCount = UnityEngine.Random.Range(0, 100);
+        for (int i = 0; i < levelData.Ratio.Length; i++)
+        {
+            if (levelData.Ratio[i] > rdRatioListTypeCount)
+            {
+                randomListTypeCount = i + 1;
+                break;
+            }
+
+            randomListTypeCount = levelData.Ratio.Length + 1;
+        }
+
+        randomListTypeCount = randomListTypeCount > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomListTypeCount;
+
+        return randomListTypeCount;
     }
 
     public void SpawnSpecialColor(GetColorNew getColorNew)

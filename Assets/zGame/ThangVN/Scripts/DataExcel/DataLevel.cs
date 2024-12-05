@@ -11,7 +11,8 @@ public class DataLevel
     public int CountDiff;
     public int[] Colors;
     public int[] Ratio;
-     
+    public int[] RatioInStacks;
+
     static List<DataLevel> listData;
 
     public static List<DataLevel> GetListData()
