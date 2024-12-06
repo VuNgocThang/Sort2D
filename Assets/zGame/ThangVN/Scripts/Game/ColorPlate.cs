@@ -73,6 +73,7 @@ public class ColorPlate : MonoBehaviour
     public TimerConfigData timerConfigData;
     public ParticleSystem magicRune;
     public bool isMoving;
+    public PathType pathType;
 
     private void Start()
     {
@@ -172,7 +173,7 @@ public class ColorPlate : MonoBehaviour
     int CalculateRandomColor(DataLevel levelData)
     {
         int randomColor = -1;
-        int rdRatioType = UnityEngine.Random.Range(0, 100);
+        int rdRatioType = UnityEngine.Random.Range(0, levelData.Ratio[LogicGame.Instance.countDiff]);
         for (int i = 0; i < levelData.Ratio.Length; i++)
         {
             if (levelData.Ratio[i] > rdRatioType)

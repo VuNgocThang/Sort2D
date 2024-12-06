@@ -69,6 +69,6 @@ namespace ThangVN
 		public const int Level_10012 = 10011;
 		public const int Level_1001 = 1000;
 		#endregion
-		
+
 	}
 }

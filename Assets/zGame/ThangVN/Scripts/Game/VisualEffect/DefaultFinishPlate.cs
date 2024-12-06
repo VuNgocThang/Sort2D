@@ -127,14 +127,20 @@ public class DefaultFinishPlate : IVisualPlate
     {
         Vector3 from = color.transform.position;
 
-        float randomX = Random.Range(0f, 2.5f);
         float randomY = Random.Range(0f, 3.5f);
 
-        Vector3 midPoint = new Vector3(randomX, (from.y + to.y) / 2, 0);
+        float x = (from.x + to.x) / 2;
+        float randomX;
+        int rdom = Random.Range(0, 2);
+        randomX = rdom % 2 == 0 ? x : -x;
 
-        color.transform.DOPath(new Vector3[] { from, midPoint, to }, 1f, PathType.CatmullRom)
+        Vector3 midPoint = new Vector3(randomX, randomY, 0);
+
+        color.transform.DOPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_FLY, PathType.CatmullRom)
+            .SetEase(Ease.InOutQuad)
             .OnStart(() =>
             {
+                color.spriteRender.sortingOrder = 15;
                 ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
             })
             .OnComplete(() =>

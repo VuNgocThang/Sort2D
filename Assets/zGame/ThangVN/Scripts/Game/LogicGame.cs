@@ -845,7 +845,6 @@ public class LogicGame : MonoBehaviour
             sq.OnComplete(() =>
             {
                 endColorPlate.isMoving = false;
-                Debug.Log("start tinh list Step first");
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
@@ -999,7 +998,6 @@ public class LogicGame : MonoBehaviour
 
     void ProcessRemainingPlates()
     {
-        Debug.Log("Start caculate de quy");
         colorRoot = null;
         isMergeing = false;
         //Debug.Log(" _________________________________________ ");
@@ -1172,6 +1170,8 @@ public class LogicGame : MonoBehaviour
         timerRun = 0;
         isMergeing = true;
 
+        Debug.Log(startColorPlate.isMoving + "  __  " + endColorPlate.isMoving);
+
         if (startColorPlate.isMoving || endColorPlate.isMoving) return;
 
         int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
@@ -1222,7 +1222,13 @@ public class LogicGame : MonoBehaviour
             timerRun += timerConfigData.timeRun;
         }
 
-        if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
+        
+
+        sequence.OnComplete(() =>
+        {
+            Debug.Log("fuck done");
+            if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
+        });
     }
 
     void CheckLose()

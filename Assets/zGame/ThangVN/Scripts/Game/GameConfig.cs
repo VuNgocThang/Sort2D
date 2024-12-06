@@ -10,7 +10,7 @@ public static class GameConfig
 
     public static float TIME_COUNT_DOWN = 300f;
 
-    public static float TIME_FLY = 0.75f;
+    public static float TIME_FLY = 1f;
     //public static string COUNT_DOWN_TIMER = "CountdownTimer";
 
     public static string LAST_HEART_LOSS = "LastHeartLoss";
