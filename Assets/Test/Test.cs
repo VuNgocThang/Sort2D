@@ -6,22 +6,27 @@ using UnityEngine.EventSystems;
 
 public class Test : MonoBehaviour
 {
+    public List<float> listRatio = new List<float>();
+
+    public List<int> listValue = new List<int>();
+
+    public List<int> listResult = new List<int>();
+
     public void Update()
     {
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Move(-1);
+            while (listResult.Count < 2)
+            {
+                int a = GameManager.GetRandomWithRatio(listRatio);
+                Debug.Log(a);
+                if (!listResult.Contains(listValue[a]))
+                {
+                    listResult.Add(listValue[a]);
+                    listValue.RemoveAt(a);
+                    listRatio.RemoveAt(a);
+                }
+            }
         }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            Move(1);
-        }
-
-    }
-
-    public void Move(float y)
-    {
-        transform.DOMove(new Vector3(0, transform.position.y + y, 0), 0.2f);
     }
 }

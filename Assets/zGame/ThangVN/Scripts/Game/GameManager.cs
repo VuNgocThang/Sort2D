@@ -1,4 +1,5 @@
 using BaseGame;
+using System.Collections.Generic;
 
 public static class GameManager
 {
@@ -49,5 +50,33 @@ public static class GameManager
     {
         return false;
         //(SaveGame.Level >= 5 && SaveGame.Level % 5 == 0);
+    }
+
+    public static int GetRandomWithRatio(this float[] list)
+    {
+        List<float> listRatio = new List<float>();
+        listRatio.AddRange(list);
+        return listRatio.GetRandomWithRatio();
+    }
+    public static int GetRandomWithRatio(this List<float> list)
+    {
+        float s = 0;
+        foreach (float i in list) s += i;
+        float r = UnityEngine.Random.Range(0, s);
+        int t = 0;
+        s = list[t];
+        while (r >= s)
+        {
+            ++t;
+            s += list[t];
+        }
+        return t;
+    }
+
+    public static List<float> ChangeToList(this float[] list)
+    {
+        List<float> listRatio = new List<float>();
+        listRatio.AddRange(list);
+        return listRatio;
     }
 }

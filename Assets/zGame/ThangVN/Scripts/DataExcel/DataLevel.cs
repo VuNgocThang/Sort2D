@@ -10,7 +10,7 @@ public class DataLevel
     public int ID;
     public int CountDiff;
     public int[] Colors;
-    public int[] Ratio;
+    public float[] Ratio;
     public int[] RatioInStacks;
 
     static List<DataLevel> listData;

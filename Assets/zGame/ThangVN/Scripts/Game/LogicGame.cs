@@ -1103,11 +1103,13 @@ public class LogicGame : MonoBehaviour
                 //{
 
                 ControllerAnimState.ActionToBonus();
-                timerRun += timerConfigData.timeRun;
+                //timerRun += timerConfigData.timeRun;
 
                 colorPlate.InitClear(true);
                 colorPlate.DecreaseCountFrozenNearBy();
                 colorPlate.InitValue();
+
+                RecursiveMerge();
                 //}
             }
         }
@@ -1174,10 +1176,13 @@ public class LogicGame : MonoBehaviour
 
         if (startColorPlate.isMoving || endColorPlate.isMoving) return;
 
+        if (startColorPlate.listTypes.Count == 0) return;
+
         int count = startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Count;
         Sequence sequence = DOTween.Sequence();
 
         SoundMerge();
+        Debug.Log("count " + count);
 
         for (int i = count - 1; i >= 0; i--)
         {
@@ -1220,9 +1225,11 @@ public class LogicGame : MonoBehaviour
 
             sequence.AppendInterval(timerConfigData.timeMerge);
             timerRun += timerConfigData.timeRun;
+
+            Debug.Log("timeRun:" + timerRun);
         }
 
-        
+
 
         sequence.OnComplete(() =>
         {

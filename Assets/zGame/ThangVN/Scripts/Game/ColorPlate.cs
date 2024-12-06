@@ -5,6 +5,8 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using System.Linq;
+using Utilities.Common;
 
 public enum ColorEnum
 {
@@ -107,22 +109,16 @@ public class ColorPlate : MonoBehaviour
         DataLevel levelData = LogicGame.Instance.dataLevel;
 
         listTypes.Clear();
-        List<int> listDiff = new List<int>();
+        //HashSet<int> listDiff = new HashSet<int>();
 
         // tỉ lệ số lượng màu trong 1 stacks
         int randomCountInStacks = CalculateCountInStacks(levelData);
 
-        int t = 0;
-        while (listDiff.Count < randomCountInStacks && t < 1000)
-        {
-            // tỉ lệ spawn màu
-            int randomColor = CalculateRandomColor(levelData);
+        Debug.Log("randomCountInStacks: " + randomCountInStacks);
 
-            if (!listDiff.Contains(randomColor))
-                listDiff.Add(randomColor);
+        List<int> listDiff = new List<int>();
 
-            ++t;
-        }
+        listDiff = CalculateListDiff(levelData, randomCountInStacks);
 
         foreach (int type in listDiff)
         {
@@ -166,28 +162,62 @@ public class ColorPlate : MonoBehaviour
             randomCountInStacks = levelData.RatioInStacks.Length + 1;
         }
 
+        randomCountInStacks = randomCountInStacks > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomCountInStacks;
+
         return randomCountInStacks;
         //return 2;
     }
 
-    int CalculateRandomColor(DataLevel levelData)
-    {
-        int randomColor = -1;
-        int rdRatioType = UnityEngine.Random.Range(0, levelData.Ratio[LogicGame.Instance.countDiff]);
-        for (int i = 0; i < levelData.Ratio.Length; i++)
-        {
-            if (levelData.Ratio[i] > rdRatioType)
-            {
-                randomColor = i;
-                break;
-            }
+    //int CalculateRandomColor(DataLevel levelData)
+    //{
+    //    int randomColor = -1;
 
-            randomColor = levelData.Ratio.Length;
+    //    int rdRatioType = UnityEngine.Random.Range(0, levelData.Ratio[LogicGame.Instance.countDiff - 1]);
+
+    //    for (int i = 0; i < levelData.Ratio.Length; i++)
+    //    {
+    //        if (levelData.Ratio[i] > rdRatioType)
+    //        {
+    //            randomColor = i;
+    //            break;
+    //        }
+
+    //        randomColor = levelData.Ratio.Length;
+    //    }
+
+    //    randomColor = randomColor > LogicGame.Instance.countDiff - 1 ? LogicGame.Instance.countDiff - 1 : randomColor;
+
+    //    return randomColor;
+    //}
+
+    List<int> CalculateListDiff(DataLevel levelData, int randomCountInStacks)
+    {
+        List<int> listResult = new List<int>();
+        List<int> listValue = new List<int>();
+        List<float> listRatio = new List<float>();
+
+        List<float> listRatioChange = GameManager.ChangeToList(levelData.Ratio);
+
+        for (int i = 0; i < LogicGame.Instance.countDiff; i++)
+        {
+            listValue.Add(i);
+            listRatio.Add(listRatioChange[i]);
         }
 
-        randomColor = randomColor > LogicGame.Instance.countDiff - 1 ? LogicGame.Instance.countDiff - 1 : randomColor;
+        Debug.Log(listRatio[0] + " ___ " + listRatio[1]);
 
-        return randomColor;
+        while (listResult.Count < randomCountInStacks)
+        {
+            int a = GameManager.GetRandomWithRatio(listRatio);
+
+            Debug.Log(a);
+
+            listResult.Add(listValue[a]);
+            listValue.RemoveAt(a);
+            listRatio.RemoveAt(a);
+        }
+
+        return listResult;
     }
 
     public void SpawnSpecialColor(GetColorNew getColorNew)
