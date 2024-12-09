@@ -1256,7 +1256,6 @@ MonoBehaviour:
   listTypes: []
   anim: {fileID: 2679122819267365330}
   targetUIPosition: {fileID: 0}
-  customRatio: {fileID: 11400000, guid: a5945d64e1665504b8f875ed059d2c6d, type: 2}
   circleZZZ: {fileID: 5394106808309840639}
   txtPointUnlock: {fileID: 7045471422073232799}
   isLocked: 0
@@ -1350,6 +1349,7 @@ MonoBehaviour:
   timerConfigData: {fileID: 11400000, guid: 40cf14b65efec8446bf8388a8b0f41fb, type: 2}
   magicRune: {fileID: 8898701020216183507}
   isMoving: 0
+  pathType: 0
   customCurve:
     serializedVersion: 2
     m_Curve:
@@ -1537,17 +1537,17 @@ PrefabInstance:
     - target: {fileID: 8386657595452129340, guid: 59846b592acaed84183289a7d1626fe6,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8386657595452129340, guid: 59846b592acaed84183289a7d1626fe6,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8386657595452129340, guid: 59846b592acaed84183289a7d1626fe6,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8386657595452129340, guid: 59846b592acaed84183289a7d1626fe6,
         type: 3}

@@ -114,7 +114,7 @@ public class ColorPlate : MonoBehaviour
         // tỉ lệ số lượng màu trong 1 stacks
         int randomCountInStacks = CalculateCountInStacks(levelData);
 
-        Debug.Log("randomCountInStacks: " + randomCountInStacks);
+        //Debug.Log("randomCountInStacks: " + randomCountInStacks);
 
         List<int> listDiff = new List<int>();
 
@@ -204,13 +204,13 @@ public class ColorPlate : MonoBehaviour
             listRatio.Add(listRatioChange[i]);
         }
 
-        Debug.Log(listRatio[0] + " ___ " + listRatio[1]);
+        //Debug.Log(listRatio[0] + " ___ " + listRatio[1]);
 
         while (listResult.Count < randomCountInStacks)
         {
             int a = GameManager.GetRandomWithRatio(listRatio);
 
-            Debug.Log(a);
+            //Debug.Log(a);
 
             listResult.Add(listValue[a]);
             listValue.RemoveAt(a);
@@ -348,6 +348,14 @@ public class ColorPlate : MonoBehaviour
         Vector3 from = color.transform.localPosition;
         Vector3 to = new Vector3(randomX, index * GameConfig.OFFSET_PLATE, -index * GameConfig.OFFSET_PLATE);
 
+        //color.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+
+        //color.transform.DOScale(Vector3.one, GameConfig.TIME_MOVE)
+        //    .OnComplete(() =>
+        //    {
+        //        color.transform.localPosition = Vector3.one;
+        //    });
+
         color.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
             .OnStart(() =>
             {
@@ -400,7 +408,7 @@ public class ColorPlate : MonoBehaviour
     {
         if (listTypes[listTypes.Count - 1].listPlates.Count == 0)
         {
-            Debug.Log(transform.name + " plate clear listLastType");
+            //Debug.Log(transform.name + " plate clear listLastType");
             listTypes.RemoveAt(listTypes.Count - 1);
         }
     }

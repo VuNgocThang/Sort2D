@@ -17,7 +17,6 @@ public class HomeUI : MonoBehaviour
     [SerializeField] float countdownTimer, totalParts, currentParts;
     public GameObject nTop, nBot, iconNotice;
     public Animator animator;
-    public Animator animUsePigment;
     public List<Sprite> listSprite;
     public Image bg, imgProgressTask;
     [SerializeField] DataConfigDecor bookDataConfig;

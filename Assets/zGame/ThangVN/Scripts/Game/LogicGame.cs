@@ -1183,6 +1183,7 @@ public class LogicGame : MonoBehaviour
 
         SoundMerge();
         //Debug.Log("count " + count);
+ 
 
         for (int i = count - 1; i >= 0; i--)
         {

@@ -874,7 +874,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1080, y: 2340}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -1219,7 +1219,7 @@ Camera:
   far clip plane: 1000
   field of view: 33
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1324,11 +1324,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 330585545}
-  minSize: 6
+  minSize: 7
   maxSize: 8
   Orthographic: 1
   canvasScaler: {fileID: 213925591}
-  minReferenceResolution: {x: 1080, y: 1920}
+  minReferenceResolution: {x: 1080, y: 2340}
   maxReferenceResolution: {x: 1080, y: 2640}
 --- !u!1 &338778963
 GameObject:
@@ -2539,7 +2539,7 @@ MonoBehaviour:
     ID: 0
     CountDiff: 0
     Colors: 
-    Ratio: 
+    Ratio: []
     RatioInStacks: 
   testStack: {fileID: 1305653334}
   timerRun: -1
@@ -5124,7 +5124,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1689702701
 GameObject:
@@ -5245,6 +5245,7 @@ MonoBehaviour:
   timerConfigData: {fileID: 0}
   magicRune: {fileID: 0}
   isMoving: 0
+  pathType: 0
   customCurve:
     serializedVersion: 2
     m_Curve: []
@@ -6097,6 +6098,7 @@ MonoBehaviour:
   timerConfigData: {fileID: 0}
   magicRune: {fileID: 0}
   isMoving: 0
+  pathType: 0
   customCurve:
     serializedVersion: 2
     m_Curve: []
