@@ -24,6 +24,7 @@ public class ItemSelectColor : MonoBehaviour
             }
             else
             {
+                Debug.Log("Watch ads to canselect");
                 // watch ads to canSelect
 
                 if (imgAds == null) return;

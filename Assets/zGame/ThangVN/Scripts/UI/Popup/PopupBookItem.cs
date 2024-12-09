@@ -27,7 +27,7 @@ public class PopupBookItem : Popup
     {
         btnDecorate.OnClick(() =>
         {
-            PopupDecorateBook.Show(SaveGame.CurrentBook);
+            PopupDecorateBook.Show(SaveGame.CurrentBook, true);
         });
 
         btnBack.OnClick(() =>

@@ -58,17 +58,18 @@ public static class GameManager
         listRatio.AddRange(list);
         return listRatio.GetRandomWithRatio();
     }
+
     public static int GetRandomWithRatio(this List<float> list)
     {
-        float s = 0;
-        foreach (float i in list) s += i;
-        float r = UnityEngine.Random.Range(0, s);
+        float sum = 0;
+        foreach (float i in list) sum += i;
+        float random = UnityEngine.Random.Range(0, sum);
         int t = 0;
-        s = list[t];
-        while (r >= s)
+        sum = list[t];
+        while (random >= sum)
         {
             ++t;
-            s += list[t];
+            sum += list[t];
         }
         return t;
     }

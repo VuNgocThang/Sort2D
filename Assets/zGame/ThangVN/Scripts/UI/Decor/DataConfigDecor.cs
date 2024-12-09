@@ -31,6 +31,13 @@ public class DataColor
 }
 
 [Serializable]
+public class ColorDecor
+{
+    public Color color;
+    public bool CanSelect;
+}
+
+[Serializable]
 public class DataBook
 {
     public int idBook;
@@ -87,11 +94,6 @@ public class ListBookDecorated
     public List<BookDecorated> listBookDecorated;
 }
 
-[Serializable]
-public class ColorDecor
-{
-    public Color color;
-}
 
 
 

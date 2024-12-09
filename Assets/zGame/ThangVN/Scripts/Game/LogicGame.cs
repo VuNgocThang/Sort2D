@@ -1172,7 +1172,7 @@ public class LogicGame : MonoBehaviour
         timerRun = 0;
         isMergeing = true;
 
-        Debug.Log(startColorPlate.isMoving + "  __  " + endColorPlate.isMoving);
+        //Debug.Log(startColorPlate.isMoving + "  __  " + endColorPlate.isMoving);
 
         if (startColorPlate.isMoving || endColorPlate.isMoving) return;
 
@@ -1182,7 +1182,7 @@ public class LogicGame : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         SoundMerge();
-        Debug.Log("count " + count);
+        //Debug.Log("count " + count);
 
         for (int i = count - 1; i >= 0; i--)
         {
@@ -1226,14 +1226,14 @@ public class LogicGame : MonoBehaviour
             sequence.AppendInterval(timerConfigData.timeMerge);
             timerRun += timerConfigData.timeRun;
 
-            Debug.Log("timeRun:" + timerRun);
+            //Debug.Log("timeRun:" + timerRun);
         }
 
 
 
         sequence.OnComplete(() =>
         {
-            Debug.Log("fuck done");
+            //Debug.Log("fuck done");
             if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
         });
     }

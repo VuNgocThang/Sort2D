@@ -42,7 +42,7 @@ public class BookItem : MonoBehaviour
     {
         SaveGame.CurrentBook = indexBook;
         ManagerPopup.HidePopup<PopupDecor>();
-        PopupDecorateBook.Show(index);
+        PopupDecorateBook.Show(index, false);
     }
 
     public void Init(int _index, string title, DataConfigDecor _data)

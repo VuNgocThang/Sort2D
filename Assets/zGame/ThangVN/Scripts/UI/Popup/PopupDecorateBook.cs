@@ -54,7 +54,8 @@ public class PopupDecorateBook : Popup
             }
 
             base.Hide();
-            PopupBookItem.Show(SaveGame.CurrentBook);
+            //PopupBookItem.Show(SaveGame.CurrentBook);
+            PopupDecor.Show();
         });
 
         btnTick.OnClick(() =>
@@ -65,11 +66,12 @@ public class PopupDecorateBook : Popup
         ManagerEvent.RegEvent(EventCMD.EVENT_CHANGE_COLOR, ChangeColorBook);
     }
 
-    public static async void Show(int index)
+    public static async void Show(int index, bool IsRedecorated)
     {
         PopupDecorateBook pop = await ManagerPopup.ShowPopup<PopupDecorateBook>();
         pop.Init();
-        pop.Initialize(index);
+        pop.Initialize(index, IsRedecorated);
+        //pop.RedecoratedInit(index);
     }
 
     public override void Init()
@@ -91,7 +93,77 @@ public class PopupDecorateBook : Popup
         }
     }
 
-    public void Initialize(int index)
+    //public void RedecoratedInit(int index)
+    //{
+    //    LoadDataBook();
+
+    //    listItems.Clear();
+    //    for (int i = 0; i < slots.Count; i++)
+    //    {
+    //        slots[i].gameObject.SetActive(false);
+    //    }
+    //    slots.Clear();
+    //    sprites.Clear();
+
+    //    for (int i = 0; i < listItemDecors.Count; i++)
+    //    {
+    //        listItemDecors[i].gameObject.SetActive(false);
+    //    }
+    //    listItemDecors.Clear();
+
+    //    for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
+    //    {
+    //        if (dataConfigDecor.listDataBooks[i].idBook == index /*0*/)
+    //        {
+    //            dataBook = dataConfigDecor.listDataBooks[i];
+    //            total = dataConfigDecor.listDataBooks[i].totalParts;
+    //        }
+    //    }
+
+    //    InitColor();
+
+
+    //    for (int i = 0; i < dataBook.listDataSlots.Count; i++)
+    //    {
+    //        int id = dataBook.listDataSlots[i].idSlot;
+    //        Vector3 pos = dataBook.listDataSlots[i].pos;
+    //        Sprite sprite = dataBook.listDataSlots[i].spriteLine;
+
+    //        Slot slot = Instantiate(slotPrefab, nParentSlot);
+    //        slot.Init(id, pos, sprite);
+    //        slots.Add(slot);
+    //    }
+
+    //    for (int i = 0; i < dataBook.listDataItemDecor.Count; i++)
+    //    {
+    //        int id = dataBook.listDataItemDecor[i].idItemDecor;
+    //        int cost = dataBook.listDataItemDecor[i].cost;
+    //        Sprite sprite = dataBook.listDataItemDecor[i].spriteIcon;
+
+    //        ItemDecor item = Instantiate(itemDecorPrefab, nContent);
+    //        item.Init(id, cost, sprite);
+
+    //        listItems.Add(item.imageItem);
+    //        listItemDecors.Add(item);
+    //        sprites.Add(dataBook.listDataItemDecor[i].sprite);
+    //    }
+
+    //    for (int i = 0; i < listItemDecors.Count; i++)
+    //    {
+    //        for (int j = 0; j < bookDecorated.listItemDecorated.Count; j++)
+    //        {
+    //            if (bookDecorated.listItemDecorated[j].idItemDecorated == listItemDecors[i].id)
+    //            {
+    //                if (!bookDecorated.listItemDecorated[j].isBought) continue;
+
+    //                listItems[i].isBought = true;
+    //                listItemDecors[i].btnBuy.gameObject.SetActive(false);
+    //            }
+    //        }
+    //    }
+    //}
+
+    public void Initialize(int index, bool IsRedecorated)
     {
         LoadDataBook();
 
@@ -118,6 +190,8 @@ public class PopupDecorateBook : Popup
                 total = dataConfigDecor.listDataBooks[i].totalParts;
             }
         }
+
+        InitColor();
 
         for (int i = 0; i < dataBook.listDataSlots.Count; i++)
         {
@@ -158,6 +232,8 @@ public class PopupDecorateBook : Popup
             }
         }
 
+        if (IsRedecorated) return;
+        // Setup entry bg
 
         Dictionary<int, ImageItem> itemDict = listItems.ToDictionary(item => item.id);
 
@@ -191,7 +267,6 @@ public class PopupDecorateBook : Popup
             }
         }
 
-        InitColor();
     }
 
     void InitColor()
@@ -200,7 +275,10 @@ public class PopupDecorateBook : Popup
         {
             Color color = dataBook.listColorDecor[i].color;
 
-            listItemSelectColor[i].Init(color, true);
+            if (i == 0)
+                listItemSelectColor[i].Init(color, true);
+            else
+                listItemSelectColor[i].Init(color, false);
         }
 
         nColorChangeBook.color = bookDecorated.colorPainted;
