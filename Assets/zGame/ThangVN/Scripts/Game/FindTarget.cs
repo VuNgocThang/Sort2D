@@ -127,6 +127,11 @@ public class FindTarget
 
             }
 
+            colorResult = ComparePlates(listDataConnect[0], listDataConnect[1]);
+
+            if (colorResult != null)
+                return colorResult;
+
             //Debug.Log(listDataConnect[0].name + " default");
             int countArrow = 0;
             foreach (ColorPlate c in listDataConnect)
@@ -383,5 +388,18 @@ public class FindTarget
     {
         if (c.status == Status.Left || c.status == Status.Right || c.status == Status.Up || c.status == Status.Down) return true;
         else return false;
+    }
+
+    public ColorPlate ComparePlates(ColorPlate plateA, ColorPlate plateB)
+    {
+        if (LogicGame.Instance == null) return null;
+
+        int totalRows = LogicGame.Instance.rows;
+        int totalCols = LogicGame.Instance.cols;
+
+        float distanceA = plateA.GetDistanceToCenter(totalRows, totalCols);
+        float distanceB = plateB.GetDistanceToCenter(totalRows, totalCols);
+
+        return distanceA <= distanceB ? plateA : plateB;
     }
 }

@@ -104,6 +104,7 @@ public class ColorPlate : MonoBehaviour
         gameObject.name = $"Cell ({row}, {col})";
     }
 
+
     public void InitColor()
     {
         DataLevel levelData = LogicGame.Instance.dataLevel;
@@ -669,5 +670,14 @@ public class ColorPlate : MonoBehaviour
         logicVisual.SetVisualAfterUnlock(currentStatus);
     }
 
+    public float GetDistanceToCenter(int totalRows, int totalCols)
+    {
+        float centerCol = totalCols / 2;
+        float centerRow = totalRows;
+
+        return Mathf.Sqrt(Mathf.Pow(Row - centerRow, 2) + Mathf.Pow(Col - centerCol, 2));
+    }
+
+   
 }
 
