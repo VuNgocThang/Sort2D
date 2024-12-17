@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LogicColor : MonoBehaviour
@@ -9,6 +10,7 @@ public class LogicColor : MonoBehaviour
     //[SerializeField] public TrailRenderer trail;
     public GameObject trail;
     public SpriteRenderer spriteRender;
+    public TextMeshPro txtCount;
 
     public void Init(int index, int layer)
     {

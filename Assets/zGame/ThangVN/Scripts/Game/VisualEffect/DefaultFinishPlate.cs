@@ -27,51 +27,52 @@ public class DefaultFinishPlate : IVisualPlate
 
             if (i == colorPlate.ListValue.Count)
             {
-                sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f).OnComplete(() =>
-                {
-                    //color.trail.enabled = true;
-                    color.trail.SetActive(true);
-                    // Camera overlay
-                    Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
-                    Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
-
-                    // Camera Screen Space
-                    //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
-                    //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
-
-
-                    ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
-                    var main = eatParticle.main;
-                    main.startColor = SwitchColor(colorEnum);
-                    for (int j = 1; j < eatParticle.transform.childCount; j++)
+                sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f)
+                    .OnComplete(() =>
                     {
-                        ParticleSystem c = eatParticle.transform.GetChild(j).GetComponent<ParticleSystem>();
-                        var mainC = c.main;
-                        mainC.startColor = SwitchColor(colorEnum);
-                    }
+                        //color.trail.enabled = true;
+                        color.trail.SetActive(true);
+                        // Camera overlay
+                        Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
+                        Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
 
-                    CreatePathAnimation(color, targetPos, plusPoint, count);
+                        // Camera Screen Space
+                        //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
+                        //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
-                    //color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
-                    //    .OnStart(() =>
-                    //    {
-                    //        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
-                    //    })
-                    //    .OnComplete(() =>
-                    //    {
-                    //        if (plusPoint)
-                    //            ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
 
-                    //        Debug.Log(LogicGame.Instance.point + " ____POINT");
-                    //        LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
-                    //        LogicGame.Instance.IncreaseCountDiff();
-                    //        LogicGame.Instance.SpawnSpecialColor();
+                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
+                        var main = eatParticle.main;
+                        main.startColor = SwitchColor(colorEnum);
+                        for (int j = 1; j < eatParticle.transform.childCount; j++)
+                        {
+                            ParticleSystem c = eatParticle.transform.GetChild(j).GetComponent<ParticleSystem>();
+                            var mainC = c.main;
+                            mainC.startColor = SwitchColor(colorEnum);
+                        }
 
-                    //        //color.trail.enabled = false;
-                    //        color.trail.SetActive(false);
-                    //        color.gameObject.SetActive(false);
-                    //    });
-                }));
+                        CreatePathAnimation(color, targetPos, plusPoint, count);
+
+                        //color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
+                        //    .OnStart(() =>
+                        //    {
+                        //        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
+                        //    })
+                        //    .OnComplete(() =>
+                        //    {
+                        //        if (plusPoint)
+                        //            ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+
+                        //        Debug.Log(LogicGame.Instance.point + " ____POINT");
+                        //        LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
+                        //        LogicGame.Instance.IncreaseCountDiff();
+                        //        LogicGame.Instance.SpawnSpecialColor();
+
+                        //        //color.trail.enabled = false;
+                        //        color.trail.SetActive(false);
+                        //        color.gameObject.SetActive(false);
+                        //    });
+                    }));
             }
             else
             {

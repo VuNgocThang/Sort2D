@@ -22,6 +22,8 @@ public class CameraResize : MonoBehaviour
     [SerializeField] Vector2 minReferenceResolution = new Vector2(1080, 1920);
     [SerializeField] Vector2 maxReferenceResolution = new Vector2(1080, 2640);
 
+    [SerializeField] CanvasScaler canvasUIGame;
+
     private void Awake()
     {
         CheckCamera();
@@ -44,11 +46,13 @@ public class CameraResize : MonoBehaviour
             {
                 Cam.orthographicSize = minSize;
                 canvasScaler.referenceResolution = minReferenceResolution;
+                canvasUIGame.referenceResolution = maxReferenceResolution;
             }
             else
             {
                 Cam.orthographicSize = maxSize;
                 canvasScaler.referenceResolution = maxReferenceResolution;
+                canvasUIGame.referenceResolution = minReferenceResolution;
             }
             //else
             //{
@@ -60,6 +64,15 @@ public class CameraResize : MonoBehaviour
         else
         {
             if (Cam.aspect < (9 / 16f)) Cam.fieldOfView = 75 * Cam.aspect / (9 / 16f);
+        }
+
+        if (Cam.aspect < 0.5625)
+        {
+            canvasUIGame.matchWidthOrHeight = 0;
+        }
+        else
+        {
+            canvasUIGame.matchWidthOrHeight = 1;
         }
     }
 

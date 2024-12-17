@@ -83,6 +83,56 @@ public class ColorPlate : MonoBehaviour
             targetUIPosition = LogicGame.Instance.targetUIPosition;
     }
 
+    private void Update()
+    {
+        if (ListColor.Count > 0)
+        {
+            for (int i = 0; i < ListColor.Count; i++)
+            {
+                ListColor[i].txtCount.gameObject.SetActive(false);
+            }
+
+            TopColor.txtCount.gameObject.SetActive(true);
+            TopColor.txtCount.color = SelectColor(TopValue);
+            TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
+        }
+    }
+
+    Color SelectColor(ColorEnum colorEnum)
+    {
+        Color colorResult;
+        switch (colorEnum)
+        {
+            case ColorEnum.Blue:
+                colorResult = new Color(0.5f, 0, 0);
+                break;
+            case ColorEnum.Green:
+                colorResult = new Color(0.5f, 0, 1f);
+                break;
+            case ColorEnum.Red:
+                colorResult = new Color(0, 1f, 1f);
+                break;
+            case ColorEnum.Orange:
+                colorResult = new Color(1f, 1f, 1f);
+                break;
+            case ColorEnum.Yellow:
+                colorResult = new Color(0.8f, 0, 1f);
+                break;
+            case ColorEnum.Pink:
+                colorResult = new Color(1f, 1f, 1f);
+                break;
+            case ColorEnum.Purple:
+                colorResult = new Color(0, 1f, 1f);
+                break;
+
+            default:
+                colorResult = Color.white;
+                break;
+        }
+
+        return colorResult;
+    }
+
     public void Init(GetColorNew getColorNew)
     {
         GetColorNew = getColorNew;
@@ -678,6 +728,6 @@ public class ColorPlate : MonoBehaviour
         return Mathf.Sqrt(Mathf.Pow(Row - centerRow, 2) + Mathf.Pow(Col - centerCol, 2));
     }
 
-   
+
 }
 

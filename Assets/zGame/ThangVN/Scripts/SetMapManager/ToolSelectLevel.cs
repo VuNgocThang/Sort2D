@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ToolSelectLevel : MonoBehaviour
 {
-    public EasyButton btnOke, btnPlusCoin, btnPlusPigment, btnPlusBooster, btnExitTool;
+    public EasyButton btnOke, btnPlusCoin, btnPlusPigment, btnPlusBooster, btnExitTool, btnAddHeart;
     public TMP_InputField inputField;
 
     private void Awake()
@@ -21,6 +21,8 @@ public class ToolSelectLevel : MonoBehaviour
         btnPlusPigment.OnClick(() => GameManager.AddPigment(500));
 
         btnExitTool.OnClick(() => gameObject.SetActive(false));
+
+        btnAddHeart.OnClick(() => SaveGame.Heart = 5);
     }
 
     private void Start()
