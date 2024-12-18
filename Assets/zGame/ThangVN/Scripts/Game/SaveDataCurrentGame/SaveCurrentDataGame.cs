@@ -8,4 +8,5 @@ public class SaveCurrentDataGame
 {
     public List<ColorPlateInTable> ListColorPlate = new List<ColorPlateInTable>();
     public int currentPoint;
+    public int countDiff;
 }

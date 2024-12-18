@@ -12,6 +12,7 @@ public class Tutorial : MonoBehaviour
     public int currentIndex;
 
     [SerializeField] RectTransform hand;
+    [SerializeField] GameObject imgArrow;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class Tutorial : MonoBehaviour
             LogicGame.Instance.canvasTutorial.enabled = false;
         });
     }
+
 
     public void Init(RectTransform slot_2, Camera cam)
     {

@@ -17,6 +17,7 @@ public class DataLand
         {
             listData = new List<DataLand>();
             List<DataLand> list = JsonHelper.GetJsonList<DataLand>((await ManagerAsset.LoadAssetAsync<TextAsset>("DataLand")).text);
+            //List<DataLevel> list = JsonHelper.GetJsonList<DataLevel>((await ManagerAsset.LoadAssetAsync<TextAsset>("DataLevel")).text);
             listData.AddRange(list);
         }
         return listData;

@@ -6,6 +6,8 @@ using System.Linq;
 using System;
 using System.ComponentModel;
 using UnityEngine.UIElements;
+using ntDev;
+using System.Threading.Tasks;
 
 public class SetMapManager : MonoBehaviour
 {
@@ -78,27 +80,7 @@ public class SetMapManager : MonoBehaviour
     }
 
 
-    public void LoadData()
-    {
-        string filePath = "";
-        if (GameManager.IsNormalGame())
-        {
-            //Debug.Log("Level: " + SaveGame.Level);
-            filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.Level}").ToString();
-        }
-        else if (GameManager.IsChallengesGame())
-        {
-            filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelChallenges}").ToString();
-        }
-        else if (GameManager.IsBonusGame())
-        {
-            // change file Path => Bonus Level
-
-            filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
-            //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
-        }
-        colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
-    }
+   
 
     void LoadDataSetMap(int level)
     {

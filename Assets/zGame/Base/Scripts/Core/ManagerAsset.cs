@@ -49,6 +49,7 @@ namespace ntDev
                     Ez.Log("Downloading: " + str + " " + downloadSize + " bytes");
                     CoreGame.Instance.StartCoroutine(StartDownload(handle, actDownloading));
                 }
+                Debug.Log("LOAD SUCCESS");
                 T o = await handle.Task;
                 return o;
             }

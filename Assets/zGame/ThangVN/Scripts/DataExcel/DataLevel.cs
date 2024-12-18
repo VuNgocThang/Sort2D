@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [Serializable]
 public class DataLevel
@@ -15,20 +16,21 @@ public class DataLevel
 
     static List<DataLevel> listData;
 
-    public static List<DataLevel> GetListData()
+    public async static Task<List<DataLevel>> GetListData()
     {
         if (listData == null || listData.Count == 0)
         {
             listData = new List<DataLevel>();
-            List<DataLevel> list = JsonHelper.GetJsonList<DataLevel>((Resources.Load<TextAsset>("DataLevel/DataLevel")).text);
+            //List<DataLevel> list = JsonHelper.GetJsonList<DataLevel>((Resources.Load<TextAsset>("DataLevel/DataLevel")).text);
+            List<DataLevel> list = JsonHelper.GetJsonList<DataLevel>((await ManagerAsset.LoadAssetAsync<TextAsset>("DataLevel")).text);
             listData.AddRange(list);
         }
         return listData;
     }
 
-    public static DataLevel GetData(int id)
+    public async static Task<DataLevel> GetData(int id)
     {
-        List<DataLevel> list = GetListData();
+        List<DataLevel> list = await GetListData();
         foreach (DataLevel d in list)
         {
             // start ID from zero 

@@ -5,8 +5,6 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using System.Linq;
-using Utilities.Common;
 
 public enum ColorEnum
 {
@@ -162,15 +160,17 @@ public class ColorPlate : MonoBehaviour
         listTypes.Clear();
         //HashSet<int> listDiff = new HashSet<int>();
 
-        // tỉ lệ số lượng màu trong 1 stacks
+        // tính số lượng màu khác nhau trong 1 stacks
         int randomCountInStacks = CalculateCountInStacks(levelData);
 
         //Debug.Log("randomCountInStacks: " + randomCountInStacks);
 
+        // chọn màu trong stacks 
         List<int> listDiff = new List<int>();
-
         listDiff = CalculateListDiff(levelData, randomCountInStacks);
 
+
+        // Spawn Count Same Type
         foreach (int type in listDiff)
         {
             //Debug.Log("type: " + type + " __ " + (ColorEnum)type);
@@ -216,7 +216,6 @@ public class ColorPlate : MonoBehaviour
         randomCountInStacks = randomCountInStacks > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomCountInStacks;
 
         return randomCountInStacks;
-        //return 2;
     }
 
     //int CalculateRandomColor(DataLevel levelData)
@@ -248,10 +247,11 @@ public class ColorPlate : MonoBehaviour
         List<float> listRatio = new List<float>();
 
         List<float> listRatioChange = GameManager.ChangeToList(levelData.Ratio);
+        listValue.AddRange(LogicGame.Instance.listIntColor);
 
         for (int i = 0; i < LogicGame.Instance.countDiff; i++)
         {
-            listValue.Add(i);
+            //listValue.Add(i);
             listRatio.Add(listRatioChange[i]);
         }
 
@@ -261,9 +261,9 @@ public class ColorPlate : MonoBehaviour
         {
             int a = GameManager.GetRandomWithRatio(listRatio);
 
-            //Debug.Log(a);
+            Debug.Log(a + " ___ " + listValue[a]);
 
-            listResult.Add(listValue[a]);
+            listResult.Add(listValue[a] - 1);
             listValue.RemoveAt(a);
             listRatio.RemoveAt(a);
         }
