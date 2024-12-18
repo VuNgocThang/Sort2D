@@ -66,6 +66,8 @@ public class HomeUI : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+
         int randomBG = UnityEngine.Random.Range(0, 2);
         bg.sprite = listSprite[randomBG];
 
@@ -178,7 +180,7 @@ public class HomeUI : MonoBehaviour
         //}
 
         txtHeart.text = SaveGame.Heart.ToString();
-    }  
+    }
 
     IEnumerator LoadScene(string str)
     {

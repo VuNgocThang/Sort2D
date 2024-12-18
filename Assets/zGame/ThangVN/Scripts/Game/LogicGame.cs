@@ -178,7 +178,7 @@ public class LogicGame : MonoBehaviour
 
     }
 
-   
+
     public void InitTutorial()
     {
         canvasTutorial.enabled = true;
@@ -1110,12 +1110,19 @@ public class LogicGame : MonoBehaviour
                 colorPlate.DecreaseCountFrozenNearBy();
                 colorPlate.InitValue();
 
-                RecursiveMerge();
+                StartCoroutine(DelayToCheckMerge());
                 //}
             }
         }
         //Debug.Log("point: " + point);
         //IncreaseCountDiff();
+    }
+
+    IEnumerator DelayToCheckMerge()
+    {
+        yield return new WaitForSeconds(0.6f);
+        RecursiveMerge();
+
     }
 
     public void IncreaseCountDiff()

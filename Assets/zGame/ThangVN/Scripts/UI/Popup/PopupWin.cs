@@ -57,9 +57,8 @@ public class PopupWin : Popup
 
         btnHome.OnClick(() =>
         {
-            InitPile();
-
-            ReceiveReward();
+            //InitPile();
+            //ReceiveReward();
 
             ManagerEvent.ClearEvent();
             StartCoroutine(LoadScene("SceneHome"));
