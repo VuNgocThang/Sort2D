@@ -169,7 +169,7 @@ public class ColorPlate : MonoBehaviour
         List<int> listDiff = new List<int>();
         listDiff = CalculateListDiff(levelData, randomCountInStacks);
 
-
+        listDiff.Reverse();
         // Spawn Count Same Type
         foreach (int type in listDiff)
         {
@@ -247,11 +247,11 @@ public class ColorPlate : MonoBehaviour
         List<float> listRatio = new List<float>();
 
         List<float> listRatioChange = GameManager.ChangeToList(levelData.Ratio);
-        listValue.AddRange(LogicGame.Instance.listIntColor);
+
+        listValue.AddRange(LogicGame.Instance.CalculateCountColorInDesk());
 
         for (int i = 0; i < LogicGame.Instance.countDiff; i++)
         {
-            //listValue.Add(i);
             listRatio.Add(listRatioChange[i]);
         }
 
@@ -262,7 +262,7 @@ public class ColorPlate : MonoBehaviour
             int a = GameManager.GetRandomWithRatio(listRatio);
             //Debug.Log(a + " ___ " + listValue[a]);
 
-            listResult.Add(listValue[a] - 1);
+            listResult.Add(listValue[a]);
             listValue.RemoveAt(a);
             listRatio.RemoveAt(a);
         }

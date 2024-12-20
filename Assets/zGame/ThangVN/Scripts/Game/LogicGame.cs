@@ -131,7 +131,10 @@ public class LogicGame : MonoBehaviour
         Application.targetFrameRate = 60;
         //enabled = false;
         await Refresh();
+        Debug.Log("1.1");
+
         LoadSaveData();
+        Debug.Log("2.1");
         await LoadData();
         InitListCheckPlate();
         spawnBook.gameObject.SetActive(true);
@@ -143,7 +146,7 @@ public class LogicGame : MonoBehaviour
     private async Task Refresh()
     {
         DOTween.KillAll();
-
+        Debug.Log("1");
         if (GameManager.IsNormalGame())
             dataLevel = await DataLevel.GetData(SaveGame.Level);
         else if (GameManager.IsBonusGame())
@@ -214,7 +217,9 @@ public class LogicGame : MonoBehaviour
 
     async Task LoadData()
     {
+        Debug.Log("3");
         await LoadDataFromAsset();
+        Debug.Log("3.1");
 
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
@@ -238,7 +243,10 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
+        Debug.Log("3.2");
+
         IsDataLoaded = true;
+        Debug.Log("3.3");
     }
 
     void InitListCheckPlate()
@@ -1518,6 +1526,7 @@ public class LogicGame : MonoBehaviour
     }
     void LoadSaveData()
     {
+        Debug.Log("2");
         if (GameManager.IsNormalGame())
         {
             if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
@@ -1528,7 +1537,6 @@ public class LogicGame : MonoBehaviour
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
             if (string.IsNullOrEmpty(gameSaveData))
             {
-                Debug.Log("nullll");
                 saveGameNormal = null;
                 return;
             }
@@ -1634,5 +1642,73 @@ public class LogicGame : MonoBehaviour
 
         }
     }
+    #endregion
+
+
+    #region Sort List
+
+    public List<int> ListIntCurrent = new List<int>();
+
+    //public void Calculate()
+    //{
+    //    CalculateListCurrent();
+    //    CalculateCountColorInDesk();
+    //}
+
+    public List<int> CalculateCountColorInDesk()
+    {
+        CalculateListCurrent();
+
+        List<int> ListResult = new List<int>();
+
+        Dictionary<ColorEnum, int> countInDesk = new Dictionary<ColorEnum, int>();
+
+        for (int i = 0; i < ListIntCurrent.Count; i++)
+        {
+            countInDesk.Add((ColorEnum)(ListIntCurrent[i] - 1), 0);
+        }
+
+        for (int i = 0; i < ListColorPlate.Count; i++)
+        {
+            if (ListColorPlate[i].ListValue.Count == 0) continue;
+
+            for (int j = 0; j < ListIntCurrent.Count; j++)
+            {
+                if (ListColorPlate[i].TopValue == (ColorEnum)(ListIntCurrent[j] - 1))
+                {
+                    //Debug.Log(i + "___" + ListColorPlate[i].TopValue + " ___ " + ListIntCurrent[j]);
+                    if (countInDesk.ContainsKey(ListColorPlate[i].TopValue))
+                    {
+                        countInDesk[ListColorPlate[i].TopValue]++;
+                    }
+                }
+            }
+        }
+
+        var sortedCountInDesk = countInDesk.OrderBy(pair => pair.Value);
+
+        foreach (var obj in sortedCountInDesk)
+        {
+            //Debug.Log(obj.Key);
+            ListResult.Add((int)obj.Key);
+        }
+
+        for (int i = 0; i < ListResult.Count; i++)
+        {
+            Debug.Log((ColorEnum)ListResult[i]);
+        }
+
+        return ListResult;
+    }
+
+    void CalculateListCurrent()
+    {
+        for (int i = 0; i < countDiff; i++)
+        {
+            if (!ListIntCurrent.Contains(listIntColor[i]))
+                ListIntCurrent.Add(listIntColor[i]);
+        }
+    }
+
     #endregion
 }
