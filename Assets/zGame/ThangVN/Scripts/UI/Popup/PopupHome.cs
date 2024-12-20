@@ -121,6 +121,7 @@ public class PopupHome : MonoBehaviour
 
     private void Update()
     {
+        if (!LogicGame.Instance.IsDataLoaded) return;
 
         if (GameManager.IsNormalGame())
         {
@@ -278,6 +279,12 @@ public class PopupHome : MonoBehaviour
     {
         LogicGame.Instance.isPauseGame = true;
         yield return null;
+
+        while (!LogicGame.Instance.IsDataLoaded)
+        {
+            yield return null;
+        }
+
         nTargetPigment.SetActive(true);
         txtLevelInTarget.text = $"Level {SaveGame.Level + 1}";
         txtTargetPigment.text = LogicGame.Instance.pigment.ToString();
@@ -307,6 +314,12 @@ public class PopupHome : MonoBehaviour
     {
         LogicGame.Instance.isPauseGame = true;
         yield return null;
+
+        while (!LogicGame.Instance.IsDataLoaded)
+        {
+            yield return null;
+        }
+
         nChallenges.SetActive(true);
         if (nChallenges.activeSelf)
             animChallenges.Play("Show");

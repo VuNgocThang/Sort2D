@@ -111,6 +111,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] TimerConfigData timerConfigData;
     [SerializeField] SpawnBookTest spawnBook;
     public DataLevel dataLevel = new DataLevel();
+    public bool IsDataLoaded { get; private set; } = false;
 
 
     LogicColor GetColorNew()
@@ -128,7 +129,7 @@ public class LogicGame : MonoBehaviour
     async void Start()
     {
         Application.targetFrameRate = 60;
-        enabled = false;
+        //enabled = false;
         await Refresh();
         LoadSaveData();
         await LoadData();
@@ -136,12 +137,24 @@ public class LogicGame : MonoBehaviour
         spawnBook.gameObject.SetActive(true);
         //InitNextPlate();
         RecursiveMerge();
-        enabled = true;
+        //enabled = true;
     }
 
     private async Task Refresh()
     {
         DOTween.KillAll();
+
+        if (GameManager.IsNormalGame())
+            dataLevel = await DataLevel.GetData(SaveGame.Level);
+        else if (GameManager.IsBonusGame())
+            dataLevel = await DataLevel.GetData(SaveGame.LevelBonus);
+
+        else if (GameManager.IsChallengesGame())
+            dataLevel = await DataLevel.GetData(SaveGame.LevelChallenges);
+
+        countDiffMax = dataLevel.CountDiff;
+        listIntColor = dataLevel.Colors.ToList();
+
         isWin = false;
         isLose = false;
         isMergeing = false;
@@ -160,24 +173,6 @@ public class LogicGame : MonoBehaviour
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
         colorBookPool = new CustomPool<ParticleSystem>(colorBook, 2, transform, false);
-
-        //if (GameManager.IsNormalGame())
-        //{
-        //    dataLevel = await DataLevel.GetData(SaveGame.Level);
-        //}
-        //else if (GameManager.IsBonusGame())
-        //{
-        //    dataLevel = await DataLevel.GetData(SaveGame.LevelBonus);
-
-        //}
-        //else if (GameManager.IsChallengesGame())
-        //{
-        //    dataLevel = await DataLevel.GetData(SaveGame.LevelChallenges);
-        //}
-        dataLevel = await DataLevel.GetData(SaveGame.Level);
-
-        countDiffMax = dataLevel.CountDiff;
-        listIntColor = dataLevel.Colors.ToList();
     }
 
     public void InitTutorial()
@@ -187,28 +182,34 @@ public class LogicGame : MonoBehaviour
 
     public async Task LoadDataFromAsset()
     {
-        //string filePath = "";
+        string filePath = "";
         if (GameManager.IsNormalGame())
         {
             //Debug.Log("Level: " + SaveGame.Level);
             //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.Level}").ToString();
+
             var ta = await ManagerAsset.LoadAssetAsync<TextAsset>($"Level_{SaveGame.Level}");
-            var filePath = ta.text;
-
-            colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
-            Debug.Log(colorPlateData);
+            filePath = ta.text;
         }
-        //else if (GameManager.IsChallengesGame())
-        //{
-        //    filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelChallenges}").ToString();
-        //}
-        //else if (GameManager.IsBonusGame())
-        //{
-        //    // change file Path => Bonus Level
+        else if (GameManager.IsChallengesGame())
+        {
+            //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelChallenges}").ToString();
 
-        //    filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
-        //    //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
-        //}
+            var ta = await ManagerAsset.LoadAssetAsync<TextAsset>($"Level_{SaveGame.LevelChallenges}");
+            filePath = ta.text;
+        }
+        else if (GameManager.IsBonusGame())
+        {
+            // change file Path => Bonus Level
+
+            //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
+            //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.LevelBonus}").ToString();
+
+            var ta = await ManagerAsset.LoadAssetAsync<TextAsset>($"Level_{SaveGame.LevelBonus}");
+            filePath = ta.text;
+        }
+
+        colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
     }
 
     async Task LoadData()
@@ -237,6 +238,7 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
+        IsDataLoaded = true;
     }
 
     void InitListCheckPlate()
@@ -515,6 +517,9 @@ public class LogicGame : MonoBehaviour
     [SerializeField] float timerRun = -1;
     void Update()
     {
+        if (!LogicGame.Instance.IsDataLoaded) return;
+
+
         if (timeClick >= 0)
         {
             timeClick -= Ez.TimeMod;
@@ -1519,10 +1524,6 @@ public class LogicGame : MonoBehaviour
             {
                 Debug.Log("fuck! van con");
             }
-            else
-            {
-                Debug.Log("clear");
-            }
 
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
             if (string.IsNullOrEmpty(gameSaveData))
@@ -1549,7 +1550,7 @@ public class LogicGame : MonoBehaviour
     }
     void LoadSaveNormalData()
     {
-        Debug.Log("saveGameNormal.currentPoint: " + saveGameNormal.currentPoint);
+        //Debug.Log("saveGameNormal.currentPoint: " + saveGameNormal.currentPoint);
         point = saveGameNormal.currentPoint;
         countDiff = saveGameNormal.countDiff;
 

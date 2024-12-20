@@ -15,18 +15,18 @@ public class CameraResize : MonoBehaviour
 
     const float iPhanRatio = 1080f / 1920;
 
-    [SerializeField] float minSize = 6;
+    [SerializeField] float minSize = 7;
     [SerializeField] float maxSize = 8;
     [SerializeField] bool Orthographic = true;
     [SerializeField] CanvasScaler canvasScaler;
-    [SerializeField] Vector2 minReferenceResolution = new Vector2(1080, 1920);
+    [SerializeField] Vector2 minReferenceResolution = new Vector2(1080, 2340);
     [SerializeField] Vector2 maxReferenceResolution = new Vector2(1080, 2640);
 
     [SerializeField] CanvasScaler canvasUIGame;
 
     private void Awake()
     {
-        CheckCamera();
+        //CheckCamera();
     }
 
     void CheckCamera()

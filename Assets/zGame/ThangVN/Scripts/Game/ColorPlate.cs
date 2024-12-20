@@ -260,8 +260,7 @@ public class ColorPlate : MonoBehaviour
         while (listResult.Count < randomCountInStacks)
         {
             int a = GameManager.GetRandomWithRatio(listRatio);
-
-            Debug.Log(a + " ___ " + listValue[a]);
+            //Debug.Log(a + " ___ " + listValue[a]);
 
             listResult.Add(listValue[a] - 1);
             listValue.RemoveAt(a);
