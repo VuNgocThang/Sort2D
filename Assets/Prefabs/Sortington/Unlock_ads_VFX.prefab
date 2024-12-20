@@ -4896,8 +4896,8 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1.5
   simulationSpeed: 1
-  stopAction: 0
-  cullingMode: 0
+  stopAction: 3
+  cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
@@ -4961,7 +4961,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -5140,7 +5140,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.2
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9813,7 +9813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e598a87005327d4dbee2296292ee00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeParticle: 5
+  typeParticle: 6
   particle: {fileID: 0}
 --- !u!1 &4236612117542912948
 GameObject:
@@ -14761,7 +14761,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0

@@ -59,8 +59,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ParticleSystem chargingParticle;
     [SerializeField] private ParticleSystem changeColorParticle;
     [SerializeField] private ParticleSystem frostExplosion;
-    [SerializeField] private ParticleSystem colorBook;
-    [SerializeField] private ParticleSystem magicRune;
+    [SerializeField] private ParticleSystem currentSpecialParticle;
 
     public CustomPool<ParticleSystem> clickParticlePool;
     public CustomPool<ParticleSystem> arrowClickParticlePool;
@@ -71,10 +70,7 @@ public class LogicGame : MonoBehaviour
     public CustomPool<ParticleSystem> chargingParticlePool;
     public CustomPool<ParticleSystem> changeColorParticlePool;
     public CustomPool<ParticleSystem> frostExplosionPool;
-    public CustomPool<ParticleSystem> colorBookPool;
-    public CustomPool<ParticleSystem> magicRunePool;
 
-    [SerializeField] ParticleSystem currentSpecialParticle;
 
     public bool isMergeing;
     Tweener tweenerMove;
@@ -175,7 +171,6 @@ public class LogicGame : MonoBehaviour
         chargingParticlePool = new CustomPool<ParticleSystem>(chargingParticle, 2, transform, false);
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
-        colorBookPool = new CustomPool<ParticleSystem>(colorBook, 2, transform, false);
     }
 
     public void InitTutorial()

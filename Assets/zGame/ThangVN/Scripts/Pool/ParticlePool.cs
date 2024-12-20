@@ -12,6 +12,7 @@ public class ParticlePool : MonoBehaviour
         Move,
         Unlock,
         UnlockAds,
+        Ads,
         Special,
         Charging,
         ChangeColor,
@@ -47,7 +48,13 @@ public class ParticlePool : MonoBehaviour
         }
         else if (typeParticle == TypeParticle.UnlockAds)
         {
-            LogicGame.Instance.unlockParticlePool.Release(particle);
+            Debug.Log("fuck");
+            LogicGame.Instance.unlockAdsParticlePool.Release(particle);
+        }
+        else if (typeParticle == TypeParticle.Ads)
+        {
+            Debug.Log("fucksad");
+            LogicGame.Instance.unlockAdsParticlePool.Release(particle);
         }
         else if (typeParticle == TypeParticle.Special)
         {
