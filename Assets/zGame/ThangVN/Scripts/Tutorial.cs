@@ -22,7 +22,7 @@ public class Tutorial : MonoBehaviour
             LogicGame.Instance.isPauseGame = false;
             SaveGame.IsDoneTutorial = true;
             LogicGame.Instance.CheckClear();
-            LogicGame.Instance.canvasTutorial.enabled = false;
+            //LogicGame.Instance.canvasTutorial.enabled = false;
         });
     }
 

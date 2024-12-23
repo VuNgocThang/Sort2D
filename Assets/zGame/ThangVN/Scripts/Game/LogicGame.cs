@@ -127,10 +127,8 @@ public class LogicGame : MonoBehaviour
         Application.targetFrameRate = 60;
         //enabled = false;
         await Refresh();
-        Debug.Log("1.1");
 
         LoadSaveData();
-        Debug.Log("2.1");
         await LoadData();
         InitListCheckPlate();
         spawnBook.gameObject.SetActive(true);
@@ -142,7 +140,6 @@ public class LogicGame : MonoBehaviour
     private async Task Refresh()
     {
         DOTween.KillAll();
-        Debug.Log("1");
         if (GameManager.IsNormalGame())
             dataLevel = await DataLevel.GetData(SaveGame.Level);
         else if (GameManager.IsBonusGame())
@@ -175,7 +172,7 @@ public class LogicGame : MonoBehaviour
 
     public void InitTutorial()
     {
-        canvasTutorial.enabled = true;
+        //canvasTutorial.enabled = true;
     }
 
     public async Task LoadDataFromAsset()
@@ -212,9 +209,7 @@ public class LogicGame : MonoBehaviour
 
     async Task LoadData()
     {
-        Debug.Log("3");
         await LoadDataFromAsset();
-        Debug.Log("3.1");
 
         rows = colorPlateData.rows;
         cols = colorPlateData.cols;
@@ -238,10 +233,8 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
-        Debug.Log("3.2");
 
         IsDataLoaded = true;
-        Debug.Log("3.3");
     }
 
     void InitListCheckPlate()
@@ -260,7 +253,7 @@ public class LogicGame : MonoBehaviour
         if (cols >= rows)
         {
             float y = 0.3f * (6 - cols);
-            testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+            testStack.transform.position = new Vector3(0, 3.1f + y, 0);
 
             float scale = 6f / cols;
             holder.localScale = new Vector3(scale, scale, scale);
@@ -268,7 +261,7 @@ public class LogicGame : MonoBehaviour
         else
         {
             float y = 0.3f * (6 - rows);
-            testStack.transform.position = new Vector3(0, 1.8f + y, 0);
+            testStack.transform.position = new Vector3(0, 3.1f + y, 0);
 
             float scale = 6f / rows;
             holder.localScale = new Vector3(scale, scale, scale);
@@ -561,7 +554,7 @@ public class LogicGame : MonoBehaviour
                             holder.magicRune.Play();
                             SetColor(arrowPlate, holder);
 
-                            if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
+                            //if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
                         }
 
                         if (isHadSpawnSpecial)
