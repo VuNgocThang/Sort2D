@@ -5,6 +5,7 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Utilities.Common;
 
 public enum ColorEnum
 {
@@ -93,7 +94,8 @@ public class ColorPlate : MonoBehaviour
 
             TopColor.nBoxText.gameObject.SetActive(true);
             TopColor.txtCount.gameObject.SetActive(true);
-            TopColor.txtCount.color = SelectColor(TopValue);
+            //TopColor.txtCount.color = SelectColor(TopValue);
+            TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
             TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
         }
     }
@@ -673,7 +675,11 @@ public class ColorPlate : MonoBehaviour
 
             if (ListConnect[i].countFrozen == 0) continue;
 
-            LogicGame.Instance.frostExplosionPool.Spawn(ListConnect[i].transform.position, true);
+            ParticleSystem frostPart = LogicGame.Instance.frostExplosionPool.Spawn();
+            frostPart.transform.SetParent(ListConnect[i].transform);
+            frostPart.transform.localPosition = Vector3.zero;
+            frostPart.transform.localScale = Vector3.one;
+            frostPart.Play();
 
             ListConnect[i].countFrozen--;
 

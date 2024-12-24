@@ -230,7 +230,7 @@ public class SetMapManager : MonoBehaviour
             }
             else
             {
-                pos = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale - 2.2f, 0);
+                pos = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
             }
 
             arrow.transform.position = pos;

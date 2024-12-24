@@ -41,7 +41,13 @@ public class DefaultFinishPlate : IVisualPlate
                         //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
 
-                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
+                        //ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
+                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn();
+                        eatParticle.transform.SetParent(colorPlate.transform);
+                        eatParticle.transform.localPosition = Vector3.zero;
+                        eatParticle.transform.localScale = Vector3.one;
+                        eatParticle.Play();
+
                         var main = eatParticle.main;
                         main.startColor = SwitchColor(colorEnum);
                         for (int j = 1; j < eatParticle.transform.childCount; j++)

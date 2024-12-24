@@ -115,7 +115,7 @@ public class LogicGame : MonoBehaviour
     public DataLevel dataLevel = new DataLevel();
     public bool IsDataLoaded { get; private set; } = false;
 
-    public bool isMiniGame;
+    //public bool isMiniGame;
 
     LogicColor GetColorNew()
     {
@@ -126,14 +126,14 @@ public class LogicGame : MonoBehaviour
         Instance = this;
         ManagerEvent.RegEvent(EventCMD.EVENT_SWITCH, SwitchNextPlate);
         //ManagerEvent.RegEvent(EventCMD.EVENT_SPAWN_PLATE, InitPlateSpawn);
-        if (isMiniGame)
-        {
-            SaveGame.PlayBonus = true;
-        }
-        else
-        {
-            SaveGame.PlayBonus = false;
-        }
+        //if (isMiniGame)
+        //{
+        //    SaveGame.PlayBonus = true;
+        //}
+        //else
+        //{
+        //    SaveGame.PlayBonus = false;
+        //}
     }
 
     async void Start()
@@ -284,7 +284,7 @@ public class LogicGame : MonoBehaviour
     }
     void ResetNDesk()
     {
-        float offset = 2.2f;
+        float offset = 0f;
         if (GameManager.IsBonusGame()) offset = 2.2f;
 
         if (cols >= rows)
@@ -651,7 +651,12 @@ public class LogicGame : MonoBehaviour
 
                         if (adsPlate.status != Status.Ads) return;
 
-                        unlockAdsParticlePool.Spawn(adsPlate.transform.position, true);
+                        ParticleSystem unlockPart = unlockAdsParticlePool.Spawn();
+                        unlockPart.transform.SetParent(adsPlate.transform);
+                        unlockPart.transform.localPosition = Vector3.zero;
+                        unlockPart.transform.localScale = Vector3.one;
+                        unlockPart.Play();
+
                         Debug.Log(" Watch Ads to Unlock AdsPlate");
                         adsPlate.status = Status.None;
                         adsPlate.logicVisual.Refresh();
