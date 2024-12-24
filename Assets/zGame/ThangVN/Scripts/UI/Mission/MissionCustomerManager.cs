@@ -20,7 +20,8 @@ public class MissionCustomerManager : MonoBehaviour
 
     public void Init()
     {
-        int indexLevelBonus = SaveGame.LevelBonus;
+        //10000 Config Start Level Bonus
+        int indexLevelBonus = SaveGame.LevelBonus - 10000;
 
         txtQuantityCustomer.text = data.listLevelBonus[indexLevelBonus].listCustomers.Count.ToString();
 
