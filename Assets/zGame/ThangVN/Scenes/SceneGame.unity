@@ -2740,6 +2740,8 @@ MonoBehaviour:
   nParentNextCubeMini: {fileID: 1580769925}
   nParentSpawnBookNormal: {fileID: 2110755621}
   nParentSpawnBookMini: {fileID: 1132869007}
+  nBgNormal: {fileID: 403845086}
+  nBgMini: {fileID: 382378011}
   testStack: {fileID: 1305653334}
   nNextCube1: {fileID: 1689702702}
   colorPLatePrefab: {fileID: 7164750557717306792, guid: acdee9a02f93bc74a9e74bdd9337dd27,
@@ -5580,7 +5582,7 @@ PrefabInstance:
     - target: {fileID: 1614610963131124321, guid: e0eb158d28652234ca3bff7ea1e7a6bd,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4188505033961394116, guid: e0eb158d28652234ca3bff7ea1e7a6bd,
         type: 3}
@@ -5655,11 +5657,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3321450827598600582, guid: e0eb158d28652234ca3bff7ea1e7a6bd,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0eb158d28652234ca3bff7ea1e7a6bd, type: 3}
 --- !u!4 &1576420973 stripped
 Transform:

@@ -28,7 +28,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] Transform holder;
     [SerializeField] Transform nParentArrow;
-    [SerializeField] Transform nParentNextCubeNormal, nParentNextCubeMini, nParentSpawnBookNormal, nParentSpawnBookMini;
+    [SerializeField] Transform nParentNextCubeNormal, nParentNextCubeMini, nParentSpawnBookNormal, nParentSpawnBookMini, nBgNormal, nBgMini;
     [SerializeField] GameObject testStack;
     [SerializeField] Transform nNextCube1;
 
@@ -189,6 +189,9 @@ public class LogicGame : MonoBehaviour
 
             spawnBook.SetParent(nParentSpawnBookMini);
             spawnBook.transform.localPosition = Vector3.zero;
+
+            nBgMini.gameObject.SetActive(true);
+            nBgNormal.gameObject.SetActive(false);
         }
         else
         {
@@ -197,6 +200,9 @@ public class LogicGame : MonoBehaviour
 
             spawnBook.SetParent(nParentSpawnBookNormal);
             spawnBook.transform.localPosition = Vector3.zero;
+
+            nBgMini.gameObject.SetActive(false);
+            nBgNormal.gameObject.SetActive(true);
         }
     }
 
