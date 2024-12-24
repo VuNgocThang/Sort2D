@@ -73,6 +73,8 @@ public class ControllerAnimState : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.IsBonusGame()) return;
+
         float timeSinceLastAction = Time.time - lastActionTime;
         //Debug.Log("timeSinceLastAction: " + timeSinceLastAction);
 
@@ -103,6 +105,8 @@ public class ControllerAnimState : MonoBehaviour
 
     public void ActionToIdle()
     {
+        if (GameManager.IsBonusGame()) return;
+
         lastActionTime = Time.time;
         currentState = CharacterStateController.Idle;
         PlayAnimIdle();
@@ -110,6 +114,8 @@ public class ControllerAnimState : MonoBehaviour
 
     public void ActionToBonus()
     {
+        if (GameManager.IsBonusGame()) return;
+
         if (canPerformBonus)
         {
             //Debug.Log("Play bonus");
@@ -120,9 +126,7 @@ public class ControllerAnimState : MonoBehaviour
             Invoke(nameof(ResetBonusCooldown), bonusCooldown);
             //Debug.Log("Performed Bonus action");
 
-            StartCoroutine(PlayIdle());
-
-
+            //StartCoroutine(PlayIdle());
         }
         else
         {

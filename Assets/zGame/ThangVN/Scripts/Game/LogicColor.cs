@@ -10,6 +10,7 @@ public class LogicColor : MonoBehaviour
     //[SerializeField] public TrailRenderer trail;
     public GameObject trail;
     public SpriteRenderer spriteRender;
+    public GameObject nBoxText;
     public TextMeshPro txtCount;
 
     public void Init(int index, int layer)

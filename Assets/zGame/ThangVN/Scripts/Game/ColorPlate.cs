@@ -87,9 +87,11 @@ public class ColorPlate : MonoBehaviour
         {
             for (int i = 0; i < ListColor.Count; i++)
             {
+                ListColor[i].nBoxText.gameObject.SetActive(false);
                 ListColor[i].txtCount.gameObject.SetActive(false);
             }
 
+            TopColor.nBoxText.gameObject.SetActive(true);
             TopColor.txtCount.gameObject.SetActive(true);
             TopColor.txtCount.color = SelectColor(TopValue);
             TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();

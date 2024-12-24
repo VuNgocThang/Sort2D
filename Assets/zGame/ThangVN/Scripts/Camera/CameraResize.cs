@@ -66,14 +66,14 @@ public class CameraResize : MonoBehaviour
             if (Cam.aspect < (9 / 16f)) Cam.fieldOfView = 75 * Cam.aspect / (9 / 16f);
         }
 
-        if (Cam.aspect < 0.5625)
-        {
-            canvasUIGame.matchWidthOrHeight = 0;
-        }
-        else
-        {
-            canvasUIGame.matchWidthOrHeight = 1;
-        }
+        //if (Cam.aspect < 0.5625)
+        //{
+        //    canvasUIGame.matchWidthOrHeight = 0;
+        //}
+        //else
+        //{
+        //    canvasUIGame.matchWidthOrHeight = 1;
+        //}
     }
 
 #if UNITY_EDITOR
