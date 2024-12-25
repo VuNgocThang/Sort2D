@@ -46,13 +46,13 @@ public class CameraResize : MonoBehaviour
             {
                 Cam.orthographicSize = minSize;
                 canvasScaler.referenceResolution = minReferenceResolution;
-                canvasUIGame.referenceResolution = maxReferenceResolution;
+                //canvasUIGame.referenceResolution = maxReferenceResolution;
             }
             else
             {
                 Cam.orthographicSize = maxSize;
                 canvasScaler.referenceResolution = maxReferenceResolution;
-                canvasUIGame.referenceResolution = minReferenceResolution;
+                //canvasUIGame.referenceResolution = minReferenceResolution;
             }
             //else
             //{

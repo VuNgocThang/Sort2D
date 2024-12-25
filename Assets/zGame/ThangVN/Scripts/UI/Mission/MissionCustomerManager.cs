@@ -1,8 +1,10 @@
+﻿using DG.Tweening;
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissionCustomerManager : MonoBehaviour
 {
@@ -12,14 +14,33 @@ public class MissionCustomerManager : MonoBehaviour
     public List<Customer> listCustomers;
     public Transform nContent;
     public TextMeshProUGUI txtQuantityCustomer;
+    public Transform nParent;
+
+    public Image imgFillTimer;
+    public float timer;
+    public float currentTimer;
+
+    private void Awake()
+    {
+        ManagerEvent.RegEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED, CheckCustomerCompleted);
+    }
 
     private void Start()
     {
+        currentTimer = 0f;
+        timer = 300f;
         Init();
     }
 
     public void Init()
     {
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            listCustomers[i].gameObject.SetActive(false);
+        }
+
+        listCustomers.Clear();
+
         //10000 Config Start Level Bonus
         int indexLevelBonus = SaveGame.LevelBonus - 10000;
 
@@ -35,42 +56,34 @@ public class MissionCustomerManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    void CheckCustomerCompleted(object e)
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        int index = 0;
+        for (int i = 0; i < listCustomers.Count; i++)
         {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Blue, 1));
-        }
+            if (listCustomers[i].IsCompleted())
+            {
+                listCustomers[i].ChangeSpriteIfDone();
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Red, 2));
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Green, 3));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Yellow, 4));
+                index = i;
+                Move(index);
+            }
         }
     }
 
-    //public void ExecuteMissionCustomer(MissionType missionType, int amount)
-    //{
-    //    for (int i = 0; i < listCustomers.Count; i++)
-    //    {
-    //        for (int j = 0; j < listCustomers[i].missionBonus.missions.Count; j++)
-    //        {
-    //            Mission mission = listCustomers[i].missionBonus.missions[i];
+    void Move(int index)
+    {
+        listCustomers[index].transform.SetParent(nParent);
+        listCustomers[index].transform.DOLocalMoveX(0f, 1f).SetEase(Ease.InExpo);
+    }
 
-    //            if (mission.missionType == missionType)
-    //            {
-    //                mission.current += amount;
-    //            }
-    //        }
-    //    }
-    //}
+    private void Update()
+    {
+
+        if (currentTimer < timer)
+            currentTimer += Time.deltaTime;
+
+        imgFillTimer.fillAmount = currentTimer / timer;
+    }
+
 }

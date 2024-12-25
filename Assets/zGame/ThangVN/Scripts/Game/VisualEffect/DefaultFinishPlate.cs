@@ -57,27 +57,12 @@ public class DefaultFinishPlate : IVisualPlate
                             mainC.startColor = SwitchColor(colorEnum);
                         }
 
+
                         CreatePathAnimation(color, targetPos, plusPoint, count);
 
-                        //color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
-                        //    .OnStart(() =>
-                        //    {
-                        //        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
-                        //    })
-                        //    .OnComplete(() =>
-                        //    {
-                        //        if (plusPoint)
-                        //            ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
 
-                        //        Debug.Log(LogicGame.Instance.point + " ____POINT");
-                        //        LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
-                        //        LogicGame.Instance.IncreaseCountDiff();
-                        //        LogicGame.Instance.SpawnSpecialColor();
-
-                        //        //color.trail.enabled = false;
-                        //        color.trail.SetActive(false);
-                        //        color.gameObject.SetActive(false);
-                        //    });
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
                     }));
             }
             else

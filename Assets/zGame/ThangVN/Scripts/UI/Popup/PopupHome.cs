@@ -34,6 +34,7 @@ public class PopupHome : MonoBehaviour
     public GameObject UiEffect2;
     public GameObject tool;
 
+    [SerializeField] Transform nParentBtnMiniGame, nParentNormal, nManagerMission, nButtons;
 
     private void Awake()
     {
@@ -104,19 +105,33 @@ public class PopupHome : MonoBehaviour
         {
             nLevel.SetActive(true);
             nScoreChallenges.SetActive(false);
+            SetParentNButton(nParentNormal);
             StartCoroutine(ShowTarget());
         }
         else if (GameManager.IsChallengesGame())
         {
             nLevel.SetActive(false);
             nBar.SetActive(false);
+            SetParentNButton(nParentNormal);
             //nScoreChallenges.SetActive(true);
             StartCoroutine(ShowText());
+        }
+        else if (GameManager.IsBonusGame())
+        {
+            nBar.SetActive(false);
+            SetParentNButton(nParentBtnMiniGame);
+            nManagerMission.gameObject.SetActive(true);
         }
 
         iconFake.DOMove(rectTransformTarget.position, 1f);
         // Reach Level Show Popup UnlockBooster
         //PopupUnlockBooster.Show(index);
+    }
+
+    void SetParentNButton(Transform nParent)
+    {
+        nButtons.SetParent(nParent);
+        nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
     private void Update()
