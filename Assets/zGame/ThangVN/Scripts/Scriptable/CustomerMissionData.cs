@@ -23,6 +23,7 @@ public class DataCustomer
 public class DataCustomerMission
 {
     public List<DataCustomer> listCustomers;
+    public float timer;
 }
 
 [CreateAssetMenu(fileName = "CustomerMissionData", menuName = "ScriptableObjects/CustomerMissionData")]

@@ -27,8 +27,6 @@ public class MissionCustomerManager : MonoBehaviour
 
     private void Start()
     {
-        currentTimer = 0f;
-        timer = 300f;
         Init();
     }
 
@@ -54,6 +52,9 @@ public class MissionCustomerManager : MonoBehaviour
             customer.Init(dataCustomer);
             listCustomers.Add(customer);
         }
+
+        currentTimer = 0f;
+        timer = data.listLevelBonus[indexLevelBonus].timer;
     }
 
     void CheckCustomerCompleted(object e)
