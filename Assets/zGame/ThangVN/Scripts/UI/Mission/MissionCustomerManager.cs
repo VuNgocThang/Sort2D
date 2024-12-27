@@ -80,11 +80,54 @@ public class MissionCustomerManager : MonoBehaviour
 
     private void Update()
     {
+        if (LogicGame.Instance.isLose || LogicGame.Instance.isWin) return;
 
         if (currentTimer < timer)
             currentTimer += Time.deltaTime;
 
         imgFillTimer.fillAmount = currentTimer / timer;
+
+        if (IsOverTime())
+        {
+            LogicGame.Instance.isLose = true;
+            RaiseEventLose();
+            Debug.Log("isoverTime");
+        }
+
+        if (IsAllCompleted())
+        {
+            LogicGame.Instance.isWin = true;
+            Debug.Log("completed");
+        }
     }
 
+    bool IsOverTime()
+    {
+        return (currentTimer >= timer && !LogicGame.Instance.isWin);
+    }
+
+    bool IsAllCompleted()
+    {
+        bool isAllCompleted = true;
+
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            if (!listCustomers[i].IsCompleted())
+            {
+                isAllCompleted = false;
+            }
+        }
+
+        return isAllCompleted;
+    }
+
+    void RaiseEventLose()
+    {
+        PopupLoseMiniGame.Show();
+    }
+
+    void RaiseEventWin()
+    {
+        SaveGame.PlayBonus = false;
+    }
 }

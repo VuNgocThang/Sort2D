@@ -1275,7 +1275,6 @@ public class LogicGame : MonoBehaviour
         //bool allPlaced = true;
         int countZeroListValues = 0;
 
-
         for (int i = 0; i < ListCheckPlate.Count; i++)
         {
             if (ListCheckPlate[i].ListValue.Count == 0)
@@ -1353,14 +1352,14 @@ public class LogicGame : MonoBehaviour
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
-            if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
-            {
-                Debug.Log("fuck! van con");
-            }
-            else
-            {
-                Debug.Log("clear");
-            }
+            //if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
+            //{
+            //    Debug.Log("fuck! van con");
+            //}
+            //else
+            //{
+            //    Debug.Log("clear");
+            //}
         }
         else if (GameManager.IsBonusGame())
         {
