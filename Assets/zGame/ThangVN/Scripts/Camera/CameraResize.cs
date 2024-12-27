@@ -27,7 +27,7 @@ public class CameraResize : MonoBehaviour
 
     private void Awake()
     {
-        //CheckCamera();
+        CheckCamera();
     }
 
     void CheckCamera()

@@ -19,6 +19,7 @@ public class MissionCustomerManager : MonoBehaviour
     public Image imgFillTimer;
     public float timer;
     public float currentTimer;
+    public Image bg;
 
     private void Awake()
     {
@@ -87,7 +88,11 @@ public class MissionCustomerManager : MonoBehaviour
 
         imgFillTimer.fillAmount = currentTimer / timer;
 
-        if (IsOverTime())
+        int count = CountCustomer();
+
+        txtQuantityCustomer.text = count.ToString();
+
+        if (IsOverTime() || LogicGame.Instance.isLose)
         {
             LogicGame.Instance.isLose = true;
             RaiseEventLose();
@@ -98,12 +103,26 @@ public class MissionCustomerManager : MonoBehaviour
         {
             LogicGame.Instance.isWin = true;
             Debug.Log("completed");
+            RaiseEventWin();
         }
     }
 
     bool IsOverTime()
     {
         return (currentTimer >= timer && !LogicGame.Instance.isWin);
+    }
+
+    int CountCustomer()
+    {
+        int count = 0;
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            if (listCustomers[i].IsCompleted()) continue;
+
+            count++;
+        }
+
+        return count;
     }
 
     bool IsAllCompleted()
@@ -129,5 +148,6 @@ public class MissionCustomerManager : MonoBehaviour
     void RaiseEventWin()
     {
         SaveGame.PlayBonus = false;
+        PopupWinMiniGame.Show();
     }
 }

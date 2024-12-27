@@ -905,7 +905,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 2640}
+  m_ReferenceResolution: {x: 1080, y: 2340}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -1254,7 +1254,7 @@ Camera:
   far clip plane: 1000
   field of view: 33
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1861,7 +1861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &382378011
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1978,7 +1978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &403845086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2562,6 +2562,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3002211453860350072, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002211453860350072, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002211453860350072, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002211453860350072, guid: 03610f6fcac981c4f9b49d02e5eb0567,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -115
+      objectReference: {fileID: 0}
     - target: {fileID: 7447492058256110580, guid: 03610f6fcac981c4f9b49d02e5eb0567,
         type: 3}
       propertyPath: m_IsActive
@@ -2649,9 +2669,9 @@ MonoBehaviour:
   - {fileID: 1900725513}
   listSpawnNew: []
   homeInGame: {fileID: 8947584224291896624}
-  ListColorPlate: []
   ListArrowPlate: []
   ListCheckPlate: []
+  ListColorPlate: []
   rows: 7
   cols: 6
   isMergeing: 0
@@ -2945,7 +2965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &754014597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5779,6 +5799,7 @@ MonoBehaviour:
   timerConfigData: {fileID: 0}
   magicRune: {fileID: 0}
   isMoving: 0
+  isMerging: 0
   pathType: 0
   customCurve:
     serializedVersion: 2
@@ -6129,7 +6150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1741990881
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7000,6 +7021,7 @@ MonoBehaviour:
   timerConfigData: {fileID: 0}
   magicRune: {fileID: 0}
   isMoving: 0
+  isMerging: 0
   pathType: 0
   customCurve:
     serializedVersion: 2
@@ -7802,6 +7824,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 330585546}
+  - {fileID: 213925593}
   - {fileID: 1305653335}
   - {fileID: 603901195}
   - {fileID: 313190337}
@@ -7811,4 +7834,3 @@ SceneRoots:
   - {fileID: 25859536}
   - {fileID: 799753860}
   - {fileID: 832575519}
-  - {fileID: 213925593}

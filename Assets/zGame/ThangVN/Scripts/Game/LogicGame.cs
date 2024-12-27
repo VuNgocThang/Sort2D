@@ -39,26 +39,46 @@ public class LogicGame : MonoBehaviour
     public List<ColorPlate> listSpawnNew;
     public PopupHome homeInGame;
 
-    [HideInInspector] public List<ColorPlate> ListColorPlate;
-    [HideInInspector] public List<ColorPlate> ListArrowPlate;
-    [HideInInspector] public List<ColorPlate> ListCheckPlate;
-    [HideInInspector] public int rows;
-    [HideInInspector] public int cols;
-    [HideInInspector] public bool isMergeing;
-    [HideInInspector] public bool isLose = false;
-    [HideInInspector] public bool isWin = false;
-    [HideInInspector] public bool isPauseGame = false;
-    [HideInInspector] public static bool isContiuneMerge = false;
-    [HideInInspector] public int point;
-    [HideInInspector] public int maxPoint;
-    [HideInInspector] public int gold;
-    [HideInInspector] public int pigment;
-    [HideInInspector] public int countRevive;
-    [HideInInspector] public int countDiff;
-    [HideInInspector] public int countDiffMax;
-    [HideInInspector] public bool isUsingHammer;
-    [HideInInspector] public bool isUsingHand;
-    [HideInInspector] public List<int> listIntColor;
+    /*[HideInInspector]*/
+    public List<ColorPlate> ListArrowPlate;
+    /*[HideInInspector]*/
+    public List<ColorPlate> ListCheckPlate;
+    /*[HideInInspector]*/
+    public List<ColorPlate> ListColorPlate;
+    /*[HideInInspector]*/
+    public int rows;
+    /*[HideInInspector]*/
+    public int cols;
+    /*[HideInInspector]*/
+    public bool isMergeing;
+    /*[HideInInspector]*/
+    public bool isLose = false;
+    /*[HideInInspector]*/
+    public bool isWin = false;
+    /*[HideInInspector]*/
+    public bool isPauseGame = false;
+    /*[HideInInspector]*/
+    public static bool isContiuneMerge = false;
+    /*[HideInInspector]*/
+    public int point;
+    /*[HideInInspector]*/
+    public int maxPoint;
+    /*[HideInInspector]*/
+    public int gold;
+    /*[HideInInspector]*/
+    public int pigment;
+    /*[HideInInspector]*/
+    public int countRevive;
+    /*[HideInInspector]*/
+    public int countDiff;
+    /*[HideInInspector]*/
+    public int countDiffMax;
+    /*[HideInInspector]*/
+    public bool isUsingHammer;
+    /*[HideInInspector]*/
+    public bool isUsingHand;
+    /*[HideInInspector]*/
+    public List<int> listIntColor;
 
     [SerializeField] LayerMask layerArrow;
     [SerializeField] LayerMask layerPlateSpawn;
@@ -91,7 +111,7 @@ public class LogicGame : MonoBehaviour
 
     Tweener tweenerMove;
 
-    
+
 
     [SerializeField] RectTransform slot_5;
     [SerializeField] RectTransform slot_6;
@@ -147,6 +167,9 @@ public class LogicGame : MonoBehaviour
     private async Task Refresh()
     {
         DOTween.KillAll();
+
+        countDiff = 2;
+
         if (GameManager.IsNormalGame())
             dataLevel = await DataLevel.GetData(SaveGame.Level);
         else if (GameManager.IsBonusGame())
@@ -162,7 +185,6 @@ public class LogicGame : MonoBehaviour
         isMergeing = false;
         isPauseGame = false;
         listColors.Refresh();
-        countDiff = 2;
         countRevive = 1;
         point = 0;
         clickParticlePool = new CustomPool<ParticleSystem>(clickParticle, 5, transform, false);
@@ -669,7 +691,7 @@ public class LogicGame : MonoBehaviour
             }
         }
 
-        if (point >= maxPoint && !isWin && !isContiuneMerge && GameManager.IsNormalGame())
+        if (point >= maxPoint && !isLose && !isWin && !isContiuneMerge && GameManager.IsNormalGame())
         {
             CheckWin();
             StartCoroutine(RaiseEventWin());
@@ -1195,10 +1217,11 @@ public class LogicGame : MonoBehaviour
     {
         timerRun = 0;
         isMergeing = true;
-
         //Debug.Log(startColorPlate.isMoving + "  __  " + endColorPlate.isMoving);
 
         if (startColorPlate.isMoving || endColorPlate.isMoving) return;
+        startColorPlate.isMerging = true;
+        endColorPlate.isMerging = true;
 
         if (startColorPlate.listTypes.Count == 0) return;
 
@@ -1261,6 +1284,9 @@ public class LogicGame : MonoBehaviour
         sequence.OnComplete(() =>
         {
             //Debug.Log("fuck done");
+            startColorPlate.isMerging = false;
+            endColorPlate.isMerging = false;
+
             if (listSteps.Count > 0) listSteps.RemoveAt(listSteps.Count - 1);
         });
     }
@@ -1330,7 +1356,12 @@ public class LogicGame : MonoBehaviour
         else if (GameManager.IsChallengesGame())
             ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
         else if (GameManager.IsBonusGame())
+        {
+            PopupLoseMiniGame.Show();
             Debug.Log("Raise PopupLose BonusGame");
+
+        }
+
     }
     void CheckWin()
     {
@@ -1342,7 +1373,10 @@ public class LogicGame : MonoBehaviour
         if (GameManager.IsNormalGame())
         {
             if (SaveGame.Level < GameConfig.MAX_LEVEL)
+            {
+                Debug.Log("add level normal");
                 SaveGame.Level++;
+            }
 
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
@@ -1552,13 +1586,12 @@ public class LogicGame : MonoBehaviour
     }
     void LoadSaveData()
     {
-        Debug.Log("2");
         if (GameManager.IsNormalGame())
         {
-            if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
-            {
-                Debug.Log("fuck! van con");
-            }
+            //if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
+            //{
+            //    Debug.Log("fuck! van con");
+            //}
 
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
             if (string.IsNullOrEmpty(gameSaveData))
@@ -1719,10 +1752,10 @@ public class LogicGame : MonoBehaviour
             ListResult.Add((int)obj.Key);
         }
 
-        for (int i = 0; i < ListResult.Count; i++)
-        {
-            Debug.Log((ColorEnum)ListResult[i]);
-        }
+        //for (int i = 0; i < ListResult.Count; i++)
+        //{
+        //    Debug.Log((ColorEnum)ListResult[i]);
+        //}
 
         return ListResult;
     }
