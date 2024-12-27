@@ -23,6 +23,7 @@ public class CameraResize : MonoBehaviour
     [SerializeField] Vector2 maxReferenceResolution = new Vector2(1080, 2640);
 
     [SerializeField] CanvasScaler canvasUIGame;
+    [SerializeField] Transform nParentNormal, nParentMax;
 
     private void Awake()
     {
@@ -47,12 +48,16 @@ public class CameraResize : MonoBehaviour
                 Cam.orthographicSize = minSize;
                 canvasScaler.referenceResolution = minReferenceResolution;
                 //canvasUIGame.referenceResolution = maxReferenceResolution;
+                nParentNormal.gameObject.SetActive(true);
+                nParentMax.gameObject.SetActive(false);
             }
             else
             {
                 Cam.orthographicSize = maxSize;
                 canvasScaler.referenceResolution = maxReferenceResolution;
                 //canvasUIGame.referenceResolution = minReferenceResolution;
+                nParentNormal.gameObject.SetActive(false);
+                nParentMax.gameObject.SetActive(true);
             }
             //else
             //{

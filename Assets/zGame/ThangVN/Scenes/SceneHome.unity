@@ -592,7 +592,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -1695,6 +1695,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3245147144945814124, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245147144945814124, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3245147144945814124, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -570
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268044113013146415, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268044113013146415, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3268044113013146415, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -333
+      objectReference: {fileID: 0}
     - target: {fileID: 3645897363638271178, guid: 3011edc843ec15e49874b8707a1709ff,
         type: 3}
       propertyPath: m_Name
@@ -1734,6 +1764,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600446558098316692, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600446558098316692, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600446558098316692, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -807
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

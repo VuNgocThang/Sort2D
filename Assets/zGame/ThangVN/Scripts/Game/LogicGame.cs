@@ -30,7 +30,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] Transform nParentArrow;
     [SerializeField] Transform nParentNextCubeNormal, nParentNextCubeMini, nParentSpawnBookNormal, nParentSpawnBookMini, nBgNormal, nBgMini;
     [SerializeField] GameObject testStack;
-    [SerializeField] Transform nNextCube1;
+    [SerializeField] Transform nNextCube1, nStand;
 
     [SerializeField] ColorPlate colorPLatePrefab;
     [SerializeField] ColorPlate arrowPlatePrefab;
@@ -38,11 +38,27 @@ public class LogicGame : MonoBehaviour
     public List<ColorPlate> listNextPlate;
     public List<ColorPlate> listSpawnNew;
     public PopupHome homeInGame;
+
     [HideInInspector] public List<ColorPlate> ListColorPlate;
     [HideInInspector] public List<ColorPlate> ListArrowPlate;
     [HideInInspector] public List<ColorPlate> ListCheckPlate;
     [HideInInspector] public int rows;
     [HideInInspector] public int cols;
+    [HideInInspector] public bool isMergeing;
+    [HideInInspector] public bool isLose = false;
+    [HideInInspector] public bool isWin = false;
+    [HideInInspector] public bool isPauseGame = false;
+    [HideInInspector] public static bool isContiuneMerge = false;
+    [HideInInspector] public int point;
+    [HideInInspector] public int maxPoint;
+    [HideInInspector] public int gold;
+    [HideInInspector] public int pigment;
+    [HideInInspector] public int countRevive;
+    [HideInInspector] public int countDiff;
+    [HideInInspector] public int countDiffMax;
+    [HideInInspector] public bool isUsingHammer;
+    [HideInInspector] public bool isUsingHand;
+    [HideInInspector] public List<int> listIntColor;
 
     [SerializeField] LayerMask layerArrow;
     [SerializeField] LayerMask layerPlateSpawn;
@@ -75,21 +91,7 @@ public class LogicGame : MonoBehaviour
 
     Tweener tweenerMove;
 
-    [HideInInspector] public bool isMergeing;
-    [HideInInspector] public bool isLose = false;
-    [HideInInspector] public bool isWin = false;
-    [HideInInspector] public bool isPauseGame = false;
-    [HideInInspector] public static bool isContiuneMerge = false;
-    [HideInInspector] public int point;
-    [HideInInspector] public int maxPoint;
-    [HideInInspector] public int gold;
-    [HideInInspector] public int pigment;
-    [HideInInspector] public int countRevive;
-    [HideInInspector] public int countDiff;
-    [HideInInspector] public int countDiffMax;
-    [HideInInspector] public bool isUsingHammer;
-    [HideInInspector] public bool isUsingHand;
-    [HideInInspector] public List<int> listIntColor;
+    
 
     [SerializeField] RectTransform slot_5;
     [SerializeField] RectTransform slot_6;
@@ -115,7 +117,6 @@ public class LogicGame : MonoBehaviour
     public DataLevel dataLevel = new DataLevel();
     public bool IsDataLoaded { get; private set; } = false;
 
-    //public bool isMiniGame;
 
     LogicColor GetColorNew()
     {
@@ -126,14 +127,6 @@ public class LogicGame : MonoBehaviour
         Instance = this;
         ManagerEvent.RegEvent(EventCMD.EVENT_SWITCH, SwitchNextPlate);
         //ManagerEvent.RegEvent(EventCMD.EVENT_SPAWN_PLATE, InitPlateSpawn);
-        //if (isMiniGame)
-        //{
-        //    SaveGame.PlayBonus = true;
-        //}
-        //else
-        //{
-        //    SaveGame.PlayBonus = false;
-        //}
     }
 
     async void Start()
@@ -192,6 +185,7 @@ public class LogicGame : MonoBehaviour
 
             nBgMini.gameObject.SetActive(true);
             nBgNormal.gameObject.SetActive(false);
+            nStand.gameObject.SetActive(true);
         }
         else
         {
@@ -203,6 +197,7 @@ public class LogicGame : MonoBehaviour
 
             nBgMini.gameObject.SetActive(false);
             nBgNormal.gameObject.SetActive(true);
+            nStand.gameObject.SetActive(false);
         }
     }
 
