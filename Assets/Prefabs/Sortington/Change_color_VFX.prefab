@@ -44,7 +44,7 @@ ParticleSystem:
   m_GameObject: {fileID: 2139426836423624069}
   serializedVersion: 8
   lengthInSec: 2
-  simulationSpeed: 1
+  simulationSpeed: 3
   stopAction: 3
   cullingMode: 0
   ringBufferMode: 0
@@ -4844,7 +4844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e598a87005327d4dbee2296292ee00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeParticle: 6
+  typeParticle: 9
   particle: {fileID: 0}
 --- !u!1 &7203243128769696045
 GameObject:

@@ -80,7 +80,7 @@ public class SetMapManager : MonoBehaviour
     }
 
 
-   
+
 
     void LoadDataSetMap(int level)
     {
@@ -223,7 +223,17 @@ public class SetMapManager : MonoBehaviour
             //arrow.transform.localEulerAngles = rotation;
             parent.localScale = new Vector3(scale, scale, scale);
 
-            arrow.transform.position = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
+            Vector3 pos = new Vector3();
+            if (GameManager.IsBonusGame())
+            {
+                pos = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale - 2.2f, 0);
+            }
+            else
+            {
+                pos = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - 0.2f * scale, 0);
+            }
+
+            arrow.transform.position = pos;
 
             int max = rows >= cols ? rows : cols;
             if (max != 6)

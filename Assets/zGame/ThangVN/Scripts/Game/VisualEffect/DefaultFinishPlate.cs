@@ -41,7 +41,13 @@ public class DefaultFinishPlate : IVisualPlate
                         //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
 
-                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
+                        //ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
+                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn();
+                        eatParticle.transform.SetParent(colorPlate.transform);
+                        eatParticle.transform.localPosition = Vector3.zero;
+                        eatParticle.transform.localScale = Vector3.one;
+                        eatParticle.Play();
+
                         var main = eatParticle.main;
                         main.startColor = SwitchColor(colorEnum);
                         for (int j = 1; j < eatParticle.transform.childCount; j++)
@@ -51,27 +57,12 @@ public class DefaultFinishPlate : IVisualPlate
                             mainC.startColor = SwitchColor(colorEnum);
                         }
 
+
                         CreatePathAnimation(color, targetPos, plusPoint, count);
 
-                        //color.transform.DOMove(targetPos, GameConfig.TIME_FLY)
-                        //    .OnStart(() =>
-                        //    {
-                        //        ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
-                        //    })
-                        //    .OnComplete(() =>
-                        //    {
-                        //        if (plusPoint)
-                        //            ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
 
-                        //        Debug.Log(LogicGame.Instance.point + " ____POINT");
-                        //        LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
-                        //        LogicGame.Instance.IncreaseCountDiff();
-                        //        LogicGame.Instance.SpawnSpecialColor();
-
-                        //        //color.trail.enabled = false;
-                        //        color.trail.SetActive(false);
-                        //        color.gameObject.SetActive(false);
-                        //    });
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
                     }));
             }
             else

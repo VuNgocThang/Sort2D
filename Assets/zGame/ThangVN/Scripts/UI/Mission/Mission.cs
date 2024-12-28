@@ -1,4 +1,4 @@
-using ntDev;
+﻿using ntDev;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,18 +6,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Serializable]
-public enum MissionType
-{
-    Red,
-    Green,
-    Blue,
-    Yellow
-}
+//[Serializable]
+//public enum MissionType
+//{
+//    Red,
+//    Green,
+//    Blue,
+//    Yellow,
+//    Purple,
+//    Pink
+//}
 
 public class Mission : MonoBehaviour
 {
-    public MissionType missionType;
+    public ColorEnum missionType;
     public int quantity;
     public int current;
 
@@ -41,9 +43,27 @@ public class Mission : MonoBehaviour
         missionType = dataMission.missionType;
         imgIcon.sprite = dataMission.spriteMission;
         quantity = dataMission.quantity;
+        AddBorder();
 
         txtQuantity.text = quantity.ToString();
         txtCurrent.text = "0 /";
+    }
+
+    void AddBorder()
+    {
+        if (txtQuantity == null || txtCurrent == null) return;
+
+        //Material materialtxtQuantity = txtQuantity.fontSharedMaterial;
+
+        //materialtxtQuantity.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
+        //materialtxtQuantity.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
+        //materialtxtQuantity.SetFloat(ShaderUtilities.ID_OutlineSoftness, 0.1f);
+
+        //Material materialtxtCurrent = txtCurrent.fontSharedMaterial;
+
+        //materialtxtCurrent.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
+        //materialtxtCurrent.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
+        //materialtxtCurrent.SetFloat(ShaderUtilities.ID_OutlineSoftness, 0.1f);
     }
 
     public bool Completed()
@@ -53,7 +73,7 @@ public class Mission : MonoBehaviour
 
     public void UpdateProgressMission(MissionProgress missionProgress)
     {
-        MissionType typeCheck = missionProgress.missionType;
+        ColorEnum typeCheck = missionProgress.missionType;
         int currentCheck = missionProgress.current;
 
         if (missionType == typeCheck)

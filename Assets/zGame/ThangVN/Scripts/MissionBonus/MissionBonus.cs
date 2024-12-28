@@ -42,4 +42,12 @@ public class MissionBonus : MonoBehaviour
 
         return isCompleted;
     }
+
+    public void ChangeSpriteIfDone()
+    {
+        for (int i = 0; i < missions.Count; i++)
+        {
+            missions[i].gameObject.SetActive(false);
+        }
+    }
 }

@@ -50,12 +50,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 80
     m_Right: 0
-    m_Top: 0
+    m_Top: -80
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -75,6 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b278b3d3995c590479c9917fabacaee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missions: []
   missionPrefab: {fileID: 3590277515433296024, guid: 78763e5ed354244438d0dd236dc61b37,
     type: 3}
-  missions: []

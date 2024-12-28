@@ -75,8 +75,9 @@ namespace ntDev
         EVENT_SELECT_ROOM,
         EVENT_SPAWN_PLATE,
         EVENT_MISSION_CUSTOMER,
+        EVENT_CHECK_MISSION_COMPLETED,
         EVENT_CHANGE_COLOR,
-        EVENT_OPEN_NEWBOOK
+        EVENT_OPEN_NEWBOOK,
     }
 
     public static class ManagerEvent

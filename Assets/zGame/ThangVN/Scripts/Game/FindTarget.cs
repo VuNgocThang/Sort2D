@@ -127,12 +127,28 @@ public class FindTarget
 
             }
 
+            // độ ưu tiên thứ 4: ưu tiên merge sang có ít stacks hơn
+            if (listDataConnect[0].listTypes.Count > listDataConnect[1].listTypes.Count)
+            {
+                colorResult = listDataConnect[1];
+                return colorResult;
+            }
+            else if (listDataConnect[0].listTypes.Count < listDataConnect[1].listTypes.Count)
+            {
+                colorResult = listDataConnect[0];
+                return colorResult;
+            }
+
+
+            // độ ưu tiên thứ 5: ưu tiên merge vào giữa
             colorResult = ComparePlates(listDataConnect[0], listDataConnect[1]);
 
             if (colorResult != null)
                 return colorResult;
 
             //Debug.Log(listDataConnect[0].name + " default");
+
+            // độ ưu tiên cuối cùng: bản cũ ();
             int countArrow = 0;
             foreach (ColorPlate c in listDataConnect)
             {

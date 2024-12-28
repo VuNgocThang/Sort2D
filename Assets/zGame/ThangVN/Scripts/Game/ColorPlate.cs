@@ -5,6 +5,7 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Utilities.Common;
 
 public enum ColorEnum
 {
@@ -73,6 +74,7 @@ public class ColorPlate : MonoBehaviour
     public TimerConfigData timerConfigData;
     public ParticleSystem magicRune;
     public bool isMoving;
+    public bool isMerging;
     public PathType pathType;
 
     private void Start()
@@ -83,17 +85,45 @@ public class ColorPlate : MonoBehaviour
 
     private void Update()
     {
-        if (ListColor.Count > 0)
+        if (ListColor.Count <= 0) return;
+
+        if (isMerging)
         {
             for (int i = 0; i < ListColor.Count; i++)
             {
+                ListColor[i].nBoxText.gameObject.SetActive(false);
+                ListColor[i].txtCount.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < ListColor.Count; i++)
+            {
+                ListColor[i].nBoxText.gameObject.SetActive(false);
                 ListColor[i].txtCount.gameObject.SetActive(false);
             }
 
+            TopColor.nBoxText.gameObject.SetActive(true);
             TopColor.txtCount.gameObject.SetActive(true);
-            TopColor.txtCount.color = SelectColor(TopValue);
+            //TopColor.txtCount.color = SelectColor(TopValue);
+            TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
             TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
         }
+
+        //if (ListColor.Count > 0)
+        //{
+        //    for (int i = 0; i < ListColor.Count; i++)
+        //    {
+        //        ListColor[i].nBoxText.gameObject.SetActive(false);
+        //        ListColor[i].txtCount.gameObject.SetActive(false);
+        //    }
+
+        //    TopColor.nBoxText.gameObject.SetActive(true);
+        //    TopColor.txtCount.gameObject.SetActive(true);
+        //    //TopColor.txtCount.color = SelectColor(TopValue);
+        //    TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
+        //    TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
+        //}
     }
 
     Color SelectColor(ColorEnum colorEnum)
@@ -163,13 +193,19 @@ public class ColorPlate : MonoBehaviour
         // tính số lượng màu khác nhau trong 1 stacks
         int randomCountInStacks = CalculateCountInStacks(levelData);
 
-        //Debug.Log("randomCountInStacks: " + randomCountInStacks);
+        Debug.Log("randomCountInStacks: " + randomCountInStacks);
 
         // chọn màu trong stacks 
         List<int> listDiff = new List<int>();
         listDiff = CalculateListDiff(levelData, randomCountInStacks);
 
         listDiff.Reverse();
+
+        Debug.Log(listDiff.Count);
+        foreach (int type in listDiff)
+        {
+            Debug.Log("type : " + type);
+        }
         // Spawn Count Same Type
         foreach (int type in listDiff)
         {
@@ -249,6 +285,8 @@ public class ColorPlate : MonoBehaviour
         List<float> listRatioChange = GameManager.ChangeToList(levelData.Ratio);
 
         listValue.AddRange(LogicGame.Instance.CalculateCountColorInDesk());
+
+        Debug.Log("listvalue: " + listValue.Count);
 
         for (int i = 0; i < LogicGame.Instance.countDiff; i++)
         {
@@ -671,7 +709,11 @@ public class ColorPlate : MonoBehaviour
 
             if (ListConnect[i].countFrozen == 0) continue;
 
-            LogicGame.Instance.frostExplosionPool.Spawn(ListConnect[i].transform.position, true);
+            ParticleSystem frostPart = LogicGame.Instance.frostExplosionPool.Spawn();
+            frostPart.transform.SetParent(ListConnect[i].transform);
+            frostPart.transform.localPosition = Vector3.zero;
+            frostPart.transform.localScale = Vector3.one;
+            frostPart.Play();
 
             ListConnect[i].countFrozen--;
 

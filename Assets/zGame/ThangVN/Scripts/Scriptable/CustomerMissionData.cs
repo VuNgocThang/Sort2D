@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class DataMission
 {
-    public MissionType missionType;
+    public ColorEnum missionType;
     public Sprite spriteMission;
     public int quantity;
 }
@@ -15,6 +15,7 @@ public class DataMission
 public class DataCustomer
 {
     public Sprite spriteCustomer;
+    public Sprite spriteCompleted;
     public List<DataMission> missions;
 }
 
@@ -22,6 +23,7 @@ public class DataCustomer
 public class DataCustomerMission
 {
     public List<DataCustomer> listCustomers;
+    public float timer;
 }
 
 [CreateAssetMenu(fileName = "CustomerMissionData", menuName = "ScriptableObjects/CustomerMissionData")]

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MissionProgress
 {
-    public MissionType missionType;
+    public ColorEnum missionType;
     public int current;
 
-    public MissionProgress(MissionType missionType, int current)
+    public MissionProgress(ColorEnum missionType, int current)
     {
         this.missionType = missionType;
         this.current = current;

@@ -17,7 +17,7 @@ public class PopupHome : MonoBehaviour
     public Image imgFill;
     [SerializeField] Animator animBtnSwitch;
     [SerializeField] GameObject imgSpecial, top, bot, nSpawn;
-    [SerializeField] GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges, nButtons;
+    [SerializeField] GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
 
     [SerializeField] Image iconItem, imgTextName;
     [SerializeField] TextMeshProUGUI txtNameBooster, txtExplain;
@@ -28,13 +28,13 @@ public class PopupHome : MonoBehaviour
     [SerializeField] BoosterData boosterData;
     [SerializeField] Animator animBar, animPigment, animChallenges;
     [SerializeField] RectTransform rectTransformTarget, rectTransformChallenges;
-    [SerializeField] Transform iconFake, iconTargetPigment, txtFake, txtChallengesObj, nNormal, n05625, nSmall05625, nBig05625;
+    [SerializeField] Transform iconFake, iconTargetPigment, txtFake, txtChallengesObj;
     public GameObject imgDanger;
     public GameObject UiEffect;
     public GameObject UiEffect2;
     public GameObject tool;
-    const float iPhanRatio = 1080f / 1920;
 
+    [SerializeField] Transform nParentBtnMiniGame, nParentNormal, nManagerMission, nButtons;
 
     private void Awake()
     {
@@ -101,58 +101,37 @@ public class PopupHome : MonoBehaviour
         btnSwap.Init();
         btnRefresh.Init();
 
-        //if (cam.aspect == iPhanRatio)
-        //{
-        //    nButtons.transform.SetParent(n05625);
-        //    nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        //}
-        //else if(cam.aspect < iPhanRatio)
-        //{
-        //    nButtons.transform.SetParent(nSmall05625);
-        //    nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        //}
-        //else
-        //{
-        //    nButtons.transform.SetParent(nBig05625);
-        //    nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-        //}
-
         if (GameManager.IsNormalGame())
         {
             nLevel.SetActive(true);
             nScoreChallenges.SetActive(false);
+            SetParentNButton(nParentNormal);
             StartCoroutine(ShowTarget());
         }
         else if (GameManager.IsChallengesGame())
         {
             nLevel.SetActive(false);
             nBar.SetActive(false);
+            SetParentNButton(nParentNormal);
             //nScoreChallenges.SetActive(true);
             StartCoroutine(ShowText());
         }
         else if (GameManager.IsBonusGame())
         {
             nBar.SetActive(false);
-            if (cam.aspect == iPhanRatio)
-            {
-                nButtons.transform.SetParent(n05625);
-                nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            }
-            else if (cam.aspect < iPhanRatio)
-            {
-                nButtons.transform.SetParent(nSmall05625);
-                nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            }
-            else
-            {
-                nButtons.transform.SetParent(nBig05625);
-                nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            }
+            SetParentNButton(nParentBtnMiniGame);
+            nManagerMission.gameObject.SetActive(true);
         }
 
         iconFake.DOMove(rectTransformTarget.position, 1f);
         // Reach Level Show Popup UnlockBooster
         //PopupUnlockBooster.Show(index);
+    }
+
+    void SetParentNButton(Transform nParent)
+    {
+        nButtons.SetParent(nParent);
+        nButtons.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
     private void Update()

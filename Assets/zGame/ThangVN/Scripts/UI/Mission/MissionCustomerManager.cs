@@ -1,8 +1,10 @@
+﻿using DG.Tweening;
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MissionCustomerManager : MonoBehaviour
 {
@@ -12,6 +14,17 @@ public class MissionCustomerManager : MonoBehaviour
     public List<Customer> listCustomers;
     public Transform nContent;
     public TextMeshProUGUI txtQuantityCustomer;
+    public Transform nParent;
+
+    public Image imgFillTimer;
+    public float timer;
+    public float currentTimer;
+    public Image bg;
+
+    private void Awake()
+    {
+        ManagerEvent.RegEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED, CheckCustomerCompleted);
+    }
 
     private void Start()
     {
@@ -20,7 +33,15 @@ public class MissionCustomerManager : MonoBehaviour
 
     public void Init()
     {
-        int indexLevelBonus = SaveGame.LevelBonus;
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            listCustomers[i].gameObject.SetActive(false);
+        }
+
+        listCustomers.Clear();
+
+        //10000 Config Start Level Bonus
+        int indexLevelBonus = SaveGame.LevelBonus - 10000;
 
         txtQuantityCustomer.text = data.listLevelBonus[indexLevelBonus].listCustomers.Count.ToString();
 
@@ -32,44 +53,101 @@ public class MissionCustomerManager : MonoBehaviour
             customer.Init(dataCustomer);
             listCustomers.Add(customer);
         }
+
+        currentTimer = 0f;
+        timer = data.listLevelBonus[indexLevelBonus].timer;
+    }
+
+    void CheckCustomerCompleted(object e)
+    {
+        int index = 0;
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            if (listCustomers[i].IsCompleted())
+            {
+                listCustomers[i].ChangeSpriteIfDone();
+
+                index = i;
+                Move(index);
+            }
+        }
+    }
+
+    void Move(int index)
+    {
+        listCustomers[index].transform.SetParent(nParent);
+        listCustomers[index].transform.DOLocalMoveX(0f, 1f).SetEase(Ease.InExpo);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (LogicGame.Instance.isLose || LogicGame.Instance.isWin) return;
+
+        if (currentTimer < timer)
+            currentTimer += Time.deltaTime;
+
+        imgFillTimer.fillAmount = currentTimer / timer;
+
+        int count = CountCustomer();
+
+        txtQuantityCustomer.text = count.ToString();
+
+        if (IsOverTime() || LogicGame.Instance.isLose)
         {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Blue, 1));
+            LogicGame.Instance.isLose = true;
+            RaiseEventLose();
+            Debug.Log("isoverTime");
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (IsAllCompleted())
         {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Red, 2));
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Green, 3));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(MissionType.Yellow, 4));
+            LogicGame.Instance.isWin = true;
+            Debug.Log("completed");
+            RaiseEventWin();
         }
     }
 
-    //public void ExecuteMissionCustomer(MissionType missionType, int amount)
-    //{
-    //    for (int i = 0; i < listCustomers.Count; i++)
-    //    {
-    //        for (int j = 0; j < listCustomers[i].missionBonus.missions.Count; j++)
-    //        {
-    //            Mission mission = listCustomers[i].missionBonus.missions[i];
+    bool IsOverTime()
+    {
+        return (currentTimer >= timer && !LogicGame.Instance.isWin);
+    }
 
-    //            if (mission.missionType == missionType)
-    //            {
-    //                mission.current += amount;
-    //            }
-    //        }
-    //    }
-    //}
+    int CountCustomer()
+    {
+        int count = 0;
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            if (listCustomers[i].IsCompleted()) continue;
+
+            count++;
+        }
+
+        return count;
+    }
+
+    bool IsAllCompleted()
+    {
+        bool isAllCompleted = true;
+
+        for (int i = 0; i < listCustomers.Count; i++)
+        {
+            if (!listCustomers[i].IsCompleted())
+            {
+                isAllCompleted = false;
+            }
+        }
+
+        return isAllCompleted;
+    }
+
+    void RaiseEventLose()
+    {
+        PopupLoseMiniGame.Show();
+    }
+
+    void RaiseEventWin()
+    {
+        SaveGame.PlayBonus = false;
+        PopupWinMiniGame.Show();
+    }
 }
