@@ -168,7 +168,7 @@ public class LogicGame : MonoBehaviour
     {
         DOTween.KillAll();
 
-        countDiff = 2;
+        countDiff = 3;
 
         if (GameManager.IsNormalGame())
             dataLevel = await DataLevel.GetData(SaveGame.Level);
