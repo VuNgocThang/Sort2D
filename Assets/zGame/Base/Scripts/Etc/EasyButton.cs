@@ -55,7 +55,7 @@ namespace ntDev
             if (eventData.button != PointerEventData.InputButton.Left || disable) return;
             if (act != null) act();
             else if (actO != null) actO(o);
-            if (animEasyButton != null) animEasyButton.Play("Clicked");
+            //if (animEasyButton != null) animEasyButton.Play("Clicked");
             if (ManagerAudio.Instance != null && ManagerAudio.Data.soundClick != null && ManagerAudio.Data != null) ManagerAudio.PlaySound(ManagerAudio.Data.soundClickBtn);
         }
 
@@ -64,21 +64,27 @@ namespace ntDev
         int scaleFlow = 0;
         public virtual void OnPointerDown(PointerEventData eventData)
         {
-            //Debug.Log(eventData.button + " ___ " + disable);
             if (eventData.button != PointerEventData.InputButton.Left || disable) return;
             if (enableSpriteFX && pressedSprite != null)
                 img.sprite = pressedSprite;
             if (Down != null) Down.LposY(posY - DownPixel);
             scaleFlow = -1;
+            if (animEasyButton != null) animEasyButton.Play("Down");
+
+            Debug.Log("POINTERDOWN");
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
+
             if (eventData.button != PointerEventData.InputButton.Left || disable) return;
             if (enableSpriteFX && normalSprite != null)
                 img.sprite = normalSprite;
             if (Down != null) Down.LposY(posY);
             scaleFlow = 1;
+            if (animEasyButton != null) animEasyButton.Play("Up");
+
+            Debug.Log("POINTERUP");
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
