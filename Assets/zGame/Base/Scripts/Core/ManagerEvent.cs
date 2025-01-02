@@ -78,6 +78,7 @@ namespace ntDev
         EVENT_CHECK_MISSION_COMPLETED,
         EVENT_CHANGE_COLOR,
         EVENT_OPEN_NEWBOOK,
+        EVENT_DAILYTASK,
     }
 
     public static class ManagerEvent

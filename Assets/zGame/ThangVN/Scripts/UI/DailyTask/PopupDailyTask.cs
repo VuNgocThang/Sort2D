@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
-
+using TMPro;
 
 public class PopupDailyTask : Popup
 {
@@ -10,6 +10,9 @@ public class PopupDailyTask : Popup
     public DailyTask dailyTaskPrefab;
     public Transform nHolderContent;
     [SerializeField] DailyTaskSaved data;
+    [SerializeField] int currentPoint;
+    [SerializeField] TextMeshProUGUI txtCurrentPoint;
+
     public static async void Show()
     {
         PopupDailyTask pop = await ManagerPopup.ShowPopup<PopupDailyTask>();
@@ -20,11 +23,23 @@ public class PopupDailyTask : Popup
     {
         base.Init();
 
+        ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, UpdateCountStar);
+
+        Debug.Log(DailyTaskManager.Instance.dataSaved);
+
         data = DailyTaskManager.Instance.dataSaved;
 
         RefreshList();
 
+        RefreshPoint();
+
         CreateContent();
+    }
+
+    void RefreshPoint()
+    {
+        currentPoint = data.currentPoint;
+        txtCurrentPoint.text = currentPoint.ToString();
     }
 
     private void RefreshList()
@@ -58,5 +73,10 @@ public class PopupDailyTask : Popup
         }
     }
 
+    void UpdateCountStar(object e)
+    {
+        currentPoint += (int)e;
+        txtCurrentPoint.text = currentPoint.ToString();
+    }
 
 }

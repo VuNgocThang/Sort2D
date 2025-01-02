@@ -110,9 +110,9 @@ public class PopupFreeCoin : Popup
 
     void RefreshData()
     {
-        if (SaveGame.NewDay != DateTime.Now.DayOfYear)
+        if (SaveGame.NewDayFreeCoin != DateTime.Now.DayOfYear)
         {
-            SaveGame.NewDay = DateTime.Now.DayOfYear;
+            SaveGame.NewDayFreeCoin = DateTime.Now.DayOfYear;
 
             SaveGame.DataFreeCoin.listDataFreeCoin.Clear();
             SaveGame.DataFreeCoin.currentIndex = 0;

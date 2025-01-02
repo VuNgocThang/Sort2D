@@ -17,7 +17,8 @@ public class DailyTask : MonoBehaviour
 
     public TextMeshProUGUI txtNameTask, txtProgress, txtStar;
     public Image imgProgress;
-    [SerializeField] EasyButton btnClaim;
+    [SerializeField] EasyButton btnClaim, btnGo;
+    [SerializeField] GameObject canClaim, claimed, imgStarClaimed;
 
     public bool CanClaim()
     {
@@ -31,12 +32,23 @@ public class DailyTask : MonoBehaviour
 
     public void Init()
     {
+        if (currentProgress >= reach) currentProgress = reach;
+
         txtNameTask.text = $"{taskName}";
         txtStar.text = starReward.ToString();
         txtProgress.text = $"{currentProgress} / {reach}";
         imgProgress.fillAmount = currentProgress / reach;
 
-        if (isClaimed) btnClaim.gameObject.SetActive(false);
+        btnGo.gameObject.SetActive(!CanClaim());
+
+        if (CanClaim())
+        {
+            canClaim.SetActive(!isClaimed);
+            claimed.SetActive(isClaimed);
+            imgStarClaimed.SetActive(isClaimed);
+        }
+       
+        //if (isClaimed) btnClaim.gameObject.SetActive(false);
     }
 
 
@@ -46,6 +58,11 @@ public class DailyTask : MonoBehaviour
         if (isClaimed) return;
 
         isClaimed = true;
+
+        canClaim.SetActive(!isClaimed);
+        claimed.SetActive(isClaimed);
+        imgStarClaimed.SetActive(isClaimed);
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_DAILYTASK, starReward);
         SaveData();
     }
 

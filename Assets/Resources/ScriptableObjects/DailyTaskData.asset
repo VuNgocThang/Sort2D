@@ -16,12 +16,14 @@ MonoBehaviour:
   - taskType: 1
     taskName: Completed 3 Levels
     starReward: 5
+    isClaimed: 0
     taskGoal:
       reach: 3
       currentProgress: 0
   - taskType: 3
     taskName: Merge 50 times
     starReward: 10
+    isClaimed: 0
     taskGoal:
       reach: 50
       currentProgress: 0

@@ -1,3 +1,4 @@
+using ntDev;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ public class DailyTaskManager : MonoBehaviour
     {
         if (Instance == null)
             Instance = this;
+
+        ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
     }
 
     public DailyTaskData dailyTaskData;
@@ -61,11 +64,24 @@ public class DailyTaskManager : MonoBehaviour
         SaveData();
     }
 
+    public void SaveCurrentStar(object e)
+    {
+        DailyTaskSaved dailyTaskSaved = new DailyTaskSaved();
+
+        dataSaved.currentPoint += (int)e;
+
+        dailyTaskSaved = dataSaved;
+
+        SaveData();
+    }
+
     public void SaveData()
     {
         string json = JsonUtility.ToJson(new DailyTaskSaved()
         {
-            listTaskSaved = dataSaved.listTaskSaved
+            listTaskSaved = dataSaved.listTaskSaved,
+            currentPoint = dataSaved.currentPoint
+            
         }, true);
 
         PlayerPrefs.SetString(GameConfig.TASK_DATA, json);
@@ -105,6 +121,8 @@ public class DailyTaskManager : MonoBehaviour
         {
             dataSaved.listTaskSaved[i].taskGoal.ResetData();
         }
+
+        dataSaved.currentPoint = 0;
 
         dailyTaskSaved = dataSaved;
 

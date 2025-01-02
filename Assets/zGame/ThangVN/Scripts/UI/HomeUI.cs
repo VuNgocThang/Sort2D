@@ -106,18 +106,18 @@ public class HomeUI : MonoBehaviour
 
         imgProgressTask.fillAmount = currentParts / totalParts;
         txtProgressTask.text = $"{currentParts}/{totalParts}";
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            DateTime timer = DateTime.Now + TimeSpan.FromSeconds(90f);
-            Debug.Log("Test DataTime.Now: " + DateTime.Now);
-            Debug.Log("timer: " + timer);
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    DateTime timer = DateTime.Now + TimeSpan.FromSeconds(90f);
+        //    Debug.Log("Test DataTime.Now: " + DateTime.Now);
+        //    Debug.Log("timer: " + timer);
 
-            if (SaveGame.Heart > 0)
-            {
-                SaveGame.Heart--;
-                PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
-            }
-        }
+        //    if (SaveGame.Heart > 0)
+        //    {
+        //        SaveGame.Heart--;
+        //        PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
+        //    }
+        //}
 
         if (SaveGame.Heart >= GameConfig.MAX_HEART)
         {

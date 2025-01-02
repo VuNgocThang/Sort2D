@@ -365,6 +365,23 @@ public static class SaveGame
         }
     }
 
+    const string NEWDAYFREECOIN = "NEWDAYFREECOIN";
+    static int newDayFreeCoin = -1;
+
+    public static int NewDayFreeCoin
+    {
+        set
+        {
+            ES3.Save(NEWDAYFREECOIN, value);
+            newDayFreeCoin = value;
+        }
+        get
+        {
+            if (newDayFreeCoin == -1) newDayFreeCoin = ES3.Load(NEWDAYFREECOIN, 0);
+            return newDayFreeCoin;
+        }
+    }
+
     const string DATAFREECOIN = "DATAFREECOIN";
     static DataClaimedFreecoin dataFreeCoin;
     public static DataClaimedFreecoin DataFreeCoin

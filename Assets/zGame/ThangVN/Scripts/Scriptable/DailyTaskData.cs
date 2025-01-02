@@ -53,6 +53,7 @@ public class TaskData
 public class DailyTaskSaved
 {
     public List<TaskData> listTaskSaved;
+    public int currentPoint;
 }
 
 [CreateAssetMenu(fileName = "DailyTaskData", menuName = "ScriptableObjects/DailyTaskData")]
