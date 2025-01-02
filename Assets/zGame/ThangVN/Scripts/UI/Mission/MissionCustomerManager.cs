@@ -20,6 +20,8 @@ public class MissionCustomerManager : MonoBehaviour
     public float timer;
     public float currentTimer;
     public Image bg;
+    public Sprite nightSprite;
+    bool IsChangeBG;
 
     private void Awake()
     {
@@ -87,6 +89,13 @@ public class MissionCustomerManager : MonoBehaviour
             currentTimer += Time.deltaTime;
 
         imgFillTimer.fillAmount = currentTimer / timer;
+
+        if (currentTimer > timer / 2 && !IsChangeBG)
+        {
+            Debug.Log("sprite night");
+            bg.sprite = nightSprite;
+            IsChangeBG = true;
+        }
 
         int count = CountCustomer();
 

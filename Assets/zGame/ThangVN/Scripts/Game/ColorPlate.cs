@@ -199,7 +199,7 @@ public class ColorPlate : MonoBehaviour
         List<int> listDiff = new List<int>();
         listDiff = CalculateListDiff(levelData, randomCountInStacks);
 
-        listDiff.Reverse();
+        //listDiff.Reverse();
 
         Debug.Log(listDiff.Count);
         foreach (int type in listDiff)
@@ -237,7 +237,7 @@ public class ColorPlate : MonoBehaviour
     {
         int randomCountInStacks = -1;
         int rdRatioCountInStacks = UnityEngine.Random.Range(0, 100);
-
+        Debug.Log("rdRatioCountInStacks: "+ rdRatioCountInStacks);
         for (int i = 0; i < levelData.RatioInStacks.Length; i++)
         {
             if (levelData.RatioInStacks[i] > rdRatioCountInStacks)
