@@ -50,6 +50,13 @@ public class TaskData
 }
 
 [Serializable]
+public class ButtonClaim
+{
+    public int id;
+    public bool isClaimed;
+}
+
+[Serializable]
 public class DailyTaskSaved
 {
     public List<TaskData> listTaskSaved;

@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
 using TMPro;
+using UnityEngine.UI;
 
 public class PopupDailyTask : Popup
 {
+    float maxDay = 150f;
     public List<DailyTask> listDailyTasks;
     public DailyTask dailyTaskPrefab;
     public Transform nHolderContent;
     [SerializeField] DailyTaskSaved data;
     [SerializeField] int currentPoint;
     [SerializeField] TextMeshProUGUI txtCurrentPoint;
+    [SerializeField] Image imgFillProgress;
 
     public static async void Show()
     {
@@ -79,4 +82,10 @@ public class PopupDailyTask : Popup
         txtCurrentPoint.text = currentPoint.ToString();
     }
 
+
+    private void Update()
+    {
+        if (imgFillProgress != null)
+            imgFillProgress.fillAmount = (float)currentPoint / maxDay;
+    }
 }
