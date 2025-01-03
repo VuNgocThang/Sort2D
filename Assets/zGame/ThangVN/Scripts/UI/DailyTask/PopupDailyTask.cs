@@ -17,6 +17,11 @@ public class PopupDailyTask : Popup
     [SerializeField] Image imgFillProgress;
     [SerializeField] EasyButton btnInfo;
 
+    private void Awake()
+    {
+        btnInfo.OnClick(PopupInfoDailyTask.Show);
+    }
+
     public static async void Show()
     {
         PopupDailyTask pop = await ManagerPopup.ShowPopup<PopupDailyTask>();
@@ -28,9 +33,6 @@ public class PopupDailyTask : Popup
         base.Init();
 
         ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, UpdateCountStar);
-
-
-        Debug.Log(DailyTaskManager.Instance.dataSaved);
 
         data = DailyTaskManager.Instance.dataSaved;
 
