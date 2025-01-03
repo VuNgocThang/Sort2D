@@ -70,8 +70,6 @@ namespace ntDev
             if (Down != null) Down.LposY(posY - DownPixel);
             scaleFlow = -1;
             if (animEasyButton != null) animEasyButton.Play("Down");
-
-            Debug.Log("POINTERDOWN");
         }
 
         public virtual void OnPointerUp(PointerEventData eventData)
@@ -83,8 +81,6 @@ namespace ntDev
             if (Down != null) Down.LposY(posY);
             scaleFlow = 1;
             if (animEasyButton != null) animEasyButton.Play("Up");
-
-            Debug.Log("POINTERUP");
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
