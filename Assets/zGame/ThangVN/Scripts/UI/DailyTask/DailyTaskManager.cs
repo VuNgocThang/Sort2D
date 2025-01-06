@@ -10,9 +10,11 @@ public class DailyTaskManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (Instance == null)
             Instance = this;
 
+        DontDestroyOnLoad(Instance);
         ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
     }
 
@@ -39,19 +41,19 @@ public class DailyTaskManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            Debug.Log("ExecuteDailyTask");
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    Debug.Log("ExecuteDailyTask");
 
-            ExecuteDailyTask(TaskType.CompleteLevel, 1);
-        }
+        //    ExecuteDailyTask(TaskType.CompleteLevel, 1);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Debug.Log("ExecuteDailyTask");
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    Debug.Log("ExecuteDailyTask");
 
-            ExecuteDailyTask(TaskType.CountMerge, 2);
-        }
+        //    ExecuteDailyTask(TaskType.CountMerge, 2);
+        //}
     }
 
     public void ExecuteDailyTask(TaskType taskType, int amount)
@@ -81,7 +83,7 @@ public class DailyTaskManager : MonoBehaviour
         {
             listTaskSaved = dataSaved.listTaskSaved,
             currentPoint = dataSaved.currentPoint
-            
+
         }, true);
 
         PlayerPrefs.SetString(GameConfig.TASK_DATA, json);

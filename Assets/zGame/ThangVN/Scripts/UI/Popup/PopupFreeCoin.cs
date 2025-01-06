@@ -21,6 +21,8 @@ public class PopupFreeCoin : Popup
         {
             if (!SaveGame.DataFreeCoin.isClaimed50)
             {
+                if (DailyTaskManager.Instance != null)
+                    DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
                 Claimed50();
             }
         });

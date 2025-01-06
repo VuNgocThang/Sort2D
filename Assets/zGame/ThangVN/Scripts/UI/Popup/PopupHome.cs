@@ -53,6 +53,11 @@ public class PopupHome : MonoBehaviour
                 if (SaveGame.Refresh > 0)
                 {
                     SaveGame.Refresh--;
+                    if (DailyTaskManager.Instance != null)
+                        DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosterRefresh, 1);
+
+                    if (DailyTaskManager.Instance != null)
+                        DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosters, 1);
                     ShuffleRandomColorSpawn();
                 }
                 else PopupShopInGame.Show((int)BoosterEnum.BoosterRefresh);

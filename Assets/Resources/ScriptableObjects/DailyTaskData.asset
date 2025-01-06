@@ -15,15 +15,92 @@ MonoBehaviour:
   listTasks:
   - taskType: 1
     taskName: Completed 3 Levels
-    starReward: 5
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 3
+      currentProgress: 1
+  - taskType: 3
+    taskName: Merge 500 times
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 500
+      currentProgress: 0
+  - taskType: 2
+    taskName: Collect 300 books
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 300
+      currentProgress: 0
+  - taskType: 4
+    taskName: Use Magic Wand 2 times
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 2
+      currentProgress: 0
+  - taskType: 5
+    taskName: Use Crystal Ball 2 times
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 2
+      currentProgress: 0
+  - taskType: 6
+    taskName: Use Magic Card 2 times
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 2
+      currentProgress: 0
+  - taskType: 8
+    taskName: Play Bonus Level 1 times
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 1
+      currentProgress: 0
+  - taskType: 7
+    taskName: Decorate book cover 3 times
+    starReward: 10
     isClaimed: 0
     taskGoal:
       reach: 3
       currentProgress: 0
-  - taskType: 3
-    taskName: Merge 50 times
+  - taskType: 9
+    taskName: Revive 2 times
     starReward: 10
     isClaimed: 0
     taskGoal:
-      reach: 50
+      reach: 2
+      currentProgress: 0
+  - taskType: 10
+    taskName: Spend 80 gold
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 80
+      currentProgress: 0
+  - taskType: 11
+    taskName: Play Endless Challenge
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 1
+      currentProgress: 0
+  - taskType: 12
+    taskName: Get 2 Free Coins
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 2
+      currentProgress: 0
+  - taskType: 0
+    taskName: Use boost items 3 times
+    starReward: 10
+    isClaimed: 0
+    taskGoal:
+      reach: 3
       currentProgress: 0

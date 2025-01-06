@@ -29,6 +29,8 @@ public class PopupLose : Popup
             //{
             //    PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             //    SaveGame.Heart--;
+            if (DailyTaskManager.Instance != null)
+                DailyTaskManager.Instance.ExecuteDailyTask(TaskType.Revive, 1);
             SaveGame.Heart++;
             LogicGame.Instance.ReviveGame();
             Hide();

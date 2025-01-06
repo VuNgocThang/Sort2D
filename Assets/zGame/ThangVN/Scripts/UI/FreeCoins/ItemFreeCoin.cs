@@ -82,6 +82,8 @@ public class ItemFreeCoin : MonoBehaviour
             if (countCoin > 0)
             {
                 //SaveGame.Coin += countCoin;
+                if (DailyTaskManager.Instance != null)
+                    DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
                 GameManager.AddGold(countCoin);
                 isClaimed = true;
                 Debug.Log($" claimed {countCoin}");

@@ -659,6 +659,11 @@ public class LogicGame : MonoBehaviour
 
                             SaveGame.Hammer--;
                             isUsingHammer = false;
+                            if (DailyTaskManager.Instance != null)
+                                DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosterHammer, 1);
+
+                            if (DailyTaskManager.Instance != null)
+                                DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosters, 1);
                         }
                     }
 
@@ -746,6 +751,8 @@ public class LogicGame : MonoBehaviour
             isContiuneMerge = true;
 
             Merge(listSteps[listSteps.Count - 1].nearByColorPlate, listSteps[listSteps.Count - 1].rootColorPlate);
+            if (DailyTaskManager.Instance != null)
+                DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CountMerge, 1);
         }
         else
         {
@@ -1374,7 +1381,8 @@ public class LogicGame : MonoBehaviour
         {
             if (SaveGame.Level < GameConfig.MAX_LEVEL)
             {
-                Debug.Log("add level normal");
+                if (DailyTaskManager.Instance != null)
+                    DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CompleteLevel, 1);
                 SaveGame.Level++;
             }
 

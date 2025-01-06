@@ -30,6 +30,9 @@ public class PopupEndChallenges : Popup
     {
         base.Init();
 
+        if (DailyTaskManager.Instance != null)
+            DailyTaskManager.Instance.ExecuteDailyTask(TaskType.PlayChallenges, 1);
+
         txtCoin.text = SaveGame.Coin.ToString();
 
         txtColorPlate.text = SaveGame.Pigment.ToString();

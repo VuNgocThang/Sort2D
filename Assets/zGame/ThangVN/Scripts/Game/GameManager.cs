@@ -17,6 +17,8 @@ public static class GameManager
 
         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
         SaveGame.Coin -= _subGold;
+        if (DailyTaskManager.Instance != null)
+            DailyTaskManager.Instance.ExecuteDailyTask(TaskType.SpendGold, _subGold);
     }
 
     public static void AddPigment(int _addPigment)

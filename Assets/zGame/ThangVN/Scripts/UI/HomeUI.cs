@@ -7,15 +7,16 @@ using BaseGame;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class HomeUI : MonoBehaviour
 {
     public static HomeUI Instance;
-    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay, btnDailyTask;
+    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay, btnDailyTask, btnShop, btnCloseShop;
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
     [SerializeField] float countdownTimer, totalParts, currentParts;
-    public GameObject nTop, nBot, iconNotice;
+    public GameObject nTop, nBot, iconNotice, nParent, nPanelShop;
     public Animator animator;
     public List<Sprite> listSprite;
     public Image bg, imgProgressTask;
@@ -61,6 +62,18 @@ public class HomeUI : MonoBehaviour
         {
             PopupDailyTask.Show();
             Debug.Log("show popup daily task");
+        });
+
+        btnShop.OnClick(() =>
+        {
+            nParent.SetActive(false);
+            nPanelShop.SetActive(true);
+        });
+
+        btnCloseShop.OnClick(() =>
+        {
+            nParent.SetActive(true);
+            nPanelShop.SetActive(false);
         });
     }
 

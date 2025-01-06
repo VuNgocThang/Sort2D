@@ -1,9 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class PopupDailyTask : Popup
 {
@@ -13,7 +14,7 @@ public class PopupDailyTask : Popup
     public Transform nHolderContent;
     [SerializeField] DailyTaskSaved data;
     [SerializeField] int currentPoint;
-    [SerializeField] TextMeshProUGUI txtCurrentPoint;
+    [SerializeField] TextMeshProUGUI txtCurrentPoint, txtTimeRemain;
     [SerializeField] Image imgFillProgress;
     [SerializeField] EasyButton btnInfo;
 
@@ -68,7 +69,7 @@ public class PopupDailyTask : Popup
         {
             DailyTask task = Instantiate(dailyTaskPrefab, nHolderContent);
             task.taskType = data.listTaskSaved[i].taskType;
-            Debug.Log("data.listTaskSaved[i].taskName: " + data.listTaskSaved[i].taskName);
+            //Debug.Log("data.listTaskSaved[i].taskName: " + data.listTaskSaved[i].taskName);
             task.taskName = data.listTaskSaved[i].taskName;
             task.starReward = data.listTaskSaved[i].starReward;
             task.currentProgress = data.listTaskSaved[i].taskGoal.currentProgress;
@@ -91,5 +92,16 @@ public class PopupDailyTask : Popup
     {
         if (imgFillProgress != null)
             imgFillProgress.fillAmount = (float)currentPoint / maxDay;
+
+        DateTime now = DateTime.Now;
+
+        DateTime midnight = now.Date.AddDays(1); 
+        TimeSpan timeRemaining = midnight - now;
+
+        string formattedTime = string.Format("{0:D2}:{1:D2}:{2:D2}",
+            timeRemaining.Hours, timeRemaining.Minutes, timeRemaining.Seconds);
+
+        txtTimeRemain.text = $"{formattedTime}";
     }
+
 }

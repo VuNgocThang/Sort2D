@@ -108,6 +108,9 @@ public class PopupWin : Popup
         //SaveGame.Pigment += LogicGame.Instance.pigment;
         GameManager.AddGold(LogicGame.Instance.gold);
         GameManager.AddPigment(LogicGame.Instance.pigment);
+
+        if (DailyTaskManager.Instance != null)
+            DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectBooks, LogicGame.Instance.pigment);
     }
 
     private void Update()

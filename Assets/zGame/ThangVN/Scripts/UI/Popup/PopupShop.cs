@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
 
-public class PopupShop : Popup
+public class PopupShop : MonoBehaviour
 {
-    public static async void Show()
-    {
-        PopupShop pop = await ManagerPopup.ShowPopup<PopupShop>();
+    [SerializeField] EasyButton btnNoAdsBundle, btnNoAds;
 
-        pop.Init();
-    }
-
-    public override void Init()
+    private void Awake()
     {
-        base.Init();
+        btnNoAdsBundle.OnClick(() => { Debug.Log("NoAdsBundle"); });
+        btnNoAds.OnClick(() => { Debug.Log("NoAdsBundle"); });
     }
+   
 }

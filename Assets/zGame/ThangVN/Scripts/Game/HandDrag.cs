@@ -140,6 +140,11 @@ public class HandDrag : MonoBehaviour
                     LogicGame.Instance.isUsingHand = false;
                     SaveGame.Swap--;
                     isDrag = false;
+                    if (DailyTaskManager.Instance != null)
+                        DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosterSwap, 1);
+
+                    if (DailyTaskManager.Instance != null)
+                        DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosters, 1);
                     LogicGame.Instance.homeInGame.ExitUsingItem();
                 }
 

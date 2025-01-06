@@ -28,6 +28,8 @@ public class PopupBonusLevel : Popup
     void MoveToLevelBonus()
     {
         SaveGame.PlayBonus = true;
+        if (DailyTaskManager.Instance != null)
+            DailyTaskManager.Instance.ExecuteDailyTask(TaskType.PlayBonusLevel, 1);
         ManagerEvent.ClearEvent();
         SceneManager.LoadScene("SceneGame");
     }
