@@ -1479,6 +1479,7 @@ public class LogicGame : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        //SaveGame.PlayBonus = false;
         SaveDataGame();
     }
     private void OnApplicationPause(bool pause)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -28,6 +29,12 @@ public class DailyTask : MonoBehaviour
     private void Awake()
     {
         btnClaim.OnClick(ClaimRewardDailyTask);
+        btnGo.OnClick(() =>
+        {
+            SaveGame.PlayBonus = false;
+            ManagerEvent.ClearEvent();
+            SceneManager.LoadScene("SceneGame");
+        });
     }
 
     public void Init()
@@ -47,7 +54,7 @@ public class DailyTask : MonoBehaviour
             claimed.SetActive(isClaimed);
             imgStarClaimed.SetActive(isClaimed);
         }
-       
+
         //if (isClaimed) btnClaim.gameObject.SetActive(false);
     }
 
@@ -62,7 +69,9 @@ public class DailyTask : MonoBehaviour
         canClaim.SetActive(!isClaimed);
         claimed.SetActive(isClaimed);
         imgStarClaimed.SetActive(isClaimed);
+        Debug.Log("starReward: " + starReward);
         ManagerEvent.RaiseEvent(EventCMD.EVENT_DAILYTASK, starReward);
+        DailyTaskManager.Instance.dataSaved.currentPoint += starReward;
         SaveData();
     }
 

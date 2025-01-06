@@ -67,4 +67,5 @@ public class DailyTaskSaved
 public class DailyTaskData : ScriptableObject
 {
     public List<TaskData> listTasks;
+    public int currentPoint;
 }

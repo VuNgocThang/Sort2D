@@ -15,7 +15,6 @@ public class DailyTaskManager : MonoBehaviour
             Instance = this;
 
         DontDestroyOnLoad(Instance);
-        ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
     }
 
     public DailyTaskData dailyTaskData;
@@ -26,7 +25,11 @@ public class DailyTaskManager : MonoBehaviour
 
     private void Start()
     {
+        //ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
+
         dataSaved.listTaskSaved = dailyTaskData.listTasks;
+        dataSaved.currentPoint = dailyTaskData.currentPoint;
+        Debug.Log("Day: " + SaveGame.NewDay);
         CheckNewDay();
 
         if (IsNewDay)
@@ -41,19 +44,12 @@ public class DailyTaskManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.N))
-        //{
-        //    Debug.Log("ExecuteDailyTask");
-
-        //    ExecuteDailyTask(TaskType.CompleteLevel, 1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    Debug.Log("ExecuteDailyTask");
-
-        //    ExecuteDailyTask(TaskType.CountMerge, 2);
-        //}
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            //dataSaved.currentPoint = 10000;
+            ManagerEvent.RaiseEvent(EventCMD.EVENT_DAILYTASK, (int)10);
+            SaveData();
+        }
     }
 
     public void ExecuteDailyTask(TaskType taskType, int amount)
@@ -66,16 +62,13 @@ public class DailyTaskManager : MonoBehaviour
         SaveData();
     }
 
-    public void SaveCurrentStar(object e)
-    {
-        DailyTaskSaved dailyTaskSaved = new DailyTaskSaved();
+    //public void SaveCurrentStar(object e)
+    //{
+    //    dataSaved.currentPoint += (int)e;
+    //    Debug.Log("point: " + dataSaved.currentPoint);
 
-        dataSaved.currentPoint += (int)e;
-
-        dailyTaskSaved = dataSaved;
-
-        SaveData();
-    }
+    //    SaveData();
+    //}
 
     public void SaveData()
     {
@@ -88,6 +81,7 @@ public class DailyTaskManager : MonoBehaviour
 
         PlayerPrefs.SetString(GameConfig.TASK_DATA, json);
         PlayerPrefs.Save();
+
     }
 
     public void LoadData()
@@ -121,6 +115,7 @@ public class DailyTaskManager : MonoBehaviour
 
         for (int i = 0; i < dataSaved.listTaskSaved.Count; i++)
         {
+            dataSaved.listTaskSaved[i].isClaimed = false;
             dataSaved.listTaskSaved[i].taskGoal.ResetData();
         }
 
