@@ -193,7 +193,7 @@ public class ColorPlate : MonoBehaviour
         // tính số lượng màu khác nhau trong 1 stacks
         int randomCountInStacks = CalculateCountInStacks(levelData);
 
-        Debug.Log("randomCountInStacks: " + randomCountInStacks);
+        //Debug.Log("randomCountInStacks: " + randomCountInStacks);
 
         // chọn màu trong stacks 
         List<int> listDiff = new List<int>();
@@ -201,10 +201,10 @@ public class ColorPlate : MonoBehaviour
 
         //listDiff.Reverse();
 
-        Debug.Log(listDiff.Count);
+        //Debug.Log(listDiff.Count);
         foreach (int type in listDiff)
         {
-            Debug.Log("type : " + type);
+            //Debug.Log("type : " + type);
         }
         // Spawn Count Same Type
         foreach (int type in listDiff)
@@ -237,7 +237,7 @@ public class ColorPlate : MonoBehaviour
     {
         int randomCountInStacks = -1;
         int rdRatioCountInStacks = UnityEngine.Random.Range(0, 100);
-        Debug.Log("rdRatioCountInStacks: "+ rdRatioCountInStacks);
+        //Debug.Log("rdRatioCountInStacks: "+ rdRatioCountInStacks);
         for (int i = 0; i < levelData.RatioInStacks.Length; i++)
         {
             if (levelData.RatioInStacks[i] > rdRatioCountInStacks)
@@ -286,7 +286,7 @@ public class ColorPlate : MonoBehaviour
 
         listValue.AddRange(LogicGame.Instance.CalculateCountColorInDesk());
 
-        Debug.Log("listvalue: " + listValue.Count);
+        //Debug.Log("listvalue: " + listValue.Count);
 
         for (int i = 0; i < LogicGame.Instance.countDiff; i++)
         {
