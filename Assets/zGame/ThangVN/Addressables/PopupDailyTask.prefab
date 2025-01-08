@@ -73,6 +73,15 @@ MonoBehaviour:
   txtTimeRemain: {fileID: 6443348593822233832}
   imgFillProgress: {fileID: 5483647186846032474}
   btnInfo: {fileID: 8395489456968504452}
+  btnReward1: {fileID: 5550007105906151670}
+  btnReward2: {fileID: 2427269981022779417}
+  btnReward3: {fileID: 7025804445876878989}
+  Rewarded1: {fileID: 4487962865892631154}
+  Rewarded2: {fileID: 8890046515969174018}
+  Rewarded3: {fileID: 5695058535640291567}
+  anim1: {fileID: 9051710697670596155}
+  anim2: {fileID: 880471734750500309}
+  anim3: {fileID: 5544350057697492327}
 --- !u!1 &313356192581551325
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,7 +762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 725d2fe5c8ef7af4dadd462ff8233360, type: 2}
   m_sharedMaterial: {fileID: 406485749866670470, guid: 725d2fe5c8ef7af4dadd462ff8233360,
@@ -781,7 +790,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 48
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -911,6 +920,7 @@ GameObject:
   - component: {fileID: 1197006953656513789}
   - component: {fileID: 1674884717626029019}
   - component: {fileID: 880471734750500309}
+  - component: {fileID: 2427269981022779417}
   m_Layer: 5
   m_Name: btnClaim_2
   m_TagString: Untagged
@@ -997,6 +1007,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2427269981022779417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4080975482670473684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5d602171ae5534fb9f071f51bee183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 1674884717626029019}
+  normalSprite: {fileID: 21300000, guid: 8f6a042a9d0f4d140a4673ea0758d029, type: 3}
+  pressedSprite: {fileID: 0}
+  disableSprite: {fileID: 0}
+  txt: {fileID: 0}
+  Down: {fileID: 0}
+  DownPixel: 0
+  Sound: 1
+  enableScaleFX: 0
+  enableSpriteFX: 0
+  animEasyButton: {fileID: 0}
 --- !u!1 &4134800760469086150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,7 +1256,7 @@ GameObject:
   - component: {fileID: 4770629539840408396}
   - component: {fileID: 8481285774414404007}
   m_Layer: 5
-  m_Name: claimed_2
+  m_Name: claimed_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1961,7 +1994,7 @@ GameObject:
   - component: {fileID: 593016450878975346}
   - component: {fileID: 7337986020179830656}
   m_Layer: 5
-  m_Name: btnReward_1
+  m_Name: reward_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2081,7 +2114,7 @@ GameObject:
   - component: {fileID: 5539455088533185156}
   - component: {fileID: 7063730814215787762}
   m_Layer: 5
-  m_Name: btnReward_2
+  m_Name: reward_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2204,6 +2237,7 @@ GameObject:
   - component: {fileID: 4546060833618550787}
   - component: {fileID: 937287570150311974}
   - component: {fileID: 9051710697670596155}
+  - component: {fileID: 5550007105906151670}
   m_Layer: 5
   m_Name: btnClaim_1
   m_TagString: Untagged
@@ -2290,6 +2324,29 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5550007105906151670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8208716523078742277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5d602171ae5534fb9f071f51bee183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 937287570150311974}
+  normalSprite: {fileID: 21300000, guid: 52e4148502218644eaef941cccce6e0e, type: 3}
+  pressedSprite: {fileID: 0}
+  disableSprite: {fileID: 0}
+  txt: {fileID: 0}
+  Down: {fileID: 0}
+  DownPixel: 0
+  Sound: 1
+  enableScaleFX: 0
+  enableSpriteFX: 0
+  animEasyButton: {fileID: 0}
 --- !u!1 &8384366465486176272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,7 +2547,7 @@ GameObject:
   - component: {fileID: 3540317971794614737}
   - component: {fileID: 4794150408122320854}
   m_Layer: 5
-  m_Name: btnReward_3
+  m_Name: reward_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2611,6 +2668,7 @@ GameObject:
   - component: {fileID: 3504886632805667514}
   - component: {fileID: 2584474166559766927}
   - component: {fileID: 5544350057697492327}
+  - component: {fileID: 7025804445876878989}
   m_Layer: 5
   m_Name: btnClaim_3
   m_TagString: Untagged
@@ -2697,3 +2755,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7025804445876878989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9122149539575957347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5d602171ae5534fb9f071f51bee183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 0}
+  normalSprite: {fileID: 0}
+  pressedSprite: {fileID: 0}
+  disableSprite: {fileID: 0}
+  txt: {fileID: 0}
+  Down: {fileID: 0}
+  DownPixel: 0
+  Sound: 1
+  enableScaleFX: 0
+  enableSpriteFX: 0
+  animEasyButton: {fileID: 0}

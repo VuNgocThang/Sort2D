@@ -609,4 +609,55 @@ public static class SaveGame
             return levelChallenges;
         }
     }
+
+    const string CLAIMREWARD1 = "CLAIMREWARD1";
+    static int claimReward1 = -1;
+
+    public static bool ClaimReward1
+    {
+        set
+        {
+            ES3.Save(CLAIMREWARD1, value ? 1 : 0);
+            claimReward1 = value ? 1 : 0;
+        }
+        get
+        {
+            if (claimReward1 == -1) claimReward1 = ES3.Load(CLAIMREWARD1, 0);
+            return claimReward1 == 1;
+        }
+    }
+
+    const string CLAIMREWARD2 = "CLAIMREWARD2";
+    static int claimReward2 = -1;
+
+    public static bool ClaimReward2
+    {
+        set
+        {
+            ES3.Save(CLAIMREWARD2, value ? 1 : 0);
+            claimReward2 = value ? 1 : 0;
+        }
+        get
+        {
+            if (claimReward2 == -1) claimReward2 = ES3.Load(CLAIMREWARD2, 0);
+            return claimReward2 == 1;
+        }
+    }
+
+    const string CLAIMREWARD3 = "CLAIMREWARD3";
+    static int claimReward3 = -1;
+
+    public static bool ClaimReward3
+    {
+        set
+        {
+            ES3.Save(CLAIMREWARD3, value ? 1 : 0);
+            claimReward3 = value ? 1 : 0;
+        }
+        get
+        {
+            if (claimReward3 == -1) claimReward3 = ES3.Load(CLAIMREWARD3, 0);
+            return claimReward3 == 1;
+        }
+    }
 }

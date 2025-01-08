@@ -12276,6 +12276,22 @@ PrefabInstance:
       propertyPath: btnCloseShop
       value: 
       objectReference: {fileID: 1335998140}
+    - target: {fileID: 8209783395802450816, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 182
+      objectReference: {fileID: 0}
+    - target: {fileID: 8209783395802450816, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867361205854817891, guid: 3011edc843ec15e49874b8707a1709ff,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0148315db268ab84a93db01019b1607e,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12289,8 +12305,8 @@ SceneRoots:
   - {fileID: 101730357}
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 363871494}
   - {fileID: 338778966}
   - {fileID: 497948144}
   - {fileID: 726113554}
   - {fileID: 1063117275}
-  - {fileID: 363871494}

@@ -111,8 +111,6 @@ public class DailyTaskManager : MonoBehaviour
 
     void RefreshData()
     {
-        DailyTaskSaved dailyTaskSaved = new DailyTaskSaved();
-
         for (int i = 0; i < dataSaved.listTaskSaved.Count; i++)
         {
             dataSaved.listTaskSaved[i].isClaimed = false;
@@ -120,10 +118,15 @@ public class DailyTaskManager : MonoBehaviour
         }
 
         dataSaved.currentPoint = 0;
-
-        dailyTaskSaved = dataSaved;
-
+        ResetRewardClaim();
         SaveData();
+    }
+
+    void ResetRewardClaim()
+    {
+        SaveGame.ClaimReward1 = false;
+        SaveGame.ClaimReward2 = false;
+        SaveGame.ClaimReward3 = false;
     }
 
     void CheckNewDay()
