@@ -17,7 +17,10 @@ namespace ThangVN
         {
             numCount = SaveGame.Swap;
 
-            base.Update();
+            if (SaveGame.IsShowSwap)
+            {
+                base.Update();
+            }
         }
     }
 }

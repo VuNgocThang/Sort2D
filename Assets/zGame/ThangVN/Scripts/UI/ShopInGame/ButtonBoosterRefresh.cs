@@ -17,7 +17,10 @@ namespace ThangVN
         {
             numCount = SaveGame.Refresh;
 
-            base.Update();
+            if (SaveGame.IsShowRefresh)
+            {
+                base.Update();
+            }
         }
     }
 }

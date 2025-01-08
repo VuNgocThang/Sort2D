@@ -16,7 +16,10 @@ namespace ThangVN
         public override void Update()
         {
             numCount = SaveGame.Hammer;
-            base.Update();
+            if (SaveGame.IsShowHammer)
+            {
+                base.Update();
+            }
         }
     }
 }

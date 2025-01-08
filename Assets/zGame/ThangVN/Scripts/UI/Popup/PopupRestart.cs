@@ -11,7 +11,7 @@ namespace ThangVN
 {
     public class PopupRestart : Popup
     {
-        public EasyButton btnRestart;
+        public EasyButton btnRestart, btnHome;
         public static async void Show()
         {
             PopupRestart pop = await ManagerPopup.ShowPopup<PopupRestart>();
@@ -34,6 +34,11 @@ namespace ThangVN
                     PopupOutOfHeart.Show();
                     //LoadScene("SceneHome");
                 }
+            });
+
+            btnHome.OnClick(() =>
+            {
+                SceneManager.LoadScene("SceneHome");
             });
         }
 

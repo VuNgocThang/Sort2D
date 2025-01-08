@@ -51,6 +51,7 @@ public class PopupShopInGame : Popup
             if (index == (int)boosterData.listBooster[i].boosterEnum)
             {
                 imgIcon.sprite = boosterData.listBooster[i].spriteBooster;
+                imgIcon.SetNativeSize();
                 imgIconBuyUseIcon.sprite = boosterData.listBooster[i].spriteIcon;
                 imgIconBuyAds.sprite = boosterData.listBooster[i].spriteIcon;
                 txtNameBooster.text = boosterData.listBooster[i].nameBooster;

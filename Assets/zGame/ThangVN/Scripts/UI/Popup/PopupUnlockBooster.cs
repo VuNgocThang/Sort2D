@@ -35,6 +35,7 @@ namespace ThangVN
                 if (index == (int)boosterData.listBooster[i].boosterEnum)
                 {
                     icon.sprite = boosterData.listBooster[i].spriteIcon;
+                    icon.SetNativeSize();
                     txtName.text = boosterData.listBooster[i].nameBooster;
                     txtExplain.text = boosterData.listBooster[i].textExplain;
                 }

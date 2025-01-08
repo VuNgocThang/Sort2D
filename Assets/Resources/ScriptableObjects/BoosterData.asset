@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: BoosterData
   m_EditorClassIdentifier: 
   listBooster:
-  - nameBooster: Swap
-    spriteBooster: {fileID: 21300000, guid: 1063679380aca2241b4b6d9deca5156f, type: 3}
-    spriteIcon: {fileID: 21300000, guid: 1063679380aca2241b4b6d9deca5156f, type: 3}
+  - nameBooster: Swapdeck
+    spriteBooster: {fileID: 21300000, guid: 9c2e40cf7908cd24b8b224bab34fa084, type: 3}
+    spriteIcon: {fileID: 21300000, guid: 9c2e40cf7908cd24b8b224bab34fa084, type: 3}
     spriteText: {fileID: 21300000, guid: 8e2b75e331cac6241a513cc810691a20, type: 3}
     boosterEnum: 1
     textExplain: drag any stack to move it
     cost: 400
-  - nameBooster: Hammer
-    spriteBooster: {fileID: 21300000, guid: 0fbabae1961f5b04eae1db3ad35cb998, type: 3}
-    spriteIcon: {fileID: 21300000, guid: 0fbabae1961f5b04eae1db3ad35cb998, type: 3}
+  - nameBooster: Vanishing Quill
+    spriteBooster: {fileID: 21300000, guid: 29b4fc4af95232b4dba86d5bf40ab466, type: 3}
+    spriteIcon: {fileID: 21300000, guid: 29b4fc4af95232b4dba86d5bf40ab466, type: 3}
     spriteText: {fileID: 21300000, guid: a5e9d7ae944fd3c499fbdf121b0d5d63, type: 3}
     boosterEnum: 0
     textExplain: tap any stack to clear it
     cost: 250
-  - nameBooster: Refresh
-    spriteBooster: {fileID: 21300000, guid: 466a319b732d9424a8b01d33fcbc8ef0, type: 3}
-    spriteIcon: {fileID: 21300000, guid: 466a319b732d9424a8b01d33fcbc8ef0, type: 3}
+  - nameBooster: Refresh Crystal
+    spriteBooster: {fileID: 21300000, guid: 29de3c4429d2bf842a0c83c3219a8551, type: 3}
+    spriteIcon: {fileID: 21300000, guid: 29de3c4429d2bf842a0c83c3219a8551, type: 3}
     spriteText: {fileID: 21300000, guid: 442fa8b9c554c0b45a874e081bad35fe, type: 3}
     boosterEnum: 2
     textExplain: refresh tray to get new stack options

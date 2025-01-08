@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 775570711302625928}
   - component: {fileID: 5524163806137811057}
   m_Layer: 5
-  m_Name: btnClose
+  m_Name: btnHome
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -8, y: -38}
-  m_SizeDelta: {x: 253, y: 223}
+  m_SizeDelta: {x: 263, y: 242}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4174568840191883722
 CanvasRenderer:
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0c22ff47a90a5ea4f8788d2b17b56bbf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a44a374a845a44148858badc04542235, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -534,7 +534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: revive
+  m_text: retry
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3598471a65a252245a7f2e92c000e879, type: 2}
   m_sharedMaterial: {fileID: 4261533248984534769, guid: 3598471a65a252245a7f2e92c000e879,
@@ -867,9 +867,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab8f2b0f689bec4e86afd2cb7d668f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnClose:
-  - {fileID: 775570711302625928}
+  btnClose: []
   btnRestart: {fileID: 6970311933754129027}
+  btnHome: {fileID: 775570711302625928}
 --- !u!1 &8726516175479250312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1017,8 +1017,9 @@ GameObject:
   - component: {fileID: 8069174387907200431}
   - component: {fileID: 3355407458704976290}
   - component: {fileID: 6970311933754129027}
+  - component: {fileID: 7631873163901793745}
   m_Layer: 5
-  m_Name: btnRestart
+  m_Name: btnRetry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1072,7 +1073,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: de3e5362d5d021e46821e2591da70799, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fc1c622aa6713c40b81e125e32942ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1104,4 +1105,25 @@ MonoBehaviour:
   Sound: 1
   enableScaleFX: 0
   enableSpriteFX: 0
-  animEasyButton: {fileID: 0}
+  animEasyButton: {fileID: 7631873163901793745}
+--- !u!95 &7631873163901793745
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9197486482005237103}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96980111c305a9643a063e13411bc0d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
