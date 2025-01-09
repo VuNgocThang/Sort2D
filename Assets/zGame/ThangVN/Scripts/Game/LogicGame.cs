@@ -1442,7 +1442,7 @@ public class LogicGame : MonoBehaviour
         if (ListCheckPlate.Count >= 4)
         {
             List<ColorPlate> newListRevive = new List<ColorPlate>();
-            while (newListRevive.Count < 3)
+            while (newListRevive.Count < 5)
             {
                 int randomIndex = UnityEngine.Random.Range(0, ListCheckPlate.Count);
 
