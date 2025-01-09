@@ -26,6 +26,7 @@ namespace ThangVN
 
                 if (SaveGame.Heart > 0)
                 {
+                    ManagerEvent.ClearEvent();
                     LoadScene("SceneGame");
                 }
                 else
@@ -38,6 +39,7 @@ namespace ThangVN
 
             btnHome.OnClick(() =>
             {
+                ManagerEvent.ClearEvent();
                 SceneManager.LoadScene("SceneHome");
             });
         }
