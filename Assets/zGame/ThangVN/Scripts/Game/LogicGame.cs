@@ -371,7 +371,7 @@ public class LogicGame : MonoBehaviour
             {
                 ListColorPlate[index].countFrozen = 3;
                 ListColorPlate[index].Init(GetColorNew);
-                ListColorPlate[index].InitColor();
+                ListColorPlate[index].InitColor(true);
             }
 
             if (ListColorPlate[index].status == Status.LockCoin)
@@ -423,8 +423,6 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[index].status = (Status)colorPlateData.listEmptyData[i].type;
             ListColorPlate[index].logicVisual.DeletePlate();
         }
-
-
     }
 
     #region InitNextPlate

@@ -5,7 +5,6 @@ using ntDev;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using Utilities.Common;
 
 public enum ColorEnum
 {
@@ -105,60 +104,9 @@ public class ColorPlate : MonoBehaviour
 
             TopColor.nBoxText.gameObject.SetActive(true);
             TopColor.txtCount.gameObject.SetActive(true);
-            //TopColor.txtCount.color = SelectColor(TopValue);
             TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
             TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
         }
-
-        //if (ListColor.Count > 0)
-        //{
-        //    for (int i = 0; i < ListColor.Count; i++)
-        //    {
-        //        ListColor[i].nBoxText.gameObject.SetActive(false);
-        //        ListColor[i].txtCount.gameObject.SetActive(false);
-        //    }
-
-        //    TopColor.nBoxText.gameObject.SetActive(true);
-        //    TopColor.txtCount.gameObject.SetActive(true);
-        //    //TopColor.txtCount.color = SelectColor(TopValue);
-        //    TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
-        //    TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
-        //}
-    }
-
-    Color SelectColor(ColorEnum colorEnum)
-    {
-        Color colorResult;
-        switch (colorEnum)
-        {
-            case ColorEnum.Blue:
-                colorResult = new Color(0.5f, 0, 0);
-                break;
-            case ColorEnum.Green:
-                colorResult = new Color(0.5f, 0, 1f);
-                break;
-            case ColorEnum.Red:
-                colorResult = new Color(0, 1f, 1f);
-                break;
-            case ColorEnum.Orange:
-                colorResult = new Color(1f, 1f, 1f);
-                break;
-            case ColorEnum.Yellow:
-                colorResult = new Color(0.8f, 0, 1f);
-                break;
-            case ColorEnum.Pink:
-                colorResult = new Color(1f, 1f, 1f);
-                break;
-            case ColorEnum.Purple:
-                colorResult = new Color(0, 1f, 1f);
-                break;
-
-            default:
-                colorResult = Color.white;
-                break;
-        }
-
-        return colorResult;
     }
 
     public void Init(GetColorNew getColorNew)
@@ -183,7 +131,7 @@ public class ColorPlate : MonoBehaviour
     }
 
 
-    public void InitColor()
+    public void InitColor(bool isSpecial = false)
     {
         DataLevel levelData = LogicGame.Instance.dataLevel;
 
@@ -206,6 +154,10 @@ public class ColorPlate : MonoBehaviour
         {
             //Debug.Log("type : " + type);
         }
+
+        int maxReach = 0;
+        if (isSpecial) maxReach = 6;
+        else maxReach = 10;
         // Spawn Count Same Type
         foreach (int type in listDiff)
         {
@@ -213,14 +165,14 @@ public class ColorPlate : MonoBehaviour
             GroupEnum group = new GroupEnum { type = (ColorEnum)type };
             listTypes.Add(group);
 
-            int remainingCount = 10 - ListValue.Count;
+            int remainingCount = maxReach - ListValue.Count;
             int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
             int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
             //int randomCount = UnityEngine.Random.Range(5, Mathf.Min(5, maxPossibleAdditions + 1));
 
             for (int j = 0; j < randomCount; j++)
             {
-                if (ListValue.Count >= 10)
+                if (ListValue.Count >= maxReach)
                 {
                     break;
                 }
