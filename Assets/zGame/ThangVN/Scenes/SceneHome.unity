@@ -1702,13 +1702,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1412953696}
   - {fileID: 14154276}
   - {fileID: 626855839}
   - {fileID: 1915507172}
   - {fileID: 822878899}
   - {fileID: 1799396679}
   - {fileID: 154809261}
+  - {fileID: 1412953696}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7593,11 +7593,6 @@ PrefabInstance:
     - target: {fileID: 1074321055091735992, guid: 3011edc843ec15e49874b8707a1709ff,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3070312649710130815, guid: 3011edc843ec15e49874b8707a1709ff,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3645897363638271178, guid: 3011edc843ec15e49874b8707a1709ff,
