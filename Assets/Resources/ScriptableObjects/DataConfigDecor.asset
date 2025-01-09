@@ -18,25 +18,25 @@ MonoBehaviour:
     totalParts: 5
     listDataItemDecor:
     - idItemDecor: 0
-      cost: 1000
+      cost: 60
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 1
-      cost: 1234
+      cost: 100
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 2
-      cost: 1200
+      cost: 120
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 3
-      cost: 1234
+      cost: 120
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
@@ -56,7 +56,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.6117647, g: 0.17254902, b: 0.2, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 1
     titleBook: The Secret Book 1
     totalParts: 5
@@ -100,7 +102,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.38431373, g: 0.19215687, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 2
     titleBook: The Secret Book 2
     totalParts: 5
@@ -144,7 +148,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.6117647, g: 0.17254902, b: 0.2, a: 1}
+      CanSelect: 0
   - idBook: 3
     titleBook: The Secret Book 3
     totalParts: 5
@@ -188,7 +194,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.6117647, g: 0.17254902, b: 0.2, a: 1}
+      CanSelect: 0
     - color: {r: 0.38431373, g: 0.19215687, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 4
     titleBook: The Secret Book 4
     totalParts: 5
@@ -232,7 +240,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.38431373, g: 0.19215687, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 5
     titleBook: The Secret Book 5
     totalParts: 5
@@ -276,7 +286,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 6
     titleBook: The Secret Book 6
     totalParts: 5
@@ -320,7 +332,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 7
     titleBook: The Secret Book 7
     totalParts: 5
@@ -364,7 +378,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 8
     titleBook: The Secret Book 8
     totalParts: 5
@@ -408,7 +424,9 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
   - idBook: 9
     titleBook: The Secret Book 9
     totalParts: 5
@@ -452,4 +470,6 @@ MonoBehaviour:
       pos: {x: 72, y: -18}
     listColorDecor:
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0
     - color: {r: 0.21176471, g: 0.2509804, b: 0.4745098, a: 1}
+      CanSelect: 0

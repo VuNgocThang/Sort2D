@@ -291,7 +291,6 @@ public class PopupDecorateBook : Popup
 
     public override void Hide()
     {
-
         base.Hide();
     }
 

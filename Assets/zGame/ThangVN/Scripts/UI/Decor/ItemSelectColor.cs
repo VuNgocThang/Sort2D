@@ -10,12 +10,15 @@ public class ItemSelectColor : MonoBehaviour
     public Image bg;
     public GameObject imgAds;
     public bool CanSelect;
+    //public bool IsBought;
     public Color color;
 
     private void Awake()
     {
         btnSelect.OnClick(() =>
         {
+            //if (!IsBought) return;
+
             if (CanSelect)
             {
                 // raise event change color;
