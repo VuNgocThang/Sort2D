@@ -87,7 +87,7 @@ public class ColorPlate : MonoBehaviour
     {
         if (ListColor.Count <= 0) return;
 
-        if (isMerging)
+        if (isMerging || countFrozen > 0)
         {
             for (int i = 0; i < ListColor.Count; i++)
             {

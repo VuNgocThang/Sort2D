@@ -362,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 1992430284939440844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.052, y: -0.07, z: -0.6}
+  m_LocalPosition: {x: -0.052, y: -0.05, z: -0.7}
   m_LocalScale: {x: 0.52, y: 0.52, z: 0.52}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -799,7 +799,7 @@ Transform:
   m_GameObject: {fileID: 4840062844313797370}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.052, y: 0.2, z: -0.6}
+  m_LocalPosition: {x: -0.052, y: 0.25, z: -0.7}
   m_LocalScale: {x: 0.52, y: 0.52, z: 0.52}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1349,6 +1349,7 @@ MonoBehaviour:
   timerConfigData: {fileID: 11400000, guid: 40cf14b65efec8446bf8388a8b0f41fb, type: 2}
   magicRune: {fileID: 8898701020216183507}
   isMoving: 0
+  isMerging: 0
   pathType: 0
   customCurve:
     serializedVersion: 2
@@ -1443,7 +1444,7 @@ Transform:
   m_GameObject: {fileID: 7711195621812168904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.2, z: -0.6}
+  m_LocalPosition: {x: 0, y: 0.25, z: -0.7}
   m_LocalScale: {x: 0.52, y: 0.52, z: 0.52}
   m_ConstrainProportionsScale: 1
   m_Children: []
