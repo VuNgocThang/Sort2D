@@ -10,7 +10,7 @@ public class PopupBookItem : Popup
     [SerializeField] int idBookDecorated;
 
     [SerializeField] EasyButton btnDecorate, btnBack;
-    [SerializeField] TextMeshProUGUI txtProgress, txtNameBook, txtDecorate;
+    [SerializeField] TextMeshProUGUI txtProgress, txtNameBook, txtDecorate, txtPigment;
     [SerializeField] Image bgBook;
 
     public List<Slot> slots;
@@ -61,6 +61,7 @@ public class PopupBookItem : Popup
                 txtNameBook.text = dataConfigDecor.listDataBooks[i].titleBook;
             }
         }
+        txtPigment.text = $"{SaveGame.Pigment}";
         LoadDataBook();
         ChangeColor();
         SpawnExistedItemInBook();
