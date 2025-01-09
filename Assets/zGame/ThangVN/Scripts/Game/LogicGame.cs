@@ -651,7 +651,8 @@ public class LogicGame : MonoBehaviour
                             if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
 
                             hammerSpine.gameObject.SetActive(true);
-                            hammerSpine.anim.transform.position = plateSelect.transform.position;
+                            //hammerSpine.anim.transform.position = plateSelect.transform.position;
+                            hammerSpine.animPen.transform.position = plateSelect.transform.position;
                             hammerSpine.PlayAnim();
                             hammerSpine.colorPlateDestroy = plateSelect;
 
@@ -1469,6 +1470,9 @@ public class LogicGame : MonoBehaviour
             homeInGame.imgDanger.SetActive(false);
         }
     }
+
+
+
 
     #region SaveDataProgress
     public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();

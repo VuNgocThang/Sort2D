@@ -12,6 +12,7 @@ public class HammerSpineEvent : MonoBehaviour
     [SpineEvent] public string hit = "HIT";
     public ColorPlate colorPlateDestroy;
 
+    public SkeletonAnimation animPen;
 
     private void Awake()
     {
@@ -20,7 +21,9 @@ public class HammerSpineEvent : MonoBehaviour
 
     public void PlayAnim()
     {
-        StartCoroutine(PlayAnimState());
+        //StartCoroutine(PlayAnimState());
+
+        StartCoroutine(PlayAnimPen());
     }
     void RaiseAnimEvent(TrackEntry trackE, Spine.Event e)
     {
@@ -47,6 +50,31 @@ public class HammerSpineEvent : MonoBehaviour
         anim.state.SetAnimation(0, "hammer_hit", false);
 
         yield return new WaitForSeconds(1f);
+
+        LogicGame.Instance.homeInGame.ExitUsingItem();
+
+        this.gameObject.SetActive(false);
+    }
+
+    IEnumerator PlayAnimPen()
+    {
+        animPen.gameObject.SetActive(true);
+
+        animPen.state.SetAnimation(0, "Draw", false);
+
+        yield return new WaitForSeconds(2.8f);
+
+        animPen.gameObject.SetActive(false);
+
+        colorPlateDestroy.ClearAll();
+
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundHammer);
+
+        smoke.transform.localPosition = animPen.transform.localPosition;
+        smoke.gameObject.SetActive(true);
+        smoke.Play();
+
+        yield return new WaitForSeconds(0.5f);
 
         LogicGame.Instance.homeInGame.ExitUsingItem();
 

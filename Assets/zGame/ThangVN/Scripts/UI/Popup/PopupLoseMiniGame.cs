@@ -41,12 +41,14 @@ public class PopupLoseMiniGame : Popup
     void PlayAgain()
     {
         SaveGame.PlayBonus = true;
+        ManagerEvent.ClearEvent();
         SceneManager.LoadScene("SceneGame");
     }
 
     void Continue()
     {
         SaveGame.PlayBonus = false;
+        ManagerEvent.ClearEvent();
         SceneManager.LoadScene("SceneHome");
     }
 }

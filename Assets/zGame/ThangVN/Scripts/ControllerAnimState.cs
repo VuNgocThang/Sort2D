@@ -126,7 +126,7 @@ public class ControllerAnimState : MonoBehaviour
             Invoke(nameof(ResetBonusCooldown), bonusCooldown);
             //Debug.Log("Performed Bonus action");
 
-            //StartCoroutine(PlayIdle());
+            StartCoroutine(PlayIdle());
         }
         else
         {
