@@ -2,10 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemDragPool : ObjectPool<ITEMDRAG>
+public class ItemDragPool : MonoBehaviour
 {
-    public ITEMDRAG GetItemDragPool()
-    {
-        return GetPooledObject();
-    }
+
 }

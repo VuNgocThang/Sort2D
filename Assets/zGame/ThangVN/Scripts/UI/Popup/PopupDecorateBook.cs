@@ -13,7 +13,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] int idBookDecorated;
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
-    [SerializeField] TextMeshProUGUI txtNameBook;
+    [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate;
     [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, bgNewBook;
     [SerializeField] ItemDraggable currentItemDrag;
     [SerializeField] Transform nParent, nParentSlot, nContent;
@@ -79,6 +79,11 @@ public class PopupDecorateBook : Popup
         base.Init();
         OnSelect(true);
         ManagerPopup.HidePopup<PopupBookItem>();
+    }
+
+    private void Update()
+    {
+        txtColorPlate.text = $"{SaveGame.Pigment}";
     }
 
     void LoadDataBook()

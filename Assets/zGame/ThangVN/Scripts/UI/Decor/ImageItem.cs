@@ -10,6 +10,7 @@ public class ImageItem : MonoBehaviour
     public bool isBought;
     public Image img;
     public EasyButton btn, btnBuyItem;
+    public ItemDecor itemDecor;
 
 
     private void Awake()
@@ -27,9 +28,17 @@ public class ImageItem : MonoBehaviour
             }
             else
             {
-                isBought = true;
-                btnBuyItem.gameObject.SetActive(false);
-                SaveBoughtItemDecor();
+                if (SaveGame.Pigment >= itemDecor.cost)
+                {
+                    GameManager.SubPigment(itemDecor.cost);
+                    isBought = true;
+                    btnBuyItem.gameObject.SetActive(false);
+                    SaveBoughtItemDecor();
+                }
+                else
+                {
+                    EasyUI.Toast.Toast.Show("Not enough book!", 1f);
+                }
             }
         });
     }

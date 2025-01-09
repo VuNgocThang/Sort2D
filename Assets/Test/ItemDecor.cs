@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ItemDecor : MonoBehaviour
 {
-    [HideInInspector] public IMGITEM imgItem;
     public int id;
     public ImageItem imageItem;
     public TextMeshProUGUI txtCost;
@@ -16,9 +15,17 @@ public class ItemDecor : MonoBehaviour
     {
         btnBuy.OnClick(() =>
         {
-            imageItem.isBought = true;
-            btnBuy.gameObject.SetActive(false);
-            SaveBoughtItemDecor();
+            if (SaveGame.Pigment >= cost)
+            {
+                GameManager.SubPigment(cost);
+                imageItem.isBought = true;
+                btnBuy.gameObject.SetActive(false);
+                SaveBoughtItemDecor();
+            }
+            else
+            {
+                EasyUI.Toast.Toast.Show("Not enough book!", 0.5f);
+            }
         });
     }
 
