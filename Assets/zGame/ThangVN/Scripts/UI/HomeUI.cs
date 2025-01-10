@@ -7,21 +7,21 @@ using BaseGame;
 using TMPro;
 using System;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class HomeUI : MonoBehaviour
 {
     public static HomeUI Instance;
-    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay, btnDailyTask, btnShop, btnCloseShop;
+    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay, btnDailyTask, btnShop, btnCloseShop, btnNoAdsBundle;
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
     [SerializeField] float countdownTimer, totalParts, currentParts;
-    public GameObject nTop, nBot, iconNotice, nParent, nPanelShop;
+    public GameObject nTop, nBot, iconNotice, nParent, nPanelShop, nNoticeFreecoin, nNoticeDailyTask, nNoticeTask;
     public Animator animator;
     public List<Sprite> listSprite;
     public Image bg, imgProgressTask;
     [SerializeField] DataConfigDecor bookDataConfig;
     [SerializeField] ListBookDecorated listBook;
+    [SerializeField] DataClaimedFreecoin dataFreeCoinClaimed;
 
     private void Awake()
     {
@@ -75,6 +75,11 @@ public class HomeUI : MonoBehaviour
             nParent.SetActive(true);
             nPanelShop.SetActive(false);
         });
+
+        btnNoAdsBundle.OnClick(() =>
+        {
+            PopupNoAdsBundle.Show();
+        });
     }
 
     private void Start()
@@ -96,6 +101,10 @@ public class HomeUI : MonoBehaviour
         InitHeart();
 
         InitFirstDecor();
+
+        InitDataClaimedFreecoin();
+
+
     }
 
     private void Update()
@@ -105,6 +114,24 @@ public class HomeUI : MonoBehaviour
         txtColor.text = SaveGame.Pigment.ToString();
         txtLevel.text = $"Level {SaveGame.Level + 1}";
 
+        CalculateTask();
+
+        CalculateHeart();
+
+        int count = CheckNoticeFreecoin();
+        if (count == 6) nNoticeFreecoin.SetActive(false);
+        else nNoticeFreecoin.SetActive(true);
+
+        bool checkDailyTask = CheckNoticeDailyTask();
+        if (checkDailyTask) nNoticeDailyTask.SetActive(true);
+        else nNoticeDailyTask.SetActive(false);
+
+        if (CheckTaskDecor()) nNoticeTask.SetActive(true);
+        else nNoticeTask.SetActive(false);
+    }
+
+    private void CalculateTask()
+    {
         totalParts = bookDataConfig.listDataBooks[bookDataConfig.listDataBooks.Count - 1].totalParts;
 
         listBook = SaveGame.ListBookDecorated;
@@ -119,19 +146,10 @@ public class HomeUI : MonoBehaviour
 
         imgProgressTask.fillAmount = currentParts / totalParts;
         txtProgressTask.text = $"{currentParts}/{totalParts}";
-        //if (Input.GetKeyDown(KeyCode.M))
-        //{
-        //    DateTime timer = DateTime.Now + TimeSpan.FromSeconds(90f);
-        //    Debug.Log("Test DataTime.Now: " + DateTime.Now);
-        //    Debug.Log("timer: " + timer);
+    }
 
-        //    if (SaveGame.Heart > 0)
-        //    {
-        //        SaveGame.Heart--;
-        //        PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
-        //    }
-        //}
-
+    private void CalculateHeart()
+    {
         if (SaveGame.Heart >= GameConfig.MAX_HEART)
         {
             txtCountdownHeart.text = "FULL";
@@ -229,4 +247,75 @@ public class HomeUI : MonoBehaviour
             iconNotice.SetActive(false);
         }
     }
+
+    #region Notice Freecoins
+
+    void InitDataClaimedFreecoin()
+    {
+        dataFreeCoinClaimed = SaveGame.DataFreeCoin;
+    }
+
+    int CheckNoticeFreecoin()
+    {
+        int count = 0;
+        if (dataFreeCoinClaimed.isClaimed50) count++;
+
+        for (int i = 0; i < dataFreeCoinClaimed.listDataFreeCoin.Count; i++)
+        {
+            if (dataFreeCoinClaimed.listDataFreeCoin[i].isClaimed) count++;
+        }
+
+        return count;
+    }
+
+    #endregion
+
+    #region Notice DailyTask
+
+    bool CheckNoticeDailyTask()
+    {
+        return DailyTaskManager.Instance.CheckNotice();
+    }
+
+    #endregion
+
+    #region Notice Task Decore
+
+    bool CheckTaskDecor()
+    {
+        bool canDecor = false;
+
+        int currentBookIndex = SaveGame.MaxCurrentBook;
+
+        int minCost = 10000;
+
+        for (int i = 0; i < bookDataConfig.listDataBooks[currentBookIndex].listDataItemDecor.Count; i++)
+        {
+            DataItemDecor dataItemDecor = bookDataConfig.listDataBooks[currentBookIndex].listDataItemDecor[i];
+
+            if (listBook.listBookDecorated[currentBookIndex].listItemDecorated.Count > 0)
+            {
+                for (int j = 0; j < listBook.listBookDecorated[currentBookIndex].listItemDecorated.Count; j++)
+                {
+                    ItemDecorated itemDecorated = listBook.listBookDecorated[currentBookIndex].listItemDecorated[j];
+
+                    if (itemDecorated.idItemDecorated == dataItemDecor.idItemDecor) continue;
+
+                    if (dataItemDecor.cost <= minCost)
+                        minCost = dataItemDecor.cost;
+                }
+            }
+            else
+            {
+                if (dataItemDecor.cost <= minCost)
+                    minCost = dataItemDecor.cost;
+            }
+        }
+
+        if (SaveGame.Pigment >= minCost) canDecor = true;
+
+        return canDecor;
+    }
+
+    #endregion
 }

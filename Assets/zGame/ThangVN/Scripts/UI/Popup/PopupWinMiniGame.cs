@@ -3,6 +3,7 @@ using ntDev;
 using Spine.Unity;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static Unity.Collections.AllocatorManager;
@@ -12,6 +13,7 @@ public class PopupWinMiniGame : Popup
     [SerializeField] EasyButton btnContinue, btnHome;
     [SerializeField] SkeletonGraphic spineBox;
     [SerializeField] Animator animShow;
+    [SerializeField] TextMeshProUGUI txtCoin, txtPigment;
 
     const string DROP = "drop";
     const string IDLE = "idle";
@@ -38,6 +40,8 @@ public class PopupWinMiniGame : Popup
     public override void Init()
     {
         base.Init();
+        txtCoin.text = $"{SaveGame.Coin}";
+        txtPigment.text = $"{SaveGame.Pigment}";
         StartCoroutine(PlayAnimation());
     }
 

@@ -25,7 +25,7 @@ public class PopupShop : MonoBehaviour
 
     void BuyNoAdsBundle()
     {
-        PopupNoAdsBundle.Show();
+        //PopupNoAdsBundle.Show();
     }
 
     void BuyNoAds()

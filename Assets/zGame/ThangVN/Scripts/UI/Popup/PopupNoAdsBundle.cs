@@ -7,14 +7,14 @@ public class PopupNoAdsBundle : Popup
 {
     [SerializeField] EasyButton btnBuy;
 
-    private void Awake()
-    {
-        btnBuy.OnClick(BuyBundle);
-    }
     public static async void Show()
     {
         PopupNoAdsBundle pop = await ManagerPopup.ShowPopup<PopupNoAdsBundle>();
         pop.Init();
+    }
+    private void Awake()
+    {
+        btnBuy.OnClick(BuyBundle);
     }
 
     public override void Init()

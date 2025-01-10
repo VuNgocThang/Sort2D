@@ -137,4 +137,33 @@ public class DailyTaskManager : MonoBehaviour
             IsNewDay = true;
         }
     }
+
+    public bool NotYetClaimedAllReward()
+    {
+        bool isClaimedAllReward = true;
+
+        if (dataSaved.currentPoint >= 30f && SaveGame.ClaimReward1
+            && SaveGame.ClaimReward2 && SaveGame.ClaimReward3) return false;
+
+        return isClaimedAllReward;
+    }
+
+    public bool HasMissionDone()
+    {
+        bool hasMissionDone = false;
+
+        for (int i = 0; i < dataSaved.listTaskSaved.Count; i++)
+        {
+            if (dataSaved.listTaskSaved[i].isClaimed) continue;
+
+            if (dataSaved.listTaskSaved[i].taskGoal.IsCompleted()) hasMissionDone = true;
+        }
+
+        return hasMissionDone;
+    }
+
+    public bool CheckNotice()
+    {
+        return (NotYetClaimedAllReward() || HasMissionDone());
+    }
 }
