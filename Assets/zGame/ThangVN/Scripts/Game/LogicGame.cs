@@ -1473,7 +1473,6 @@ public class LogicGame : MonoBehaviour
 
 
 
-
     #region SaveDataProgress
     public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();
     public SaveCurrentChallenges saveGameChallenges = new SaveCurrentChallenges();

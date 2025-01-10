@@ -85,6 +85,13 @@ public class MissionCustomerManager : MonoBehaviour
     {
         if (LogicGame.Instance.isLose || LogicGame.Instance.isWin) return;
 
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            LogicGame.Instance.isWin = true;
+            Debug.Log("completed");
+            RaiseEventWin();
+        }
+
         if (currentTimer < timer)
             currentTimer += Time.deltaTime;
 
