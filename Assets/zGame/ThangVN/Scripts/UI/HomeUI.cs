@@ -317,5 +317,12 @@ public class HomeUI : MonoBehaviour
         return canDecor;
     }
 
+    bool CheckListDecor()
+    {
+        bool canShow = false;
+
+        return canShow;
+    }
+
     #endregion
 }
