@@ -140,12 +140,23 @@ public class DailyTaskManager : MonoBehaviour
 
     public bool NotYetClaimedAllReward()
     {
-        bool isClaimedAllReward = true;
+        bool isNotClaimedAllReward = false;
 
-        if (dataSaved.currentPoint >= 30f && SaveGame.ClaimReward1
-            && SaveGame.ClaimReward2 && SaveGame.ClaimReward3) return false;
+        if (dataSaved.currentPoint >= 30f && !SaveGame.ClaimReward1)
+            return true;
+        if (dataSaved.currentPoint >= 80f && !SaveGame.ClaimReward2)
+            return true;
+        if (dataSaved.currentPoint >= 120f && !SaveGame.ClaimReward3)
+            return true;
 
-        return isClaimedAllReward;
+        //if (dataSaved.currentPoint >= 30f)
+        //{
+        //    if (SaveGame.ClaimReward1 && SaveGame.ClaimReward2 && SaveGame.ClaimReward3) return false;
+        //}
+        //else
+        //    return false;
+
+        return isNotClaimedAllReward;
     }
 
     public bool HasMissionDone()
