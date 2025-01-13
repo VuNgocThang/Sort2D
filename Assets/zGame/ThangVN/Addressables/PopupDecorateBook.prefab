@@ -1592,7 +1592,6 @@ MonoBehaviour:
   bg: {fileID: 5396809825148431308}
   imgAds: {fileID: 172559523073108935}
   CanSelect: 0
-  IsBought: 1
   color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3869251718645877677
 GameObject:
@@ -2174,6 +2173,7 @@ GameObject:
   - component: {fileID: 730256140534648798}
   - component: {fileID: 379623444468918686}
   - component: {fileID: 8241915155715569863}
+  - component: {fileID: 3196009954594591759}
   m_Layer: 5
   m_Name: nColorChange
   m_TagString: Untagged
@@ -2243,6 +2243,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3196009954594591759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346069234591590588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &4391191773520825467
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,7 +3205,6 @@ MonoBehaviour:
   bg: {fileID: 931267382290740073}
   imgAds: {fileID: 0}
   CanSelect: 0
-  IsBought: 0
   color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7802739377020388201
 GameObject:

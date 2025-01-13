@@ -44,5 +44,7 @@ public class ItemSelectColor : MonoBehaviour
         this.color = _color;
         this.CanSelect = _CanSelect;
         bg.color = _color;
+        if (imgAds != null)
+            imgAds.SetActive(!_CanSelect);
     }
 }

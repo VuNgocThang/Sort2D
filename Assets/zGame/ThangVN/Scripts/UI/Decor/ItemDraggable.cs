@@ -123,16 +123,75 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Vector3[] parentCorners = new Vector3[4];
         parent.GetWorldCorners(parentCorners);
 
+        // full inside parent
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    if (!RectTransformUtility.RectangleContainsScreenPoint(parent, childCorners[i]))
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //return true;
+
+
+        // part inside parent
         for (int i = 0; i < 4; i++)
         {
-            if (!RectTransformUtility.RectangleContainsScreenPoint(parent, childCorners[i]))
+            if (RectTransformUtility.RectangleContainsScreenPoint(parent, childCorners[i]))
             {
-                return false;
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
+
+    //bool IsRectTransformInsideParent(RectTransform child, RectTransform parent)
+    //{
+    //    Vector3[] childCorners = new Vector3[4];
+    //    child.GetWorldCorners(childCorners);
+
+    //    Vector3[] parentCorners = new Vector3[4];
+    //    parent.GetWorldCorners(parentCorners);
+
+    //    Rect parentRect = new Rect(parentCorners[0].x, parentCorners[0].y,
+    //                               parentCorners[2].x - parentCorners[0].x,
+    //                               parentCorners[2].y - parentCorners[0].y);
+
+    //    foreach (var corner in childCorners)
+    //    {
+    //        if (!parentRect.Contains(new Vector2(corner.x, corner.y)))
+    //        {
+    //            return false;
+    //        }
+    //    }
+
+    //    return true;
+    //}
+
+    //bool IsRectTransformPartiallyInsideParent(RectTransform child, RectTransform parent)
+    //{
+    //    Vector3[] childCorners = new Vector3[4];
+    //    child.GetWorldCorners(childCorners);
+
+    //    Vector3[] parentCorners = new Vector3[4];
+    //    parent.GetWorldCorners(parentCorners);
+
+    //    Rect parentRect = new Rect(parentCorners[0].x, parentCorners[0].y,
+    //                               parentCorners[2].x - parentCorners[0].x,
+    //                               parentCorners[2].y - parentCorners[0].y);
+
+    //    foreach (var corner in childCorners)
+    //    {
+    //        if (parentRect.Contains(new Vector2(corner.x, corner.y)))
+    //        {
+    //            return true;
+    //        }
+    //    }
+
+    //    return false;
+    //}
 
 
     void AddNewBook(bool isTruePos)

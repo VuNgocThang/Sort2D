@@ -43,7 +43,12 @@ public class PopupDecorateBook : Popup
             OnSelect(true);
             btnTick.gameObject.SetActive(false);
         });
-        btnSelectBgColor.OnClick(() => OnSelect(false));
+        btnSelectBgColor.OnClick(() =>
+        {
+            if (currentItemDrag != null) return;
+
+            OnSelect(false);
+        });
         btnBack.OnClick(() =>
         {
             if (currentItemDrag != null)
@@ -420,6 +425,8 @@ public class PopupDecorateBook : Popup
             {
                 Debug.Log("count" + count);
                 Debug.Log("MaxCurrentBook: " + SaveGame.MaxCurrentBook + "  ____ " + idBook);
+                if (idBook == dataConfigDecor.listDataBooks.Count - 1) PopupDecor.Show();
+
                 if (count == dataConfigDecor.listDataBooks[i].totalParts)
                 {
                     Debug.Log(" Open New Book");

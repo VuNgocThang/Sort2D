@@ -51,8 +51,9 @@ public class PopupBookItem : Popup
     public void Initialize(int index)
     {
         Debug.Log("Show PopupBookItem at index: " + index);
-        if (index < SaveGame.MaxCurrentBook) txtDecorate.text = "Redecorate";
-        else txtDecorate.text = "Decorate";
+        //if (index < SaveGame.MaxCurrentBook) txtDecorate.text = "Redecorate";
+        //else txtDecorate.text = "Decorate";
+        txtDecorate.text = "Redecorate";
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
         {
