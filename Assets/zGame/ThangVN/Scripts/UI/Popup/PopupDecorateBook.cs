@@ -219,10 +219,11 @@ public class PopupDecorateBook : Popup
         {
             int id = dataBook.listDataItemDecor[i].idItemDecor;
             int cost = dataBook.listDataItemDecor[i].cost;
+            float percent = dataBook.listDataItemDecor[i].percent;
             Sprite sprite = dataBook.listDataItemDecor[i].spriteIcon;
 
             ItemDecor item = Instantiate(itemDecorPrefab, nContent);
-            item.Init(id, cost, sprite);
+            item.Init(id, cost, percent, sprite);
 
             listItems.Add(item.imageItem);
             listItemDecors.Add(item);
@@ -385,8 +386,7 @@ public class PopupDecorateBook : Popup
 
     private void UpdateCurrentProgressBookDecorated(List<BookDecorated> listBookDecoratedCache, List<ItemDecorated> listItemDecoratedCache)
     {
-        int countProgress = 0;
-
+        float currentPercent = 0f;
         for (int i = 0; i < listBookDecoratedCache.Count; i++)
         {
             if (listBookDecoratedCache[i].idBookDecorated == SaveGame.CurrentBook)
@@ -395,12 +395,14 @@ public class PopupDecorateBook : Popup
 
                 for (int j = 0; j < listBookDecoratedCache[i].listItemDecorated.Count; j++)
                 {
-                    if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos) countProgress++;
+                    if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos)
+                        currentPercent += listBookDecoratedCache[i].listItemDecorated[j].percent;
                 }
 
-                if (listBookDecoratedCache[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
+                if (listBookDecoratedCache[i].colorPainted != GameConfig.DEFAULT_COLOR)
+                    currentPercent += GameConfig.PERCENT_COLOR;
 
-                listBookDecoratedCache[i].progress = (float)countProgress / total;
+                listBookDecoratedCache[i].progress = currentPercent / GameConfig.PERCENT_TOTAL;
             }
         }
     }
@@ -426,28 +428,36 @@ public class PopupDecorateBook : Popup
             {
                 Debug.Log("count" + count);
                 Debug.Log("MaxCurrentBook: " + SaveGame.MaxCurrentBook + "  ____ " + idBook);
-                if (idBook == dataConfigDecor.listDataBooks.Count - 1) PopupDecor.Show();
+                //if (idBook == dataConfigDecor.listDataBooks.Count - 1) return;
 
                 if (count == dataConfigDecor.listDataBooks[i].totalParts)
                 {
                     Debug.Log(" Open New Book");
                     //if(SaveGame.MaxCurrentBook == idBook) return;
-                    SaveGame.MaxCurrentBook = idBook + 1;
-                    dataCache.listBookDecorated.Add(new BookDecorated()
+                    if (SaveGame.MaxCurrentBook < dataConfigDecor.listDataBooks.Count - 1)
                     {
-                        idBookDecorated = idBook + 1,
-                        progress = 0,
-                        isPainted = false,
-                        colorPainted = GameConfig.DEFAULT_COLOR,
-                        listItemDecorated = new List<ItemDecorated>()
+                        SaveGame.MaxCurrentBook = idBook + 1;
+                        dataCache.listBookDecorated.Add(new BookDecorated()
                         {
+                            idBookDecorated = idBook + 1,
+                            progress = 0,
+                            isPainted = false,
+                            colorPainted = GameConfig.DEFAULT_COLOR,
+                            listItemDecorated = new List<ItemDecorated>()
+                            {
 
-                        }
-                    });
+                            }
+                        });
 
-                    SaveGame.ListBookDecorated = dataCache;
-                    PopupNewBook.Show();
-                    break;
+                        SaveGame.ListBookDecorated = dataCache;
+                        PopupNewBook.Show();
+                        break;
+                    }
+                    else
+                    {
+                        if (!SaveGame.Redecorated)
+                            PopupDecor.Show();
+                    }
 
                 }
             }

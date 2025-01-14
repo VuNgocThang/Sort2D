@@ -92,10 +92,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
                 AddNewBook(false);
                 popupDecorateBook.OpenNewBook();
-
-                //rectTransform.anchoredPosition = originalPosition;
-                //linkedImageItem.gameObject.SetActive(true);
-                //this.gameObject.SetActive(false);
             }
         }
         else
@@ -123,19 +119,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         Vector3[] parentCorners = new Vector3[4];
         parent.GetWorldCorners(parentCorners);
 
-        // full inside parent
-        //for (int i = 0; i < 4; i++)
-        //{
-        //    if (!RectTransformUtility.RectangleContainsScreenPoint(parent, childCorners[i]))
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //return true;
-
-
-        // part inside parent
         for (int i = 0; i < 4; i++)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(parent, childCorners[i]))
@@ -146,53 +129,6 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         return false;
     }
-
-    //bool IsRectTransformInsideParent(RectTransform child, RectTransform parent)
-    //{
-    //    Vector3[] childCorners = new Vector3[4];
-    //    child.GetWorldCorners(childCorners);
-
-    //    Vector3[] parentCorners = new Vector3[4];
-    //    parent.GetWorldCorners(parentCorners);
-
-    //    Rect parentRect = new Rect(parentCorners[0].x, parentCorners[0].y,
-    //                               parentCorners[2].x - parentCorners[0].x,
-    //                               parentCorners[2].y - parentCorners[0].y);
-
-    //    foreach (var corner in childCorners)
-    //    {
-    //        if (!parentRect.Contains(new Vector2(corner.x, corner.y)))
-    //        {
-    //            return false;
-    //        }
-    //    }
-
-    //    return true;
-    //}
-
-    //bool IsRectTransformPartiallyInsideParent(RectTransform child, RectTransform parent)
-    //{
-    //    Vector3[] childCorners = new Vector3[4];
-    //    child.GetWorldCorners(childCorners);
-
-    //    Vector3[] parentCorners = new Vector3[4];
-    //    parent.GetWorldCorners(parentCorners);
-
-    //    Rect parentRect = new Rect(parentCorners[0].x, parentCorners[0].y,
-    //                               parentCorners[2].x - parentCorners[0].x,
-    //                               parentCorners[2].y - parentCorners[0].y);
-
-    //    foreach (var corner in childCorners)
-    //    {
-    //        if (parentRect.Contains(new Vector2(corner.x, corner.y)))
-    //        {
-    //            return true;
-    //        }
-    //    }
-
-    //    return false;
-    //}
-
 
     void AddNewBook(bool isTruePos)
     {
@@ -217,32 +153,11 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 listItemDecoratedCache[i].x = rectTransform.anchoredPosition.x;
                 listItemDecoratedCache[i].y = rectTransform.anchoredPosition.y;
                 listItemDecoratedCache[i].isTruePos = isTruePos;
+                listItemDecoratedCache[i].percent = linkedImageItem.itemDecor.percent;
             }
         }
-        ////return;
-        //ItemDecorated itemDecorated = new ItemDecorated();
-        //itemDecorated.idItemDecorated = id;
-        //itemDecorated.isPainted = true;
-        //itemDecorated.x = rectTransform.anchoredPosition.x;
-        //itemDecorated.y = rectTransform.anchoredPosition.y;
-        //itemDecorated.isTruePos = isTruePos;
 
-        ////for (int i = 0; i < listItemDecoratedCache.Count; i++)
-        ////{
-        ////    if (listItemDecoratedCache[i].idItemDecorated != id)
-        ////    {
-
-        ////    }
-        ////}
-        //listItemDecoratedCache.Add(itemDecorated);
-
-        //for (int i = 0; i < listItemDecoratedCache.Count; i++)
-        //{
-        //    Debug.Log($"listItemDecoratedCache[{i}].idItemDecorated: " + listItemDecoratedCache[i].idItemDecorated);
-        //}
-
-        int countProgress = 0;
-
+        float currentPercent = 0;
         for (int i = 0; i < listBookDecoratedCache.Count; i++)
         {
             if (listBookDecoratedCache[i].idBookDecorated == SaveGame.CurrentBook)
@@ -251,17 +166,20 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
                 for (int j = 0; j < listBookDecoratedCache[i].listItemDecorated.Count; j++)
                 {
-                    if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos) countProgress++;
+                    if (listBookDecoratedCache[i].listItemDecorated[j].isTruePos)
+                        currentPercent += listBookDecoratedCache[i].listItemDecorated[j].percent;
                 }
 
-                if (listBookDecoratedCache[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
+                if (listBookDecoratedCache[i].colorPainted != GameConfig.DEFAULT_COLOR)
+                    currentPercent += GameConfig.PERCENT_COLOR;
 
-                listBookDecoratedCache[i].progress = (float)countProgress / popupDecorateBook.total;
+                listBookDecoratedCache[i].progress = currentPercent / GameConfig.PERCENT_TOTAL;
             }
         }
 
         dataCache.listBookDecorated = listBookDecoratedCache;
         SaveGame.ListBookDecorated = dataCache;
+
         Debug.Log("save item decorate");
     }
 }

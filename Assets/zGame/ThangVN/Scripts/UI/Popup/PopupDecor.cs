@@ -4,20 +4,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PopupDecor : Popup
 {
-    [SerializeField] EasyButton btnBack, btnPlusColorPlate;
+    [SerializeField] Transform nContent;
     [SerializeField] RectTransform select;
-    [SerializeField] List<GameObject> listSelect;
+    [SerializeField] EasyButton btnBack, btnPlusColorPlate;
     [SerializeField] TextMeshProUGUI txtColorPlate;
     [SerializeField] BookItem bookItemPrefab;
+    [SerializeField] List<GameObject> listSelect;
     [SerializeField] List<BookItem> listBookItems;
-    [SerializeField] Transform nContent;
     [SerializeField] List<BookDecorated> listBookDecorated;
     [SerializeField] List<float> listProgress;
-    [SerializeField] ScrollRect scrollRect;
 
     [SerializeField] DataConfigDecor dataBookConfig;
 
@@ -38,30 +36,24 @@ public class PopupDecor : Popup
     public override void Init()
     {
         base.Init();
-        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = false;
+
         txtColorPlate.text = SaveGame.Pigment.ToString();
 
-        //for (int i = 0; i < listSelect.Count; i++)
-        //{
-        //    listSelect[i].SetActive(false);
-        //}
-        //if (LogicSetupRoom.instance.listGameObject.Count > SaveGame.CurrentObject)
-        //{
-        //    listSelect[SaveGame.CurrentObject].SetActive(true);
-        //    LogicSetupRoom.instance.listGameObject[SaveGame.CurrentObject].SetActive(true);
-        //    SaveGame.CanShow = true;
-        //}
         for (int i = 0; i < listBookItems.Count; i++)
-        {
             listBookItems[i].gameObject.SetActive(false);
-        }
 
         listBookItems.Clear();
         listProgress.Clear();
 
-        LoadDataBook();
+        LoadListProgress();
 
+        LoadListBookItems();
 
+        //scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    private void LoadListBookItems()
+    {
         for (int i = 0; i < dataBookConfig.listDataBooks.Count; i++)
         {
             BookItem book = Instantiate(bookItemPrefab, nContent);
@@ -73,11 +65,9 @@ public class PopupDecor : Popup
         {
             listBookItems[i].InitProgressText(listProgress[i]);
         }
-
-        //scrollRect.verticalNormalizedPosition = 1f;
     }
 
-    void LoadDataBook()
+    void LoadListProgress()
     {
         listBookDecorated = SaveGame.ListBookDecorated.listBookDecorated;
 

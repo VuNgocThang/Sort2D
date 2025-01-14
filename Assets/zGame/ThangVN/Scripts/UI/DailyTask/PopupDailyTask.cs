@@ -20,7 +20,7 @@ public class PopupDailyTask : Popup
     [SerializeField] TextMeshProUGUI txtCurrentPoint, txtTimeRemain;
     [SerializeField] Image imgFillProgress;
     [SerializeField] EasyButton btnInfo, btnReward1, btnReward2, btnReward3;
-    [SerializeField] GameObject Rewarded1, Rewarded2, Rewarded3;
+    [SerializeField] GameObject Rewarded1, Rewarded2, Rewarded3, Locked1, Locked2, Locked3;
     [SerializeField] Animator anim1, anim2, anim3;
 
     private void Awake()
@@ -87,35 +87,37 @@ public class PopupDailyTask : Popup
     {
         if (CanClaimReward1())
         {
-            anim1.Play("Show");
-            Debug.Log("Play Anim Reward1");
+            PlayAnimReward(Rewarded1, Locked1, anim1);
         }
-        else if (SaveGame.ClaimReward1)
+        else
         {
-            Rewarded1.SetActive(true);
-        }
+            Rewarded1.SetActive(SaveGame.ClaimReward1);
+            Locked1.SetActive(!SaveGame.ClaimReward1);
+
+        };
+
 
         if (CanClaimReward2())
         {
-            anim2.Play("Show");
-
-            Debug.Log("Play Anim Reward2");
+            PlayAnimReward(Rewarded2, Locked2, anim2);
         }
-        else if (SaveGame.ClaimReward2)
+        else
         {
-            Rewarded2.SetActive(true);
-        }
+            Rewarded2.SetActive(SaveGame.ClaimReward2);
+            Locked2.SetActive(!SaveGame.ClaimReward2);
+
+        };
 
         if (CanClaimReward3())
         {
-            anim3.Play("Show");
-
-            Debug.Log("Play Anim Reward3");
+            PlayAnimReward(Rewarded3, Locked3, anim3);
         }
-        else if (SaveGame.ClaimReward3)
+        else
         {
-            Rewarded3.SetActive(true);
-        }
+            Rewarded3.SetActive(SaveGame.ClaimReward3);
+            Locked3.SetActive(!SaveGame.ClaimReward3);
+
+        };
     }
 
     private void RefreshList()
@@ -177,19 +179,32 @@ public class PopupDailyTask : Popup
     void PlayAnim()
     {
         if (CanClaimReward1())
-            anim1.Play("Show");
+        {
+            PlayAnimReward(Rewarded1, Locked1, anim1);
+        }
         else
             anim1.Play("Default");
 
         if (CanClaimReward2())
-            anim2.Play("Show");
+        {
+            PlayAnimReward(Rewarded2, Locked2, anim2);
+        }
         else
             anim2.Play("Default");
 
         if (CanClaimReward3())
-            anim3.Play("Show");
+        {
+            PlayAnimReward(Rewarded3, Locked3, anim3);
+        }
         else
             anim3.Play("Default");
+    }
+
+    void PlayAnimReward(GameObject reward, GameObject locked, Animator animator)
+    {
+        reward.SetActive(false);
+        locked.SetActive(false);
+        animator.Play("Show");
     }
 
     bool CanClaimReward1()

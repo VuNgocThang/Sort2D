@@ -19,14 +19,15 @@ public class PopupBookItem : Popup
     [SerializeField] Slot slotPrefab;
     [SerializeField] Transform nParentSlot;
 
-    [SerializeField] DataConfigDecor dataConfigDecor;
     DataBook dataBook;
+    [SerializeField] DataConfigDecor dataConfigDecor;
     [SerializeField] BookDecorated bookDecorated;
 
     private void Awake()
     {
         btnDecorate.OnClick(() =>
         {
+            SaveGame.Redecorated = true;
             PopupDecorateBook.Show(SaveGame.CurrentBook, true);
         });
 

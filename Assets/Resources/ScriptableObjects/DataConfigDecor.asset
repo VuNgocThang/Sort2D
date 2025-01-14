@@ -20,24 +20,28 @@ MonoBehaviour:
     listDataItemDecor:
     - idItemDecor: 0
       cost: 60
+      percent: 20
       spriteIcon: {fileID: 21300000, guid: cfc1b9ce58feacf4c953da0bca061441, type: 3}
       sprite: {fileID: 21300000, guid: 9cf50a02ce54f4c4fa6b73bbbf53479b, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 1
       cost: 100
+      percent: 25
       spriteIcon: {fileID: 21300000, guid: b34649970c702e04abb95c67b51972f7, type: 3}
       sprite: {fileID: 21300000, guid: 43f015bfc1a3c4447a0055bb2ffa3114, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 2
       cost: 120
+      percent: 25
       spriteIcon: {fileID: 21300000, guid: 6defe5e5f573dfd4da860b1eda40c0c4, type: 3}
       sprite: {fileID: 21300000, guid: a649e4f61abc9454ea8e7f6e6468755e, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 3
       cost: 120
+      percent: 25
       spriteIcon: {fileID: 21300000, guid: 31098a37007bc084b85f9023e7dd9e9d, type: 3}
       sprite: {fileID: 21300000, guid: febdb99199e8a3d4cafcd08f152a35a1, type: 3}
       isPainted: 0
@@ -67,60 +71,70 @@ MonoBehaviour:
     listDataItemDecor:
     - idItemDecor: 0
       cost: 150
+      percent: 5
       spriteIcon: {fileID: 21300000, guid: 84134783a717a364fac43f1c2b655eb8, type: 3}
       sprite: {fileID: 21300000, guid: 7bd6d433a6489cd4a9a91c0cfa244630, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 1
       cost: 180
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 0f48313bc4d132b4d83c827737651636, type: 3}
       sprite: {fileID: 21300000, guid: 174029bf11b1f7b40a55ace030132a4c, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 2
       cost: 200
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 970a3021822e23f41b8e4ea018408a3f, type: 3}
       sprite: {fileID: 21300000, guid: 113214331a091b540a40004d4c252dff, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 3
       cost: 200
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 9d3c390cf214f8d488d89461541bd6ed, type: 3}
       sprite: {fileID: 21300000, guid: fbd8ffd5e37a0a24ab23b7170332c693, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 4
       cost: 200
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 3c4da43a270fc48438f19827220259c1, type: 3}
       sprite: {fileID: 21300000, guid: 021a85942e5863549a711c23c35113e7, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 5
       cost: 220
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 003ecd6e8ac35a145bf1160fbdefd0db, type: 3}
       sprite: {fileID: 21300000, guid: 5febe532176342141986c10c45bd63b9, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 6
       cost: 220
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: f002739d2afe7de408376b73720d4117, type: 3}
       sprite: {fileID: 21300000, guid: d1c36c473fe2c9a4fadbeb29b5e547ad, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 7
       cost: 220
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: afe2f15264daef64c9e7108da3b0942c, type: 3}
       sprite: {fileID: 21300000, guid: 9c947d66680ffa84a94c25b8ac0af99c, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 8
       cost: 250
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 11077684a12f7e64d96ab102bee1c67e, type: 3}
       sprite: {fileID: 21300000, guid: d4d055e0482d25047970db054dd6e885, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 9
       cost: 250
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 92d4ce367434fc64297bdd795f1b58bc, type: 3}
       sprite: {fileID: 21300000, guid: abe410875d1c64e449d35084001fd1ba, type: 3}
       isPainted: 0
@@ -168,60 +182,70 @@ MonoBehaviour:
     listDataItemDecor:
     - idItemDecor: 0
       cost: 280
+      percent: 5
       spriteIcon: {fileID: 21300000, guid: c6e4c12a169fd8745bee061da72cd926, type: 3}
       sprite: {fileID: 21300000, guid: 6db90ba85cfbfa14490288a27018aa39, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 1
       cost: 280
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 9e64dbc9ef7b4ff4faaec1f0a868a68a, type: 3}
       sprite: {fileID: 21300000, guid: 1cc97f46b1d3cf543b3a4f0e3f070c9a, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 2
       cost: 280
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: f74dc41351566ee47b7eca35c19ce3c6, type: 3}
       sprite: {fileID: 21300000, guid: bb48de67cd07adc46b88c3c266b4f199, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 3
       cost: 300
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: cb7cf99e63480284c82d446c529224ce, type: 3}
       sprite: {fileID: 21300000, guid: 562ea1f3431ff164691a3c8376a9406a, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 4
       cost: 300
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 5999a4674c2396942876d0294df91948, type: 3}
       sprite: {fileID: 21300000, guid: 58d67008a4f8d934abf925c40f44bc1d, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 5
       cost: 300
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 6341712defc96c847bff45fef94e2738, type: 3}
       sprite: {fileID: 21300000, guid: 1ffecde37ecb5054098ec1cae66dfa7b, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 6
       cost: 300
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 5a20f1c78514c2e489aa8ce459a45bdd, type: 3}
       sprite: {fileID: 21300000, guid: 39c0c8614f1e2f746a40315f613a40a7, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 7
       cost: 320
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: d2da3e82b41335743a597df68e3572b7, type: 3}
       sprite: {fileID: 21300000, guid: 13637efa895c19d469362dea6c260bf6, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 8
       cost: 320
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: c751ec17be6ee6243814f2a6be139059, type: 3}
       sprite: {fileID: 21300000, guid: 4fd0c753f9019bc419c3df160044dd27, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 9
       cost: 320
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: ffac65eb25f59d04786916670959cee5, type: 3}
       sprite: {fileID: 21300000, guid: c08c55d99fffbb64fa7f569f957d3325, type: 3}
       isPainted: 0
@@ -269,60 +293,70 @@ MonoBehaviour:
     listDataItemDecor:
     - idItemDecor: 0
       cost: 320
+      percent: 5
       spriteIcon: {fileID: 21300000, guid: cb47cbbf6736d2243a06cc08bffbe561, type: 3}
       sprite: {fileID: 21300000, guid: b29ce4bf7802a43489f54832a320174d, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 1
       cost: 320
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 7938113d45076ba4eaa970896dddc42d, type: 3}
       sprite: {fileID: 21300000, guid: 44e02c1f18d832e4498fca569cc46db9, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 2
       cost: 320
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 079f5cd6dedd91441ae9d1ce05a3c8ab, type: 3}
       sprite: {fileID: 21300000, guid: 63ab99cd3e05abe43adfbfa7abdc368d, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 3
       cost: 350
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 6f34580ebaed7134fb496739d0deb23c, type: 3}
       sprite: {fileID: 21300000, guid: c952d235b053900449334b033af42157, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 4
       cost: 350
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: ef025547461da5047be3011558ca29c4, type: 3}
       sprite: {fileID: 21300000, guid: 63535cc90d116804aa2080f7645fc3e0, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 5
       cost: 350
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 4b93212f0d34c9e46841401b86c7e7c5, type: 3}
       sprite: {fileID: 21300000, guid: 88c984297b60fd34490c729e9ae21642, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 6
       cost: 350
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: d1a417a4ec9c1a5428806a21266023ff, type: 3}
       sprite: {fileID: 21300000, guid: 76e5aa7d20db7b64091fbf08f19b4f06, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 7
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: dc8423aee94829443b4258fac520fcb8, type: 3}
       sprite: {fileID: 21300000, guid: 5651cfb6dfcc3ea48b813de8e844a6c6, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 8
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: e3c21ad032de3ae44910a0a239e6b916, type: 3}
       sprite: {fileID: 21300000, guid: 31d770c4ecfdb614bae27aff19c584a0, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 9
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: e91de97ac94000c4d81868c8cef3e166, type: 3}
       sprite: {fileID: 21300000, guid: b29662d4f40a7ba44b45c2da0b95354c, type: 3}
       isPainted: 0
@@ -370,60 +404,70 @@ MonoBehaviour:
     listDataItemDecor:
     - idItemDecor: 0
       cost: 350
+      percent: 5
       spriteIcon: {fileID: 21300000, guid: fa5bb759a9034b944b46498d541a193b, type: 3}
       sprite: {fileID: 21300000, guid: 56d497a4f2ed85145a191a62aa7a16a6, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 1
       cost: 350
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 1c65500ac8d4c7345b320a967c9cc1ae, type: 3}
       sprite: {fileID: 21300000, guid: 71ddb85501bc76644a784e68204bafa8, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 2
       cost: 350
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 91fdea8d1e6a06648aeff114d75bc672, type: 3}
       sprite: {fileID: 21300000, guid: c473907d75b792b4dbced060d4cc27aa, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 3
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 75da68ebdf25e1a4fb7716a0d84f9ba6, type: 3}
       sprite: {fileID: 21300000, guid: 7d82cd14ef1aeb34c8ebe2026e2c7464, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 4
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 81128189bc457084fae7da1f607d9ed8, type: 3}
       sprite: {fileID: 21300000, guid: b3d322289d724be41a64d0ac689d09f1, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 5
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 2f62792173661144f979aec688f68e25, type: 3}
       sprite: {fileID: 21300000, guid: 551d65cf3cc7b1145bf4823f16a05e5b, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 6
       cost: 380
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 03ab806848efe744d90cd238544d71e2, type: 3}
       sprite: {fileID: 21300000, guid: cc49b1fd709cef145a6ba277ac630dd5, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 7
       cost: 400
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 9e0eb62066a633543873a624983f3587, type: 3}
       sprite: {fileID: 21300000, guid: bd0eace1d153f8141891c1a5d82a4e14, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 8
       cost: 400
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: cfa0a730d25451641bcbca00870db7a1, type: 3}
       sprite: {fileID: 21300000, guid: 863eeeddc0858824c839bb928513c526, type: 3}
       isPainted: 0
       isBought: 0
     - idItemDecor: 9
       cost: 400
+      percent: 10
       spriteIcon: {fileID: 21300000, guid: 59009db9de8a1e246bedc2032c2a26cb, type: 3}
       sprite: {fileID: 21300000, guid: 3e9b78a21ab194c498222d179d76110f, type: 3}
       isPainted: 0

@@ -9,6 +9,7 @@ public class DataItemDecor
 {
     public int idItemDecor;
     public int cost;
+    public float percent;
     public Sprite spriteIcon;
     public Sprite sprite;
     public bool isPainted;
@@ -68,6 +69,7 @@ public class ItemDecorated
     public bool isPainted;
     public bool isBought;
     public bool isTruePos;
+    public float percent;
     //public ItemPosition position;
     public float x;
     public float y;

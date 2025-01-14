@@ -660,4 +660,21 @@ public static class SaveGame
             return claimReward3 == 1;
         }
     }
+
+    const string REDECORATED = "REDECORATED";
+    static int redecorated = -1;
+
+    public static bool Redecorated
+    {
+        set
+        {
+            ES3.Save(REDECORATED, value ? 1 : 0);
+            redecorated = value ? 1 : 0;
+        }
+        get
+        {
+            if (redecorated == -1) redecorated = ES3.Load(REDECORATED, 0);
+            return redecorated == 1;
+        }
+    }
 }

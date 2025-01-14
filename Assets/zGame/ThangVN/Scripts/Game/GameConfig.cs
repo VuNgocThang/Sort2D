@@ -106,4 +106,13 @@ public static class GameConfig
     public static string GAMESAVEBONUS = "GameSaveBonus";
 
     public static string TASK_DATA = "TaskData";
+
+    public static float PERCENT_COLOR = 5f;
+
+    public static float PERCENT_TOTAL = 100f;
+
+    public static float SCALE_X = 414f / 747f;
+
+    public static float SCALE_Y = 469f / 924f;
+
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemDecor : MonoBehaviour
 {
     public int id;
+    public float percent;
     public ImageItem imageItem;
     public TextMeshProUGUI txtCost;
     public EasyButton btnBuy;
@@ -29,10 +30,11 @@ public class ItemDecor : MonoBehaviour
         });
     }
 
-    public void Init(int id, int cost, Sprite sprite)
+    public void Init(int id, int cost, float percent, Sprite sprite)
     {
         this.id = id;
         this.cost = cost;
+        this.percent = percent;
 
         imageItem.Init(id, sprite);
         txtCost.text = cost.ToString();
@@ -55,6 +57,7 @@ public class ItemDecor : MonoBehaviour
         ItemDecorated itemDecorated = new ItemDecorated();
         itemDecorated.idItemDecorated = id;
         itemDecorated.isBought = true;
+        itemDecorated.percent = percent;
 
         listItemDecoratedCache.Add(itemDecorated);
 
