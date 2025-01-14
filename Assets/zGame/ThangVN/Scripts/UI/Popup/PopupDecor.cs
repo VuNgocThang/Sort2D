@@ -65,7 +65,7 @@ public class PopupDecor : Popup
         for (int i = 0; i < dataBookConfig.listDataBooks.Count; i++)
         {
             BookItem book = Instantiate(bookItemPrefab, nContent);
-            book.Init(i, dataBookConfig.listDataBooks[i].titleBook, dataBookConfig);
+            book.Init(i, dataBookConfig.listDataBooks[i].titleBook, dataBookConfig.listDataBooks[i].sprite, dataBookConfig);
             listBookItems.Add(book);
         }
 

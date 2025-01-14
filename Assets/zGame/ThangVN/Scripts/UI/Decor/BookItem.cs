@@ -45,7 +45,7 @@ public class BookItem : MonoBehaviour
         PopupDecorateBook.Show(index, false);
     }
 
-    public void Init(int _index, string title, DataConfigDecor _data)
+    public void Init(int _index, string title, Sprite sprite, DataConfigDecor _data)
     {
         indexBook = _index;
         txtTitleBook.text = title;
@@ -55,9 +55,10 @@ public class BookItem : MonoBehaviour
         {
             nText.SetActive(true);
         }
+
         if (indexBook <= SaveGame.MaxCurrentBook)
         {
-            imgIconBook.sprite = defaultSprite;
+            imgIconBook.sprite = sprite;
         }
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)

@@ -42,6 +42,7 @@ public class DataBook
 {
     public int idBook;
     public string titleBook;
+    public Sprite sprite;
     public int totalParts;
     public List<DataItemDecor> listDataItemDecor;
     public List<DataSlot> listDataSlots;

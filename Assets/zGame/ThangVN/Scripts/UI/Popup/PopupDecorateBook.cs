@@ -82,6 +82,7 @@ public class PopupDecorateBook : Popup
     public override void Init()
     {
         base.Init();
+        btnTick.gameObject.SetActive(false);
         OnSelect(true);
         ManagerPopup.HidePopup<PopupBookItem>();
     }
