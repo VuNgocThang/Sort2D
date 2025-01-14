@@ -14,6 +14,7 @@ public class DataMission
 [Serializable]
 public class DataCustomer
 {
+    public int idCustomer;
     public Sprite spriteCustomer;
     public Sprite spriteCompleted;
     public List<DataMission> missions;
