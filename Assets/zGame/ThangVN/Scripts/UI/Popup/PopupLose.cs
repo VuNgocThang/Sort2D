@@ -29,7 +29,10 @@ public class PopupLose : Popup
             //    SaveGame.Heart--;
             if (DailyTaskManager.Instance != null)
                 DailyTaskManager.Instance.ExecuteDailyTask(TaskType.Revive, 1);
+            
             SaveGame.Heart++;
+            SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
+
             LogicGame.Instance.ReviveGame();
             Hide();
             LogicGame.Instance.isPauseGame = false;
@@ -73,6 +76,7 @@ public class PopupLose : Popup
             if (countdownTimer <= 0 && SaveGame.Heart < GameConfig.MAX_HEART)
             {
                 SaveGame.Heart++;
+                SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
                 SaveGame.CountDownTimer = GameConfig.TIME_COUNT_DOWN;
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
                 PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());

@@ -65,6 +65,10 @@ public class PopupDecor : Popup
         {
             listBookItems[i].InitProgressText(listProgress[i]);
         }
+
+        //BookItem bookComingSoon = Instantiate(bookItemPrefab, nContent);
+        //bookComingSoon.InitComingSoonBook(dataBookConfig.listDataBooks.Count, dataBookConfig);
+        //listBookItems.Add(bookComingSoon);
     }
 
     void LoadListProgress()

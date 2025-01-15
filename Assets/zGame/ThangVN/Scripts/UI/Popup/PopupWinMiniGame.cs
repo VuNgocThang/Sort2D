@@ -1,4 +1,3 @@
-using BaseGame;
 using ntDev;
 using Spine.Unity;
 using System.Collections;
@@ -6,7 +5,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Unity.Collections.AllocatorManager;
 
 public class PopupWinMiniGame : Popup
 {

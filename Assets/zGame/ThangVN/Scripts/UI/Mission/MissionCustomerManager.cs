@@ -67,10 +67,12 @@ public class MissionCustomerManager : MonoBehaviour
         {
             if (listCustomers[i].IsCompleted())
             {
-                listCustomers[i].ChangeSpriteIfDone();
-
                 index = i;
-                Move(index);
+                listCustomers[index].Invoke("ChangeSpriteIfDone", 1f);
+                //listCustomers[i].ChangeSpriteIfDone();
+
+                //index = i;
+                //Move(index);
             }
         }
     }

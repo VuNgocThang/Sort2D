@@ -5,10 +5,11 @@ using ntDev;
 using UnityEngine.SceneManagement;
 using BaseGame;
 using UnityEngine.UI;
+using ThangVN;
 
 public class PopupSetting : Popup
 {
-    public EasyButton btnSound, btnMusic, btnVibrate, /*btnRestart,*/ btnHome, btnSoundOff, btnMusicOff, btnVibrateOff;
+    public EasyButton btnSound, btnMusic, btnVibrate, btnRestart, btnHome, btnSoundOff, btnMusicOff, btnVibrateOff;
     //public GameObject imgMusicOff, imgSoundOff, imgVibrateOff;
     public static async void Show()
     {
@@ -43,11 +44,12 @@ public class PopupSetting : Popup
             ToggleBtnVibrate();
         });
 
-        //btnRestart.OnClick(() =>
-        //{
-        //    ManagerEvent.ClearEvent();
-        //    StartCoroutine(LoadScene("SceneGame"));
-        //});
+        btnRestart.OnClick(() =>
+        {
+            PopupRestart.Show();
+            //ManagerEvent.ClearEvent();
+            //StartCoroutine(LoadScene("SceneGame"));
+        });
 
         btnHome.OnClick(() =>
         {

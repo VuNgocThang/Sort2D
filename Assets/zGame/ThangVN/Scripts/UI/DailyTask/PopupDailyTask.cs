@@ -31,7 +31,8 @@ public class PopupDailyTask : Popup
             if (CanClaimReward1())
             {
                 SaveGame.ClaimReward1 = true;
-                ClaimReward();
+                Rewarded1.SetActive(true);
+                PopupReward1.Show();
             }
         });
 
@@ -40,7 +41,8 @@ public class PopupDailyTask : Popup
             if (CanClaimReward2())
             {
                 SaveGame.ClaimReward2 = true;
-                ClaimReward();
+                Rewarded2.SetActive(true);
+                PopupReward2.Show();
             }
         });
 
@@ -49,7 +51,8 @@ public class PopupDailyTask : Popup
             if (CanClaimReward3())
             {
                 SaveGame.ClaimReward3 = true;
-                ClaimReward();
+                Rewarded3.SetActive(true);
+                PopupReward3.Show();
             }
         });
     }

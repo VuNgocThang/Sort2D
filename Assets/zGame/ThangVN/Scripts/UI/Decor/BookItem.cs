@@ -35,8 +35,15 @@ public class BookItem : MonoBehaviour
                 else
                     ShowDecortateBook(indexBook);
             }
+
+            if (indexBook == dataConfigDecor.listDataBooks.Count && SaveGame.MaxCurrentBook == dataConfigDecor.listDataBooks.Count - 1)
+            {
+                Debug.Log("coming soon");
+            }
         });
     }
+
+
 
     void ShowBook(int index)
     {
@@ -50,6 +57,11 @@ public class BookItem : MonoBehaviour
         SaveGame.CurrentBook = indexBook;
         ManagerPopup.HidePopup<PopupDecor>();
         PopupDecorateBook.Show(index, false);
+    }
+    public void InitComingSoonBook(int _index, DataConfigDecor _data)
+    {
+        indexBook = _index;
+        dataConfigDecor = _data;
     }
 
     public void Init(int _index, string title, Sprite sprite, DataConfigDecor _data)

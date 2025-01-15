@@ -128,6 +128,21 @@ public class HomeUI : MonoBehaviour
 
         if (CheckTaskDecor()) nNoticeTask.SetActive(true);
         else nNoticeTask.SetActive(false);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            PopupReward1.Show();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            PopupReward2.Show();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PopupReward3.Show();
+        }
     }
 
     private void CalculateTask()
@@ -169,6 +184,7 @@ public class HomeUI : MonoBehaviour
             if (countdownTimer <= 0 && SaveGame.Heart < GameConfig.MAX_HEART)
             {
                 SaveGame.Heart++;
+                SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
                 PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             }
@@ -192,13 +208,16 @@ public class HomeUI : MonoBehaviour
 
             if (GameConfig.MAX_HEART >= SaveGame.Heart)
             {
+                Debug.Log("Heart_Before:" + SaveGame.Heart);
                 SaveGame.Heart += increaseHeart;
+                Debug.Log("Heart_AfterAdd:" + SaveGame.Heart);
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
+                Debug.Log("Heart_After:" + SaveGame.Heart);
             }
 
-            Debug.Log("timeSinceLastLoss: " + timeSinceLastLoss);
-            Debug.Log("timeSub: " + timeSub);
-            Debug.Log("SaveGame: " + SaveGame.CountDownTimer);
+            //Debug.Log("timeSinceLastLoss: " + timeSinceLastLoss);
+            //Debug.Log("timeSub: " + timeSub);
+            //Debug.Log("SaveGame: " + SaveGame.CountDownTimer);
             countdownTimer = SaveGame.CountDownTimer - timeSub;
             countdownTimer = Mathf.Max(countdownTimer, 0);
 
@@ -213,8 +232,6 @@ public class HomeUI : MonoBehaviour
             countdownTimer = GameConfig.TIME_COUNT_DOWN;
         }
         //}
-
-        txtHeart.text = SaveGame.Heart.ToString();
     }
 
     IEnumerator LoadScene(string str)
@@ -339,4 +356,23 @@ public class HomeUI : MonoBehaviour
     }
 
     #endregion
+
+
+    //public bool IsComingSoon()
+    //{
+    //    bool isComingSoon = false;
+
+    //    int count = 0;
+    //    for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
+    //    {
+    //        if (bookDecorated.listItemDecorated[i].isPainted) count++;
+    //    }
+
+    //    if (bookDecorated.listItemDecorated[SaveGame.MaxCurrentBook].isPainted) count++;
+
+    //    if (count == dataConfigDecor.listDataBooks[SaveGame.MaxCurrentBook].totalParts) return true;
+
+    //    return isComingSoon;
+    //}
+
 }

@@ -351,12 +351,23 @@ public class PopupDecorateBook : Popup
 
     public void ChangeColorBook(object e)
     {
-        btnTick.gameObject.SetActive(true);
+        if (bookDecorated.colorPainted == (Color)e)
+        {
+            btnTick.gameObject.SetActive(false);
+        }
+        else
+        {
+            btnTick.gameObject.SetActive(true);
+        }
+
         nColorChangeBook.color = (Color)e;
     }
 
     public void SaveCurrentColor()
     {
+        if (btnTick != null)
+            btnTick.gameObject.SetActive(false);
+
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
         List<BookDecorated> listBookDecoratedCache = dataCache.listBookDecorated;
         List<ItemDecorated> listItemDecoratedCache = new List<ItemDecorated>();
