@@ -44,6 +44,7 @@ public class PopupLose : Popup
 
         btnRetry.OnClick(() =>
         {
+            PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             PopupRestart.Show();
         });
     }
@@ -65,11 +66,14 @@ public class PopupLose : Popup
                 float seconds = Mathf.RoundToInt(countdownTimer % 60);
 
                 txtCountdownHeart.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+
+                SaveGame.CountDownTimer = countdownTimer;
             }
 
             if (countdownTimer <= 0 && SaveGame.Heart < GameConfig.MAX_HEART)
             {
                 SaveGame.Heart++;
+                SaveGame.CountDownTimer = GameConfig.TIME_COUNT_DOWN;
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
                 PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             }
@@ -83,14 +87,24 @@ public class PopupLose : Popup
         else btnRevive.gameObject.SetActive(true);
 
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPopupLose);
-        Debug.Log("Heart: " + SaveGame.Heart);
         if (SaveGame.Heart > 0)
+        {
+            //PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             SaveGame.Heart--;
+        }
+        Debug.Log("Heart: " + SaveGame.Heart);
 
         InitHeart();
 
+        //float additionalTime = GameConfig.TIME_COUNT_DOWN - countdownTimer;
+        //DateTime timeWithAdditionalSeconds = DateTime.Now.AddSeconds(additionalTime);
+        //PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, timeWithAdditionalSeconds.ToString());
+
         if (SaveGame.Heart == GameConfig.MAX_HEART)
+        {
+            Debug.Log("Fuck");
             PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
+        }
 
         Debug.Log("init popup lose");
     }
@@ -131,19 +145,24 @@ public class PopupLose : Popup
                 SaveGame.Heart += increaseHeart;
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
             }
+            Debug.Log("timeSinceLastLossLOSE: " + timeSinceLastLoss);
+            Debug.Log("timeSubLOSE: " + timeSub);
+            Debug.Log("SaveGameLOSE: " + SaveGame.CountDownTimer);
+
             countdownTimer = SaveGame.CountDownTimer - timeSub;
             countdownTimer = Mathf.Max(countdownTimer, 0);
+
 
             if (SaveGame.Heart >= GameConfig.MAX_HEART)
             {
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
             }
 
-            Debug.Log(timeSinceLastLoss);
         }
         else
         {
             countdownTimer = GameConfig.TIME_COUNT_DOWN;
+            PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
         }
         //}
 

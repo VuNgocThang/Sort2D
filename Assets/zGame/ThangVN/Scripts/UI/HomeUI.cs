@@ -189,11 +189,16 @@ public class HomeUI : MonoBehaviour
 
             float timeSub = timeSinceLastLoss % GameConfig.TIME_COUNT_DOWN;
 
+
             if (GameConfig.MAX_HEART >= SaveGame.Heart)
             {
                 SaveGame.Heart += increaseHeart;
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
             }
+
+            Debug.Log("timeSinceLastLoss: " + timeSinceLastLoss);
+            Debug.Log("timeSub: " + timeSub);
+            Debug.Log("SaveGame: " + SaveGame.CountDownTimer);
             countdownTimer = SaveGame.CountDownTimer - timeSub;
             countdownTimer = Mathf.Max(countdownTimer, 0);
 
@@ -202,7 +207,6 @@ public class HomeUI : MonoBehaviour
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
             }
 
-            Debug.Log(timeSinceLastLoss);
         }
         else
         {
@@ -235,6 +239,16 @@ public class HomeUI : MonoBehaviour
 
         if (SaveGame.Heart <= GameConfig.MAX_HEART)
         {
+            PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (SaveGame.Heart <= GameConfig.MAX_HEART)
+        {
+            SaveGame.CountDownTimer = countdownTimer;
             PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             PlayerPrefs.Save();
         }

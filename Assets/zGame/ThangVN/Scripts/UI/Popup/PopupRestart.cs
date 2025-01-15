@@ -2,8 +2,6 @@ using BaseGame;
 using DG.Tweening;
 using ntDev;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
