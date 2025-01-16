@@ -9,7 +9,7 @@ using ThangVN;
 
 public class PopupSetting : Popup
 {
-    public EasyButton btnSound, btnMusic, btnVibrate, btnRestart, btnHome, btnSoundOff, btnMusicOff, btnVibrateOff;
+    public EasyButton btnSound, btnMusic, btnVibrate, btnReplay, btnHome, btnSoundOff, btnMusicOff, btnVibrateOff;
     //public GameObject imgMusicOff, imgSoundOff, imgVibrateOff;
     public static async void Show()
     {
@@ -44,11 +44,10 @@ public class PopupSetting : Popup
             ToggleBtnVibrate();
         });
 
-        btnRestart.OnClick(() =>
+        btnReplay.OnClick(() =>
         {
-            PopupRestart.Show();
-            //ManagerEvent.ClearEvent();
-            //StartCoroutine(LoadScene("SceneGame"));
+            LogicGame.Instance.SaveDataGame();
+            PopupReplay.Show();
         });
 
         btnHome.OnClick(() =>

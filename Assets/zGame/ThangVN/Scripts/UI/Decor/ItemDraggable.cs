@@ -177,6 +177,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         }
 
+        linkedSlot.PlayParticle();
         DailyTaskManager.Instance.ExecuteDailyTask(TaskType.DecorateBook, 1);
 
         dataCache.listBookDecorated = listBookDecoratedCache;

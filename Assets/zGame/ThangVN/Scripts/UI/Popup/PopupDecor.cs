@@ -48,8 +48,6 @@ public class PopupDecor : Popup
         LoadListProgress();
 
         LoadListBookItems();
-
-        //scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private void LoadListBookItems()
@@ -66,9 +64,9 @@ public class PopupDecor : Popup
             listBookItems[i].InitProgressText(listProgress[i]);
         }
 
-        //BookItem bookComingSoon = Instantiate(bookItemPrefab, nContent);
-        //bookComingSoon.InitComingSoonBook(dataBookConfig.listDataBooks.Count, dataBookConfig);
-        //listBookItems.Add(bookComingSoon);
+        BookItem bookComingSoon = Instantiate(bookItemPrefab, nContent);
+        bookComingSoon.InitComingSoonBook(dataBookConfig.listDataBooks.Count, dataBookConfig);
+        listBookItems.Add(bookComingSoon);
     }
 
     void LoadListProgress()
@@ -84,7 +82,6 @@ public class PopupDecor : Popup
 
     public override void Hide()
     {
-        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
         base.Hide();
     }
 
@@ -93,7 +90,6 @@ public class PopupDecor : Popup
         Debug.Log("BackHome");
         HomeUI.Instance.animator.Play("Show");
         HomeUI.Instance.DisableObject();
-        //ManagerPopup.Instance.nShadow.GetComponent<Image>().enabled = true;
 
         base.Hide();
     }

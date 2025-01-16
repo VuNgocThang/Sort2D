@@ -1,3 +1,4 @@
+using EasyUI.Helpers;
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,7 +39,10 @@ public class BookItem : MonoBehaviour
 
             if (indexBook == dataConfigDecor.listDataBooks.Count && SaveGame.MaxCurrentBook == dataConfigDecor.listDataBooks.Count - 1)
             {
-                Debug.Log("coming soon");
+                if (HomeUI.Instance.IsComingSoon())
+                {
+                    EasyUI.Toast.Toast.Show("Coming Soon", 1f, EasyUI.Toast.ToastColor.Black);
+                }
             }
         });
     }

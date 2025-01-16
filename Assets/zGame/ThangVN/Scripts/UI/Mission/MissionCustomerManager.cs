@@ -65,7 +65,7 @@ public class MissionCustomerManager : MonoBehaviour
         int index = 0;
         for (int i = 0; i < listCustomers.Count; i++)
         {
-            if (listCustomers[i].IsCompleted())
+            if (listCustomers[i].IsCompleted() && listCustomers[i].gameObject.activeSelf)
             {
                 index = i;
                 listCustomers[index].Invoke("ChangeSpriteIfDone", 1f);
@@ -166,6 +166,13 @@ public class MissionCustomerManager : MonoBehaviour
     void RaiseEventWin()
     {
         SaveGame.PlayBonus = false;
+        //PopupWinMiniGame.Show();
+        StartCoroutine(ShowPopupWin());
+    }
+
+    IEnumerator ShowPopupWin()
+    {
+        yield return new WaitForSeconds(1.5f);
         PopupWinMiniGame.Show();
     }
 }

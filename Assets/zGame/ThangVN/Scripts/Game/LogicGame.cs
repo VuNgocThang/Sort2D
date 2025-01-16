@@ -706,21 +706,21 @@ public class LogicGame : MonoBehaviour
             ListArrowPlate[i].PlayAnimArrow();
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            saveGameNormal = null;
-            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    saveGameNormal = null;
+        //    PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
-            SaveGame.Level++;
-            ManagerEvent.ClearEvent();
+        //    SaveGame.Level++;
+        //    ManagerEvent.ClearEvent();
 
-            SceneManager.LoadScene("SceneGame");
-        }
+        //    SceneManager.LoadScene("SceneGame");
+        //}
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            isHadSpawnSpecial = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    isHadSpawnSpecial = true;
+        //}
 
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -1330,14 +1330,16 @@ public class LogicGame : MonoBehaviour
         if (countZeroListValues == 0 && !isMergeing)
         {
             isLose = true;
-            saveGameNormal = null;
-            PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
-            if (GameManager.IsChallengesGame())
-            {
-                saveGameChallenges = null;
-                PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
-            }
+            DeleteSaveDataGame();
+            //saveGameNormal = null;
+            //PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+            //if (GameManager.IsChallengesGame())
+            //{
+            //    saveGameChallenges = null;
+            //    PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
+            //}
 
             Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
@@ -1493,6 +1495,18 @@ public class LogicGame : MonoBehaviour
         else
         {
             //Debug.Log("UnPause");
+        }
+    }
+
+    public void DeleteSaveDataGame()
+    {
+        saveGameNormal = null;
+        PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
+
+        if (GameManager.IsChallengesGame())
+        {
+            saveGameChallenges = null;
+            PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
         }
     }
 

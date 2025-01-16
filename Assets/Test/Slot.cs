@@ -9,6 +9,7 @@ public class Slot : MonoBehaviour
     public int id;
     public Image imgLine;
     public RectTransform rectTransform;
+    public ParticleSystem particle;
 
     public void Init(int id, Vector3 pos, Sprite sprite)
     {
@@ -17,5 +18,10 @@ public class Slot : MonoBehaviour
         this.imgLine.sprite = sprite;
         this.imgLine.SetNativeSize();
         this.imgLine.gameObject.SetActive(false);
+    }
+
+    public void PlayParticle()
+    {
+        this.particle.Play();
     }
 }

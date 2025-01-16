@@ -358,21 +358,22 @@ public class HomeUI : MonoBehaviour
     #endregion
 
 
-    //public bool IsComingSoon()
-    //{
-    //    bool isComingSoon = false;
+    public bool IsComingSoon()
+    {
+        bool isComingSoon = false;
+        int indexLastBook = bookDataConfig.listDataBooks.Count - 1;
 
-    //    int count = 0;
-    //    for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
-    //    {
-    //        if (bookDecorated.listItemDecorated[i].isPainted) count++;
-    //    }
+        int count = 0;
+        for (int i = 0; i < listBook.listBookDecorated[indexLastBook].listItemDecorated.Count; i++)
+        {
+            if (listBook.listBookDecorated[indexLastBook].listItemDecorated[i].isPainted) count++;
+        }
 
-    //    if (bookDecorated.listItemDecorated[SaveGame.MaxCurrentBook].isPainted) count++;
+        if (listBook.listBookDecorated[indexLastBook].colorPainted != GameConfig.DEFAULT_COLOR) count++;
 
-    //    if (count == dataConfigDecor.listDataBooks[SaveGame.MaxCurrentBook].totalParts) return true;
+        if (count == bookDataConfig.listDataBooks[indexLastBook].totalParts) return true;
 
-    //    return isComingSoon;
-    //}
+        return isComingSoon;
+    }
 
 }

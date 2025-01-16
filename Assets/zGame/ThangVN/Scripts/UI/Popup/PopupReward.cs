@@ -7,11 +7,20 @@ using TMPro;
 
 public class PopupReward : Popup
 {
-    [SerializeField] protected EasyButton btnOK;
+    [SerializeField] protected EasyButton btnClaim, btnClaimx2;
     [SerializeField] protected Animator animShow;
     [SerializeField] protected int gold, countMagicWand, countCrytalBall, countMagicCard;
     [SerializeField] protected SkeletonGraphic spineBox;
     const string DROP = "drop";
+
+    private void Awake()
+    {
+        btnClaimx2.OnClick(() =>
+        {
+            ClaimReward();
+            Hide();
+        });
+    }
 
     public static async void Show()
     {
