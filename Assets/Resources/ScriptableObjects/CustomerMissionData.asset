@@ -50,6 +50,9 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: b3571e271f981fe45b7267e4e0d0e81a,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 50
     timer: 300
   - listCustomers:
     - idCustomer: 0
@@ -97,6 +100,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: b3571e271f981fe45b7267e4e0d0e81a,
           type: 3}
         quantity: 10
+    listRewards:
+    - typeReward: 0
+      count: 50
+    - typeReward: 2
+      count: 1
     timer: 360
   - listCustomers:
     - idCustomer: 0
@@ -144,6 +152,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: cc1bc5101cb5f6e4192df7d991808828,
           type: 3}
         quantity: 10
+    listRewards:
+    - typeReward: 0
+      count: 50
+    - typeReward: 4
+      count: 1
     timer: 360
   - listCustomers:
     - idCustomer: 1
@@ -191,6 +204,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: 8de022d65eec84f4e8d0aa43e6f0e0a6,
           type: 3}
         quantity: 20
+    listRewards:
+    - typeReward: 0
+      count: 60
+    - typeReward: 4
+      count: 1
     timer: 360
   - listCustomers:
     - idCustomer: 2
@@ -238,6 +256,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: 036c1f1c3efc1ee48b6a0c647bfff77d,
           type: 3}
         quantity: 10
+    listRewards:
+    - typeReward: 0
+      count: 80
+    - typeReward: 4
+      count: 1
     timer: 300
   - listCustomers:
     - idCustomer: 3
@@ -294,6 +317,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: 9134cba34c2a6724da896d79b8b1cb49,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 60
+    - typeReward: 3
+      count: 1
     timer: 360
   - listCustomers:
     - idCustomer: 0
@@ -341,6 +369,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: cc1bc5101cb5f6e4192df7d991808828,
           type: 3}
         quantity: 20
+    listRewards:
+    - typeReward: 0
+      count: 60
+    - typeReward: 3
+      count: 1
     timer: 300
   - listCustomers:
     - idCustomer: 2
@@ -397,6 +430,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: cc1bc5101cb5f6e4192df7d991808828,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 60
+    - typeReward: 2
+      count: 1
     timer: 300
   - listCustomers:
     - idCustomer: 2
@@ -453,6 +491,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: cc1bc5101cb5f6e4192df7d991808828,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 60
+    - typeReward: 2
+      count: 1
     timer: 300
   - listCustomers:
     - idCustomer: 1
@@ -518,6 +561,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: 8de022d65eec84f4e8d0aa43e6f0e0a6,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 100
+    - typeReward: 3
+      count: 1
     timer: 240
   - listCustomers:
     - idCustomer: 1
@@ -574,6 +622,11 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: b3571e271f981fe45b7267e4e0d0e81a,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 80
+    - typeReward: 4
+      count: 1
     timer: 300
   - listCustomers:
     - idCustomer: 1
@@ -630,4 +683,9 @@ MonoBehaviour:
         spriteMission: {fileID: 21300000, guid: 9134cba34c2a6724da896d79b8b1cb49,
           type: 3}
         quantity: 15
+    listRewards:
+    - typeReward: 0
+      count: 80
+    - typeReward: 4
+      count: 1
     timer: 300

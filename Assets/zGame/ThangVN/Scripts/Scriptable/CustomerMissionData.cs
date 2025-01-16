@@ -3,6 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TypeReward
+{
+    GOLD,
+    REFRESH,
+    SWAP,
+    WAND
+}
+
+[Serializable]
+public class DataReward
+{
+    public TypeReward typeReward;
+    public int count;
+}
+
 [Serializable]
 public class DataMission
 {
@@ -24,6 +39,7 @@ public class DataCustomer
 public class DataCustomerMission
 {
     public List<DataCustomer> listCustomers;
+    public List<DataReward> listRewards;
     public float timer;
 }
 

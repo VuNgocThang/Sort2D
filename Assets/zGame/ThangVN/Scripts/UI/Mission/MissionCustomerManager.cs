@@ -22,6 +22,9 @@ public class MissionCustomerManager : MonoBehaviour
     public Image bg;
     public Sprite nightSprite;
     bool IsChangeBG;
+    [SerializeField] Vector2 startPos;
+    [SerializeField] Vector2 endPos;
+    public RectTransform movingClock;
 
     private void Awake()
     {
@@ -68,6 +71,7 @@ public class MissionCustomerManager : MonoBehaviour
             if (listCustomers[i].IsCompleted() && listCustomers[i].gameObject.activeSelf)
             {
                 index = i;
+                listCustomers[index].transform.SetAsFirstSibling();
                 listCustomers[index].Invoke("ChangeSpriteIfDone", 1f);
                 //listCustomers[i].ChangeSpriteIfDone();
 
@@ -90,6 +94,8 @@ public class MissionCustomerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             LogicGame.Instance.isWin = true;
+            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
+                SaveGame.LevelBonus++;
             Debug.Log("completed");
             RaiseEventWin();
         }
@@ -98,6 +104,9 @@ public class MissionCustomerManager : MonoBehaviour
             currentTimer += Time.deltaTime;
 
         imgFillTimer.fillAmount = currentTimer / timer;
+
+        Vector2 newPosition = Vector2.Lerp(startPos, endPos, imgFillTimer.fillAmount);
+        movingClock.anchoredPosition = newPosition;
 
         if (currentTimer > timer / 2 && !IsChangeBG)
         {
@@ -121,6 +130,8 @@ public class MissionCustomerManager : MonoBehaviour
         {
             LogicGame.Instance.isWin = true;
             Debug.Log("completed");
+            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
+                SaveGame.LevelBonus++;
             RaiseEventWin();
         }
     }

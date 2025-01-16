@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6898393312937403936
 RectTransform:
   m_ObjectHideFlags: 0
@@ -192,6 +192,11 @@ MonoBehaviour:
   animShow: {fileID: 8527992880026049192}
   txtCoin: {fileID: 5710376357993203027}
   txtPigment: {fileID: 6359592242876924870}
+  rewardPrefab: {fileID: 6042692464435440408, guid: 78825bdb4ab79564a902781113ccebb0,
+    type: 3}
+  nReward: {fileID: 8041008662968186758}
+  customerMissionData: {fileID: 11400000, guid: 8382bb739ce3cc74da630f612a297960,
+    type: 2}
 --- !u!95 &8527992880026049192
 Animator:
   serializedVersion: 5
@@ -1085,7 +1090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &22573429644695975
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1665,7 +1670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &633079670647387720
 RectTransform:
   m_ObjectHideFlags: 0

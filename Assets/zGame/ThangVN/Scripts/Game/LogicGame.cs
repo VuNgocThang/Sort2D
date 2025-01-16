@@ -1399,16 +1399,16 @@ public class LogicGame : MonoBehaviour
             //    Debug.Log("clear");
             //}
         }
-        else if (GameManager.IsBonusGame())
-        {
-            SaveGame.PlayBonus = false;
+        //else if (GameManager.IsBonusGame())
+        //{
+        //    SaveGame.PlayBonus = false;
 
-            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
-                SaveGame.LevelBonus++;
+        //    if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
+        //        SaveGame.LevelBonus++;
 
-            saveGameBonus = null;
-            PlayerPrefs.DeleteKey(GameConfig.GAMESAVEBONUS);
-        }
+        //    saveGameBonus = null;
+        //    PlayerPrefs.DeleteKey(GameConfig.GAMESAVEBONUS);
+        //}
 
         PlayerPrefs.Save();
 

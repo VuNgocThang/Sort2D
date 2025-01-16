@@ -12,6 +12,10 @@ public class PopupWinMiniGame : Popup
     [SerializeField] SkeletonGraphic spineBox;
     [SerializeField] Animator animShow;
     [SerializeField] TextMeshProUGUI txtCoin, txtPigment;
+    [SerializeField] Reward rewardPrefab;
+    [SerializeField] Transform nReward;
+
+    [SerializeField] CustomerMissionData customerMissionData;
 
     const string DROP = "drop";
     const string IDLE = "idle";
@@ -40,7 +44,19 @@ public class PopupWinMiniGame : Popup
         base.Init();
         txtCoin.text = $"{SaveGame.Coin}";
         txtPigment.text = $"{SaveGame.Pigment}";
+        InitReward();
         StartCoroutine(PlayAnimation());
+    }
+
+    void InitReward()
+    {
+        List<DataReward> rewards = customerMissionData.listLevelBonus[SaveGame.LevelBonus - 10001].listRewards;
+
+        for (int i = 0; i < rewards.Count; i++)
+        {
+            Reward reward = Instantiate(rewardPrefab, nReward);
+            reward.Init(rewards[i].typeReward, rewards[i].count);
+        }
     }
 
     public override void Hide()

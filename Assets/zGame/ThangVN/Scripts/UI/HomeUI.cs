@@ -103,7 +103,7 @@ public class HomeUI : MonoBehaviour
         InitFirstDecor();
 
         InitDataClaimedFreecoin();
-
+        Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
 
     }
 
