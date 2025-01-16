@@ -6,16 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-//[Serializable]
-//public enum MissionType
-//{
-//    Red,
-//    Green,
-//    Blue,
-//    Yellow,
-//    Purple,
-//    Pink
-//}
 
 public class Mission : MonoBehaviour
 {
@@ -43,27 +33,9 @@ public class Mission : MonoBehaviour
         missionType = dataMission.missionType;
         imgIcon.sprite = dataMission.spriteMission;
         quantity = dataMission.quantity;
-        AddBorder();
 
         txtQuantity.text = quantity.ToString();
         txtCurrent.text = "0 /";
-    }
-
-    void AddBorder()
-    {
-        if (txtQuantity == null || txtCurrent == null) return;
-
-        //Material materialtxtQuantity = txtQuantity.fontSharedMaterial;
-
-        //materialtxtQuantity.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
-        //materialtxtQuantity.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
-        //materialtxtQuantity.SetFloat(ShaderUtilities.ID_OutlineSoftness, 0.1f);
-
-        //Material materialtxtCurrent = txtCurrent.fontSharedMaterial;
-
-        //materialtxtCurrent.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.2f);
-        //materialtxtCurrent.SetColor(ShaderUtilities.ID_OutlineColor, Color.black);
-        //materialtxtCurrent.SetFloat(ShaderUtilities.ID_OutlineSoftness, 0.1f);
     }
 
     public bool Completed()
@@ -75,6 +47,7 @@ public class Mission : MonoBehaviour
     {
         ColorEnum typeCheck = missionProgress.missionType;
         int currentCheck = missionProgress.current;
+        Debug.Log(this.transform.position);
 
         if (missionType == typeCheck)
         {
@@ -86,13 +59,4 @@ public class Mission : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-
-    }
-
-    void CheckDone()
-    {
-
-    }
 }

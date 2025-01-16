@@ -1,9 +1,10 @@
 using ntDev;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ImageItem : MonoBehaviour
+public class ImageItem : MonoBehaviour, IPointerDownHandler
 {
     public int id;
     public bool isPainted;
@@ -73,5 +74,17 @@ public class ImageItem : MonoBehaviour
         dataCache.listBookDecorated = listBookDecoratedCache;
         SaveGame.ListBookDecorated = dataCache;
         Debug.Log("save item decorate bought");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+
+        //Debug.Log("On pointer down");
+        //PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+
+        //if (popupDecorateBook != null)
+        //{
+        //    popupDecorateBook.scroll.enabled = false;
+        //}
     }
 }

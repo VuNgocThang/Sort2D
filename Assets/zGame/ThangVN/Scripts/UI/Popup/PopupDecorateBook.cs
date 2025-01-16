@@ -36,6 +36,8 @@ public class PopupDecorateBook : Popup
     [SerializeField] EasyButton btnTick;
     [SerializeField] List<ItemSelectColor> listItemSelectColor;
 
+    public ScrollRect scroll;
+
     private void Awake()
     {
         btnSelectItem.OnClick(() =>

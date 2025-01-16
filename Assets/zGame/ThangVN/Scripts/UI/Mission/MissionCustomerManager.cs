@@ -73,18 +73,8 @@ public class MissionCustomerManager : MonoBehaviour
                 index = i;
                 listCustomers[index].transform.SetAsFirstSibling();
                 listCustomers[index].Invoke("ChangeSpriteIfDone", 1f);
-                //listCustomers[i].ChangeSpriteIfDone();
-
-                //index = i;
-                //Move(index);
             }
         }
-    }
-
-    void Move(int index)
-    {
-        listCustomers[index].transform.SetParent(nParent);
-        listCustomers[index].transform.DOLocalMoveX(0f, 1f).SetEase(Ease.InExpo);
     }
 
     private void Update()
