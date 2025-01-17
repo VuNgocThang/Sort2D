@@ -228,6 +228,36 @@ public class LogicGame : MonoBehaviour
         canvasTutorial.enabled = true;
     }
 
+
+    async Task LoadData()
+    {
+        await LoadDataFromAsset();
+
+        rows = colorPlateData.rows;
+        cols = colorPlateData.cols;
+        ResetNDesk();
+        setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
+
+        if (GameManager.IsChallengesGame())
+        {
+            if (saveGameChallenges == null) LoadLevelChallenges();
+            else LoadSaveChallengesData();
+        }
+        else if (GameManager.IsNormalGame())
+        {
+            maxPoint = colorPlateData.goalScore;
+            gold = colorPlateData.gold;
+            pigment = colorPlateData.pigment;
+
+            if (saveGameNormal == null) LoadLevelNormal();
+            else LoadSaveNormalData();
+        }
+
+        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
+
+        IsDataLoaded = true;
+    }
+
     public async Task LoadDataFromAsset()
     {
         string filePath = "";
@@ -259,36 +289,6 @@ public class LogicGame : MonoBehaviour
 
         colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
     }
-
-    async Task LoadData()
-    {
-        await LoadDataFromAsset();
-
-        rows = colorPlateData.rows;
-        cols = colorPlateData.cols;
-        ResetNDesk();
-        setMapManager.Init(rows, cols, holder, ListColorPlate, colorPLatePrefab);
-
-        if (GameManager.IsChallengesGame())
-        {
-            if (saveGameChallenges == null) LoadLevelChallenges();
-            else LoadSaveChallengesData();
-        }
-        else if (GameManager.IsNormalGame())
-        {
-            maxPoint = colorPlateData.goalScore;
-            gold = colorPlateData.gold;
-            pigment = colorPlateData.pigment;
-
-            if (saveGameNormal == null) LoadLevelNormal();
-            else LoadSaveNormalData();
-        }
-
-        setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
-
-        IsDataLoaded = true;
-    }
-
     void InitListCheckPlate()
     {
         for (int i = 0; i < ListArrowPlate.Count; i++)
