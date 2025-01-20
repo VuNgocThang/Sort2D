@@ -159,6 +159,7 @@ public class LogicGame : MonoBehaviour
         await LoadData();
         InitListCheckPlate();
         spawnBook.gameObject.SetActive(true);
+        spawnBook.PlayAnimSpawn();
         //InitNextPlate();
         RecursiveMerge();
         //enabled = true;
@@ -1390,14 +1391,14 @@ public class LogicGame : MonoBehaviour
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
 
-            //if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
-            //{
-            //    Debug.Log("fuck! van con");
-            //}
-            //else
-            //{
-            //    Debug.Log("clear");
-            //}
+            if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
+            {
+                Debug.Log("van con saveGameNormal");
+            }
+            else
+            {
+                Debug.Log("clear saveGameNormal");
+            }
         }
         //else if (GameManager.IsBonusGame())
         //{
@@ -1623,8 +1624,11 @@ public class LogicGame : MonoBehaviour
                 saveGameNormal = null;
                 return;
             }
+            else
+            {
+                saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
+            }
 
-            saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
         }
         else if (GameManager.IsChallengesGame())
         {
@@ -1635,8 +1639,11 @@ public class LogicGame : MonoBehaviour
                 saveGameChallenges = null;
                 return;
             }
+            else
+            {
+                saveGameChallenges = JsonUtility.FromJson<SaveCurrentChallenges>(gameSaveData);
+            }
 
-            saveGameChallenges = JsonUtility.FromJson<SaveCurrentChallenges>(gameSaveData);
         }
     }
     void LoadSaveNormalData()

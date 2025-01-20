@@ -201,6 +201,7 @@ public class HandDrag : MonoBehaviour
             for (int i = 0; i < selectingPlate.ListColor.Count; i++)
             {
                 LogicColor c = selectingPlate.ListColor[i];
+                c.spriteRender.sortingOrder = 15;
                 c.transform.position = Vector3.MoveTowards(c.transform.position, hit.point + new Vector3(0, 1 + i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 1f);
             }
         }

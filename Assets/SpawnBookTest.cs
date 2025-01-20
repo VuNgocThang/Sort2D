@@ -17,8 +17,8 @@ public class SpawnBookTest : MonoBehaviour
 
     public void Spawn()
     {
+        Debug.Log("Spawn Book");
         LogicGame.Instance.InitNextPlate();
         ManagerAudio.PlaySound(ManagerAudio.Data.soundOpenBox);
-        //Debug.Log("Spawn Book");
     }
 }
