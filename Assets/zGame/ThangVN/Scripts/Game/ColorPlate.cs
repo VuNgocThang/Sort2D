@@ -399,7 +399,7 @@ public class ColorPlate : MonoBehaviour
         color.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
             .OnStart(() =>
             {
-                color.spriteRender.sortingOrder = 15;
+                color.spriteRender.sortingOrder = GameConfig.MAX_LAYER_OBJECT;
             })
             .OnComplete(() =>
             {

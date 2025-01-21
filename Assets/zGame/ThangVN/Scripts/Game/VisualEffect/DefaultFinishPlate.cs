@@ -32,13 +32,14 @@ public class DefaultFinishPlate : IVisualPlate
                     {
                         //color.trail.enabled = true;
                         color.trail.SetActive(true);
+
                         // Camera overlay
-                        Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
-                        Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
+                        //Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
+                        //Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
 
                         // Camera Screen Space
-                        //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
-                        //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+                        Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
+                        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
 
                         //ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
@@ -132,7 +133,7 @@ public class DefaultFinishPlate : IVisualPlate
             .SetEase(Ease.InOutQuad)
             .OnStart(() =>
             {
-                color.spriteRender.sortingOrder = 15;
+                color.spriteRender.sortingOrder = GameConfig.MAX_LAYER_OBJECT;
                 ManagerAudio.PlaySound(ManagerAudio.Data.soundPlusScore);
             })
             .OnComplete(() =>

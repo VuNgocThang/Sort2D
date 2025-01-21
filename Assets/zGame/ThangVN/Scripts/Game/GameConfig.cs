@@ -115,4 +115,10 @@ public static class GameConfig
 
     public static float SCALE_Y = 469f / 924f;
 
+    public static int MAX_LAYER_OBJECT = 15;
+
+    public static int LAYER_UI = 16;
+
+    public static int LAYER_TUTORIAL = 17;
+
 }

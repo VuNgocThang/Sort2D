@@ -160,6 +160,7 @@ public class LogicGame : MonoBehaviour
         InitListCheckPlate();
         spawnBook.gameObject.SetActive(true);
         spawnBook.PlayAnimSpawn();
+        TutorialController.Instance.InitTutorial();
         //InitNextPlate();
         RecursiveMerge();
         //enabled = true;
