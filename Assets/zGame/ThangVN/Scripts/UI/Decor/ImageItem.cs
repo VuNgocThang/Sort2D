@@ -1,10 +1,13 @@
 using ntDev;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ImageItem : MonoBehaviour, IPointerDownHandler
+public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public int id;
     public bool isPainted;
@@ -42,6 +45,9 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler
                 }
             }
         });
+
+        delay = new WaitForSeconds(0.1f);
+
     }
 
     public void Init(int id, Sprite sprite)
@@ -76,15 +82,62 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler
         Debug.Log("save item decorate bought");
     }
 
+    private bool isPointerDown = false;
+    private bool isLongPressed = false;
+    private DateTime pressTime;
+    private WaitForSeconds delay;
+
+    [Range(0.3f, 5f)] public float holdDuration = 0.5f;
+
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("On pointer down");
 
-        //Debug.Log("On pointer down");
-        //PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+        isPointerDown = true;
+        pressTime = DateTime.Now;
+        StartCoroutine(Timer());
 
-        //if (popupDecorateBook != null)
-        //{
-        //    popupDecorateBook.scroll.enabled = false;
-        //}
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isPointerDown = false;
+        isLongPressed = false;
+
+        PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+
+        if (popupDecorateBook != null)
+        {
+            popupDecorateBook.scroll.enabled = true;
+        }
+    }
+
+    IEnumerator Timer()
+    {
+        while (isPointerDown && !isLongPressed)
+        {
+            double elapsedSeconds = (DateTime.Now - pressTime).TotalSeconds;
+
+            if (elapsedSeconds >= holdDuration)
+            {
+                isLongPressed = true;
+                if (btn.img.enabled)
+                {
+                    // su kien keo
+                    PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+
+                    if (popupDecorateBook != null)
+                    {
+                        popupDecorateBook.scroll.enabled = false;
+                        popupDecorateBook.SpawnItemDrag(this);
+                    }
+                }
+
+                yield break;
+            }
+
+            yield return delay;
+        }
     }
 }

@@ -194,7 +194,7 @@ public class HandDrag : MonoBehaviour
 
     void MoveSelectPlate(Vector2 position)
     {
-        if (selectingPlate.ListValue.Count == 0) return;
+        if (selectingPlate == null || selectingPlate.ListValue.Count == 0) return;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(position), out var hit, 100f, layerMove))
         {
