@@ -7872,6 +7872,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 83fb89bf8db282448b19f0fa2c520a7e,
         type: 3}
+    - target: {fileID: 937953758225925743, guid: d6eb480acca42384494fdfecd4047183,
+        type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 937953758225925743, guid: d6eb480acca42384494fdfecd4047183,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1118376645369375357, guid: d6eb480acca42384494fdfecd4047183,
         type: 3}
       propertyPath: m_SizeDelta.x
