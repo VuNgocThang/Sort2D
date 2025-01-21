@@ -9,15 +9,33 @@ public class ItemDecor : MonoBehaviour
     public float percent;
     public ImageItem imageItem;
     public TextMeshProUGUI txtCost;
-    public EasyButton btnBuy;
+    public EasyButton btnBuy, btnBuyImageItem;
+
     public int cost;
 
     private void Awake()
     {
         btnBuy.OnClick(() =>
         {
+            //if (SaveGame.Pigment >= cost)
+            //{
+            //    GameManager.SubPigment(cost);
+            //    imageItem.isBought = true;
+            //    btnBuy.gameObject.SetActive(false);
+            //    SaveBoughtItemDecor();
+            //}
+            //else
+            //{
+            //    EasyUI.Toast.Toast.Show("Not enough book!", 0.5f);
+            //}
+        });
+
+        btnBuyImageItem.OnClick(() =>
+        {
             if (SaveGame.Pigment >= cost)
             {
+                if (imageItem.isBought) return;
+
                 GameManager.SubPigment(cost);
                 imageItem.isBought = true;
                 btnBuy.gameObject.SetActive(false);

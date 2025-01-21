@@ -7,6 +7,7 @@ using BaseGame;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using ThangVN;
 
 public class HomeUI : MonoBehaviour
 {
@@ -48,13 +49,20 @@ public class HomeUI : MonoBehaviour
 
         btnPlay.OnClick(() =>
         {
-            SaveGame.Challenges = false;
-            if (SaveGame.PlayBonus)
-                PopupBonusLevel.Show();
+            if (SaveGame.Heart <= 0)
+            {
+                EasyUI.Toast.Toast.Show("Not enough heart!", 1f);
+            }
             else
             {
-                ManagerEvent.ClearEvent();
-                StartCoroutine(LoadScene("SceneGame"));
+                SaveGame.Challenges = false;
+                if (SaveGame.PlayBonus)
+                    PopupBonusLevel.Show();
+                else
+                {
+                    ManagerEvent.ClearEvent();
+                    StartCoroutine(LoadScene("SceneGame"));
+                }
             }
         });
 

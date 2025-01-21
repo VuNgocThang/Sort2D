@@ -1,4 +1,4 @@
-using BaseGame;
+﻿using BaseGame;
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/ IEndDragHandler
 {
     public int id;
     public Image imgItemDrag;
@@ -14,11 +14,12 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     CanvasGroup canvasGroup;
     Vector2 originalPosition;
-    PopupDecorateBook popupDecorateBook;
+    [SerializeField] PopupDecorateBook popupDecorateBook;
     ImageItem linkedImageItem;
     public Slot linkedSlot;
     [SerializeField] Color defaultColor = new Color(255, 255, 255, 255);
     [SerializeField] Color redColor = new Color(150, 50, 50, 255);
+    [SerializeField] bool isDragging = false;
 
     private void Awake()
     {
@@ -40,7 +41,10 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         originalPosition = startPos;
         linkedImageItem = imageItem;
-        linkedImageItem.gameObject.SetActive(false);
+        //linkedImageItem.gameObject.SetActive(false);
+        //linkedImageItem.img.gameObject.SetActive(false);
+        linkedImageItem.img.color = new Color(1, 1, 1, 0);
+
         linkedSlot = slot;
         linkedSlot.imgLine.gameObject.SetActive(true);
         rectTransform.localScale = Vector3.one;
@@ -60,18 +64,46 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         canvasGroup.blocksRaycasts = false;
         linkedSlot.imgLine.gameObject.SetActive(true);
+        isDragging = true;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    private void Update()
     {
-        rectTransform.anchoredPosition += eventData.delta;
+        if (isDragging)
+        {
+            if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover)) imgItemDrag.color = defaultColor;
+            else imgItemDrag.color = redColor;
 
-        if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover)) imgItemDrag.color = defaultColor;
-        else imgItemDrag.color = redColor;
+            Vector2 mousePos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform.parent as RectTransform, Input.mousePosition, null, out mousePos);
+
+            rectTransform.anchoredPosition = mousePos;
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                isDragging = false;
+                PutDownObject();
+            }
+        }
     }
+
+    //public void OnDrag(PointerEventData eventData)
+    //{
+    //    //rectTransform.anchoredPosition += eventData.delta;
+
+    //    //if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover)) imgItemDrag.color = defaultColor;
+    //    //else imgItemDrag.color = redColor;
+    //}
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("end drag");
+        PutDownObject();
+    }
+
+    private void PutDownObject()
+    {
+        isDragging = false;
         canvasGroup.blocksRaycasts = true;
 
         float distance = Vector2.Distance(rectTransform.position, linkedSlot.rectTransform.position);
@@ -93,12 +125,18 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 AddNewBook(false);
                 popupDecorateBook.OpenNewBook();
             }
+
+            linkedImageItem.isPainted = true;
         }
         else
         {
             imgItemDrag.color = defaultColor;
             rectTransform.anchoredPosition = originalPosition;
-            linkedImageItem.gameObject.SetActive(true);
+            //linkedImageItem.gameObject.SetActive(true);
+            //linkedImageItem.img.gameObject.SetActive(true);
+            linkedImageItem.img.color = new Color(1, 1, 1, 1);
+            linkedImageItem.Refresh();
+
             this.gameObject.SetActive(false);
         }
 
@@ -177,7 +215,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         }
 
-        linkedSlot.PlayParticle();
+        popupDecorateBook.PlayParticle(this.transform);
         DailyTaskManager.Instance.ExecuteDailyTask(TaskType.DecorateBook, 1);
 
         dataCache.listBookDecorated = listBookDecoratedCache;

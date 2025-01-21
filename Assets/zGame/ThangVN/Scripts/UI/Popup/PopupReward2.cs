@@ -21,9 +21,9 @@ public class PopupReward2 : PopupReward
         return base.PlayAnimation();
     }
 
-    protected override void ClaimReward()
+    protected override void ClaimReward(int multi)
     {
-        base.ClaimReward();
+        base.ClaimReward(multi);
     }
 
     public override void Hide()

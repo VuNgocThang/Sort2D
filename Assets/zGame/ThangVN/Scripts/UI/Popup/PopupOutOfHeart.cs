@@ -11,7 +11,7 @@ namespace ThangVN
 {
     public class PopupOutOfHeart : Popup
     {
-        [SerializeField] TextMeshProUGUI txtCountdownHeart, txtHeart;
+        [SerializeField] TextMeshProUGUI txtCountdownHeart, txtHeart, txtCoin;
         [SerializeField] EasyButton btnHome, btnBuy;
         [SerializeField] float countdownTimer;
 
@@ -28,6 +28,7 @@ namespace ThangVN
         public override void Init()
         {
             base.Init();
+            txtCoin.text = SaveGame.Coin.ToString();
             InitHeart();
         }
 
@@ -66,6 +67,7 @@ namespace ThangVN
             {
                 //SaveGame.Coin -= 100;
                 GameManager.SubGold(100);
+                txtCoin.text = SaveGame.Coin.ToString();
                 SaveGame.Heart += 1;
                 ManagerEvent.ClearEvent();
                 SceneManager.LoadScene("SceneGame");

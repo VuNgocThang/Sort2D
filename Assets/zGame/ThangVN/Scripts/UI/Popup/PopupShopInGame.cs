@@ -11,7 +11,7 @@ public class PopupShopInGame : Popup
     [SerializeField] EasyButton btnPrev, btnNext, btnBuyUseCoin, btnBuyAds;
     [SerializeField] BoosterData boosterData;
     public Image imgIcon, imgIconBuyUseIcon, imgIconBuyAds;
-    public TextMeshProUGUI txtNameBooster, txtCoinUse;
+    public TextMeshProUGUI txtNameBooster, txtCoinUse, txtCoin;
     public BoosterEnum boosterEnum;
     public CanvasGroup canvasGroup;
 
@@ -30,6 +30,7 @@ public class PopupShopInGame : Popup
     public void Initialized(int index)
     {
         base.Init();
+        txtCoin.text = SaveGame.Coin.ToString();
         LogicGame.Instance.isPauseGame = true;
         canvasGroup.blocksRaycasts = true;
         boosterEnum = (BoosterEnum)index;
@@ -90,7 +91,12 @@ public class PopupShopInGame : Popup
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
                         //SaveGame.Coin -= GameConfig.COIN_SWAP;
                         GameManager.SubGold(GameConfig.COIN_SWAP);
+                        txtCoin.text = SaveGame.Coin.ToString();
                         SaveGame.Swap++;
+                    }
+                    else
+                    {
+                        EasyUI.Toast.Toast.Show("Not enough money!", 0.5f);
                     }
                 }
                 break;
@@ -108,8 +114,12 @@ public class PopupShopInGame : Popup
 
                         //SaveGame.Coin -= GameConfig.COIN_HAMMER;
                         GameManager.SubGold(GameConfig.COIN_HAMMER);
-
+                        txtCoin.text = SaveGame.Coin.ToString();
                         SaveGame.Hammer++;
+                    }
+                    else
+                    {
+                        EasyUI.Toast.Toast.Show("Not enough money!", 0.5f);
                     }
                 }
 
@@ -130,8 +140,12 @@ public class PopupShopInGame : Popup
 
                         //SaveGame.Coin -= GameConfig.COIN_REFRESH;
                         GameManager.SubGold(GameConfig.COIN_REFRESH);
-
+                        txtCoin.text = SaveGame.Coin.ToString();
                         SaveGame.Refresh++;
+                    }
+                    else
+                    {
+                        EasyUI.Toast.Toast.Show("Not enough money!", 0.5f);
                     }
                 }
                 break;

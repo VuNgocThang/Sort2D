@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 883, y: 990}
+  m_SizeDelta: {x: 747, y: 924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4960759513325690381
 CanvasRenderer:
@@ -190,7 +190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5173171544085627233
 RectTransform:
   m_ObjectHideFlags: 0
@@ -405,8 +405,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5088351103931780629}
-  - {fileID: 3595795294472656539}
   - {fileID: 5173171544085627233}
+  - {fileID: 3595795294472656539}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -631,6 +631,11 @@ PrefabInstance:
     - target: {fileID: 7417579504641388971, guid: 5e87851df59255549aa3bd375034cd53,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417579504641388971, guid: 5e87851df59255549aa3bd375034cd53,
+        type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7417579504641388971, guid: 5e87851df59255549aa3bd375034cd53,

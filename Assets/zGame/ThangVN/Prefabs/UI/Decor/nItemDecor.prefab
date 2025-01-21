@@ -236,7 +236,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3400191864633965407}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be5d602171ae5534fb9f071f51bee183, type: 3}
   m_Name: 
@@ -447,9 +447,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
+  percent: 0
   imageItem: {fileID: 1955644268109982964}
   txtCost: {fileID: 1159899039262906071}
   btnBuy: {fileID: 8990881705588162146}
+  btnBuyImageItem: {fileID: 6456586001902442705}
   cost: 0
 --- !u!1 &5318150432706978358
 GameObject:
@@ -568,5 +570,7 @@ MonoBehaviour:
   isBought: 0
   img: {fileID: 4208056098495738000}
   btn: {fileID: 6456586001902442705}
-  btnBuyItem: {fileID: 8990881705588162146}
   itemDecor: {fileID: 2745087057056850017}
+  isPointerDown: 0
+  isLongPressed: 0
+  holdDuration: 0.3

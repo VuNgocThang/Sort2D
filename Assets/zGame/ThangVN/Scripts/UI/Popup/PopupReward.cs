@@ -15,9 +15,15 @@ public class PopupReward : Popup
 
     private void Awake()
     {
+        btnClaim.OnClick(() =>
+        {
+            ClaimReward(1);
+            Hide();
+        });
+
         btnClaimx2.OnClick(() =>
         {
-            ClaimReward();
+            ClaimReward(2);
             Hide();
         });
     }
@@ -31,16 +37,16 @@ public class PopupReward : Popup
     public override void Init()
     {
         base.Init();
-        ClaimReward();
+        //ClaimReward();
         StartCoroutine(PlayAnimation());
     }
 
-    protected virtual void ClaimReward()
+    protected virtual void ClaimReward(int multi)
     {
-        SaveGame.Coin += gold;
-        SaveGame.Hammer += countMagicWand;
-        SaveGame.Refresh += countCrytalBall;
-        SaveGame.Swap += countMagicCard;
+        SaveGame.Coin += multi * gold;
+        SaveGame.Hammer += multi * countMagicWand;
+        SaveGame.Refresh += multi * countCrytalBall;
+        SaveGame.Swap += multi * countMagicCard;
     }
 
     public virtual IEnumerator PlayAnimation()
