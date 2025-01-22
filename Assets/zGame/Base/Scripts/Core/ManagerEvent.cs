@@ -80,6 +80,9 @@ namespace ntDev
         EVENT_CHANGE_COLOR,
         EVENT_OPEN_NEWBOOK,
         EVENT_DAILYTASK,
+        EVENT_SUB_BOOK,
+        EVENT_SUB_GOLD,
+        EVENT_SUB_HEART,
     }
 
     public static class ManagerEvent

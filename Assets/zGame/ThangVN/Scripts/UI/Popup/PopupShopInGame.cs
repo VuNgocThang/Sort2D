@@ -2,6 +2,7 @@ using BaseGame;
 using DG.Tweening;
 using ntDev;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,11 @@ public class PopupShopInGame : Popup
     public TextMeshProUGUI txtNameBooster, txtCoinUse, txtCoin;
     public BoosterEnum boosterEnum;
     public CanvasGroup canvasGroup;
+    public Transform nParentSubGold;
 
     private void Awake()
     {
+        ManagerEvent.RegEvent(EventCMD.EVENT_SUB_GOLD, PlayAnimSubGold);
     }
 
     public static async void Show(int index)
@@ -37,13 +40,18 @@ public class PopupShopInGame : Popup
 
         btnBuyUseCoin.OnClick(() =>
         {
+            btnBuyUseCoin.enabled = false;
+            btnBuyAds.enabled = false;
+
             BuyUseCoin(boosterEnum, false);
-            Hide();
+            StartCoroutine(RaiseEventHide());
+            //Hide();
         });
         btnBuyAds.OnClick(() =>
         {
             BuyUseCoin(boosterEnum, true);
-            Hide();
+            StartCoroutine(RaiseEventHide());
+            //Hide();
         });
 
 
@@ -61,6 +69,12 @@ public class PopupShopInGame : Popup
         }
     }
 
+    IEnumerator RaiseEventHide()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Hide();
+    }
+
     public override void Hide()
     {
         canvasGroup.blocksRaycasts = false;
@@ -72,6 +86,16 @@ public class PopupShopInGame : Popup
             ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
             LogicGame.Instance.isPauseGame = false;
         });
+    }
+
+    public void PlayAnimSubGold(object e)
+    {
+        GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBGOLD));
+        obj.transform.SetParent(nParentSubGold);
+        obj.transform.localPosition = Vector3.zero;
+        SubGold subBook = obj.GetComponent<SubGold>();
+        subBook.Init((int)e);
+        subBook.gameObject.SetActive(true);
     }
 
     public void BuyUseCoin(BoosterEnum boosterEnum, bool useAds)
@@ -90,6 +114,7 @@ public class PopupShopInGame : Popup
                         Debug.Log("swap");
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
                         //SaveGame.Coin -= GameConfig.COIN_SWAP;
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_SUB_GOLD, GameConfig.COIN_SWAP);
                         GameManager.SubGold(GameConfig.COIN_SWAP);
                         txtCoin.text = SaveGame.Coin.ToString();
                         SaveGame.Swap++;
@@ -113,6 +138,8 @@ public class PopupShopInGame : Popup
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
 
                         //SaveGame.Coin -= GameConfig.COIN_HAMMER;
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_SUB_GOLD, GameConfig.COIN_HAMMER);
+
                         GameManager.SubGold(GameConfig.COIN_HAMMER);
                         txtCoin.text = SaveGame.Coin.ToString();
                         SaveGame.Hammer++;
@@ -139,6 +166,8 @@ public class PopupShopInGame : Popup
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
 
                         //SaveGame.Coin -= GameConfig.COIN_REFRESH;
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_SUB_GOLD, GameConfig.COIN_REFRESH);
+
                         GameManager.SubGold(GameConfig.COIN_REFRESH);
                         txtCoin.text = SaveGame.Coin.ToString();
                         SaveGame.Refresh++;

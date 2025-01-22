@@ -1,4 +1,5 @@
-﻿using ntDev;
+﻿using DG.Tweening;
+using ntDev;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,14 @@ public class PopupDecorateBook : Popup
 {
     public RectTransform nBookCover;
     [SerializeField] ParticleSystem particle;
-    [SerializeField] Transform nParticle;
+    [SerializeField] Transform nParticle, nParentSub;
     [SerializeField] int idBookDecorated;
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
-    [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate;
-    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg;
+    [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate, txtCurrentProgress;
+    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, nCurrentProgress, nBot;
     [SerializeField] public ItemDraggable currentItemDrag;
-    [SerializeField] Transform nParent, nParentSlot, nContent;
+    [SerializeField] Transform nParent, nParentSlot, nContent, nColorChangeParent;
     public List<ImageItem> listItems;
     public List<Slot> slots;
     public List<Sprite> sprites;
@@ -75,14 +76,24 @@ public class PopupDecorateBook : Popup
         });
 
         ManagerEvent.RegEvent(EventCMD.EVENT_CHANGE_COLOR, ChangeColorBook);
+
+        ManagerEvent.RegEvent(EventCMD.EVENT_SUB_BOOK, PlayAnimSubBook);
     }
 
     public static async void Show(int index, bool IsRedecorated)
     {
         PopupDecorateBook pop = await ManagerPopup.ShowPopup<PopupDecorateBook>();
         pop.Init();
+        pop.Refresh();
         pop.Initialize(index, IsRedecorated);
         //pop.RedecoratedInit(index);
+    }
+
+    public void Refresh()
+    {
+        nColorChangeParent.transform.localScale = Vector3.one;
+        nCurrentProgress.SetActive(false);
+        nBot.SetActive(true);
     }
 
     public override void Init()
@@ -132,6 +143,7 @@ public class PopupDecorateBook : Popup
         {
             if (dataConfigDecor.listDataBooks[i].idBook == index /*0*/)
             {
+                txtNameBook.text = dataConfigDecor.listDataBooks[i].titleBook;
                 dataBook = dataConfigDecor.listDataBooks[i];
                 total = dataConfigDecor.listDataBooks[i].totalParts;
             }
@@ -287,7 +299,6 @@ public class PopupDecorateBook : Popup
 
 
     // Change Color Book
-
     public void ChangeColorBook(object e)
     {
         if (bookDecorated.colorPainted == (Color)e)
@@ -300,6 +311,16 @@ public class PopupDecorateBook : Popup
         }
 
         nColorChangeBook.color = (Color)e;
+    }
+
+    public void PlayAnimSubBook(object e)
+    {
+        GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBBOOK));
+        obj.transform.SetParent(nParentSub);
+        obj.transform.localPosition = Vector3.zero;
+        SubBook subBook = obj.GetComponent<SubBook>();
+        subBook.Init((int)e);
+        subBook.gameObject.SetActive(true);
     }
 
     public void SaveCurrentColor()
@@ -399,7 +420,8 @@ public class PopupDecorateBook : Popup
                         });
 
                         SaveGame.ListBookDecorated = dataCache;
-                        PopupNewBook.Show();
+                        StartCoroutine(PlayAnimBookDecorate());
+                        //PopupNewBook.Show();
                         break;
                     }
                     else
@@ -417,6 +439,25 @@ public class PopupDecorateBook : Popup
     {
         nParticle.transform.position = nSlot.position;
         particle.Play();
+    }
+
+    IEnumerator PlayAnimBookDecorate()
+    {
+        float current = bookDecorated.progress;
+        txtCurrentProgress.text = $"Progress: {current * 100}%";
+        nCurrentProgress.SetActive(true);
+        nBot.SetActive(false);
+        nColorChangeParent.transform.DOScale(new Vector3(1.15f, 1.15f, 1.15f), 0.5f);
+        yield return new WaitForSeconds(1f);
+
+        if (current == 1)
+        {
+            PopupRewardDecor.Show();
+        }
+        else
+        {
+            PopupNewBook.Show();
+        }
     }
 }
 

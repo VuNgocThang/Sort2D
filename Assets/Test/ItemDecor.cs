@@ -35,7 +35,7 @@ public class ItemDecor : MonoBehaviour
             if (SaveGame.Pigment >= cost)
             {
                 if (imageItem.isBought) return;
-
+                ManagerEvent.RaiseEvent(EventCMD.EVENT_SUB_BOOK, cost);
                 GameManager.SubPigment(cost);
                 imageItem.isBought = true;
                 btnBuy.gameObject.SetActive(false);
