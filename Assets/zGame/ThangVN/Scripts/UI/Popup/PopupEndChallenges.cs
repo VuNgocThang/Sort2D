@@ -37,9 +37,11 @@ public class PopupEndChallenges : Popup
 
         txtColorPlate.text = SaveGame.Pigment.ToString();
 
-        if (score > SaveGame.BestScore) imgBest.SetActive(true);
+        score = LogicGame.Instance.point;
+
+        if (score >= SaveGame.BestScore) imgBest.SetActive(true);
         else imgBest.SetActive(false);
 
-        txtScore.text = SaveGame.BestScore.ToString();
+        txtScore.text = score.ToString();
     }
 }

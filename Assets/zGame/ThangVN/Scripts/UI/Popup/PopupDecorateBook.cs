@@ -17,7 +17,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
     [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate;
-    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, bgNewBook;
+    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg;
     [SerializeField] public ItemDraggable currentItemDrag;
     [SerializeField] Transform nParent, nParentSlot, nContent;
     public List<ImageItem> listItems;
@@ -365,7 +365,6 @@ public class PopupDecorateBook : Popup
         for (int i = 0; i < dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count; i++)
         {
             if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
-
         }
 
         if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].colorPainted != GameConfig.DEFAULT_COLOR) count++;
@@ -376,9 +375,8 @@ public class PopupDecorateBook : Popup
 
             if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].idBookDecorated == idBook)
             {
-                Debug.Log("count" + count);
-                Debug.Log("MaxCurrentBook: " + SaveGame.MaxCurrentBook + "  ____ " + idBook);
-                //if (idBook == dataConfigDecor.listDataBooks.Count - 1) return;
+                //Debug.Log("count" + count);
+                //Debug.Log("MaxCurrentBook: " + SaveGame.MaxCurrentBook + "  ____ " + idBook);
 
                 if (count == dataConfigDecor.listDataBooks[i].totalParts)
                 {
@@ -392,6 +390,7 @@ public class PopupDecorateBook : Popup
                             idBookDecorated = idBook + 1,
                             progress = 0,
                             isPainted = false,
+                            isCollectedReward = false,
                             colorPainted = GameConfig.DEFAULT_COLOR,
                             listItemDecorated = new List<ItemDecorated>()
                             {

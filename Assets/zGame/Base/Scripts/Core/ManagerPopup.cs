@@ -28,7 +28,6 @@ namespace ntDev
                 }
             nShadow.SetAsFirstSibling();
 
-
             nShadow.gameObject.SetActive(checkShadow);
         }
 

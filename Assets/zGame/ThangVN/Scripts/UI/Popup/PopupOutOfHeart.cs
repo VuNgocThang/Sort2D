@@ -11,13 +11,14 @@ namespace ThangVN
 {
     public class PopupOutOfHeart : Popup
     {
-        [SerializeField] TextMeshProUGUI txtCountdownHeart, txtHeart, txtCoin;
-        [SerializeField] EasyButton btnHome, btnBuy;
+        [SerializeField] TextMeshProUGUI txtCountdownHeart, txtHeart, txtCoin, txtHeartBig;
+        [SerializeField] EasyButton btnHome, btnBuy, btnClosePopup;
         [SerializeField] float countdownTimer;
 
         private void Awake()
         {
             btnBuy.OnClick(BuyHeart);
+            btnClosePopup.OnClick(Hide);
         }
         public static async void Show()
         {
@@ -28,6 +29,8 @@ namespace ThangVN
         public override void Init()
         {
             base.Init();
+            ManagerPopup.HidePopup<PopupRestart>();
+
             txtCoin.text = SaveGame.Coin.ToString();
             InitHeart();
         }
@@ -35,6 +38,7 @@ namespace ThangVN
         private void Update()
         {
             txtHeart.text = SaveGame.Heart.ToString();
+            txtHeartBig.text = SaveGame.Heart.ToString();
 
             if (SaveGame.Heart >= GameConfig.MAX_HEART)
             {
@@ -82,16 +86,18 @@ namespace ThangVN
         public override void Hide()
         {
             SaveGame.CountDownTimer = countdownTimer;
+            ManagerEvent.ClearEvent();
+            SceneManager.LoadScene("SceneHome");
 
+            //transform.localScale = Vector3.one;
 
-            transform.localScale = Vector3.one;
-
-            transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
-            {
-                SceneManager.LoadScene("SceneHome");
-                gameObject.SetActive(false);
-                ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
-            });
+            //transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
+            //{
+            //    ManagerEvent.ClearEvent();
+            //    SceneManager.LoadScene("SceneHome");
+            //    gameObject.SetActive(false);
+            //    ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
+            //});
         }
 
         private void InitHeart()
@@ -127,5 +133,7 @@ namespace ThangVN
 
             txtHeart.text = SaveGame.Heart.ToString();
         }
+
     }
+
 }

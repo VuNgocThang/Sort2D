@@ -13,38 +13,38 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool isPainted;
     public bool isBought;
     public Image img;
-    public EasyButton btn, btnBuyItem;
+    public EasyButton btn;
     public ItemDecor itemDecor;
 
 
     private void Awake()
     {
-        btn.OnClick(() =>
-        {
-            if (isBought)
-            {
-                PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+        //btn.OnClick(() =>
+        //{
+        //    if (isBought)
+        //    {
+        //        //PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
 
-                if (popupDecorateBook != null)
-                {
-                    popupDecorateBook.SpawnItemDrag(this);
-                }
-            }
-            else
-            {
-                if (SaveGame.Pigment >= itemDecor.cost)
-                {
-                    GameManager.SubPigment(itemDecor.cost);
-                    isBought = true;
-                    btnBuyItem.gameObject.SetActive(false);
-                    SaveBoughtItemDecor();
-                }
-                else
-                {
-                    EasyUI.Toast.Toast.Show("Not enough book!", 1f);
-                }
-            }
-        });
+        //        //if (popupDecorateBook != null)
+        //        //{
+        //        //    popupDecorateBook.SpawnItemDrag(this);
+        //        //}
+        //    }
+        //    else
+        //    {
+        //        if (SaveGame.Pigment >= itemDecor.cost)
+        //        {
+        //            GameManager.SubPigment(itemDecor.cost);
+        //            isBought = true;
+        //            //btnBuyItem.gameObject.SetActive(false);
+        //            SaveBoughtItemDecor();
+        //        }
+        //        else
+        //        {
+        //            EasyUI.Toast.Toast.Show("Not enough book!", 1f);
+        //        }
+        //    }
+        //});
 
         delay = new WaitForSeconds(0.1f);
 
@@ -82,8 +82,8 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         Debug.Log("save item decorate bought");
     }
 
-    private bool isPointerDown = false;
-    private bool isLongPressed = false;
+    public bool isPointerDown = false;
+    public bool isLongPressed = false;
     private DateTime pressTime;
     private WaitForSeconds delay;
 
@@ -92,28 +92,38 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("On pointer down");
+        if (isPainted || !isBought) return;
 
         isPointerDown = true;
-        pressTime = DateTime.Now;
-        StartCoroutine(Timer());
+        if (btn.img.enabled)
+        {
+            PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+
+            if (popupDecorateBook != null)
+            {
+                popupDecorateBook.scroll.enabled = false;
+                popupDecorateBook.SpawnItemDrag(this, eventData);
+            }
+        }
+        //pressTime = DateTime.Now;
+        //StartCoroutine(Timer(eventData));
+    }
 
 
+    public void Refresh()
+    {
+        isPointerDown = false;
+        isLongPressed = false;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("OnPointer Up");
         isPointerDown = false;
         isLongPressed = false;
-
-        PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
-
-        if (popupDecorateBook != null)
-        {
-            popupDecorateBook.scroll.enabled = true;
-        }
     }
 
-    IEnumerator Timer()
+    IEnumerator Timer(PointerEventData eventData)
     {
         while (isPointerDown && !isLongPressed)
         {
@@ -130,7 +140,7 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     if (popupDecorateBook != null)
                     {
                         popupDecorateBook.scroll.enabled = false;
-                        popupDecorateBook.SpawnItemDrag(this);
+                        popupDecorateBook.SpawnItemDrag(this, eventData);
                     }
                 }
 
