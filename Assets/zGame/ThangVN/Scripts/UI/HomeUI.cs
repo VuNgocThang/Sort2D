@@ -51,7 +51,8 @@ public class HomeUI : MonoBehaviour
         {
             if (SaveGame.Heart <= 0)
             {
-                EasyUI.Toast.Toast.Show("Not enough heart!", 1f);
+                PopupOutOfHeartHome.Show();
+                //EasyUI.Toast.Toast.Show("Not enough heart!", 1f);
             }
             else
             {

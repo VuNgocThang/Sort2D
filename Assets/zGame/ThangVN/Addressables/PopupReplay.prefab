@@ -54,6 +54,8 @@ MonoBehaviour:
   btnReplay: {fileID: 4640233822515189867}
   btnHome: {fileID: 4974279875656529132}
   countdownTimer: 0
+  txtHeart: {fileID: 7579892414158638889}
+  nParentSub: {fileID: 6399773181417791545}
 --- !u!1 &460123118982529969
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3683346933850388557
 RectTransform:
   m_ObjectHideFlags: 0

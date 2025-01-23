@@ -36,6 +36,8 @@ public class PopupDecor : Popup
     public override void Init()
     {
         base.Init();
+        SaveGame.Redecorated = false;
+        ManagerPopup.HidePopup<PopupDecorateBook>();
 
         txtColorPlate.text = SaveGame.Pigment.ToString();
 

@@ -78,6 +78,8 @@ public class PopupDecorateBook : Popup
         ManagerEvent.RegEvent(EventCMD.EVENT_CHANGE_COLOR, ChangeColorBook);
 
         ManagerEvent.RegEvent(EventCMD.EVENT_SUB_BOOK, PlayAnimSubBook);
+
+        ManagerEvent.RegEvent(EventCMD.EVENT_CLAIM_REWARD_BOOK, RaiseEventCollectReward);
     }
 
     public static async void Show(int index, bool IsRedecorated)
@@ -119,6 +121,21 @@ public class PopupDecorateBook : Popup
                 bookDecorated = SaveGame.ListBookDecorated.listBookDecorated[i];
             }
         }
+    }
+
+    void RefreshBookDecorated(BookDecorated bookDecorated)
+    {
+        bookDecorated.progress = 0;
+        for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
+        {
+            bookDecorated.colorPainted = GameConfig.DEFAULT_COLOR;
+            bookDecorated.listItemDecorated[i].isTruePos = false;
+            bookDecorated.listItemDecorated[i].isPainted = false;
+            bookDecorated.listItemDecorated[i].x = 0;
+            bookDecorated.listItemDecorated[i].y = 0;
+        }
+
+        nColorChangeBook.color = GameConfig.DEFAULT_COLOR;
     }
     public void Initialize(int index, bool IsRedecorated)
     {
@@ -191,9 +208,19 @@ public class PopupDecorateBook : Popup
             }
         }
 
-        if (IsRedecorated) return;
-        // Setup entry bg
+        if (IsRedecorated)
+        {
+            RefreshBookDecorated(bookDecorated);
+        }
+        else
+        {
+            // Setup entry bg
+            SetupEntryBG();
+        }
+    }
 
+    private void SetupEntryBG()
+    {
         Dictionary<int, ImageItem> itemDict = listItems.ToDictionary(item => item.id);
 
         for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
@@ -225,7 +252,6 @@ public class PopupDecorateBook : Popup
                 }
             }
         }
-
     }
 
     void InitColor()
@@ -380,6 +406,35 @@ public class PopupDecorateBook : Popup
 
     public void OpenNewBook()
     {
+        if (SaveGame.Redecorated)
+        {
+            ActionIfRedecorated();
+        }
+        else
+        {
+            ActionIfNotRedecorated();
+        }
+    }
+
+    void ActionIfRedecorated()
+    {
+        int count = 0;
+
+        if (bookDecorated.colorPainted != GameConfig.DEFAULT_COLOR) count++;
+        for (int i = 0; i < bookDecorated.listItemDecorated.Count; i++)
+        {
+            if (bookDecorated.listItemDecorated[i].isPainted) count++;
+        }
+
+        if (count == dataConfigDecor.listDataBooks[idBookDecorated].totalParts)
+        {
+            StartCoroutine(PlayAnimBookDecorate());
+        }
+
+    }
+
+    private void ActionIfNotRedecorated()
+    {
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
 
         int count = 0;
@@ -401,11 +456,14 @@ public class PopupDecorateBook : Popup
 
                 if (count == dataConfigDecor.listDataBooks[i].totalParts)
                 {
+                    SaveIsSetupFull();
+
                     Debug.Log(" Open New Book");
                     //if(SaveGame.MaxCurrentBook == idBook) return;
                     if (SaveGame.MaxCurrentBook < dataConfigDecor.listDataBooks.Count - 1)
                     {
                         SaveGame.MaxCurrentBook = idBook + 1;
+                        Debug.Log("SaveGame.MaxCurrentBook _1" + SaveGame.MaxCurrentBook);
                         dataCache.listBookDecorated.Add(new BookDecorated()
                         {
                             idBookDecorated = idBook + 1,
@@ -413,6 +471,7 @@ public class PopupDecorateBook : Popup
                             isPainted = false,
                             isCollectedReward = false,
                             colorPainted = GameConfig.DEFAULT_COLOR,
+                            isSetupFull = false,
                             listItemDecorated = new List<ItemDecorated>()
                             {
 
@@ -428,6 +487,10 @@ public class PopupDecorateBook : Popup
                     {
                         if (!SaveGame.Redecorated)
                             PopupDecor.Show();
+                        else
+                        {
+                            Debug.Log("Done Done Done");
+                        }
                     }
 
                 }
@@ -452,12 +515,84 @@ public class PopupDecorateBook : Popup
 
         if (current == 1)
         {
-            PopupRewardDecor.Show();
+            if (!bookDecorated.isCollectedReward)
+            {
+                PopupRewardDecor.Show();
+                bookDecorated.isCollectedReward = true;
+                SaveIsCollectReward();
+            }
+            else
+            {
+                Debug.Log("show");
+                PopupDecor.Show();
+            }
         }
         else
         {
-            PopupNewBook.Show();
+            Debug.Log("SaveGame.MaxCurrentBook _2" + SaveGame.MaxCurrentBook + " ___ " + idBookDecorated);
+
+            if (SaveGame.MaxCurrentBook == idBookDecorated + 1 && !SaveGame.Redecorated)
+            {
+                PopupNewBook.Show();
+            }
+            else
+            {
+                Debug.Log("show2");
+                PopupDecor.Show();
+            }
         }
+    }
+
+    void SaveIsSetupFull()
+    {
+        ListBookDecorated dataCache = SaveGame.ListBookDecorated;
+        List<BookDecorated> listBookDecoratedCache = dataCache.listBookDecorated;
+
+        for (int i = 0; i < listBookDecoratedCache.Count; i++)
+        {
+            if (listBookDecoratedCache[i].idBookDecorated == bookDecorated.idBookDecorated)
+            {
+                listBookDecoratedCache[i].isSetupFull = true;
+            }
+        }
+
+        dataCache.listBookDecorated = listBookDecoratedCache;
+        SaveGame.ListBookDecorated = dataCache;
+    }
+
+    void SaveIsCollectReward()
+    {
+        ListBookDecorated dataCache = SaveGame.ListBookDecorated;
+        List<BookDecorated> listBookDecoratedCache = dataCache.listBookDecorated;
+
+        for (int i = 0; i < listBookDecoratedCache.Count; i++)
+        {
+            if (listBookDecoratedCache[i].idBookDecorated == bookDecorated.idBookDecorated)
+            {
+                listBookDecoratedCache[i].isCollectedReward = true;
+            }
+        }
+
+        dataCache.listBookDecorated = listBookDecoratedCache;
+        SaveGame.ListBookDecorated = dataCache;
+    }
+
+    void RaiseEventCollectReward(object e)
+    {
+        if (SaveGame.Redecorated)
+        {
+            PopupDecor.Show();
+        }
+        else
+        {
+            StartCoroutine(ShowPopupNewBook());
+        }
+    }
+
+    IEnumerator ShowPopupNewBook()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PopupNewBook.Show();
     }
 }
 

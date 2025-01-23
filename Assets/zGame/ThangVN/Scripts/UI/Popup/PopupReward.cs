@@ -11,6 +11,7 @@ public class PopupReward : Popup
     [SerializeField] protected Animator animShow;
     [SerializeField] protected int gold, countMagicWand, countCrytalBall, countMagicCard;
     [SerializeField] protected SkeletonGraphic spineBox;
+    [SerializeField] protected GameObject nReward, nBtn;
     const string DROP = "drop";
 
     private void Awake()
@@ -38,7 +39,16 @@ public class PopupReward : Popup
     {
         base.Init();
         //ClaimReward();
+        Refresh();
         StartCoroutine(PlayAnimation());
+    }
+
+    void Refresh()
+    {
+        spineBox.gameObject.SetActive(false);
+        nReward.SetActive(false);
+        nBtn.SetActive(false);
+
     }
 
     protected virtual void ClaimReward(int multi)
@@ -72,5 +82,7 @@ public class PopupReward : Popup
     public override void Hide()
     {
         base.Hide();
+        if (animShow != null)
+            animShow.Play("Default");
     }
 }

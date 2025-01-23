@@ -82,6 +82,7 @@ public class BookDecorated
     public float progress;
     public bool isPainted;
     public bool isCollectedReward;
+    public bool isSetupFull;
     public Color colorPainted;
     public List<ItemDecorated> listItemDecorated;
 }

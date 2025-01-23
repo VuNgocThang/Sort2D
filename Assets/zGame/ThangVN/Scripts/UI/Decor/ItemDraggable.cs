@@ -116,13 +116,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
                 rectTransform.anchoredPosition = Vector2.zero;
-                AddNewBook(true);
+                AddNewObjectBook(true);
                 popupDecorateBook.OpenNewBook();
             }
             else
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
-                AddNewBook(false);
+                AddNewObjectBook(false);
                 popupDecorateBook.OpenNewBook();
             }
 
@@ -168,7 +168,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
         return false;
     }
 
-    void AddNewBook(bool isTruePos)
+    void AddNewObjectBook(bool isTruePos)
     {
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
         List<BookDecorated> listBookDecoratedCache = dataCache.listBookDecorated;

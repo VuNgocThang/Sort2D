@@ -83,6 +83,7 @@ namespace ntDev
         EVENT_SUB_BOOK,
         EVENT_SUB_GOLD,
         EVENT_SUB_HEART,
+        EVENT_CLAIM_REWARD_BOOK,
     }
 
     public static class ManagerEvent

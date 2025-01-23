@@ -204,23 +204,33 @@ public class BookItem : MonoBehaviour
     public bool ReachMax()
     {
         bool IsReachMax = false;
-        int countProgress = 0;
+        //int countProgress = 0;
+        //ListBookDecorated dataCache = SaveGame.ListBookDecorated;
+        //for (int i = 0; i < dataCache.listBookDecorated.Count; i++)
+        //{
+        //    if (dataCache.listBookDecorated[i].idBookDecorated == indexBook)
+        //    {
+        //        for (int j = 0; j < dataCache.listBookDecorated[i].listItemDecorated.Count; j++)
+        //        {
+        //            if (dataCache.listBookDecorated[i].listItemDecorated[j].isPainted) countProgress++;
+        //        }
+
+        //        if (dataCache.listBookDecorated[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
+        //    }
+        //}
+
+
+        //if (countProgress == total) IsReachMax = true;
+
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
         for (int i = 0; i < dataCache.listBookDecorated.Count; i++)
         {
             if (dataCache.listBookDecorated[i].idBookDecorated == indexBook)
             {
-                for (int j = 0; j < dataCache.listBookDecorated[i].listItemDecorated.Count; j++)
-                {
-                    if (dataCache.listBookDecorated[i].listItemDecorated[j].isPainted) countProgress++;
-                }
-
-                if (dataCache.listBookDecorated[i].colorPainted != GameConfig.DEFAULT_COLOR) countProgress++;
+                if (dataCache.listBookDecorated[i].isSetupFull) IsReachMax = true;
+                break;
             }
         }
-
-
-        if (countProgress == total) IsReachMax = true;
 
         return IsReachMax;
     }

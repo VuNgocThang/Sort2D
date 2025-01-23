@@ -23,6 +23,7 @@ public class PopupRewardDecor : PopupReward
 
     protected override void ClaimReward(int multi)
     {
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_CLAIM_REWARD_BOOK);
         base.ClaimReward(multi);
     }
 

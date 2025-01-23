@@ -2,16 +2,20 @@ using ntDev;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemDecor : MonoBehaviour
 {
     public int id;
     public float percent;
     public ImageItem imageItem;
+    public Image bgItem;
     public TextMeshProUGUI txtCost;
     public EasyButton btnBuy, btnBuyImageItem;
 
     public int cost;
+    [SerializeField] Color colorNotEnoughBG;
+    [SerializeField] Color colorNotEnoughText;
 
     private void Awake()
     {
@@ -56,6 +60,26 @@ public class ItemDecor : MonoBehaviour
 
         imageItem.Init(id, sprite);
         txtCost.text = cost.ToString();
+    }
+
+    private void Update()
+    {
+        if (this.cost > SaveGame.Pigment)
+        {
+            bgItem.color = colorNotEnoughBG;
+            txtCost.color = colorNotEnoughText;
+
+            if (imageItem.isBought)
+            {
+                bgItem.color = new Color(1, 1, 1, 1);
+                txtCost.color = new Color(1, 1, 1, 1);
+            }
+        }
+        else
+        {
+            bgItem.color = new Color(1, 1, 1, 1);
+            txtCost.color = new Color(1, 1, 1, 1);
+        }
     }
 
     void SaveBoughtItemDecor()

@@ -173,7 +173,7 @@ public static class SaveGame
         }
         get
         {
-            if (pigment == -1) pigment = ES3.Load(PIGMENT, 100000);
+            if (pigment == -1) pigment = ES3.Load(PIGMENT, 10000);
             return pigment;
         }
     }
@@ -459,6 +459,7 @@ public static class SaveGame
                             isPainted = false,
                             isCollectedReward = false,
                             colorPainted = GameConfig.DEFAULT_COLOR,
+                            isSetupFull = false,
                             listItemDecorated = new List<ItemDecorated>()
                             {
 

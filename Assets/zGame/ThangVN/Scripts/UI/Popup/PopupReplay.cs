@@ -1,7 +1,9 @@
 using DG.Tweening;
 using ntDev;
 using System;
+using System.Collections;
 using ThangVN;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +11,8 @@ public class PopupReplay : Popup
 {
     public EasyButton btnReplay, btnHome;
     [SerializeField] float countdownTimer;
+    [SerializeField] TextMeshProUGUI txtHeart;
+    [SerializeField] Transform nParentSub;
 
     public static async void Show()
     {
@@ -22,15 +26,15 @@ public class PopupReplay : Popup
         {
             if (SaveGame.Heart > 0)
             {
+                btnReplay.enabled = false;
+                PlayAnim();
                 SaveGame.Heart--;
-
                 if (SaveGame.Heart == GameConfig.MAX_HEART)
                 {
                     PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
                 }
                 LogicGame.Instance.DeleteSaveDataGame();
-                ManagerEvent.ClearEvent();
-                LoadScene("SceneGame");
+                StartCoroutine(LoadGame());
             }
             else
             {
@@ -86,6 +90,7 @@ public class PopupReplay : Popup
 
     private void Update()
     {
+        txtHeart.text = $"{SaveGame.Heart}";
         if (countdownTimer > 0)
         {
             countdownTimer -= Time.deltaTime;
@@ -118,6 +123,21 @@ public class PopupReplay : Popup
             ManagerEvent.ClearEvent();
             SceneManager.LoadScene(strScene);
         });
+    }
+
+    void PlayAnim()
+    {
+        GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBHEART));
+        obj.transform.SetParent(nParentSub);
+        obj.transform.localPosition = Vector3.zero;
+        obj.gameObject.SetActive(true);
+    }
+
+    IEnumerator LoadGame()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ManagerEvent.ClearEvent();
+        LoadScene("SceneGame");
     }
 
 }

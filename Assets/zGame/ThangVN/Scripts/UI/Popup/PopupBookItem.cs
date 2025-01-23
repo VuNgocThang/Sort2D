@@ -55,7 +55,6 @@ public class PopupBookItem : Popup
         //if (index < SaveGame.MaxCurrentBook) txtDecorate.text = "Redecorate";
         //else txtDecorate.text = "Decorate";
         txtDecorate.text = "Redecorate";
-
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
         {
             if (dataConfigDecor.listDataBooks[i].idBook == index)
@@ -79,6 +78,8 @@ public class PopupBookItem : Popup
                 bookDecorated = SaveGame.ListBookDecorated.listBookDecorated[i];
             }
         }
+
+        txtProgress.text = $"{bookDecorated.progress * 100}%";
     }
 
     void ChangeColor()
