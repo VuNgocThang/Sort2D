@@ -11,11 +11,13 @@ public class Customer : MonoBehaviour
     public int idCustomer;
     public MissionBonus missionBonus;
     public MissionBonus missionBonusPrefab;
+    public bool isMoved;
     DataCustomer dataCustomer;
     const string IDLE = "idle";
     const string CHEER = "cheer";
     public void Init(DataCustomer dataCustomer)
     {
+        isMoved = false;
         this.dataCustomer = dataCustomer;
         this.idCustomer = dataCustomer.idCustomer;
         spine.Skeleton.SetSkin($"char{idCustomer + 1}");
@@ -43,6 +45,7 @@ public class Customer : MonoBehaviour
         //imgCustomer.sprite = dataCustomer.spriteCompleted;
         //imgCustomer.SetNativeSize();
         //imgCustomer.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.1f);
+        isMoved = true;
         missionBonus.gameObject.SetActive(false);
         spine.AnimationState.SetAnimation(0, CHEER, false);
         StartCoroutine(Disappear());
