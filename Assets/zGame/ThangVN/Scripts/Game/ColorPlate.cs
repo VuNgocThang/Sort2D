@@ -131,56 +131,75 @@ public class ColorPlate : MonoBehaviour
     }
 
 
-    public void InitColor(bool isSpecial = false)
+    public void InitColor(bool isSpecial = false, bool isTutorial = false)
     {
         DataLevel levelData = LogicGame.Instance.dataLevel;
 
         listTypes.Clear();
-        //HashSet<int> listDiff = new HashSet<int>();
 
-        // tính số lượng màu khác nhau trong 1 stacks
-        int randomCountInStacks = CalculateCountInStacks(levelData);
-
-        //Debug.Log("randomCountInStacks: " + randomCountInStacks);
-
-        // chọn màu trong stacks 
+        int randomCountInStacks = 0;
         List<int> listDiff = new List<int>();
-        listDiff = CalculateListDiff(levelData, randomCountInStacks);
 
-        //listDiff.Reverse();
-
-        //Debug.Log(listDiff.Count);
-        foreach (int type in listDiff)
+        if (!isTutorial)
         {
-            //Debug.Log("type : " + type);
-        }
+            listDiff.Add(0);
 
-        int maxReach = 0;
-        if (isSpecial) maxReach = 6;
-        else maxReach = 10;
-        // Spawn Count Same Type
-        foreach (int type in listDiff)
-        {
-            //Debug.Log("type: " + type + " __ " + (ColorEnum)type);
-            GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+            GroupEnum group = new GroupEnum { type = (ColorEnum)0 };
             listTypes.Add(group);
 
-            int remainingCount = maxReach - ListValue.Count;
-            int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
-            int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
-            //int randomCount = UnityEngine.Random.Range(5, Mathf.Min(5, maxPossibleAdditions + 1));
-
-            for (int j = 0; j < randomCount; j++)
+            for (int i = 0; i < 5; i++)
             {
-                if (ListValue.Count >= maxReach)
-                {
-                    break;
-                }
-
                 group.listPlates.Add(group.type);
                 ListValue.Add(group.type);
             }
         }
+        else
+        {
+            // tính số lượng màu khác nhau trong 1 stacks
+            randomCountInStacks = CalculateCountInStacks(levelData);
+
+            //Debug.Log("randomCountInStacks: " + randomCountInStacks);
+
+            // chọn màu trong stacks 
+            listDiff = CalculateListDiff(levelData, randomCountInStacks);
+
+            //listDiff.Reverse();
+
+            //Debug.Log(listDiff.Count);
+            foreach (int type in listDiff)
+            {
+                //Debug.Log("type : " + type);
+            }
+
+            int maxReach = 0;
+            if (isSpecial) maxReach = 6;
+            else maxReach = 10;
+            // Spawn Count Same Type
+            foreach (int type in listDiff)
+            {
+                //Debug.Log("type: " + type + " __ " + (ColorEnum)type);
+                GroupEnum group = new GroupEnum { type = (ColorEnum)type };
+                listTypes.Add(group);
+
+                int remainingCount = maxReach - ListValue.Count;
+                int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
+                int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
+                //int randomCount = UnityEngine.Random.Range(5, Mathf.Min(5, maxPossibleAdditions + 1));
+
+                for (int j = 0; j < randomCount; j++)
+                {
+                    if (ListValue.Count >= maxReach)
+                    {
+                        break;
+                    }
+
+                    group.listPlates.Add(group.type);
+                    ListValue.Add(group.type);
+                }
+            }
+        }
+
+
 
         InitValue(this.transform);
     }

@@ -15,9 +15,9 @@ public class PopupHome : MonoBehaviour
     public EasyButton btnSetting, btnCloseItem, btnOpenTool;
     public TextMeshProUGUI txtPoint, txtLevel, txtCount, txtCurrentScore, txtBestScore, txtTargetPigment, txtLevelInTarget;
     public Image imgFill;
+    public GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
     [SerializeField] Animator animBtnSwitch;
     [SerializeField] GameObject imgSpecial, top, bot, nSpawn;
-    [SerializeField] GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
 
     [SerializeField] Image iconItem, imgTextName;
     [SerializeField] TextMeshProUGUI txtNameBooster, txtExplain;
@@ -39,7 +39,7 @@ public class PopupHome : MonoBehaviour
     private void Awake()
     {
         btnSetting.OnClick(() => PopupSetting.Show());
-        btnCloseItem.OnClick(ExitUsingItem);
+        //btnCloseItem.OnClick(ExitUsingItem);
         btnOpenTool.OnClick(() => tool.SetActive(true));
 
         btnHammer.Init();

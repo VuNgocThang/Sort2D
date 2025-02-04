@@ -523,15 +523,15 @@ public class LogicGame : MonoBehaviour
     //    }
     //}
 
-    public void InitNextPlate()
+    public void InitNextPlate(bool tutorialFirst)
     {
         for (int i = 0; i < listNextPlate.Count; i++)
         {
             if (listNextPlate[i].ListValue.Count == 0)
             {
                 listNextPlate[i].Init(GetColorNew);
-                if (i == 0) listNextPlate[i].InitColor();
-                else listNextPlate[i].InitColor();
+                if (i == 0) listNextPlate[i].InitColor(false, tutorialFirst);
+                else listNextPlate[i].InitColor(false, tutorialFirst);
             }
         }
     }
@@ -733,6 +733,11 @@ public class LogicGame : MonoBehaviour
         {
             CheckWin();
             StartCoroutine(RaiseEventWin());
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            SaveGame.TutorialFirst = true;
         }
     }
 

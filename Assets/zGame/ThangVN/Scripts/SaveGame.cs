@@ -4,6 +4,23 @@ using System.Collections.Generic;
 
 public static class SaveGame
 {
+    const string TUTORIALFIRST = "TUTORIALFIRST";
+    static int tutorialFirst = -1;
+
+    public static bool TutorialFirst
+    {
+        set
+        {
+            ES3.Save(TUTORIALFIRST, value ? 1 : 0);
+            tutorialFirst = value ? 1 : 0;
+        }
+        get
+        {
+            if (tutorialFirst == -1) tutorialFirst = ES3.Load(TUTORIALFIRST, 0);
+            return tutorialFirst == 1;
+        }
+    }
+
     const string ISDONETUTORIAL = "ISDONETUTORIAL";
     static int isDoneTutorial = -1;
 

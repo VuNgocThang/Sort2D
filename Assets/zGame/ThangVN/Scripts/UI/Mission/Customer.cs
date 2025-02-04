@@ -14,6 +14,7 @@ public class Customer : MonoBehaviour
     DataCustomer dataCustomer;
     const string IDLE = "idle";
     const string CHEER = "cheer";
+
     public void Init(DataCustomer dataCustomer)
     {
         this.dataCustomer = dataCustomer;
