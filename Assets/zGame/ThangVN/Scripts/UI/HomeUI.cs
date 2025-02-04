@@ -109,7 +109,7 @@ public class HomeUI : MonoBehaviour
 
         InitHeart();
 
-        InitFirstDecor();
+        //InitFirstDecor();
 
         InitDataClaimedFreecoin();
         Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
@@ -250,14 +250,14 @@ public class HomeUI : MonoBehaviour
 
     }
 
-    void InitFirstDecor()
-    {
-        if (SaveGame.Pigment >= 300 && SaveGame.FirstDecor)
-        {
-            iconNotice.SetActive(true);
-            SaveGame.FirstDecor = false;
-        }
-    }
+    //void InitFirstDecor()
+    //{
+    //    if (SaveGame.Pigment >= 300 && SaveGame.FirstDecor)
+    //    {
+    //        iconNotice.SetActive(true);
+    //        SaveGame.FirstDecor = false;
+    //    }
+    //}
 
     private void OnApplicationQuit()
     {
