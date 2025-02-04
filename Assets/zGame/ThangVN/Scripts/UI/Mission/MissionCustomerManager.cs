@@ -68,7 +68,7 @@ public class MissionCustomerManager : MonoBehaviour
         int index = 0;
         for (int i = 0; i < listCustomers.Count; i++)
         {
-            if (listCustomers[i].IsCompleted() && listCustomers[i].gameObject.activeSelf)
+            if (listCustomers[i].IsCompleted() && !listCustomers[i].isMoved && listCustomers[i].gameObject.activeSelf)
             {
                 index = i;
                 listCustomers[index].transform.SetAsFirstSibling();
