@@ -10,6 +10,7 @@ public class TutorialCamera : MonoBehaviour
     [SerializeField] RectTransform canvasRectTransform;
     [SerializeField] List<GameObject> listSteps;
     [SerializeField] PopupHome popupHome;
+    [SerializeField] Transform nBlack;
 
     private void Start()
     {
@@ -57,6 +58,13 @@ public class TutorialCamera : MonoBehaviour
         {
             particleHand.gameObject.SetActive(false);
             StartCoroutine(MoveHand(0, 1));
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            nBlack.gameObject.SetActive(true);
+            popupHome.nBar.transform.SetParent(nBlack);
+            listSteps[3].gameObject.SetActive(true);
         }
     }
 }

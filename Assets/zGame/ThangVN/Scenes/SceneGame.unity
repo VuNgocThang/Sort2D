@@ -1595,7 +1595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &340164380
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3523,7 +3523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &902980445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3569,7 +3569,9 @@ MonoBehaviour:
   - {fileID: 1597370752}
   - {fileID: 1018191560}
   - {fileID: 1355886600}
-  popupHome: {fileID: 0}
+  - {fileID: 340164379}
+  popupHome: {fileID: 8947584224291896624}
+  nBlack: {fileID: 1862276701}
 --- !u!1 &922103316
 GameObject:
   m_ObjectHideFlags: 0
@@ -6352,7 +6354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1664405595
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8525,7 +8527,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10 books of the same color in a stack will earn 10 points.
+  m_text: Reach the point goal to level up and earn rewards!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 725d2fe5c8ef7af4dadd462ff8233360, type: 2}
   m_sharedMaterial: {fileID: 406485749866670470, guid: 725d2fe5c8ef7af4dadd462ff8233360,
