@@ -74,6 +74,7 @@ public class ColorPlate : MonoBehaviour
     public ParticleSystem magicRune;
     public bool isMoving;
     public bool isMerging;
+    public bool canClick;
     public PathType pathType;
 
     private void Start()

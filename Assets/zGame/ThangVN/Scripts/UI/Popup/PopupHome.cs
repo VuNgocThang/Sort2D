@@ -38,7 +38,10 @@ public class PopupHome : MonoBehaviour
 
     private void Awake()
     {
-        btnSetting.OnClick(() => PopupSetting.Show());
+        btnSetting.OnClick(() =>
+        {
+            PopupSetting.Show();
+        });
         //btnCloseItem.OnClick(ExitUsingItem);
         btnOpenTool.OnClick(() => tool.SetActive(true));
 

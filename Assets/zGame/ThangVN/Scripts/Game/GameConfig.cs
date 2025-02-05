@@ -15,7 +15,7 @@ public static class GameConfig
 
     public static string LAST_HEART_LOSS = "LastHeartLoss";
 
-    public static float OFFSET_PLATE = 0.1f;
+    public static float OFFSET_PLATE = 0.075f;
 
     public static float OFFSET_PLATE_Z = 0.1f;
 

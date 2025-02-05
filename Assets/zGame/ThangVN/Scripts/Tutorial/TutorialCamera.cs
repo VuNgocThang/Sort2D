@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TutorialCamera : MonoBehaviour
 {
+    public static TutorialCamera Instance;
     [SerializeField] Camera cam;
     [SerializeField] RectTransform hand;
     [SerializeField] GameObject particleHand;
@@ -12,16 +13,18 @@ public class TutorialCamera : MonoBehaviour
     [SerializeField] PopupHome popupHome;
     [SerializeField] Transform nBlack;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         particleHand.gameObject.SetActive(false);
-        StartCoroutine(MoveHand(1, 0));
     }
 
-    IEnumerator MoveHand(int index, int indexStep)
+    public void MoveHand(int index, int indexStep)
     {
-        yield return new WaitForSeconds(1);
-
         Vector3 pos = LogicGame.Instance.ListArrowPlate[index].transform.position;
 
         Vector3 position = cam.WorldToScreenPoint(pos);
@@ -57,7 +60,7 @@ public class TutorialCamera : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))
         {
             particleHand.gameObject.SetActive(false);
-            StartCoroutine(MoveHand(0, 1));
+            MoveHand(0, 1);
         }
 
         if (Input.GetKeyDown(KeyCode.M))

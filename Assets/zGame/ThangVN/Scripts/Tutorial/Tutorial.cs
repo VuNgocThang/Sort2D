@@ -20,7 +20,7 @@ public class Tutorial : MonoBehaviour
         {
             imgContinue.SetActive(false);
             LogicGame.Instance.isPauseGame = false;
-            SaveGame.IsDoneTutorial = true;
+            //SaveGame.IsDoneTutorial = true;
             LogicGame.Instance.CheckClear();
             //LogicGame.Instance.canvasTutorial.enabled = false;
         });

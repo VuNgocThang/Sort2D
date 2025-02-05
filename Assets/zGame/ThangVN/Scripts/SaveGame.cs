@@ -89,7 +89,7 @@ public static class SaveGame
         }
     }
 
-    const string LEVEL = "LEVEL";
+      const string LEVEL = "LEVEL";
     static int level = -1;
 
     public static int Level

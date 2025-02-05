@@ -256,6 +256,12 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
+        //Logic Tutorial Arrow
+        if (SaveGame.IsDoneTutorial)
+        {
+
+        }
+
         IsDataLoaded = true;
     }
 
