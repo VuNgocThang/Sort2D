@@ -16,7 +16,16 @@ namespace ThangVN
 
         public static void ShowPopup(int indexCurrentLevel)
         {
-            if (indexCurrentLevel == GameConfig.LEVEL_REFRESH && !SaveGame.IsShowRefresh)
+            if (indexCurrentLevel == GameConfig.LEVEL_LOCK_COIN && !SaveGame.IsDoneTutLockCoin)
+            {
+                TutorialCamera.Instance.InitTutorialLockCoin();
+            }
+            else if (indexCurrentLevel == GameConfig.LEVEL_FROZEN && !SaveGame.IsDoneTutFrozen)
+            {
+                TutorialCamera.Instance.InitTutorialFrozen();
+
+            }
+            else if (indexCurrentLevel == GameConfig.LEVEL_REFRESH && !SaveGame.IsShowRefresh)
             {
                 SaveGame.IsShowRefresh = true;
                 PopupUnlockBooster.Show((int)BoosterEnum.BoosterRefresh);

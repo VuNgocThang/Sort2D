@@ -13,7 +13,7 @@ public class TutorialCamera : MonoBehaviour
     [SerializeField] List<GameObject> listSteps;
     [SerializeField] PopupHome popupHome;
     [SerializeField] Transform nBlack;
-    [SerializeField] EasyButton btnContinue, btnContinueBlack;
+    [SerializeField] EasyButton btnContinue, btnContinueBlack, btnContinueLockCoin, btnContinueFrozen;
     public bool isDoneStep2;
 
     private void Awake()
@@ -35,6 +35,23 @@ public class TutorialCamera : MonoBehaviour
             HideHandTut();
             RefreshArrow();
             nBlack.gameObject.SetActive(false);
+        });
+
+        btnContinueLockCoin.OnClick(() =>
+        {
+            SaveGame.IsDoneTutLockCoin = true;
+            LogicGame.Instance.isPauseGame = false;
+            RefreshLockCoin();
+
+            btnContinueLockCoin.gameObject.SetActive(false);
+        });
+
+        btnContinueFrozen.OnClick(() =>
+        {
+            SaveGame.IsDoneTutFrozen = true;
+            LogicGame.Instance.isPauseGame = false;
+            RefreshFrozen();
+            btnContinueFrozen.gameObject.SetActive(false);
         });
     }
 
@@ -90,6 +107,62 @@ public class TutorialCamera : MonoBehaviour
         for (int i = 0; i < LogicGame.Instance.ListArrowPlate.Count; i++)
         {
             LogicGame.Instance.ListArrowPlate[i].canClick = true;
+        }
+    }
+
+    public void InitTutorialLockCoin()
+    {
+        btnContinueLockCoin.gameObject.SetActive(true);
+
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            ColorPlate colorPlate = LogicGame.Instance.ListColorPlate[i];
+            if (colorPlate.status == Status.LockCoin)
+            {
+                colorPlate.logicVisual.SetTutLockCoin();
+                colorPlate.txtPointUnlock.sortingOrder = 17;
+
+            }
+        }
+    }
+
+    public void RefreshLockCoin()
+    {
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            ColorPlate colorPlate = LogicGame.Instance.ListColorPlate[i];
+            if (colorPlate.status == Status.LockCoin)
+            {
+                colorPlate.logicVisual.ResetTut(colorPlate.Row);
+                colorPlate.txtPointUnlock.sortingOrder = 0;
+
+            }
+        }
+    }
+
+    public void InitTutorialFrozen()
+    {
+        btnContinueFrozen.gameObject.SetActive(true);
+
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            ColorPlate colorPlate = LogicGame.Instance.ListColorPlate[i];
+            if (colorPlate.status == Status.Frozen)
+            {
+                colorPlate.logicVisual.SetTutFrozen();
+            }
+        }
+    }
+
+    public void RefreshFrozen()
+    {
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate.Count; i++)
+        {
+            ColorPlate colorPlate = LogicGame.Instance.ListColorPlate[i];
+            if (colorPlate.status == Status.Frozen)
+            {
+                colorPlate.logicVisual.ResetTut(colorPlate.Row);
+            }
         }
     }
 }

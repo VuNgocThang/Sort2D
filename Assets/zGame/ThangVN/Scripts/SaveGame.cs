@@ -55,6 +55,57 @@ public static class SaveGame
         }
     }
 
+    const string ISDONETUTORIALDECOR = "ISDONETUTORIALDECOR";
+    static int isDoneTutorialDecor = -1;
+
+    public static bool IsDoneTutorialDecor
+    {
+        set
+        {
+            ES3.Save(ISDONETUTORIALDECOR, value ? 1 : 0);
+            isDoneTutorialDecor = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutorialDecor == -1) isDoneTutorialDecor = ES3.Load(ISDONETUTORIALDECOR, 0);
+            return isDoneTutorialDecor == 1;
+        }
+    }
+
+    const string ISDONETUTLOCKCOIN = "ISDONETUTLOCKCOIN";
+    static int isDoneTutLockCoin = -1;
+
+    public static bool IsDoneTutLockCoin
+    {
+        set
+        {
+            ES3.Save(ISDONETUTLOCKCOIN, value ? 1 : 0);
+            isDoneTutLockCoin = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutLockCoin == -1) isDoneTutLockCoin = ES3.Load(ISDONETUTLOCKCOIN, 0);
+            return isDoneTutLockCoin == 1;
+        }
+    }
+
+    const string ISDONETUTFROZEN = "ISDONETUTFROZEN";
+    static int isDoneTutFrozen = -1;
+
+    public static bool IsDoneTutFrozen
+    {
+        set
+        {
+            ES3.Save(ISDONETUTFROZEN, value ? 1 : 0);
+            isDoneTutFrozen = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutFrozen == -1) isDoneTutFrozen = ES3.Load(ISDONETUTFROZEN, 0);
+            return isDoneTutFrozen == 1;
+        }
+    }
+
     const string SOUND = "SOUND";
     static int sound = -1;
 

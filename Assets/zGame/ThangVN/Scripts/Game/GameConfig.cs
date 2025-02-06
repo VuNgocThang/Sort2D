@@ -25,6 +25,10 @@ public static class GameConfig
 
     public static string TXT_HAMMER = "tap any stack to clear it";
 
+    public static int LEVEL_LOCK_COIN = 4;
+
+    public static int LEVEL_FROZEN = 10;
+
     public static int LEVEL_REFRESH = 6;
 
     public static int LEVEL_HAMMER = 9;

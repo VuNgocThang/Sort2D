@@ -8,6 +8,7 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 using ThangVN;
+using UnityEngine.XR;
 
 public class HomeUI : MonoBehaviour
 {
@@ -42,7 +43,11 @@ public class HomeUI : MonoBehaviour
 
         btnDecor.OnClick(() =>
         {
-            //if (SaveGame.Level >= 3) SaveGame.FirstDecor = false;
+            if (SaveGame.Level >= 2)
+            {
+                SaveGame.FirstDecor = false;
+                btnDecor.transform.SetParent(nBot.transform);
+            }
 
             PopupDecor.Show();
         });
@@ -109,7 +114,7 @@ public class HomeUI : MonoBehaviour
 
         InitHeart();
 
-        //InitFirstDecor();
+        InitFirstDecor();
 
         InitDataClaimedFreecoin();
         Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
@@ -250,14 +255,14 @@ public class HomeUI : MonoBehaviour
 
     }
 
-    //void InitFirstDecor()
-    //{
-    //    if (SaveGame.Pigment >= 300 && SaveGame.FirstDecor)
-    //    {
-    //        iconNotice.SetActive(true);
-    //        SaveGame.FirstDecor = false;
-    //    }
-    //}
+    void InitFirstDecor()
+    {
+        if (SaveGame.Level >= 2 && SaveGame.FirstDecor)
+        {
+            TutorialDecor.Instance.InitTut();
+            TutorialDecor.Instance.SetParent(btnDecor.transform);
+        }
+    }
 
     private void OnApplicationQuit()
     {
@@ -280,13 +285,13 @@ public class HomeUI : MonoBehaviour
         }
     }
 
-    public void DisableObject()
-    {
-        if (!SaveGame.FirstDecor && SaveGame.Level >= 2)
-        {
-            iconNotice.SetActive(false);
-        }
-    }
+    //public void DisableObject()
+    //{
+    //    if (!SaveGame.FirstDecor && SaveGame.Level >= 2)
+    //    {
+    //        iconNotice.SetActive(false);
+    //    }
+    //}
 
     #region Notice Freecoins
 

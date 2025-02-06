@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PopupDecor : Popup
 {
@@ -16,12 +17,19 @@ public class PopupDecor : Popup
     [SerializeField] List<BookItem> listBookItems;
     [SerializeField] List<BookDecorated> listBookDecorated;
     [SerializeField] List<float> listProgress;
+    [SerializeField] RectTransform hand;
+    [SerializeField] ScrollRect scroll;
 
     [SerializeField] DataConfigDecor dataBookConfig;
 
     private void Awake()
     {
-        btnBack.OnClick(() => BackHome());
+        btnBack.OnClick(() =>
+        {
+            if (!SaveGame.IsDoneTutorialDecor) return;
+
+            BackHome();
+        });
 
         btnPlusColorPlate.OnClick(() => PopupGoToLevel.Show());
     }
@@ -50,6 +58,8 @@ public class PopupDecor : Popup
         LoadListProgress();
 
         LoadListBookItems();
+
+        InitTutorialDecor();
     }
 
     private void LoadListBookItems()
@@ -81,6 +91,17 @@ public class PopupDecor : Popup
         }
     }
 
+    void InitTutorialDecor()
+    {
+        Debug.Log(scroll.content.GetChild(0).GetComponent<RectTransform>().position);
+        Debug.Log(scroll.content.GetChild(0).GetComponent<RectTransform>().localPosition);
+        if (!SaveGame.IsDoneTutorialDecor)
+        {
+            //hand.position = listBookItems[0].GetComponent<RectTransform>().position;
+            hand.gameObject.SetActive(true);
+        }
+    }
+
 
     public override void Hide()
     {
@@ -91,7 +112,7 @@ public class PopupDecor : Popup
     {
         Debug.Log("BackHome");
         HomeUI.Instance.animator.Play("Show");
-        HomeUI.Instance.DisableObject();
+        //HomeUI.Instance.DisableObject();
 
         base.Hide();
     }

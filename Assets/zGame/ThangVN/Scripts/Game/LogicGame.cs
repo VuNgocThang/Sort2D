@@ -604,6 +604,7 @@ public class LogicGame : MonoBehaviour
                     {
                         ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
 
+                        Debug.Log(arrowPlate.canClick);
                         if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0 || !arrowPlate.canClick) return;
 
                         if (!SaveGame.IsDoneTutorial)

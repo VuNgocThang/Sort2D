@@ -353,4 +353,28 @@ public class LogicVisualPlate : MonoBehaviour
 
         ads.SetActive(true);
     }
+
+    public void SetTutLockCoin()
+    {
+        lockCoin.GetComponent<SpriteRenderer>().sortingOrder = 17;
+    }
+
+    public void SetTutFrozen()
+    {
+        for (int i = 0; i < listForzen.Count - 1; i++)
+        {
+            listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = 17;
+        }
+    }
+
+    public void ResetTut(int RowOffset)
+    {
+        lockCoin.GetComponent<SpriteRenderer>().sortingOrder = 0;
+        for (int i = 0; i < listForzen.Count - 1; i++)
+        {
+            int layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
+
+            listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
+        }
+    }
 }

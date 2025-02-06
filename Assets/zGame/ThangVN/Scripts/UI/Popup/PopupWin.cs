@@ -49,9 +49,9 @@ public class PopupWin : Popup
                 //InitPile();
                 //ReceiveReward();
                 ManagerEvent.ClearEvent();
-                //if (SaveGame.Level == 3) StartCoroutine(LoadScene("SceneHome"));
-                /*else*/
-                StartCoroutine(LoadScene("SceneGame"));
+                if (SaveGame.Level == 2) StartCoroutine(LoadScene("SceneHome"));
+                else
+                    StartCoroutine(LoadScene("SceneGame"));
             }
         });
 

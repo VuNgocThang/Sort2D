@@ -23,8 +23,8 @@ public class DefaultFinishPlate : IVisualPlate
         for (int i = colorPlate.ListColor.Count - 1; i >= colorPlate.ListValue.Count; --i)
         {
             LogicColor color = colorPlate.ListColor[i];
-            if (i != colorPlate.ListValue.Count) listTest.Add(color);
-            colorPlate.ListColor.Remove(color);
+            //if (i != colorPlate.ListValue.Count) listTest.Add(color);
+            //colorPlate.ListColor.Remove(color);
 
             // Camera overlay
             //Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
@@ -32,117 +32,16 @@ public class DefaultFinishPlate : IVisualPlate
 
 
             // Camera Screen Space
-            Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
-            Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+            //Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
+            //Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
 
 
-            if (i == colorPlate.ListValue.Count)
-            {
-                sq.Insert(delay, color.transform.DOScale(0.5f, 0.1f)
-                    .OnComplete(() =>
-                    {
-                        color.trail.SetActive(true);
-                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn();
-                        eatParticle.transform.SetParent(colorPlate.transform);
-                        eatParticle.transform.localPosition = Vector3.zero;
-                        eatParticle.transform.localScale = Vector3.one;
-                        eatParticle.Play();
-
-                        var main = eatParticle.main;
-                        main.startColor = SwitchColor(colorEnum);
-                        for (int j = 1; j < eatParticle.transform.childCount; j++)
-                        {
-                            ParticleSystem c = eatParticle.transform.GetChild(j).GetComponent<ParticleSystem>();
-                            var mainC = c.main;
-                            mainC.startColor = SwitchColor(colorEnum);
-                        }
-
-                        color.transform.DOMove(targetPos, 0.75f)
-                            .OnStart(() =>
-                            {
-                                color.spriteRender.sortingOrder = 17;
-                            })
-                            .SetEase(Ease.InOutBack)
-                            .OnComplete(() =>
-                            {
-                                if (plusPoint)
-                                    ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
-
-                                LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
-                                LogicGame.Instance.IncreaseCountDiff();
-                                LogicGame.Instance.SpawnSpecialColor();
-
-                                if (!SaveGame.IsDoneTutPoint)
-                                {
-                                    TutorialCamera.Instance.PlayTut4();
-                                }
-
-                                color.trail.SetActive(false);
-
-                                ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
-
-                                ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
-
-                                color.gameObject.SetActive(false);
-                            });
-
-
-                    }));
-            }
-
-            else
-            {
-                sq.Insert(delay, color.transform.DOScale(0.5f, 0.1f)
-                    .OnComplete(() =>
-                    {
-                        color.transform.DOMove(targetPos, 0.75f)
-                            .OnStart(() =>
-                            {
-                                color.spriteRender.sortingOrder = 17;
-                            })
-                            .SetEase(Ease.InOutBack)
-                            .OnComplete(() =>
-                            {
-                                ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, 0);
-                                color.gameObject.SetActive(false);
-                            });
-                    })
-                    );
-
-                delay += 0.1f;
-
-                sq.OnComplete(() =>
-                {
-                    for (int i = 0; i < listTest.Count; ++i)
-                    {
-                        listTest[i].gameObject.SetActive(false);
-                    }
-                });
-            }
-
-
-
-
-
-            //if (i != colorPlate.ListValue.Count) listTest.Add(color);
-            //colorPlate.ListColor.Remove(color);
             //if (i == colorPlate.ListValue.Count)
             //{
             //    sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f)
             //        .OnComplete(() =>
             //        {
-            //            //color.trail.enabled = true;
             //            color.trail.SetActive(true);
-            //            // Camera overlay
-            //            //Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
-            //            //Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
-
-            //            // Camera Screen Space
-            //            Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
-            //            Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
-
-
-            //            //ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
             //            ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn();
             //            eatParticle.transform.SetParent(colorPlate.transform);
             //            eatParticle.transform.localPosition = Vector3.zero;
@@ -158,27 +57,133 @@ public class DefaultFinishPlate : IVisualPlate
             //                mainC.startColor = SwitchColor(colorEnum);
             //            }
 
+            //            color.transform.DOMove(targetPos, 0.3f)
+            //                .OnStart(() =>
+            //                {
+            //                    color.spriteRender.sortingOrder = 17;
+            //                })
+            //                .SetEase(Ease.InOutBack)
+            //                .OnComplete(() =>
+            //                {
+            //                    if (plusPoint)
+            //                        ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
 
-            //            CreatePathAnimation(color, targetPos, plusPoint, count);
+            //                    LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
+            //                    LogicGame.Instance.IncreaseCountDiff();
+            //                    LogicGame.Instance.SpawnSpecialColor();
 
-            //            ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
+            //                    if (!SaveGame.IsDoneTutPoint)
+            //                    {
+            //                        TutorialCamera.Instance.PlayTut4();
+            //                    }
 
-            //            ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
+            //                    color.trail.SetActive(false);
+
+            //                    ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
+
+            //                    ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
+
+            //                    color.gameObject.SetActive(false);
+            //                });
+
+
             //        }));
             //}
+
             //else
-            // {
-            //     sq.Insert(delay, color.transform.DOScale(0, 0.3f));
-            //     sq.Insert(delay, color.transform.DORotate(new Vector3(0, 0, 360), 0.3f, RotateMode.LocalAxisAdd));
-            //     delay += 0.05f;
-            //     sq.OnComplete(() =>
-            //     {
-            //         for (int i = 0; i < listTest.Count; ++i)
-            //         {
-            //             listTest[i].gameObject.SetActive(false);
-            //         }
-            //     });
-            // }
+            //{
+            //    sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f)
+            //        .OnComplete(() =>
+            //        {
+            //            color.transform.DOMove(targetPos, 0.3f)
+            //                .OnStart(() =>
+            //                {
+            //                    color.spriteRender.sortingOrder = 17;
+            //                })
+            //                .SetEase(Ease.InOutBack)
+            //                .OnComplete(() =>
+            //                {
+            //                    ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, 0);
+            //                    color.gameObject.SetActive(false);
+            //                });
+            //        })
+            //        );
+
+            //    delay += 0.1f;
+
+            //    sq.OnComplete(() =>
+            //    {
+            //        for (int i = 0; i < listTest.Count; ++i)
+            //        {
+            //            listTest[i].gameObject.SetActive(false);
+            //        }
+            //    });
+            //}
+
+
+
+
+
+            if (i != colorPlate.ListValue.Count) listTest.Add(color);
+            colorPlate.ListColor.Remove(color);
+            if (i == colorPlate.ListValue.Count)
+            {
+                sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f)
+                    .OnComplete(() =>
+                    {
+                        //color.trail.enabled = true;
+                        color.trail.SetActive(true);
+                        // Camera overlay
+                        //Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
+                        //Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
+
+                        // Camera Screen Space
+                        Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
+                        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+
+
+                        //ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
+                        ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn();
+                        eatParticle.transform.SetParent(colorPlate.transform);
+                        eatParticle.transform.localPosition = Vector3.zero;
+                        eatParticle.transform.localScale = Vector3.one;
+                        eatParticle.Play();
+
+                        var main = eatParticle.main;
+                        main.startColor = SwitchColor(colorEnum);
+                        for (int j = 1; j < eatParticle.transform.childCount; j++)
+                        {
+                            ParticleSystem c = eatParticle.transform.GetChild(j).GetComponent<ParticleSystem>();
+                            var mainC = c.main;
+                            mainC.startColor = SwitchColor(colorEnum);
+                        }
+
+
+                        CreatePathAnimation(color, targetPos, plusPoint, count);
+
+                        if (!SaveGame.IsDoneTutPoint)
+                        {
+                            TutorialCamera.Instance.PlayTut4();
+                        }
+
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
+
+                        ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
+                    }));
+            }
+            else
+            {
+                sq.Insert(delay, color.transform.DOScale(0, 0.3f));
+                sq.Insert(delay, color.transform.DORotate(new Vector3(0, 0, 360), 0.3f, RotateMode.LocalAxisAdd));
+                delay += 0.05f;
+                sq.OnComplete(() =>
+                {
+                    for (int i = 0; i < listTest.Count; ++i)
+                    {
+                        listTest[i].gameObject.SetActive(false);
+                    }
+                });
+            }
         }
     }
 
