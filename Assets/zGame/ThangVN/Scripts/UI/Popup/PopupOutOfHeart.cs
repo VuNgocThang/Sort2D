@@ -30,6 +30,7 @@ public class PopupOutOfHeart : Popup
     {
         base.Init();
         ManagerPopup.HidePopup<PopupRestart>();
+        btnBuy.enabled = true;
 
         txtCoin.text = SaveGame.Coin.ToString();
         InitHeart();

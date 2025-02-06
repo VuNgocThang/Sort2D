@@ -24,6 +24,7 @@ public class PopupOutOfHeartHome : Popup
     {
         base.Init();
         ManagerPopup.HidePopup<PopupRestart>();
+        btnBuy.enabled = true;
 
         txtCoin.text = SaveGame.Coin.ToString();
     }

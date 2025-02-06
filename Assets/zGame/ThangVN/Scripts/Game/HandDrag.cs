@@ -15,6 +15,8 @@ public class HandDrag : MonoBehaviour
     [SerializeField] EventSystem currentEvent;
     public bool isDrag;
 
+    int currentLayer;
+
     private void Update()
     {
         if (!LogicGame.Instance.isUsingHand)
@@ -90,6 +92,7 @@ public class HandDrag : MonoBehaviour
             if (!CheckConditionToSelect(clickedPlate)) return;
             isDrag = true;
             selectingPlate = clickedPlate;
+            currentLayer = selectingPlate.ListColor[0].spriteRender.sortingOrder;
 
         }
     }
@@ -115,9 +118,11 @@ public class HandDrag : MonoBehaviour
 
                 if (colorPlate == selectingPlate || !CheckConditionToPut(colorPlate))
                 {
+                    Debug.Log("aaaa");
                     for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                     {
                         LogicColor c = selectingPlate.ListColor[i];
+                        c.spriteRender.sortingOrder = currentLayer;
                         if (i == selectingPlate.ListColor.Count - 1)
                         {
                             c.transform.DOLocalMove(new Vector3(0, 0, -0.1f), 0.3f);
@@ -136,7 +141,7 @@ public class HandDrag : MonoBehaviour
                     //Move to new Plate
                     ManagerAudio.PlaySound(ManagerAudio.Data.soundSwap);
                     selectingPlate.circleZZZ.SetActive(false);
-                    LogicGame.Instance.SetColorUsingSwapItem(selectingPlate, colorPlate);
+                    LogicGame.Instance.SetColorUsingSwapItem(selectingPlate, colorPlate, currentLayer);
                     LogicGame.Instance.isUsingHand = false;
                     SaveGame.Swap--;
                     isDrag = false;
@@ -151,6 +156,7 @@ public class HandDrag : MonoBehaviour
             }
             else
             {
+                Debug.Log("bbbb");
                 for (int i = 0; i < selectingPlate.ListColor.Count; i++)
                 {
                     LogicColor c = selectingPlate.ListColor[i];

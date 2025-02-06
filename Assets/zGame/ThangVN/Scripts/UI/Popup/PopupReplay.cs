@@ -53,6 +53,8 @@ public class PopupReplay : Popup
     public override void Init()
     {
         base.Init();
+        btnReplay.enabled = true;
+
         InitHeart();
     }
 

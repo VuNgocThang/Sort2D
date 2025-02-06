@@ -17,7 +17,7 @@ public class PopupHome : MonoBehaviour
     public Image imgFill;
     public GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
     [SerializeField] Animator animBtnSwitch;
-    [SerializeField] GameObject imgSpecial, top, bot, nSpawn;
+    [SerializeField] GameObject imgSpecial, top, nSpawn;
 
     [SerializeField] Image iconItem, imgTextName;
     [SerializeField] TextMeshProUGUI txtNameBooster, txtExplain;

@@ -37,6 +37,8 @@ public class PopupShopInGame : Popup
         LogicGame.Instance.isPauseGame = true;
         canvasGroup.blocksRaycasts = true;
         boosterEnum = (BoosterEnum)index;
+        btnBuyUseCoin.enabled = true;
+        btnBuyUseCoin.enabled = true;
 
         btnBuyUseCoin.OnClick(() =>
         {

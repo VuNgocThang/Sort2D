@@ -54,6 +54,8 @@ public class PopupRestart : Popup
     public override void Init()
     {
         base.Init();
+        btnRestart.enabled = true;
+
         ManagerPopup.HidePopup<PopupLose>();
         InitHeart();
         ShowHeart();

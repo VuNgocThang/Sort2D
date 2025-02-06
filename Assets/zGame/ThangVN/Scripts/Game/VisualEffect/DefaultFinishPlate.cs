@@ -23,6 +23,8 @@ public class DefaultFinishPlate : IVisualPlate
         for (int i = colorPlate.ListColor.Count - 1; i >= colorPlate.ListValue.Count; --i)
         {
             LogicColor color = colorPlate.ListColor[i];
+            if (i != colorPlate.ListValue.Count) listTest.Add(color);
+            colorPlate.ListColor.Remove(color);
 
             // Camera overlay
             //Vector3 viewportPos = new Vector3(colorPlate.targetUIPosition.position.x / Screen.width, colorPlate.targetUIPosition.position.y / Screen.height, Camera.main.nearClipPlane);
@@ -36,7 +38,7 @@ public class DefaultFinishPlate : IVisualPlate
 
             if (i == colorPlate.ListValue.Count)
             {
-                sq.Insert(delay, color.transform.DOScale(0.5f, 0.2f)
+                sq.Insert(delay, color.transform.DOScale(0.5f, 0.1f)
                     .OnComplete(() =>
                     {
                         color.trail.SetActive(true);
@@ -63,6 +65,15 @@ public class DefaultFinishPlate : IVisualPlate
                             .SetEase(Ease.InOutBack)
                             .OnComplete(() =>
                             {
+                                if (plusPoint)
+                                    ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
+
+                                LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
+                                LogicGame.Instance.IncreaseCountDiff();
+                                LogicGame.Instance.SpawnSpecialColor();
+
+                                color.trail.SetActive(false);
+
                                 ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
 
                                 ManagerEvent.RaiseEvent(EventCMD.EVENT_CHECK_MISSION_COMPLETED);
@@ -76,7 +87,7 @@ public class DefaultFinishPlate : IVisualPlate
 
             else
             {
-                sq.Insert(delay, color.transform.DOScale(0.5f, 0.2f)
+                sq.Insert(delay, color.transform.DOScale(0.5f, 0.1f)
                     .OnComplete(() =>
                     {
                         color.transform.DOMove(targetPos, 0.75f)
@@ -87,12 +98,21 @@ public class DefaultFinishPlate : IVisualPlate
                             .SetEase(Ease.InOutBack)
                             .OnComplete(() =>
                             {
+                                ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, 0);
                                 color.gameObject.SetActive(false);
                             });
                     })
                     );
 
                 delay += 0.1f;
+
+                sq.OnComplete(() =>
+                {
+                    for (int i = 0; i < listTest.Count; ++i)
+                    {
+                        listTest[i].gameObject.SetActive(false);
+                    }
+                });
             }
 
 
