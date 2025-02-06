@@ -74,7 +74,7 @@ public class ColorPlate : MonoBehaviour
     public ParticleSystem magicRune;
     public bool isMoving;
     public bool isMerging;
-    public bool canClick;
+    public bool canClick = true;
     public PathType pathType;
 
     private void Start()
@@ -85,7 +85,7 @@ public class ColorPlate : MonoBehaviour
 
     private void Update()
     {
-        if (ListColor.Count <= 0) return;
+        if (ListColor.Count <= 0 || ListValue.Count <= 0) return;
 
         if (isMerging || countFrozen > 0)
         {
@@ -423,6 +423,11 @@ public class ColorPlate : MonoBehaviour
             })
             .OnComplete(() =>
             {
+                //color.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f)
+                //    .OnComplete(() =>
+                //    {
+                //        color.transform.DOScale(new Vector3(1f, 1f, 1f), 0.1f);
+                //    });
                 int layer = CalculateLayer(ROW);
                 color.spriteRender.sortingOrder = layer;
             });

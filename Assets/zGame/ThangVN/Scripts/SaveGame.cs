@@ -21,6 +21,23 @@ public static class SaveGame
         }
     }
 
+    const string ISDONETUTPOINT = "ISDONETUTPOINT";
+    static int isDoneTutPoint = -1;
+
+    public static bool IsDoneTutPoint
+    {
+        set
+        {
+            ES3.Save(ISDONETUTPOINT, value ? 1 : 0);
+            isDoneTutPoint = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutPoint == -1) isDoneTutPoint = ES3.Load(ISDONETUTPOINT, 0);
+            return isDoneTutPoint == 1;
+        }
+    }
+
     const string ISDONETUTORIAL = "ISDONETUTORIAL";
     static int isDoneTutorial = -1;
 
@@ -89,7 +106,7 @@ public static class SaveGame
         }
     }
 
-      const string LEVEL = "LEVEL";
+    const string LEVEL = "LEVEL";
     static int level = -1;
 
     public static int Level

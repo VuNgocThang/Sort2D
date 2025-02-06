@@ -226,7 +226,8 @@ public class LogicGame : MonoBehaviour
 
     public void InitTutorial()
     {
-        canvasTutorial.enabled = true;
+        //canvasTutorial.enabled = true;
+        TutorialCamera.Instance.MoveHand(1, 0);
     }
 
 
@@ -256,10 +257,17 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
+        Debug.Log("SaveGame.IsDoneTutorial: " + SaveGame.IsDoneTutorial);
         //Logic Tutorial Arrow
-        if (SaveGame.IsDoneTutorial)
+        if (!SaveGame.IsDoneTutorial)
         {
-
+            for (int i = 0; i < ListArrowPlate.Count; i++)
+            {
+                if (i != 1)
+                {
+                    ListArrowPlate[i].canClick = false;
+                }
+            }
         }
 
         IsDataLoaded = true;
@@ -596,7 +604,13 @@ public class LogicGame : MonoBehaviour
                     {
                         ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
 
-                        if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0) return;
+                        if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0 || !arrowPlate.canClick) return;
+
+                        if (!SaveGame.IsDoneTutorial)
+                        {
+                            TutorialCamera.Instance.HideHandTut();
+                            arrowPlate.canClick = false;
+                        }
 
                         arrowClickParticlePool.Spawn(arrowPlate.transform.position, true);
 
@@ -899,6 +913,11 @@ public class LogicGame : MonoBehaviour
 
             sq.OnComplete(() =>
             {
+                if (!SaveGame.IsDoneTutorial && !TutorialCamera.Instance.isDoneStep2)
+                {
+                    TutorialCamera.Instance.MoveHand(0, 1);
+                }
+
                 endColorPlate.isMoving = false;
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
@@ -974,8 +993,11 @@ public class LogicGame : MonoBehaviour
     }
 
 
-    public void SetColorUsingSwapItem(ColorPlate startColorPlate, ColorPlate endColorPlate)
+    public void SetColorUsingSwapItem(ColorPlate startColorPlate, ColorPlate endColorPlate, int currentLayer)
     {
+        int changeLayer = endColorPlate.ListColor[0].spriteRender.sortingOrder;
+
+
         if (endColorPlate.ListValue.Count == 0)
         {
             for (int i = 0; i < startColorPlate.ListColor.Count; i++)
@@ -1004,6 +1026,11 @@ public class LogicGame : MonoBehaviour
             endColorPlate.ListValue.AddRange(listValueMid);
             endColorPlate.ListColor.AddRange(ListColorMid);
             endColorPlate.listTypes.AddRange(listTypes);
+
+            for (int i = 0; i < endColorPlate.ListColor.Count; i++)
+            {
+                endColorPlate.ListColor[i].spriteRender.sortingOrder = changeLayer;
+            }
         }
         else
         {
@@ -1048,6 +1075,16 @@ public class LogicGame : MonoBehaviour
             endColorPlate.ListValue.AddRange(listValueMid);
             endColorPlate.ListColor.AddRange(ListColorMid);
             endColorPlate.listTypes.AddRange(listTypes);
+
+            for (int i = 0; i < endColorPlate.ListColor.Count; i++)
+            {
+                endColorPlate.ListColor[i].spriteRender.sortingOrder = changeLayer;
+            }
+
+            for (int i = 0; i < startColorPlate.ListColor.Count; i++)
+            {
+                startColorPlate.ListColor[i].spriteRender.sortingOrder = currentLayer;
+            }
         }
     }
 
@@ -1147,27 +1184,28 @@ public class LogicGame : MonoBehaviour
 
             if (count >= RULE_COMPLETE)
             {
-                //if (!SaveGame.IsDoneTutorial)
-                //{
-                //    canvasTutorial.enabled = true;
-                //    tutorial.PlayProgressTut(2);
-                //    isPauseGame = true;
-                //}
-
-                //if (!isPauseGame)
-                //{
-                if (ControllerAnimState.gameObject.activeSelf)
+                if (!SaveGame.IsDoneTutorial)
                 {
-                    ControllerAnimState.ActionToBonus();
+                    //canvasTutorial.enabled = true;
+                    //tutorial.PlayProgressTut(2);
+                    TutorialCamera.Instance.PlayTut3();
+                    isPauseGame = true;
                 }
-                //timerRun += timerConfigData.timeRun;
 
-                colorPlate.InitClear(true);
-                colorPlate.DecreaseCountFrozenNearBy();
-                colorPlate.InitValue();
+                if (!isPauseGame)
+                {
+                    if (ControllerAnimState.gameObject.activeSelf)
+                    {
+                        ControllerAnimState.ActionToBonus();
+                    }
+                    //timerRun += timerConfigData.timeRun;
 
-                StartCoroutine(DelayToCheckMerge());
-                //}
+                    colorPlate.InitClear(true);
+                    colorPlate.DecreaseCountFrozenNearBy();
+                    colorPlate.InitValue();
+
+                    StartCoroutine(DelayToCheckMerge());
+                }
             }
         }
         //Debug.Log("point: " + point);
@@ -1539,6 +1577,8 @@ public class LogicGame : MonoBehaviour
     }
     void SaveGameNormal()
     {
+        if (SaveGame.Level == 0) return;
+
         SaveCurrentDataGame currentData = new SaveCurrentDataGame();
 
         currentData.currentPoint = point;

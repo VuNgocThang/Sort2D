@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ntDev;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,10 +13,29 @@ public class TutorialCamera : MonoBehaviour
     [SerializeField] List<GameObject> listSteps;
     [SerializeField] PopupHome popupHome;
     [SerializeField] Transform nBlack;
+    [SerializeField] EasyButton btnContinue, btnContinueBlack;
+    public bool isDoneStep2;
 
     private void Awake()
     {
         Instance = this;
+        btnContinue.OnClick(() =>
+        {
+            SaveGame.IsDoneTutorial = true;
+            LogicGame.Instance.isPauseGame = false;
+            LogicGame.Instance.CheckClear();
+            HideHandTut();
+            btnContinue.gameObject.SetActive(false);
+        });
+
+        btnContinueBlack.OnClick(() =>
+        {
+            SaveGame.IsDoneTutPoint = true;
+            popupHome.ResetNBar();
+            HideHandTut();
+            RefreshArrow();
+            nBlack.gameObject.SetActive(false);
+        });
     }
 
     private void Start()
@@ -25,6 +45,8 @@ public class TutorialCamera : MonoBehaviour
 
     public void MoveHand(int index, int indexStep)
     {
+        if (index == 0) isDoneStep2 = true;
+        LogicGame.Instance.ListArrowPlate[index].canClick = true;
         Vector3 pos = LogicGame.Instance.ListArrowPlate[index].transform.position;
 
         Vector3 position = cam.WorldToScreenPoint(pos);
@@ -35,39 +57,39 @@ public class TutorialCamera : MonoBehaviour
             cam,
             out Vector2 localPoint
         );
-
         hand.anchoredPosition = localPoint;
+        hand.gameObject.SetActive(true);
         listSteps[indexStep].SetActive(true);
         particleHand.gameObject.SetActive(true);
     }
-
-    private void Update()
+    public void PlayTut3()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector2 anr;
-        //    Debug.Log("Input: " + Input.mousePosition);
-        //    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        //      canvasRectTransform,
-        //      Input.mousePosition,
-        //      cam,
-        //      out anr
-        //     );
+        btnContinue.gameObject.SetActive(true);
+        listSteps[2].SetActive(true);
+    }
 
-        //    hand.anchoredPosition = anr;
-        //}
+    public void PlayTut4()
+    {
+        nBlack.gameObject.SetActive(true);
+        popupHome.nBar.transform.SetParent(nBlack);
+        listSteps[3].SetActive(true);
+    }
 
-        if (Input.GetKeyDown(KeyCode.N))
+    public void HideHandTut()
+    {
+        for (int i = 0; i < listSteps.Count; i++)
         {
-            particleHand.gameObject.SetActive(false);
-            MoveHand(0, 1);
+            listSteps[i].SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.M))
+        hand.gameObject.SetActive(false);
+    }
+
+    public void RefreshArrow()
+    {
+        for (int i = 0; i < LogicGame.Instance.ListArrowPlate.Count; i++)
         {
-            nBlack.gameObject.SetActive(true);
-            popupHome.nBar.transform.SetParent(nBlack);
-            listSteps[3].gameObject.SetActive(true);
+            LogicGame.Instance.ListArrowPlate[i].canClick = true;
         }
     }
 }

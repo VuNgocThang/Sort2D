@@ -8,6 +8,7 @@ using DG.Tweening;
 using BaseGame;
 using ThangVN;
 using System;
+using static Unity.Collections.AllocatorManager;
 
 public class PopupHome : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class PopupHome : MonoBehaviour
     public GameObject UiEffect2;
     public GameObject tool;
 
-    [SerializeField] Transform nParentBtnMiniGame, nParentNormal, nManagerMission, nButtons;
+    [SerializeField] Transform nParentBtnMiniGame, nParentNormal, nManagerMission, nButtons, nTopBar;
 
     private void Awake()
     {
@@ -170,7 +171,10 @@ public class PopupHome : MonoBehaviour
             ShuffleRandomColorSpawn();
         }
     }
-
+    public void ResetNBar()
+    {
+        nBar.transform.SetParent(nTopBar);
+    }
     void UpdatePoint(object e)
     {
         if (animBar != null && nBar.activeSelf)

@@ -38,7 +38,7 @@ public class ToolSelectLevel : MonoBehaviour
         SaveGame.IsShowSwap = true;
         ManagerEvent.ClearEvent();
         SaveGame.Level = int.Parse(inputField.text) - 1;
-        SaveGame.IsDoneTutorial = true;
+        //SaveGame.IsDoneTutorial = true;
         LogicGame.Instance.DeleteSaveDataGame();
 
         SceneManager.LoadScene("SceneGame");

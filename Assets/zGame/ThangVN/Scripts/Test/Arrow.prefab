@@ -161,7 +161,6 @@ MonoBehaviour:
   listTypes: []
   anim: {fileID: 0}
   targetUIPosition: {fileID: 0}
-  customRatio: {fileID: 0}
   circleZZZ: {fileID: 0}
   txtPointUnlock: {fileID: 0}
   isLocked: 0
@@ -174,6 +173,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  curveMoveUp:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  timerConfigData: {fileID: 0}
+  magicRune: {fileID: 0}
+  isMoving: 0
+  isMerging: 0
+  canClick: 1
+  pathType: 0
   customCurve:
     serializedVersion: 2
     m_Curve: []

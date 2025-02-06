@@ -72,6 +72,11 @@ public class DefaultFinishPlate : IVisualPlate
                                 LogicGame.Instance.IncreaseCountDiff();
                                 LogicGame.Instance.SpawnSpecialColor();
 
+                                if (!SaveGame.IsDoneTutPoint)
+                                {
+                                    TutorialCamera.Instance.PlayTut4();
+                                }
+
                                 color.trail.SetActive(false);
 
                                 ManagerEvent.RaiseEvent(EventCMD.EVENT_MISSION_CUSTOMER, new MissionProgress(colorEnum, count));
