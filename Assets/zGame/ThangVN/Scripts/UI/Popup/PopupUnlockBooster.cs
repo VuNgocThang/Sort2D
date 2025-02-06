@@ -14,6 +14,15 @@ namespace ThangVN
         [SerializeField] Image icon;
         [SerializeField] TextMeshProUGUI txtName, txtExplain;
         [SerializeField] BoosterData boosterData;
+        [SerializeField] EasyButton btnClosePopup;
+
+        private void Awake()
+        {
+            btnClosePopup.OnClick(() =>
+            {
+                Hide();
+            });
+        }
 
         public static async void Show(int index)
         {

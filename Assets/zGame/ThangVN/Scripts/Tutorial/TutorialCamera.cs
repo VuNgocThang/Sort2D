@@ -165,4 +165,9 @@ public class TutorialCamera : MonoBehaviour
             }
         }
     }
+
+    public void InitTutorialBoosterRefresh()
+    {
+
+    }
 }
