@@ -35,7 +35,7 @@ public class ItemFreeCoin : MonoBehaviour
             iconCoin.SetActive(false);
         }
 
-        for (int i = 0; i < SaveGame.DataFreeCoin.listDataFreeCoin.Count; i++)
+        for (int i = 0; i < SaveGame. DataFreeCoin.listDataFreeCoin.Count; i++)
         {
             if (i >= 2) imgCoin.sprite = sprites[1];
             else imgCoin.sprite = sprites[0];
