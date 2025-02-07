@@ -20,7 +20,7 @@ public class PopupDecorateBook : Popup
     [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate, txtCurrentProgress;
     [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, nCurrentProgress, nBot;
     [SerializeField] public ItemDraggable currentItemDrag;
-    [SerializeField] Transform nParent, nParentSlot, nContent, nColorChangeParent;
+    [SerializeField] Transform nParent, nParentSlot, nContent, nColorChangeParent, nParentColorChange;
     public List<ImageItem> listItems;
     public List<Slot> slots;
     public List<Sprite> sprites;
@@ -34,7 +34,7 @@ public class PopupDecorateBook : Popup
     public float total;
 
     public DataBook dataBook;
-    [SerializeField] BookDecorated bookDecorated;
+    public BookDecorated bookDecorated = new BookDecorated();
 
     // Select Color
     [SerializeField] EasyButton btnTick;
@@ -49,12 +49,23 @@ public class PopupDecorateBook : Popup
         {
             OnSelect(true);
             btnTick.gameObject.SetActive(false);
+
+            if (!SaveGame.IsDoneTutorialDecor)
+            {
+                StartCoroutine(TutChooseColor(listItemDecors[0].GetComponent<RectTransform>()));
+            }
         });
         btnSelectBgColor.OnClick(() =>
         {
             if (currentItemDrag != null) return;
 
             OnSelect(false);
+
+            if (!SaveGame.IsDoneTutorialDecor)
+            {
+                StartCoroutine(TutChooseColor(listItemSelectColor[0].GetComponent<RectTransform>()));
+            }
+
         });
         btnBack.OnClick(() =>
         {
@@ -73,6 +84,10 @@ public class PopupDecorateBook : Popup
         btnTick.OnClick(() =>
         {
             SaveCurrentColor();
+            if (!SaveGame.IsDoneTutorialDecor)
+            {
+                TutorialDecor.Instance.InitTutFocus(btnSelectItem.GetComponent<RectTransform>());
+            }
         });
 
         ManagerEvent.RegEvent(EventCMD.EVENT_CHANGE_COLOR, ChangeColorBook);
@@ -80,6 +95,20 @@ public class PopupDecorateBook : Popup
         ManagerEvent.RegEvent(EventCMD.EVENT_SUB_BOOK, PlayAnimSubBook);
 
         ManagerEvent.RegEvent(EventCMD.EVENT_CLAIM_REWARD_BOOK, RaiseEventCollectReward);
+
+        CheckNull();
+    }
+
+    void CheckNull()
+    {
+
+        Debug.Log("Kiểm tra biến null...");
+        Debug.Log(listItems != null ? "✅ listItems OK" : "❌ listItems bị null");
+        Debug.Log(slots != null ? "✅ slots OK" : "❌ slots bị null");
+        Debug.Log(sprites != null ? "✅ sprites OK" : "❌ sprites bị null");
+        Debug.Log(listItemDecors != null ? "✅ listItemDecors OK" : "❌ listItemDecors bị null");
+        Debug.Log(scroll != null ? "✅ scroll OK" : "❌ scroll bị null");
+
     }
 
     public static async void Show(int index, bool IsRedecorated)
@@ -88,6 +117,7 @@ public class PopupDecorateBook : Popup
         pop.Init();
         pop.Refresh();
         pop.Initialize(index, IsRedecorated);
+
         //pop.RedecoratedInit(index);
     }
 
@@ -100,7 +130,7 @@ public class PopupDecorateBook : Popup
 
     public override void Init()
     {
-        base.Init();
+        //base.Init();
         btnTick.gameObject.SetActive(false);
         OnSelect(true);
         ManagerPopup.HidePopup<PopupBookItem>();
@@ -217,6 +247,31 @@ public class PopupDecorateBook : Popup
             // Setup entry bg
             SetupEntryBG();
         }
+
+        if (!SaveGame.IsDoneTutorialDecor)
+            StartCoroutine(ResetPosContent());
+    }
+
+
+    IEnumerator ResetPosContent()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(nContent.GetComponent<RectTransform>());
+        yield return new WaitForEndOfFrame();
+        TutorialDecor.Instance.InitTutFocus(btnSelectBgColor.GetComponent<RectTransform>());
+        scroll.horizontalNormalizedPosition = 0;
+        //scroll.content.anchoredPosition = new Vector2(0, scroll.content.anchoredPosition.y);
+    }
+
+    IEnumerator TutChooseColor(RectTransform rect)
+    {
+        yield return new WaitForEndOfFrame();
+        TutorialDecor.Instance.SetParentDecorateBook(nColorChangeParent.GetComponent<RectTransform>());
+        TutorialDecor.Instance.InitTutFocus(rect);
+    }
+
+    public void ResetNColorChangeParent()
+    {
+        nColorChangeParent.SetParent(nParentColorChange);
     }
 
     private void SetupEntryBG()
@@ -337,6 +392,12 @@ public class PopupDecorateBook : Popup
         }
 
         nColorChangeBook.color = (Color)e;
+
+        if (!SaveGame.IsDoneTutorialDecor)
+        {
+            btnTick.gameObject.SetActive(true);
+            TutorialDecor.Instance.InitTutFocus(btnTick.GetComponent<RectTransform>());
+        }
     }
 
     public void PlayAnimSubBook(object e)

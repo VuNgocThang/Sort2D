@@ -72,6 +72,24 @@ public static class SaveGame
         }
     }
 
+    const string ISDONETUTGIFT = "ISDONETUTGIFT";
+    static int isDoneTutGift = -1;
+
+    public static bool IsDoneTutGift
+    {
+        set
+        {
+            ES3.Save(ISDONETUTGIFT, value ? 1 : 0);
+            isDoneTutGift = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutGift == -1) isDoneTutGift = ES3.Load(ISDONETUTGIFT, 0);
+            return isDoneTutGift == 1;
+        }
+    }
+
+
     const string ISDONETUTLOCKCOIN = "ISDONETUTLOCKCOIN";
     static int isDoneTutLockCoin = -1;
 

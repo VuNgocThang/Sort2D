@@ -17,7 +17,7 @@ public class PopupDecor : Popup
     [SerializeField] List<BookItem> listBookItems;
     [SerializeField] List<BookDecorated> listBookDecorated;
     [SerializeField] List<float> listProgress;
-    [SerializeField] RectTransform hand;
+    [SerializeField] RectTransform imgTut, hand;
     [SerializeField] ScrollRect scroll;
 
     [SerializeField] DataConfigDecor dataBookConfig;
@@ -43,7 +43,8 @@ public class PopupDecor : Popup
 
     public override void Init()
     {
-        base.Init();
+        //base.Init();
+        transform.localScale = Vector3.one;
         SaveGame.Redecorated = false;
         ManagerPopup.HidePopup<PopupDecorateBook>();
 
@@ -59,7 +60,8 @@ public class PopupDecor : Popup
 
         LoadListBookItems();
 
-        InitTutorialDecor();
+        if (!SaveGame.IsDoneTutorialDecor)
+            StartCoroutine(InitTutorialDecor());
     }
 
     private void LoadListBookItems()
@@ -91,15 +93,14 @@ public class PopupDecor : Popup
         }
     }
 
-    void InitTutorialDecor()
+    IEnumerator InitTutorialDecor()
     {
-        Debug.Log(scroll.content.GetChild(0).GetComponent<RectTransform>().position);
-        Debug.Log(scroll.content.GetChild(0).GetComponent<RectTransform>().localPosition);
-        if (!SaveGame.IsDoneTutorialDecor)
-        {
-            //hand.position = listBookItems[0].GetComponent<RectTransform>().position;
-            hand.gameObject.SetActive(true);
-        }
+        scroll.enabled = false;
+        yield return new WaitForEndOfFrame();
+        TutorialDecor.Instance.InitTutFocus(listBookItems[0].GetComponent<RectTransform>());
+        TutorialDecor.Instance.ShowStep(0);
+        //imgTut.position = scroll.content.GetChild(0).GetComponent<RectTransform>().position;
+        //hand.position = imgTut.position;
     }
 
 

@@ -71,6 +71,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
     {
         if (isDragging)
         {
+            if (!SaveGame.IsDoneTutorialDecor)
+            {
+                popupDecorateBook.ResetNColorChangeParent();
+                TutorialDecor.Instance.EndTutorialDecor();
+            }
+
+
             if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover)) imgItemDrag.color = defaultColor;
             else imgItemDrag.color = redColor;
 
@@ -125,8 +132,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
                 AddNewObjectBook(false);
                 popupDecorateBook.OpenNewBook();
             }
-
             linkedImageItem.isPainted = true;
+
+            if (!SaveGame.IsDoneTutGift)
+            {
+                TutorialDecor.Instance.ShowStep(2);
+            }
+
         }
         else
         {

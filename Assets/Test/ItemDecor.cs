@@ -44,6 +44,12 @@ public class ItemDecor : MonoBehaviour
                 imageItem.isBought = true;
                 btnBuy.gameObject.SetActive(false);
                 SaveBoughtItemDecor();
+
+                if (!SaveGame.IsDoneTutorialDecor)
+                {
+                    TutorialDecor.Instance.ShowStep(1);
+                    TutorialDecor.Instance.PlayAnimationHand();
+                }
             }
             else
             {

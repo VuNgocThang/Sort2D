@@ -44,6 +44,11 @@ public class BookItem : MonoBehaviour
                     EasyUI.Toast.Toast.Show("Coming Soon", 1f, EasyUI.Toast.ToastColor.Black);
                 }
             }
+
+            if (TutorialDecor.Instance != null)
+            {
+                TutorialDecor.Instance.HideStep();
+            }
         });
     }
 
