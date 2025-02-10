@@ -10,14 +10,14 @@ public static class GameConfig
 
     public static float TIME_COUNT_DOWN = 300f;
 
-    public static float TIME_FLY = 0.75f;
+    public static float TIME_FLY = 0.5f;
     //public static string COUNT_DOWN_TIMER = "CountdownTimer";
 
     public static string LAST_HEART_LOSS = "LastHeartLoss";
 
     public static float OFFSET_PLATE = 0.075f;
 
-    public static float OFFSET_PLATE_Z = 0.1f;
+    public static float OFFSET_PLATE_Z = 0.075f;
 
     public static string TXT_REFRESH = "refresh tray to get new stack options";
 

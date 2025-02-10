@@ -59,10 +59,10 @@ public class TutorialCamera : MonoBehaviour
             btnContinueFrozen.gameObject.SetActive(false);
         });
 
-        btnContinueBlackBooster.OnClick(() =>
-        {
-            CloseTutorialBooster();
-        });
+        //btnContinueBlackBooster.OnClick(() =>
+        //{
+        //    CloseTutorialBooster();
+        //});
     }
 
     public void CloseTutorialBooster()

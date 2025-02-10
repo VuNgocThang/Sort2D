@@ -10,9 +10,10 @@ public class TutorialDecor : MonoBehaviour
     public Animator animHandTut;
     [SerializeField] Transform nBlackTut, nParent;
     [SerializeField] RectTransform imgTut;
-    [SerializeField] GameObject handImgTut, PanelTut;
+    [SerializeField] GameObject handImgTut, PanelTut, PanelTutCircle;
     [SerializeField] List<GameObject> listSteps;
     [SerializeField] EasyButton btnStep3;
+    [SerializeField] GameObject particle;
 
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class TutorialDecor : MonoBehaviour
         handImgTut.SetActive(true);
     }
 
+
     public void ShowStep(int index)
     {
         HideStep();
@@ -59,6 +61,7 @@ public class TutorialDecor : MonoBehaviour
 
     public void PlayAnimationHand()
     {
+        particle.gameObject.SetActive(false);
         animHandTut.enabled = true;
         animHandTut.Play("Move");
     }

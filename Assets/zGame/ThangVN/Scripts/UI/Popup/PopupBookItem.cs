@@ -46,7 +46,8 @@ public class PopupBookItem : Popup
 
     public override void Init()
     {
-        base.Init();
+        //base.Init();
+        transform.localScale = Vector3.one;
     }
 
     public void Initialize(int index)

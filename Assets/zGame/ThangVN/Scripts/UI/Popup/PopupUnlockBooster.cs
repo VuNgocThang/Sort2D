@@ -60,7 +60,7 @@ namespace ThangVN
 
             transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).OnComplete(() =>
             {
-                LogicGame.Instance.isPauseGame = false;
+                //LogicGame.Instance.isPauseGame = false;
                 gameObject.SetActive(false);
                 ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
             });

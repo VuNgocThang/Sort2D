@@ -52,7 +52,6 @@ public class PopupHome : MonoBehaviour
         btnRefresh.button.OnClick(() =>
         {
             TutorialCamera.Instance.CloseTutorialBooster();
-            LogicGame.Instance.isPauseGame = false;
             if (SaveGame.Level >= btnRefresh.indexLevelUnlock)
             {
                 if (SaveGame.Refresh > 0)
@@ -281,6 +280,7 @@ public class PopupHome : MonoBehaviour
         if (SaveGame.Level == GameConfig.LEVEL_HAMMER && !SaveGame.IsDoneTutHammer) return;
         if (SaveGame.Level == GameConfig.LEVEL_SWAP && !SaveGame.IsDoneTutSwap) return;
 
+        ResetPositionAfterTutorial();
         handDrag.selectingPlate = null;
         StartCoroutine(Delay());
     }
@@ -387,7 +387,7 @@ public class PopupHome : MonoBehaviour
 
     public void ResetPositionAfterTutorial()
     {
-        btnHammer.transform.SetParent(nButtons);
+        btnSwap.transform.SetParent(nButtons);
         btnHammer.transform.SetParent(nButtons);
         btnRefresh.transform.SetParent(nButtons);
     }
