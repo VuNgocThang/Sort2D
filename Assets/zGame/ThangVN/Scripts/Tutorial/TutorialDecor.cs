@@ -9,7 +9,7 @@ public class TutorialDecor : MonoBehaviour
     public GameObject hand;
     public Animator animHandTut;
     [SerializeField] Transform nBlackTut, nParent;
-    [SerializeField] RectTransform imgTut;
+    [SerializeField] RectTransform imgTut, imgTutCircle;
     [SerializeField] GameObject handImgTut, PanelTut, PanelTutCircle;
     [SerializeField] List<GameObject> listSteps;
     [SerializeField] EasyButton btnStep3;
@@ -37,7 +37,7 @@ public class TutorialDecor : MonoBehaviour
         obj.SetParent(nBlackTut);
     }
 
-    public void InitTutFocus(RectTransform rect)
+    public void InitTutFocus(RectTransform rect, bool isCircle = false)
     {
         hand.SetActive(false);
         nBlackTut.gameObject.SetActive(false);
@@ -45,9 +45,23 @@ public class TutorialDecor : MonoBehaviour
         //414 469
         imgTut.sizeDelta = rect.sizeDelta;
         imgTut.position = rect.position;
+
+        imgTutCircle.sizeDelta = rect.sizeDelta;
+        imgTutCircle.position = rect.position;
+
         handImgTut.GetComponent<RectTransform>().position = imgTut.position;
 
-        PanelTut.SetActive(true);
+        if (!isCircle)
+        {
+            PanelTutCircle.SetActive(false);
+            PanelTut.SetActive(true);
+        }
+        else
+        {
+            PanelTutCircle.SetActive(true);
+            PanelTut.SetActive(false);
+        }
+
         handImgTut.SetActive(true);
     }
 
@@ -85,5 +99,6 @@ public class TutorialDecor : MonoBehaviour
         HideStep();
         handImgTut.SetActive(false);
         PanelTut.SetActive(false);
+        PanelTutCircle.SetActive(false);
     }
 }

@@ -547,8 +547,10 @@ public class LogicGame : MonoBehaviour
             if (listNextPlate[i].ListValue.Count == 0)
             {
                 listNextPlate[i].Init(GetColorNew);
-                if (i == 0) listNextPlate[i].InitColor(false, tutorialFirst);
-                else listNextPlate[i].InitColor(false, tutorialFirst);
+                listNextPlate[i].InitColor(false, tutorialFirst);
+
+                //if (i == 0) listNextPlate[i].InitColor(false, tutorialFirst);
+                //else listNextPlate[i].InitColor(false, tutorialFirst);
             }
         }
     }
@@ -607,7 +609,7 @@ public class LogicGame : MonoBehaviour
                     {
                         ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
 
-                        Debug.Log(arrowPlate.canClick);
+                        //Debug.Log(arrowPlate.canClick);
                         if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0 || !arrowPlate.canClick) return;
 
                         if (!SaveGame.IsDoneTutorial)
@@ -851,15 +853,34 @@ public class LogicGame : MonoBehaviour
 
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
-                Vector3 localPos = renderer.transform.localPosition;
-                renderer.transform.SetParent(listNextPlate[0].transform);
-                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                //Vector3 localPos = renderer.transform.localPosition;
+                //renderer.transform.SetParent(listNextPlate[0].transform);
+                //float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
-                /*t = */
-                //renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
-                renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                renderer.transform.localRotation = Quaternion.identity;
-                renderer.transform.localScale = Vector3.one;
+                ///*t = */
+                ////renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
+                ////renderer.transform.DOLocalJump(new Vector3(randomX, localPos.y, localPos.z), 1f, 1, 0.3f);
+
+                //renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                //renderer.transform.localRotation = Quaternion.identity;
+                //renderer.transform.localScale = Vector3.one;
+
+                Vector3 worldPos = listNextPlate[0].transform.position;
+                Vector3 localPos = renderer.transform.localPosition;
+                Transform newParent = listNextPlate[0].transform;
+
+                float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
+                Vector3 targetLocalPos = new Vector3(randomX, localPos.y, localPos.z);
+
+                renderer.transform
+                    .DOJump(worldPos, 1f, 1, 0.3f)
+                    .OnComplete(() =>
+                    {
+                        renderer.transform.SetParent(newParent, true);
+                        renderer.transform.localPosition = targetLocalPos;
+                        renderer.transform.localRotation = Quaternion.identity;
+                        renderer.transform.localScale = Vector3.one;
+                    });
             }
 
             listNextPlate[0].ListValue.AddRange(listNextPlate[1].ListValue);

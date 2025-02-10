@@ -16,7 +16,7 @@ public class HomeUI : MonoBehaviour
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
     [SerializeField] float countdownTimer, totalParts, currentParts;
-    public GameObject nTop, nBot, iconNotice, nParent, nPanelShop, nNoticeFreecoin, nNoticeDailyTask, nNoticeTask;
+    public GameObject nTop, nBot, iconNotice, nParent, nPanelShop, nNoticeFreecoin, nNoticeDailyTask, nNoticeTask, imgGrayDecor;
     public Animator animator;
     public List<Sprite> listSprite;
     public Image bg, imgProgressTask;
@@ -47,6 +47,7 @@ public class HomeUI : MonoBehaviour
         {
             if (SaveGame.Level < 2)
             {
+                return;
                 EasyUI.Toast.Toast.Show("Unlock at level 3", 1f);
             }
             else
@@ -122,6 +123,8 @@ public class HomeUI : MonoBehaviour
             ManagerAudio.PlayMusic(ManagerAudio.Data.musicBG);
         }
         else ManagerAudio.PauseMusic();
+
+        InitGrayDecor();
 
         InitHeart();
 
@@ -220,6 +223,14 @@ public class HomeUI : MonoBehaviour
             txtHeart.fontSize = minSize;
 
         }
+    }
+
+    void InitGrayDecor()
+    {
+        if (SaveGame.Level < 2)
+            imgGrayDecor.SetActive(true);
+        else
+            imgGrayDecor.SetActive(false);
     }
 
     private void InitHeart()

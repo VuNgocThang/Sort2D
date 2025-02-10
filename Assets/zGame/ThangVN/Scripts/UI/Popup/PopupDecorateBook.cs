@@ -86,7 +86,7 @@ public class PopupDecorateBook : Popup
             SaveCurrentColor();
             if (!SaveGame.IsDoneTutorialDecor)
             {
-                TutorialDecor.Instance.InitTutFocus(btnSelectItem.GetComponent<RectTransform>());
+                TutorialDecor.Instance.InitTutFocus(btnSelectItem.GetComponent<RectTransform>(), true);
             }
         });
 
@@ -258,7 +258,7 @@ public class PopupDecorateBook : Popup
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(nContent.GetComponent<RectTransform>());
         yield return new WaitForEndOfFrame();
-        TutorialDecor.Instance.InitTutFocus(btnSelectBgColor.GetComponent<RectTransform>());
+        TutorialDecor.Instance.InitTutFocus(btnSelectBgColor.GetComponent<RectTransform>(), true);
         scroll.horizontalNormalizedPosition = 0;
         //scroll.content.anchoredPosition = new Vector2(0, scroll.content.anchoredPosition.y);
     }
@@ -397,7 +397,7 @@ public class PopupDecorateBook : Popup
         if (!SaveGame.IsDoneTutorialDecor)
         {
             btnTick.gameObject.SetActive(true);
-            TutorialDecor.Instance.InitTutFocus(btnTick.GetComponent<RectTransform>());
+            TutorialDecor.Instance.InitTutFocus(btnTick.GetComponent<RectTransform>(), true);
         }
     }
 
@@ -566,19 +566,46 @@ public class PopupDecorateBook : Popup
         particle.Play();
     }
 
+    void ShowCurrentProgress()
+    {
+
+    }
+
     IEnumerator PlayAnimBookDecorate()
     {
         float current = bookDecorated.progress;
-        txtCurrentProgress.text = $"Progress: {current * 100}%";
-        nCurrentProgress.SetActive(true);
+        //txtCurrentProgress.text = $"Progress: {current * 100}%";
+
         nBot.SetActive(false);
+
         nColorChangeParent.transform.DOScale(new Vector3(1.15f, 1.15f, 1.15f), 0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        nCurrentProgress.SetActive(true);
+
+        float targetProgress = current;
+        float elapsedTime = 0f;
+        float duration = 1f;
+
+        while (elapsedTime < duration)
+        {
+            float progress = Mathf.Lerp(0f, targetProgress, elapsedTime / duration);
+            txtCurrentProgress.text = $"Progress: {progress * 100:F2}%";
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+
+        txtCurrentProgress.text = $"Progress: {targetProgress * 100}%";
         yield return new WaitForSeconds(1f);
 
         if (current == 1)
         {
             if (!bookDecorated.isCollectedReward)
             {
+                //yield return new WaitForSeconds(1f);
+
                 PopupRewardDecor.Show();
                 bookDecorated.isCollectedReward = true;
                 SaveIsCollectReward();
