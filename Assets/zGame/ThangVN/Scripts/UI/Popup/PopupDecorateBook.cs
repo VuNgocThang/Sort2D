@@ -131,6 +131,7 @@ public class PopupDecorateBook : Popup
     public override void Init()
     {
         //base.Init();
+        transform.localScale = Vector3.one;
         btnTick.gameObject.SetActive(false);
         OnSelect(true);
         ManagerPopup.HidePopup<PopupBookItem>();

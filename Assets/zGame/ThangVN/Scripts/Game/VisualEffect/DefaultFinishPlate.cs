@@ -22,7 +22,7 @@ public class DefaultFinishPlate : IVisualPlate
 
         for (int i = colorPlate.ListColor.Count - 1; i >= colorPlate.ListValue.Count; --i)
         {
-            LogicColor color = colorPlate.ListColor[i];
+            //LogicColor color = colorPlate.ListColor[i];
             //if (i != colorPlate.ListValue.Count) listTest.Add(color);
             //colorPlate.ListColor.Remove(color);
 
@@ -124,8 +124,10 @@ public class DefaultFinishPlate : IVisualPlate
 
 
 
+            LogicColor color = colorPlate.ListColor[i];
             if (i != colorPlate.ListValue.Count) listTest.Add(color);
             colorPlate.ListColor.Remove(color);
+
             if (i == colorPlate.ListValue.Count)
             {
                 sq.Insert(delay, color.transform.DOScale(0.5f, 0.3f)

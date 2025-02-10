@@ -53,6 +53,8 @@ public class ItemDecor : MonoBehaviour
             }
             else
             {
+                if (imageItem.isBought) return;
+
                 EasyUI.Toast.Toast.Show("Not enough book!", 0.5f);
             }
         });

@@ -7,8 +7,7 @@ using BaseGame;
 using TMPro;
 using System;
 using UnityEngine.UI;
-using ThangVN;
-using UnityEngine.XR;
+using EasyUI.Helpers;
 
 public class HomeUI : MonoBehaviour
 {
@@ -24,6 +23,9 @@ public class HomeUI : MonoBehaviour
     [SerializeField] DataConfigDecor bookDataConfig;
     [SerializeField] ListBookDecorated listBook;
     [SerializeField] DataClaimedFreecoin dataFreeCoinClaimed;
+
+    const int bigSize = 60;
+    const int minSize = 40;
 
     private void Awake()
     {
@@ -43,13 +45,22 @@ public class HomeUI : MonoBehaviour
 
         btnDecor.OnClick(() =>
         {
-            if (SaveGame.Level >= 2)
+            if (SaveGame.Level < 2)
             {
-                SaveGame.FirstDecor = false;
-                btnDecor.transform.SetParent(nBot.transform);
+                EasyUI.Toast.Toast.Show("Unlock at level 3", 1f);
+            }
+            else
+            {
+                if (SaveGame.Level >= 2)
+                {
+                    SaveGame.FirstDecor = false;
+                    btnDecor.transform.SetParent(nBot.transform);
+                }
+
+                PopupDecor.Show();
             }
 
-            PopupDecor.Show();
+
         });
 
         btnPlay.OnClick(() =>
@@ -132,6 +143,8 @@ public class HomeUI : MonoBehaviour
 
         CalculateHeart();
 
+
+
         int count = CheckNoticeFreecoin();
         if (count == 6) nNoticeFreecoin.SetActive(false);
         else nNoticeFreecoin.SetActive(true);
@@ -182,6 +195,7 @@ public class HomeUI : MonoBehaviour
         if (SaveGame.Heart >= GameConfig.MAX_HEART)
         {
             txtCountdownHeart.text = "FULL";
+            txtHeart.fontSize = bigSize;
         }
         else
         {
@@ -202,6 +216,9 @@ public class HomeUI : MonoBehaviour
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
                 PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             }
+
+            txtHeart.fontSize = minSize;
+
         }
     }
 

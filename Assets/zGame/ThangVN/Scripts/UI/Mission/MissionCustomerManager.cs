@@ -25,6 +25,7 @@ public class MissionCustomerManager : MonoBehaviour
     [SerializeField] Vector2 startPos;
     [SerializeField] Vector2 endPos;
     public RectTransform movingClock;
+    [SerializeField] TextMeshProUGUI txtTimer;
 
     private void Awake()
     {
@@ -94,7 +95,7 @@ public class MissionCustomerManager : MonoBehaviour
             currentTimer += Time.deltaTime;
 
         imgFillTimer.fillAmount = currentTimer / timer;
-
+        CalculateTimerCount();
         Vector2 newPosition = Vector2.Lerp(startPos, endPos, imgFillTimer.fillAmount);
         movingClock.anchoredPosition = newPosition;
 
@@ -124,6 +125,19 @@ public class MissionCustomerManager : MonoBehaviour
                 SaveGame.LevelBonus++;
             RaiseEventWin();
         }
+    }
+
+    void CalculateTimerCount()
+    {
+        float timerCountDown = timer - currentTimer;
+        if (timerCountDown > 0)
+            timerCountDown -= Time.deltaTime;
+        else timerCountDown = 0;
+
+        float minutes = Mathf.Floor(timerCountDown / 60);
+        float seconds = Mathf.RoundToInt(timerCountDown % 60);
+
+        txtTimer.text = minutes.ToString("00") + ":" + seconds.ToString("00");
     }
 
     bool IsOverTime()

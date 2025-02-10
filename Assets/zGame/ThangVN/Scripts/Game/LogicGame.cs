@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Utilities.Common;
 
 public enum GameMode
@@ -154,7 +153,6 @@ public class LogicGame : MonoBehaviour
         Application.targetFrameRate = 60;
         //enabled = false;
         await Refresh();
-
         LoadSaveData();
         await LoadData();
         InitListCheckPlate();
@@ -221,6 +219,11 @@ public class LogicGame : MonoBehaviour
             nBgMini.gameObject.SetActive(false);
             nBgNormal.gameObject.SetActive(true);
             nStand.gameObject.SetActive(false);
+        }
+
+        if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial)
+        {
+            SaveGame.TutorialFirst = true;
         }
     }
 
@@ -1003,11 +1006,11 @@ public class LogicGame : MonoBehaviour
 
     public void SetColorUsingSwapItem(ColorPlate startColorPlate, ColorPlate endColorPlate, int currentLayer)
     {
-        int changeLayer = endColorPlate.ListColor[0].spriteRender.sortingOrder;
-
+        int changeLayer;
 
         if (endColorPlate.ListValue.Count == 0)
         {
+            changeLayer = (GameConfig.OFFSET_LAYER - endColorPlate.Row) > 1 ? GameConfig.OFFSET_LAYER - endColorPlate.Row : 1;
             for (int i = 0; i < startColorPlate.ListColor.Count; i++)
             {
                 LogicColor c = startColorPlate.ListColor[i];
@@ -1042,6 +1045,8 @@ public class LogicGame : MonoBehaviour
         }
         else
         {
+            changeLayer = endColorPlate.ListColor[0].spriteRender.sortingOrder;
+
             for (int i = 0; i < startColorPlate.ListColor.Count; i++)
             {
                 LogicColor c = startColorPlate.ListColor[i];
@@ -1585,7 +1590,7 @@ public class LogicGame : MonoBehaviour
     }
     void SaveGameNormal()
     {
-        if (SaveGame.Level == 0) return;
+        if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial) return;
 
         SaveCurrentDataGame currentData = new SaveCurrentDataGame();
 
