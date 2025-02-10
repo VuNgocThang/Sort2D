@@ -310,7 +310,7 @@ public static class SaveGame
         }
         get
         {
-            if (pigment == -1) pigment = ES3.Load(PIGMENT, 20000);
+            if (pigment == -1) pigment = ES3.Load(PIGMENT, 0);
             return pigment;
         }
     }
