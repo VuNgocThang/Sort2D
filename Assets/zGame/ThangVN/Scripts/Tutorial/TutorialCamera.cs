@@ -1,19 +1,24 @@
-﻿using ntDev;
+﻿using DG.Tweening;
+using ntDev;
+using Spine.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities.Common;
 
 public class TutorialCamera : MonoBehaviour
 {
     public static TutorialCamera Instance;
     [SerializeField] Camera cam;
     [SerializeField] RectTransform hand;
+    [SerializeField] Transform handObject;
     [SerializeField] GameObject particleHand;
     [SerializeField] RectTransform canvasRectTransform;
     [SerializeField] List<GameObject> listSteps;
     [SerializeField] PopupHome popupHome;
-    [SerializeField] Transform nBlack;
-    [SerializeField] EasyButton btnContinue, btnContinueBlack, btnContinueLockCoin, btnContinueFrozen;
+    [SerializeField] Transform nBlack, nBlackTut;
+    [SerializeField] EasyButton btnContinue, btnContinueBlack, btnContinueBlackBooster, btnContinueLockCoin, btnContinueFrozen;
     public bool isDoneStep2;
 
     private void Awake()
@@ -53,6 +58,19 @@ public class TutorialCamera : MonoBehaviour
             RefreshFrozen();
             btnContinueFrozen.gameObject.SetActive(false);
         });
+
+        btnContinueBlackBooster.OnClick(() =>
+        {
+            CloseTutorialBooster();
+        });
+    }
+
+    public void CloseTutorialBooster()
+    {
+        HideHandTut();
+        LogicGame.Instance.isPauseGame = false;
+        btnContinueBlackBooster.gameObject.SetActive(false);
+        LogicGame.Instance.homeInGame.ResetPositionAfterTutorial();
     }
 
     private void Start()
@@ -65,7 +83,12 @@ public class TutorialCamera : MonoBehaviour
         if (index == 0) isDoneStep2 = true;
         LogicGame.Instance.ListArrowPlate[index].canClick = true;
         Vector3 pos = LogicGame.Instance.ListArrowPlate[index].transform.position;
+        SetPositionHand(pos);
+        listSteps[indexStep].SetActive(true);
+    }
 
+    private void SetPositionHand(Vector3 pos)
+    {
         Vector3 position = cam.WorldToScreenPoint(pos);
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -76,9 +99,9 @@ public class TutorialCamera : MonoBehaviour
         );
         hand.anchoredPosition = localPoint;
         hand.gameObject.SetActive(true);
-        listSteps[indexStep].SetActive(true);
         particleHand.gameObject.SetActive(true);
     }
+
     public void PlayTut3()
     {
         btnContinue.gameObject.SetActive(true);
@@ -168,6 +191,92 @@ public class TutorialCamera : MonoBehaviour
 
     public void InitTutorialBoosterRefresh()
     {
+        hand.position = LogicGame.Instance.homeInGame.btnRefresh.GetComponent<RectTransform>().position;
+        LogicGame.Instance.homeInGame.btnRefresh.transform.SetParent(btnContinueBlackBooster.transform);
+        btnContinueBlackBooster.gameObject.SetActive(true);
+        hand.gameObject.SetActive(true);
+        listSteps[4].SetActive(true);
+    }
+
+    public void InitTutorialBoosterHammer()
+    {
+        hand.position = LogicGame.Instance.homeInGame.btnHammer.GetComponent<RectTransform>().position;
+        LogicGame.Instance.homeInGame.btnHammer.transform.SetParent(btnContinueBlackBooster.transform);
+        btnContinueBlackBooster.gameObject.SetActive(true);
+        hand.gameObject.SetActive(true);
+        listSteps[5].SetActive(true);
 
     }
+
+    public void InitTutorialBoosterSwap()
+    {
+        hand.position = LogicGame.Instance.homeInGame.btnSwap.GetComponent<RectTransform>().position;
+        LogicGame.Instance.homeInGame.btnSwap.transform.SetParent(btnContinueBlackBooster.transform);
+        btnContinueBlackBooster.gameObject.SetActive(true);
+        hand.gameObject.SetActive(true);
+        listSteps[7].SetActive(true);
+
+    }
+
+
+    public void TutorialHammer()
+    {
+        LogicGame.Instance.homeInGame.itemObj.transform.SetParent(nBlackTut);
+        handObject.position = LogicGame.Instance.ListColorPlate[16].transform.position;
+        handObject.SetActive(true);
+        nBlackTut.SetActive(true);
+        listSteps[6].SetActive(true);
+
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate[16].ListColor.Count; i++)
+        {
+            LogicColor c = LogicGame.Instance.ListColorPlate[16].ListColor[i];
+            c.spriteRender.sortingOrder = 17;
+        }
+    }
+
+    public void TutorialSwap()
+    {
+        LogicGame.Instance.homeInGame.itemObj.transform.SetParent(nBlackTut);
+        handObject.position = LogicGame.Instance.ListColorPlate[7].transform.position;
+        handObject.SetActive(true);
+        nBlackTut.SetActive(true);
+        listSteps[8].SetActive(true);
+        a = LogicGame.Instance.ListColorPlate[7].transform;
+        b = LogicGame.Instance.ListColorPlate[10].transform;
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate[7].ListColor.Count; i++)
+        {
+            LogicColor c = LogicGame.Instance.ListColorPlate[7].ListColor[i];
+            c.spriteRender.sortingOrder = 17;
+        }
+
+        for (int i = 0; i < LogicGame.Instance.ListColorPlate[10].ListColor.Count; i++)
+        {
+            LogicColor c = LogicGame.Instance.ListColorPlate[10].ListColor[i];
+            c.spriteRender.sortingOrder = 17;
+        }
+
+        MoveHand();
+    }
+
+    public void EndTut()
+    {
+        LogicGame.Instance.homeInGame.itemObj.transform.SetParent(LogicGame.Instance.homeInGame.transform);
+        HideHandTut();
+        handObject.SetActive(false);
+        nBlackTut.SetActive(false);
+    }
+
+    Transform a;
+    Transform b;
+
+    void MoveHand()
+    {
+        handObject.GetComponent<SkeletonAnimation>().state.SetAnimation(0, "nothing", false);
+
+        handObject.transform.DOMove(b.position, 0.75f)
+                .SetEase(Ease.Linear)
+                .SetLoops(-1, LoopType.Restart);
+    }
+
 }
+

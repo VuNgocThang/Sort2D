@@ -436,12 +436,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c907cb41341cdb46be511f7db1a36f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnClose:
-  - {fileID: 5372138437966150068}
+  btnClose: []
   icon: {fileID: 4936009905862838774}
   txtName: {fileID: 3042641735576505431}
   txtExplain: {fileID: 4459830783864077841}
   boosterData: {fileID: 11400000, guid: af1773f39106a344eac1a304d03d8606, type: 2}
+  btnClosePopup: {fileID: 5372138437966150068}
 --- !u!1 &2610835910883738161
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ namespace ThangVN
 {
     public class PopupUnlockBooster : Popup
     {
+        [SerializeField] int index;
         [SerializeField] Image icon;
         [SerializeField] TextMeshProUGUI txtName, txtExplain;
         [SerializeField] BoosterData boosterData;
@@ -20,6 +21,7 @@ namespace ThangVN
         {
             btnClosePopup.OnClick(() =>
             {
+                ShowTutorial(index);
                 Hide();
             });
         }
@@ -34,6 +36,7 @@ namespace ThangVN
         public void Initialized(int index)
         {
             base.Init();
+            this.index = index;
             LogicGame.Instance.isPauseGame = true;
             ManagerAudio.PlaySound(ManagerAudio.Data.soundUnlockBooster);
 
@@ -62,6 +65,25 @@ namespace ThangVN
                 ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
             });
             //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
+        }
+
+        void ShowTutorial(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    TutorialCamera.Instance.InitTutorialBoosterHammer();
+                    break;
+
+                case 1:
+                    TutorialCamera.Instance.InitTutorialBoosterSwap();
+                    break;
+
+                case 2:
+                    TutorialCamera.Instance.InitTutorialBoosterRefresh();
+                    break;
+                default: break;
+            }
         }
 
         IEnumerator ReturnGame()

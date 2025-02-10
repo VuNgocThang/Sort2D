@@ -83,6 +83,12 @@ public class HandDrag : MonoBehaviour
 
     void HandSelect()
     {
+        if (SaveGame.Level == GameConfig.LEVEL_SWAP && !SaveGame.IsDoneTutSwap)
+        {
+            SaveGame.IsDoneTutSwap = true;
+            TutorialCamera.Instance.EndTut();
+        }
+
         if (selectingPlate != null) return;
 
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitPlate, 100f, layerPlate))

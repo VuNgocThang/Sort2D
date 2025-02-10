@@ -259,7 +259,7 @@ public class LogicGame : MonoBehaviour
 
         Debug.Log("SaveGame.IsDoneTutorial: " + SaveGame.IsDoneTutorial);
         //Logic Tutorial Arrow
-        if (!SaveGame.IsDoneTutorial)
+        if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial)
         {
             for (int i = 0; i < ListArrowPlate.Count; i++)
             {
@@ -671,6 +671,13 @@ public class LogicGame : MonoBehaviour
                             //Debug.Log(plateSelect.name);
 
                             if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
+                            if (!SaveGame.IsDoneTutHammer)
+                            {
+                                Debug.Log("?");
+                                isPauseGame = false;
+                                SaveGame.IsDoneTutHammer = true;
+                                TutorialCamera.Instance.EndTut();
+                            }
 
                             hammerSpine.gameObject.SetActive(true);
                             //hammerSpine.anim.transform.position = plateSelect.transform.position;

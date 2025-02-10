@@ -16,7 +16,7 @@ public static class SaveGame
         }
         get
         {
-            if (tutorialFirst == -1) tutorialFirst = ES3.Load(TUTORIALFIRST, 0);
+            if (tutorialFirst == -1) tutorialFirst = ES3.Load(TUTORIALFIRST, 1);
             return tutorialFirst == 1;
         }
     }
@@ -121,6 +121,40 @@ public static class SaveGame
         {
             if (isDoneTutFrozen == -1) isDoneTutFrozen = ES3.Load(ISDONETUTFROZEN, 0);
             return isDoneTutFrozen == 1;
+        }
+    }
+
+    const string ISDONETUTHAMMER = "ISDONETUTHAMMER";
+    static int isDoneTutHammer = -1;
+
+    public static bool IsDoneTutHammer
+    {
+        set
+        {
+            ES3.Save(ISDONETUTHAMMER, value ? 1 : 0);
+            isDoneTutHammer = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutHammer == -1) isDoneTutHammer = ES3.Load(ISDONETUTHAMMER, 0);
+            return isDoneTutHammer == 1;
+        }
+    }
+
+    const string ISDONETUTSWAP = "ISDONETUTSWAP";
+    static int isDoneTutSwap = -1;
+
+    public static bool IsDoneTutSwap
+    {
+        set
+        {
+            ES3.Save(ISDONETUTSWAP, value ? 1 : 0);
+            isDoneTutSwap = value ? 1 : 0;
+        }
+        get
+        {
+            if (isDoneTutSwap == -1) isDoneTutSwap = ES3.Load(ISDONETUTSWAP, 0);
+            return isDoneTutSwap == 1;
         }
     }
 
@@ -276,7 +310,7 @@ public static class SaveGame
         }
         get
         {
-            if (pigment == -1) pigment = ES3.Load(PIGMENT, 10000);
+            if (pigment == -1) pigment = ES3.Load(PIGMENT, 0);
             return pigment;
         }
     }

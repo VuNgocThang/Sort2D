@@ -20,7 +20,7 @@ public class SpawnBookTest : MonoBehaviour
         Debug.Log("Spawn Book");
 
         LogicGame.Instance.InitNextPlate(SaveGame.TutorialFirst);
-        SaveGame.TutorialFirst = true;
+        SaveGame.TutorialFirst = false;
         ManagerAudio.PlaySound(ManagerAudio.Data.soundOpenBox);
     }
 }

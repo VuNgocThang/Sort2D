@@ -33,13 +33,13 @@ public class ToolSelectLevel : MonoBehaviour
     void MoveToLevel()
     {
         Debug.Log(inputField.text);
-        SaveGame.IsShowHammer = true;
-        SaveGame.IsShowRefresh = true;
-        SaveGame.IsShowSwap = true;
+        //SaveGame.IsShowHammer = true;
+        //SaveGame.IsShowRefresh = true;
+        //SaveGame.IsShowSwap = true;
         ManagerEvent.ClearEvent();
         SaveGame.Level = int.Parse(inputField.text) - 1;
-        SaveGame.IsDoneTutorial = true;
-        SaveGame.IsDoneTutPoint = true;
+        //SaveGame.IsDoneTutorial = true;
+        //SaveGame.IsDoneTutPoint = true;
         LogicGame.Instance.DeleteSaveDataGame();
 
         SceneManager.LoadScene("SceneGame");

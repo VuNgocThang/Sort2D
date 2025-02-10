@@ -8,7 +8,6 @@ using DG.Tweening;
 using BaseGame;
 using ThangVN;
 using System;
-using static Unity.Collections.AllocatorManager;
 
 public class PopupHome : MonoBehaviour
 {
@@ -20,12 +19,12 @@ public class PopupHome : MonoBehaviour
     [SerializeField] Animator animBtnSwitch;
     [SerializeField] GameObject imgSpecial, top, nSpawn;
 
-    [SerializeField] Image iconItem, imgTextName;
+    public Image iconItem, imgTextName;
     [SerializeField] TextMeshProUGUI txtNameBooster, txtExplain;
     [SerializeField] HandDrag handDrag;
-    [SerializeField] ButtonBoosterHammer btnHammer;
-    [SerializeField] ButtonBoosterRefresh btnRefresh;
-    [SerializeField] ButtonBoosterSwap btnSwap;
+    public ButtonBoosterHammer btnHammer;
+    public ButtonBoosterRefresh btnRefresh;
+    public ButtonBoosterSwap btnSwap;
     [SerializeField] BoosterData boosterData;
     [SerializeField] Animator animBar, animPigment, animChallenges;
     [SerializeField] RectTransform rectTransformTarget, rectTransformChallenges;
@@ -43,7 +42,7 @@ public class PopupHome : MonoBehaviour
         {
             PopupSetting.Show();
         });
-        //btnCloseItem.OnClick(ExitUsingItem);
+        btnCloseItem.OnClick(ExitUsingItem);
         btnOpenTool.OnClick(() => tool.SetActive(true));
 
         btnHammer.Init();
@@ -52,6 +51,8 @@ public class PopupHome : MonoBehaviour
 
         btnRefresh.button.OnClick(() =>
         {
+            TutorialCamera.Instance.CloseTutorialBooster();
+            LogicGame.Instance.isPauseGame = false;
             if (SaveGame.Level >= btnRefresh.indexLevelUnlock)
             {
                 if (SaveGame.Refresh > 0)
@@ -70,6 +71,10 @@ public class PopupHome : MonoBehaviour
 
         btnHammer.button.OnClick(() =>
         {
+            TutorialCamera.Instance.CloseTutorialBooster();
+            if (SaveGame.Level == GameConfig.LEVEL_HAMMER && !SaveGame.IsDoneTutHammer)
+                TutorialCamera.Instance.TutorialHammer();
+
             if (SaveGame.Level >= btnHammer.indexLevelUnlock)
             {
                 if (SaveGame.Hammer > 0)
@@ -82,6 +87,10 @@ public class PopupHome : MonoBehaviour
 
         btnSwap.button.OnClick(() =>
         {
+            TutorialCamera.Instance.CloseTutorialBooster();
+            if (SaveGame.Level == GameConfig.LEVEL_SWAP && !SaveGame.IsDoneTutSwap)
+                TutorialCamera.Instance.TutorialSwap();
+
             if (SaveGame.Level >= btnSwap.indexLevelUnlock)
             {
                 if (SaveGame.Swap > 0)
@@ -269,6 +278,9 @@ public class PopupHome : MonoBehaviour
     {
         if (handDrag.isDrag) return;
 
+        if (SaveGame.Level == GameConfig.LEVEL_HAMMER && !SaveGame.IsDoneTutHammer) return;
+        if (SaveGame.Level == GameConfig.LEVEL_SWAP && !SaveGame.IsDoneTutSwap) return;
+
         handDrag.selectingPlate = null;
         StartCoroutine(Delay());
     }
@@ -371,6 +383,13 @@ public class PopupHome : MonoBehaviour
 
            });
 
+    }
+
+    public void ResetPositionAfterTutorial()
+    {
+        btnHammer.transform.SetParent(nButtons);
+        btnHammer.transform.SetParent(nButtons);
+        btnRefresh.transform.SetParent(nButtons);
     }
 
     private void OnApplicationQuit()

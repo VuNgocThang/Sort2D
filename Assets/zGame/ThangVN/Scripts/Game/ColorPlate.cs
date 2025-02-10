@@ -141,7 +141,7 @@ public class ColorPlate : MonoBehaviour
         int randomCountInStacks = 0;
         List<int> listDiff = new List<int>();
 
-        if (!isTutorial)
+        if (isTutorial)
         {
             listDiff.Add(0);
 
