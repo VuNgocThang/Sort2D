@@ -751,10 +751,10 @@ public class LogicGame : MonoBehaviour
         //    SceneManager.LoadScene("SceneGame");
         //}
 
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    isHadSpawnSpecial = true;
-        //}
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            isHadSpawnSpecial = true;
+        }
 
         if (Input.GetKeyDown(KeyCode.L))
         {

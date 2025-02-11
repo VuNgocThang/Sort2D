@@ -20,7 +20,7 @@ public class PopupDailyTask : Popup
     [SerializeField] TextMeshProUGUI txtCurrentPoint, txtTimeRemain;
     [SerializeField] Image imgFillProgress;
     [SerializeField] EasyButton btnInfo, btnReward1, btnReward2, btnReward3;
-    [SerializeField] GameObject Rewarded1, Rewarded2, Rewarded3, Locked1, Locked2, Locked3;
+    [SerializeField] GameObject Rewarded1, Rewarded2, Rewarded3, Locked1, Locked2, Locked3, Par1, Par2, Par3;
     [SerializeField] Animator anim1, anim2, anim3;
 
     private void Awake()
@@ -31,6 +31,8 @@ public class PopupDailyTask : Popup
             if (CanClaimReward1())
             {
                 SaveGame.ClaimReward1 = true;
+                Par1.SetActive(false);
+
                 Rewarded1.SetActive(true);
                 PopupReward1.Show();
             }
@@ -41,6 +43,8 @@ public class PopupDailyTask : Popup
             if (CanClaimReward2())
             {
                 SaveGame.ClaimReward2 = true;
+                Par2.SetActive(false);
+
                 Rewarded2.SetActive(true);
                 PopupReward2.Show();
             }
@@ -51,6 +55,8 @@ public class PopupDailyTask : Popup
             if (CanClaimReward3())
             {
                 SaveGame.ClaimReward3 = true;
+                Par3.SetActive(false);
+
                 Rewarded3.SetActive(true);
                 PopupReward3.Show();
             }
@@ -184,23 +190,40 @@ public class PopupDailyTask : Popup
         if (CanClaimReward1())
         {
             PlayAnimReward(Rewarded1, Locked1, anim1);
+            Par1.SetActive(true);
+
         }
         else
+        {
+            Par1.SetActive(false);
+
             anim1.Play("Default");
+        }
 
         if (CanClaimReward2())
         {
             PlayAnimReward(Rewarded2, Locked2, anim2);
+            Par2.SetActive(true);
+
         }
         else
+        {
+            Par2.SetActive(false);
+
             anim2.Play("Default");
+        }
 
         if (CanClaimReward3())
         {
             PlayAnimReward(Rewarded3, Locked3, anim3);
+            Par3.SetActive(true);
         }
         else
+        {
+            Par3.SetActive(false);
+
             anim3.Play("Default");
+        }
     }
 
     void PlayAnimReward(GameObject reward, GameObject locked, Animator animator)
