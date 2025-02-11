@@ -27,7 +27,14 @@ public class LogicGame : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] Transform holder;
     [SerializeField] Transform nParentArrow;
-    [SerializeField] Transform nParentNextCubeNormal, nParentNextCubeMini, nParentSpawnBookNormal, nParentSpawnBookMini, nBgNormal, nBgMini;
+
+    [SerializeField] Transform nParentNextCubeNormal,
+        nParentNextCubeMini,
+        nParentSpawnBookNormal,
+        nParentSpawnBookMini,
+        nBgNormal,
+        nBgMini;
+
     [SerializeField] GameObject testStack;
     [SerializeField] Transform nNextCube1, nStand;
 
@@ -40,42 +47,61 @@ public class LogicGame : MonoBehaviour
 
     /*[HideInInspector]*/
     public List<ColorPlate> ListArrowPlate;
+
     /*[HideInInspector]*/
     public List<ColorPlate> ListCheckPlate;
+
     /*[HideInInspector]*/
     public List<ColorPlate> ListColorPlate;
+
     /*[HideInInspector]*/
     public int rows;
+
     /*[HideInInspector]*/
     public int cols;
+
     /*[HideInInspector]*/
     public bool isMergeing;
+
     /*[HideInInspector]*/
     public bool isLose = false;
+
     /*[HideInInspector]*/
     public bool isWin = false;
+
     /*[HideInInspector]*/
     public bool isPauseGame = false;
+
     /*[HideInInspector]*/
     public static bool isContiuneMerge = false;
+
     /*[HideInInspector]*/
     public int point;
+
     /*[HideInInspector]*/
     public int maxPoint;
+
     /*[HideInInspector]*/
     public int gold;
+
     /*[HideInInspector]*/
     public int pigment;
+
     /*[HideInInspector]*/
     public int countRevive;
+
     /*[HideInInspector]*/
     public int countDiff;
+
     /*[HideInInspector]*/
     public int countDiffMax;
+
     /*[HideInInspector]*/
     public bool isUsingHammer;
+
     /*[HideInInspector]*/
     public bool isUsingHand;
+
     /*[HideInInspector]*/
     public List<int> listIntColor;
 
@@ -111,7 +137,6 @@ public class LogicGame : MonoBehaviour
     Tweener tweenerMove;
 
 
-
     [SerializeField] RectTransform slot_5;
     [SerializeField] RectTransform slot_6;
 
@@ -141,6 +166,7 @@ public class LogicGame : MonoBehaviour
     {
         return listColors.GetClone();
     }
+
     private void Awake()
     {
         Instance = this;
@@ -207,6 +233,7 @@ public class LogicGame : MonoBehaviour
             nBgMini.gameObject.SetActive(true);
             nBgNormal.gameObject.SetActive(false);
             nStand.gameObject.SetActive(true);
+            countDiff = countDiffMax;
         }
         else
         {
@@ -307,6 +334,7 @@ public class LogicGame : MonoBehaviour
 
         colorPlateData = JsonUtility.FromJson<ColorPlateData>(filePath);
     }
+
     void InitListCheckPlate()
     {
         for (int i = 0; i < ListArrowPlate.Count; i++)
@@ -317,6 +345,7 @@ public class LogicGame : MonoBehaviour
             }
         }
     }
+
     void ResetNDesk()
     {
         float offset = 0f;
@@ -338,8 +367,8 @@ public class LogicGame : MonoBehaviour
             float scale = 6f / rows;
             holder.localScale = new Vector3(scale, scale, scale);
         }
-
     }
+
     void LoadLevelChallenges()
     {
         for (int i = 0; i < colorPlateData.listSpecialData.Count; i++)
@@ -347,7 +376,8 @@ public class LogicGame : MonoBehaviour
             int index = colorPlateData.listSpecialData[i].Row * cols + colorPlateData.listSpecialData[i].Col;
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
+            ListColorPlate[index].logicVisual
+                .SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
         }
 
         for (int i = 0; i < colorPlateData.listArrowData.Count; i++)
@@ -367,7 +397,8 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[index].status = (Status)colorPlateData.listArrowData[i].type;
             ListColorPlate[index].gameObject.layer = 6;
-            ListColorPlate[index].logicVisual.SetDirectionArrow(ListColorPlate[index].status, ListColorPlate[index].isLocked);
+            ListColorPlate[index].logicVisual
+                .SetDirectionArrow(ListColorPlate[index].status, ListColorPlate[index].isLocked);
         }
 
         for (int i = 0; i < colorPlateData.listEmptyData.Count; i++)
@@ -376,6 +407,7 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[index].logicVisual.DeletePlate();
         }
     }
+
     private void LoadLevelNormal()
     {
         for (int i = 0; i < colorPlateData.listSpecialData.Count; i++)
@@ -384,7 +416,8 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
 
-            ListColorPlate[index].logicVisual.SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
+            ListColorPlate[index].logicVisual
+                .SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
             if (ListColorPlate[index].status == Status.Frozen)
             {
                 ListColorPlate[index].countFrozen = 3;
@@ -411,7 +444,6 @@ public class LogicGame : MonoBehaviour
             int index = colorPlateData.listExistedData[i].Row * cols + colorPlateData.listExistedData[i].Col;
             ListColorPlate[index].Init(GetColorNew);
             ListColorPlate[index].InitColor();
-
         }
 
         for (int i = 0; i < colorPlateData.listArrowData.Count; i++)
@@ -431,7 +463,8 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[index].status = (Status)colorPlateData.listArrowData[i].type;
             ListColorPlate[index].gameObject.layer = 6;
-            ListColorPlate[index].logicVisual.SetDirectionArrow(ListColorPlate[index].status, ListColorPlate[index].isLocked);
+            ListColorPlate[index].logicVisual
+                .SetDirectionArrow(ListColorPlate[index].status, ListColorPlate[index].isLocked);
         }
 
         for (int i = 0; i < colorPlateData.listEmptyData.Count; i++)
@@ -444,6 +477,7 @@ public class LogicGame : MonoBehaviour
     }
 
     #region InitNextPlate
+
     public void ShufflePlateSpawn()
     {
         //for (int i = 0; i < listSpawnNew.Count; i++)
@@ -493,7 +527,8 @@ public class LogicGame : MonoBehaviour
 
                 foreach (LogicColor c in listNextPlate[index].ListColor)
                 {
-                    c.transform.localPosition = new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
+                    c.transform.localPosition =
+                        new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
                 }
 
                 foreach (LogicColor c in listNextPlate[index].ListColor)
@@ -554,6 +589,7 @@ public class LogicGame : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     void Swap(List<ColorPlate> a)
@@ -582,6 +618,7 @@ public class LogicGame : MonoBehaviour
 
 
     RaycastHit raycastHit;
+
     void Update()
     {
         if (!LogicGame.Instance.IsDataLoaded) return;
@@ -733,7 +770,9 @@ public class LogicGame : MonoBehaviour
         {
             CheckWin();
             StartCoroutine(RaiseEventWin());
-        };
+        }
+
+        ;
 
         for (int i = 0; i < ListArrowPlate.Count; i++)
         {
@@ -822,7 +861,6 @@ public class LogicGame : MonoBehaviour
                 isMergeing = false;
                 CheckClear();
             }
-
         }
 
         if (!isLose)
@@ -922,12 +960,12 @@ public class LogicGame : MonoBehaviour
                 float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
 
                 sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
-                                                .SetEase(curveMove)
+                        .SetEase(curveMove)
                     //.OnComplete(() =>
                     //{
                     //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
                     //})
-                    );
+                );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
                 renderer.transform.localRotation = Quaternion.identity;
@@ -1014,7 +1052,6 @@ public class LogicGame : MonoBehaviour
                         {
                             changeColorParticlePool.Spawn(endColorPlate.transform.position, true);
                             RecursiveMerge();
-
                         }
                     );
 
@@ -1023,7 +1060,6 @@ public class LogicGame : MonoBehaviour
 
                     //endColorPlate.Init(GetColorNew);
                     //endColorPlate.ChangeSpecialColorPLate(cEnum);
-
                 }
 
                 //if (!SaveGame.IsDoneTutorial)
@@ -1043,7 +1079,9 @@ public class LogicGame : MonoBehaviour
 
         if (endColorPlate.ListValue.Count == 0)
         {
-            changeLayer = (GameConfig.OFFSET_LAYER - endColorPlate.Row) > 1 ? GameConfig.OFFSET_LAYER - endColorPlate.Row : 1;
+            changeLayer = (GameConfig.OFFSET_LAYER - endColorPlate.Row) > 1
+                ? GameConfig.OFFSET_LAYER - endColorPlate.Row
+                : 1;
             for (int i = 0; i < startColorPlate.ListColor.Count; i++)
             {
                 LogicColor c = startColorPlate.ListColor[i];
@@ -1158,7 +1196,9 @@ public class LogicGame : MonoBehaviour
     }
 
     [HideInInspector] public List<Step> listSteps = new List<Step>();
-    public void AddStepRecursively(ColorPlate colorRoot, List<ColorPlate> listDataConnect, HashSet<ColorPlate> processedNearBy)
+
+    public void AddStepRecursively(ColorPlate colorRoot, List<ColorPlate> listDataConnect,
+        HashSet<ColorPlate> processedNearBy)
     {
         ColorPlate colorNearBy = new Step().ColorNearByColorRoot(colorRoot, listDataConnect, processedNearBy);
         if (colorNearBy == null || processedNearBy.Contains(colorNearBy))
@@ -1177,12 +1217,15 @@ public class LogicGame : MonoBehaviour
 
         AddStepRecursively(colorRoot, listDataConnect, processedNearBy);
     }
-    public void AddStepRecursivelyOtherRoot(ColorPlate colorRoot, List<ColorPlate> listDataConnect, HashSet<ColorPlate> processedRoot, HashSet<ColorPlate> processedNearBy)
+
+    public void AddStepRecursivelyOtherRoot(ColorPlate colorRoot, List<ColorPlate> listDataConnect,
+        HashSet<ColorPlate> processedRoot, HashSet<ColorPlate> processedNearBy)
     {
         if (processedRoot.Contains(colorRoot))
         {
             return;
         }
+
         processedRoot.Add(colorRoot);
 
         foreach (var p in processedRoot.ToList())
@@ -1197,9 +1240,10 @@ public class LogicGame : MonoBehaviour
     }
 
     public List<ColorPlate> listNearByCanConnect = new List<ColorPlate>();
+
     public void CheckNearByRecursive(List<ColorPlate> listDataConnect, ColorPlate colorPlate)
     {
-        List<ColorPlate> listNearBySame = colorPlate.CheckNearByCanConnect(/*colorPlate*/);
+        List<ColorPlate> listNearBySame = colorPlate.CheckNearByCanConnect( /*colorPlate*/);
 
         foreach (ColorPlate c in listNearBySame)
         {
@@ -1210,8 +1254,8 @@ public class LogicGame : MonoBehaviour
                 if (!listDataConnect.Contains(colorPlate))
                 {
                     listDataConnect.Add(colorPlate);
-
                 }
+
                 if (!listDataConnect.Contains(c))
                 {
                     listDataConnect.Add(c);
@@ -1220,6 +1264,7 @@ public class LogicGame : MonoBehaviour
             }
         }
     }
+
     public void CheckClear()
     {
         foreach (ColorPlate colorPlate in ListColorPlate)
@@ -1262,11 +1307,12 @@ public class LogicGame : MonoBehaviour
     {
         yield return new WaitForSeconds(0.6f);
         RecursiveMerge();
-
     }
 
     public void IncreaseCountDiff()
     {
+        if (GameManager.IsBonusGame()) return;
+
         // point config
         if (point >= 20) countDiff = 3;
         if (point >= 50) countDiff = 4;
@@ -1315,6 +1361,7 @@ public class LogicGame : MonoBehaviour
             ManagerAudio.PlaySound(ManagerAudio.Data.soundMerge);
         }
     }
+
     void Merge(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
         timerRun = 0;
@@ -1348,7 +1395,8 @@ public class LogicGame : MonoBehaviour
 
 
                     endColorPlate.listTypes[endColorPlate.listTypes.Count - 1].listPlates.Add(startColorPlate.TopValue);
-                    startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates.Remove(startColorPlate.TopValue);
+                    startColorPlate.listTypes[startColorPlate.listTypes.Count - 1].listPlates
+                        .Remove(startColorPlate.TopValue);
 
                     //if (startColorPlate.NearLastType())
                     //{
@@ -1382,7 +1430,6 @@ public class LogicGame : MonoBehaviour
         }
 
 
-
         sequence.OnComplete(() =>
         {
             //Debug.Log("fuck done");
@@ -1408,14 +1455,13 @@ public class LogicGame : MonoBehaviour
                     countZeroListValues++;
                 }
             }
-
         }
+
         //Debug.Log("countZeroListValues: " + countZeroListValues);
         if (countZeroListValues > 2)
         {
             homeInGame.imgDanger.SetActive(false);
             //Debug.LogWarning("More than 2 items with ListValue count equal to 0.");
-
         }
         else
         {
@@ -1444,7 +1490,8 @@ public class LogicGame : MonoBehaviour
 
     bool CheckColorPlateValue(ColorPlate colorPlateCheck)
     {
-        if (colorPlateCheck.isLocked || colorPlateCheck.status == Status.CannotPlace || colorPlateCheck.countFrozen != 0 || colorPlateCheck.status == Status.Ads)
+        if (colorPlateCheck.isLocked || colorPlateCheck.status == Status.CannotPlace ||
+            colorPlateCheck.countFrozen != 0 || colorPlateCheck.status == Status.Ads)
         {
             return true;
         }
@@ -1463,10 +1510,9 @@ public class LogicGame : MonoBehaviour
         {
             PopupLoseMiniGame.Show();
             Debug.Log("Raise PopupLose BonusGame");
-
         }
-
     }
+
     void CheckWin()
     {
         isWin = true;
@@ -1570,8 +1616,8 @@ public class LogicGame : MonoBehaviour
     }
 
 
-
     #region SaveDataProgress
+
     public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();
     public SaveCurrentChallenges saveGameChallenges = new SaveCurrentChallenges();
     public SaveCurrentPlayBonus saveGameBonus = new SaveCurrentPlayBonus();
@@ -1581,6 +1627,7 @@ public class LogicGame : MonoBehaviour
         //SaveGame.PlayBonus = false;
         SaveDataGame();
     }
+
     private void OnApplicationPause(bool pause)
     {
         if (pause)
@@ -1621,6 +1668,7 @@ public class LogicGame : MonoBehaviour
             SaveGameBonus();
         }
     }
+
     void SaveGameNormal()
     {
         if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial) return;
@@ -1662,6 +1710,7 @@ public class LogicGame : MonoBehaviour
         PlayerPrefs.SetString(GameConfig.GAMESAVENORMAL, gameSaveData);
         PlayerPrefs.Save();
     }
+
     void SaveGameChallenges()
     {
         SaveCurrentChallenges currentData = new SaveCurrentChallenges();
@@ -1702,10 +1751,11 @@ public class LogicGame : MonoBehaviour
         PlayerPrefs.SetString(GameConfig.GAMESAVECHALLENGES, gameSaveData);
         PlayerPrefs.Save();
     }
+
     void SaveGameBonus()
     {
-
     }
+
     void LoadSaveData()
     {
         if (GameManager.IsNormalGame())
@@ -1725,7 +1775,6 @@ public class LogicGame : MonoBehaviour
             {
                 saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
             }
-
         }
         else if (GameManager.IsChallengesGame())
         {
@@ -1740,9 +1789,9 @@ public class LogicGame : MonoBehaviour
             {
                 saveGameChallenges = JsonUtility.FromJson<SaveCurrentChallenges>(gameSaveData);
             }
-
         }
     }
+
     void LoadSaveNormalData()
     {
         //Debug.Log("saveGameNormal.currentPoint: " + saveGameNormal.currentPoint);
@@ -1755,7 +1804,8 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[i].status = (Status)saveGameNormal.ListColorPlate[i].typeColorPlate;
 
-            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameNormal.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status,
+                saveGameNormal.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
 
             if (ListColorPlate[i].status == Status.Frozen)
             {
@@ -1783,9 +1833,9 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[i].Init(GetColorNew);
 
             ListColorPlate[i].InitColorExisted(saveGameNormal.ListColorPlate[i].listEnum);
-
         }
     }
+
     void LoadSaveChallengesData()
     {
         //Debug.Log("saveGameChallenges.currentPoint: " + saveGameChallenges.currentPoint);
@@ -1798,7 +1848,8 @@ public class LogicGame : MonoBehaviour
 
             ListColorPlate[i].status = (Status)saveGameChallenges.ListColorPlate[i].typeColorPlate;
 
-            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status, saveGameChallenges.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
+            ListColorPlate[i].logicVisual.SetSpecialSquareExisted(ListColorPlate[i].status,
+                saveGameChallenges.ListColorPlate[i].countFrozen, ListColorPlate[i].Row);
 
             if (ListColorPlate[i].status == Status.Frozen)
             {
@@ -1826,9 +1877,9 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[i].Init(GetColorNew);
 
             ListColorPlate[i].InitColorExisted(saveGameChallenges.ListColorPlate[i].listEnum);
-
         }
     }
+
     #endregion
 
 
