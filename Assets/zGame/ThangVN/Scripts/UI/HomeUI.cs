@@ -287,7 +287,7 @@ public class HomeUI : MonoBehaviour
     {
         if (SaveGame.Level >= 2 && SaveGame.FirstDecor)
         {
-            TutorialDecor.Instance.InitTut();
+            //TutorialDecor.Instance.InitTut();
             TutorialDecor.Instance.SetParent(btnDecor.transform);
         }
     }

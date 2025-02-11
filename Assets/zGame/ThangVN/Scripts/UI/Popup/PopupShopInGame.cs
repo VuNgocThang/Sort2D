@@ -95,6 +95,7 @@ public class PopupShopInGame : Popup
         GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBGOLD));
         obj.transform.SetParent(nParentSubGold);
         obj.transform.localPosition = Vector3.zero;
+        obj.transform.localScale = Vector3.one;
         SubGold subBook = obj.GetComponent<SubGold>();
         subBook.Init((int)e);
         subBook.gameObject.SetActive(true);

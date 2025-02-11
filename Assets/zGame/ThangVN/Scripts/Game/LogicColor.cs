@@ -25,6 +25,12 @@ public class LogicColor : MonoBehaviour
         spriteRender.sortingOrder = layer;
     }
 
+    public void SetLayer(int Row)
+    {
+        int changeLayer = (GameConfig.OFFSET_LAYER - Row) > 1 ? GameConfig.OFFSET_LAYER - Row : 1;
+        spriteRender.sortingOrder = changeLayer;
+    }
+
     //public void InitLockNoMove()
     //{
     //    foreach (var mesh in listMeshes)

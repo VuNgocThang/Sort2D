@@ -26,14 +26,18 @@ public class TutorialDecor : MonoBehaviour
         });
     }
 
-    public void InitTut()
-    {
-        hand.SetActive(true);
-        nBlackTut.gameObject.SetActive(true);
-    }
+    //public void InitTut(Transform obj)
+    //{
+    //    hand.transform.position = 
+    //    hand.SetActive(true);
+    //    nBlackTut.gameObject.SetActive(true);
+    //}
 
     public void SetParent(Transform obj)
     {
+        hand.transform.position = obj.transform.position;
+        hand.SetActive(true);
+        nBlackTut.gameObject.SetActive(true);
         obj.SetParent(nBlackTut);
     }
 

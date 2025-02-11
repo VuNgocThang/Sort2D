@@ -106,6 +106,7 @@ public class ControllerAnimState : MonoBehaviour
     public void ActionToIdle()
     {
         if (GameManager.IsBonusGame()) return;
+        if (!canPerformBonus) return;
 
         lastActionTime = Time.time;
         currentState = CharacterStateController.Idle;

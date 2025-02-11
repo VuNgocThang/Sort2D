@@ -297,6 +297,7 @@ public class PopupHome : MonoBehaviour
         top.SetActive(true);
         //bot.SetActive(true);
         nSpawn.SetActive(true);
+        LogicGame.Instance.RefreshLayer();
         LogicGame.Instance.RecursiveMerge();
     }
 

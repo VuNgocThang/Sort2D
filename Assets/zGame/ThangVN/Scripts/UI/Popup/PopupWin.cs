@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using BaseGame;
 using TMPro;
+using Spine.Unity;
 
 public class PopupWin : Popup
 {
     public EasyButton btnContinue, btnClaimX2, btnHome;
     public TextMeshProUGUI txtGoldReward, txtPigmentReward, txtGold, txtPigment;
     public Transform vfx;
+    public SkeletonGraphic spine;
+    const string GLOW = "glow";
 
     // effect coin
     public GameObject pileCoin;
@@ -259,5 +262,8 @@ public class PopupWin : Popup
         txtPigment.text = currentPigment.ToString();
     }
 
-
+    public void PlaySpineAnimation()
+    {
+        spine.AnimationState.SetAnimation(0, GLOW, false);
+    }
 }

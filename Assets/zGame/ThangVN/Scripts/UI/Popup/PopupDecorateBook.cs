@@ -45,6 +45,16 @@ public class PopupDecorateBook : Popup
 
     private void Awake()
     {
+        btnPrev.OnClick(() =>
+        {
+            scroll.horizontalScrollbar.value -= 0.5f;
+        });
+
+        btnNext.OnClick(() =>
+        {
+            scroll.horizontalScrollbar.value += 0.5f;
+        });
+
         btnSelectItem.OnClick(() =>
         {
             OnSelect(true);

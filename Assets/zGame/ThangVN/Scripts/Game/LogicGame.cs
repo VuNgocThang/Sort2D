@@ -782,6 +782,18 @@ public class LogicGame : MonoBehaviour
         return cam.ScreenToWorldPoint(mousePos);
     }
 
+    public void RefreshLayer()
+    {
+        for (int i = 0; i < ListColorPlate.Count; i++)
+        {
+            if (ListColorPlate[i].ListColor.Count == 0) continue;
+            for (int j = 0; j < ListColorPlate[i].ListColor.Count; j++)
+            {
+                ListColorPlate[i].ListColor[j].SetLayer(ListColorPlate[i].Row);
+            }
+        }
+    }
+
     public void RecursiveMerge()
     {
         if (listSteps.Count > 0)
