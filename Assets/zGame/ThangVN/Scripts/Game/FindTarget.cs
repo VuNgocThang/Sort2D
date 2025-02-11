@@ -145,7 +145,7 @@ public class FindTarget
 
             if (colorResult != null)
                 return colorResult;
-
+  
             //Debug.Log(listDataConnect[0].name + " default");
 
             // độ ưu tiên cuối cùng: bản cũ ();
