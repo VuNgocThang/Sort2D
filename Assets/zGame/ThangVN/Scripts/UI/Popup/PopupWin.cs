@@ -17,6 +17,7 @@ public class PopupWin : Popup
     const string GLOW = "glow";
 
     // effect coin
+    [Header("EffectCoin")]
     public GameObject pileCoin;
     public List<GameObject> pileOfCoins;
     public Vector3[] initPosCoin;
@@ -24,6 +25,7 @@ public class PopupWin : Popup
     public Transform endPosCoin;
 
     //effect pigment
+    [Header("EffectPigment")]
     public GameObject pilePigment;
     public List<GameObject> pileOfPigment;
     public Vector3[] initPosPigment;
@@ -104,9 +106,7 @@ public class PopupWin : Popup
 
         txtGoldReward.text = LogicGame.Instance.gold.ToString();
         txtPigmentReward.text = LogicGame.Instance.pigment.ToString();
-
-        //SaveGame.Coin += LogicGame.Instance.gold;
-        //SaveGame.Pigment += LogicGame.Instance.pigment;
+            
         GameManager.AddGold(LogicGame.Instance.gold);
         GameManager.AddPigment(LogicGame.Instance.pigment);
 
@@ -212,12 +212,6 @@ public class PopupWin : Popup
 
                 StartCoroutine(LoadScene(sceneName));
             });
-
-        for (int i = 0; i < pileOfCoins.Count; i++)
-        {
-            sequence.Join(pileOfCoins[i].transform.DOScale(0f, 0.3f)
-                .SetEase(Ease.InOutCirc));
-        }
 
         for (int i = 0; i < maxCount; i++)
         {

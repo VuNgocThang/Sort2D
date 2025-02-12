@@ -111,7 +111,7 @@ public class HomeUI : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-
+        DailyTaskManager.Instance.Init();
         int randomBG = UnityEngine.Random.Range(0, 2);
         bg.sprite = listSprite[randomBG];
 
@@ -145,8 +145,6 @@ public class HomeUI : MonoBehaviour
         CalculateTask();
 
         CalculateHeart();
-
-
 
         int count = CheckNoticeFreecoin();
         if (count == 6) nNoticeFreecoin.SetActive(false);

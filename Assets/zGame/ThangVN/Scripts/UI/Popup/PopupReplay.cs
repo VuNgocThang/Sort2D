@@ -131,6 +131,8 @@ public class PopupReplay : Popup
     {
         GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBHEART));
         obj.transform.SetParent(nParentSub);
+        obj.transform.localScale = Vector3.one;
+
         obj.transform.localPosition = Vector3.zero;
         obj.gameObject.SetActive(true);
     }

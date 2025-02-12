@@ -3,9 +3,11 @@ using DG.Tweening;
 using ntDev;
 using System;
 using System.Collections;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vector3 = UnityEngine.Vector3;
 
 
 public class PopupRestart : Popup
@@ -130,6 +132,7 @@ public class PopupRestart : Popup
     {
         GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBHEART));
         obj.transform.SetParent(nParentSub);
+        obj.transform.localScale = Vector3.one;
         obj.transform.localPosition = Vector3.zero;
         obj.gameObject.SetActive(true);
     }

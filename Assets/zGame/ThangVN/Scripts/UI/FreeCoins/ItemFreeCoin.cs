@@ -15,14 +15,16 @@ public class ItemFreeCoin : MonoBehaviour
     public int countCoin, index;
     public Image imgCoin;
     public List<Sprite> sprites;
+    PopupFreeCoin popupFreeCoin;
 
     private void Awake()
     {
         btnClaim.OnClick(() => ClaimRewardAds());
     }
 
-    public void Show(int currentIndex)
+    public void Show(int currentIndex, PopupFreeCoin popupFreeCoin)
     {
+        this.popupFreeCoin = popupFreeCoin;
         if (countCoin > 0)
         {
             iconHeart.SetActive(false);
@@ -83,6 +85,7 @@ public class ItemFreeCoin : MonoBehaviour
                 //SaveGame.Coin += countCoin;
                 if (DailyTaskManager.Instance != null)
                     DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
+                popupFreeCoin.ReceiveReward(this.transform);
                 GameManager.AddGold(countCoin);
                 isClaimed = true;
                 Debug.Log($" claimed {countCoin}");

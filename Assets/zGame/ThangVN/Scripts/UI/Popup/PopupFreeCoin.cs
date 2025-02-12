@@ -4,7 +4,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using BaseGame;
+using TMPro;
 
 public class PopupFreeCoin : Popup
 {
@@ -13,7 +14,18 @@ public class PopupFreeCoin : Popup
     public Transform nContent;
     public List<ItemFreeCoin> listItem;
     public EasyButton btnClaime50;
-    [SerializeField] GameObject imgActive, imgDeactive, imgClaimed, icon;
+    [SerializeField] GameObject imgActive, imgDeactive, imgClaimed, icon, bgCollectCoin;
+
+    [Header("CollectCoin")] public List<GameObject> pileOfCoins;
+    public Vector3[] initPosCoin;
+    public Quaternion[] initRotCoin;
+    public Transform endPosCoin;
+    [SerializeField] private Transform nParentCollectCoin;
+
+    [SerializeField] private int currentCoin;
+    [SerializeField] private float duration = 0.5f;
+    [SerializeField] TextMeshProUGUI txtGold;
+
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_FREECOIN, UpdateListContent);
@@ -38,8 +50,9 @@ public class PopupFreeCoin : Popup
     {
         base.Init();
         listItem.Clear();
+        txtGold.text = SaveGame.Coin.ToString();
         RefreshData();
-
+        // InitPile();
         InitClaim50();
         for (int i = 0; i < freeCoinData.listDataFreeCoin.Count; i++)
         {
@@ -48,7 +61,7 @@ public class PopupFreeCoin : Popup
             item.isClaimed = freeCoinData.listDataFreeCoin[i].isClaimed;
             item.countCoin = freeCoinData.listDataFreeCoin[i].countCoin;
             item.index = freeCoinData.listDataFreeCoin[i].index;
-            item.Show(SaveGame.DataFreeCoin.currentIndex);
+            item.Show(SaveGame.DataFreeCoin.currentIndex, this);
         }
     }
 
@@ -83,12 +96,13 @@ public class PopupFreeCoin : Popup
 
     public void Claimed50()
     {
-        //SaveGame.Coin += 50;
+        currentCoin = SaveGame.Coin;
         GameManager.AddGold(50);
         SaveGame.DataFreeCoin.isClaimed50 = true;
         SaveGame.DataFreeCoin = SaveGame.DataFreeCoin;
 
         InitClaim50();
+        ReceiveReward(btnClaime50.transform);
     }
 
     public void InitClaim50()
@@ -99,7 +113,6 @@ public class PopupFreeCoin : Popup
             imgDeactive.SetActive(true);
             icon.SetActive(false);
             imgClaimed.SetActive(true);
-
         }
         else
         {
@@ -125,4 +138,90 @@ public class PopupFreeCoin : Popup
         }
     }
 
+    void InitPile()
+    {
+        for (int i = 0; i < pileOfCoins.Count; i++)
+        {
+            initPosCoin[i] = pileOfCoins[i].transform.localPosition;
+            initRotCoin[i] = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void Reset()
+    {
+        for (int i = 0; i < pileOfCoins.Count; i++)
+        {
+            pileOfCoins[i].transform.localPosition = initPosCoin[i];
+            pileOfCoins[i].transform.rotation = initRotCoin[i];
+        }
+    }
+
+    public void ReceiveReward(Transform nParent)
+    {
+        bgCollectCoin.SetActive(true);
+        nParentCollectCoin.transform.position = nParent.transform.position;
+        nParentCollectCoin.transform.position = nParent.transform.position;
+        Reset();
+
+        var sequence = DOTween.Sequence();
+
+        var delaySpawn = 0f;
+        float totalSpawnTime = (pileOfCoins.Count - 1) * 0.05f + 0.1f;
+
+        for (int i = 0; i < pileOfCoins.Count; i++)
+        {
+            sequence.Insert(delaySpawn, pileOfCoins[i].transform.DOScale(1f, 0.2f)
+                .SetEase(Ease.InOutCirc));
+            delaySpawn += 0.05f;
+        }
+
+        var delayMove = totalSpawnTime;
+        for (int i = 0; i < pileOfCoins.Count; i++)
+        {
+            if (i < pileOfCoins.Count && endPosCoin != null)
+            {
+                sequence.Insert(delayMove, pileOfCoins[i].GetComponent<RectTransform>()
+                    .DOMove(endPosCoin.position, 0.5f)
+                    .SetEase(Ease.InOutCirc));
+            }
+
+            delayMove += 0.05f;
+        }
+
+        sequence.AppendInterval(0.05f)
+            .OnComplete(() =>
+            {
+                bgCollectCoin.SetActive(false);
+                UpdateMoney(SaveGame.Coin);
+            });
+
+        for (int i = 0; i < pileOfCoins.Count; i++)
+        {
+            sequence.Join(pileOfCoins[i].transform.DOScale(0f, 0.3f)
+                .SetEase(Ease.InOutCirc));
+        }
+    }
+
+    public void UpdateMoney(int targetMoney)
+    {
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
+        if (this.gameObject.activeSelf)
+            StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
+    }
+
+    private IEnumerator CountMoney(int start, int end, float duration)
+    {
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            currentCoin = (int)Mathf.Lerp(start, end, elapsed / duration);
+            txtGold.text = currentCoin.ToString();
+            yield return null;
+        }
+
+        currentCoin = end;
+        txtGold.text = currentCoin.ToString();
+    }
 }

@@ -27,6 +27,11 @@ public class DailyTaskManager : MonoBehaviour
     {
         //ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
 
+        // Init();
+    }
+
+    public void Init()
+    {
         dataSaved.listTaskSaved = dailyTaskData.listTasks;
         dataSaved.currentPoint = dailyTaskData.currentPoint;
         Debug.Log("Day: " + SaveGame.NewDay);

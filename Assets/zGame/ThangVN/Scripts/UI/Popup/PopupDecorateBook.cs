@@ -420,6 +420,7 @@ public class PopupDecorateBook : Popup
         GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBBOOK));
         obj.transform.SetParent(nParentSub);
         obj.transform.localPosition = Vector3.zero;
+        obj.transform.localScale = Vector3.one;
         SubBook subBook = obj.GetComponent<SubBook>();
         subBook.Init((int)e);
         subBook.gameObject.SetActive(true);

@@ -89,6 +89,7 @@ public class PopupOutOfHeart : Popup
         GameObject obj = PoolManager.Spawn(ScriptableObjectData.ObjectConfig.GetObject(EnumObject.SUBGOLD));
         obj.transform.SetParent(nParentSub);
         obj.transform.localPosition = Vector3.zero;
+        obj.transform.localScale = Vector3.one;
         SubGold subBook = obj.GetComponent<SubGold>();
         subBook.Init(100);
         subBook.gameObject.SetActive(true);
