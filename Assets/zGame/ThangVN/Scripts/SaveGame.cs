@@ -402,6 +402,7 @@ public static class SaveGame
 
     const string ISSHOWBOOK = "ISSHOWBOOK";
     static int isShowBook = -1;
+
     public static bool IsShowBook
     {
         set
@@ -521,6 +522,7 @@ public static class SaveGame
 
     const string DATAFREECOIN = "DATAFREECOIN";
     static DataClaimedFreecoin dataFreeCoin;
+
     public static DataClaimedFreecoin DataFreeCoin
     {
         set
@@ -537,10 +539,10 @@ public static class SaveGame
                     currentIndex = 0,
                     listDataFreeCoin = new List<DataFreeCoin>()
                     {
-
                     }
                 });
             }
+
             return dataFreeCoin;
         }
     }
@@ -563,10 +565,10 @@ public static class SaveGame
                 {
                     listRoomPainted = new List<ListObjetRoomPainted>()
                     {
-
                     }
                 });
             }
+
             return listRoomPainted;
         }
     }
@@ -599,12 +601,12 @@ public static class SaveGame
                             isSetupFull = false,
                             listItemDecorated = new List<ItemDecorated>()
                             {
-
                             }
                         }
                     }
                 });
             }
+
             return listBookDecorated;
         }
     }

@@ -21,6 +21,5 @@ public class SetMapEditor : Editor
             setMapManager.SaveData();
         }
     }
-
 }
 #endif

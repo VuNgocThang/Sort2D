@@ -37,6 +37,7 @@ public class PopupBookItem : Popup
             PopupDecor.Show();
         });
     }
+
     public static async void Show(int index)
     {
         PopupBookItem pop = await ManagerPopup.ShowPopup<PopupBookItem>();
@@ -63,6 +64,7 @@ public class PopupBookItem : Popup
                 txtNameBook.text = dataConfigDecor.listDataBooks[i].titleBook;
             }
         }
+
         txtPigment.text = $"{SaveGame.Pigment}";
         LoadDataBook();
         ChangeColor();
@@ -94,6 +96,7 @@ public class PopupBookItem : Popup
         {
             slots[i].gameObject.SetActive(false);
         }
+
         slots.Clear();
         sprites.Clear();
 
@@ -133,14 +136,13 @@ public class PopupBookItem : Popup
                     item.imgItemDrag.sprite = sprites[idIndex];
                     item.imgItemDrag.SetNativeSize();
                     item.SetInParent(null, slots[j]);
-                    item.rectTransform.anchoredPosition = new Vector2(bookDecorated.listItemDecorated[i].x, bookDecorated.listItemDecorated[i].y);
+                    item.rectTransform.anchoredPosition = new Vector2(bookDecorated.listItemDecorated[i].x,
+                        bookDecorated.listItemDecorated[i].y);
                     item.transform.localScale = Vector3.one;
                     item.gameObject.SetActive(true);
                 }
             }
         }
-
-
     }
 
     public override void Hide()

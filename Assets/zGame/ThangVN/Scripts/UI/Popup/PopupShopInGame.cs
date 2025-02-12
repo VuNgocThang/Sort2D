@@ -127,6 +127,7 @@ public class PopupShopInGame : Popup
                         EasyUI.Toast.Toast.Show("Not enough money!", 0.5f);
                     }
                 }
+
                 break;
             case BoosterEnum.BoosterHammer:
                 if (useAds)
@@ -159,7 +160,6 @@ public class PopupShopInGame : Popup
                 if (useAds)
                 {
                     SaveGame.Refresh++;
-
                 }
                 else
                 {
@@ -180,8 +180,8 @@ public class PopupShopInGame : Popup
                         EasyUI.Toast.Toast.Show("Not enough money!", 0.5f);
                     }
                 }
+
                 break;
         }
     }
-
 }

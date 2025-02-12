@@ -47,7 +47,6 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //});
 
         delay = new WaitForSeconds(0.1f);
-
     }
 
     public void Init(int id, Sprite sprite)

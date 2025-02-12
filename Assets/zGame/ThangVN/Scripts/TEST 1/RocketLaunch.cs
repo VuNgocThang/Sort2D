@@ -20,12 +20,15 @@ public class RocketLauch : MonoBehaviour
     float turn = 0;
     float lastTurn = 0;
     private float radius;
+
     private float damage;
+
     //[SerializeField] private TrailRenderer triler;
     private float giaTocA;
 
     // Test
     [SerializeField] Transform target;
+
     void Start()
     {
         Init(target.position, moveSpeed, damage);
@@ -46,6 +49,7 @@ public class RocketLauch : MonoBehaviour
         directionLookAtAngle = 0;
         giaTocA = 1;
     }
+
     void Update()
     {
         float deltaTime = Time.deltaTime;
@@ -75,6 +79,7 @@ public class RocketLauch : MonoBehaviour
                 tileApplyAngle = 1;
                 isNotCheck = true;
             }
+
             Quaternion quaternion = Quaternion.Lerp(oldAngle, newAngle, tileApplyAngle);
             transform.eulerAngles = quaternion.eulerAngles;
             directionAngle = directionLookAtAngle = quaternion.eulerAngles.z;

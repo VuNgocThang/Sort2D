@@ -76,8 +76,6 @@ public class PopupUnlockColor : Popup
         yield return new WaitForSeconds(1f);
         if (animShow != null)
             animShow.Play("Move");
-
-
     }
 
     public void PlaySpine(string animationName, bool isLoop = false)

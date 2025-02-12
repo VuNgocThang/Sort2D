@@ -29,7 +29,7 @@ public class PopupLose : Popup
             //    SaveGame.Heart--;
             if (DailyTaskManager.Instance != null)
                 DailyTaskManager.Instance.ExecuteDailyTask(TaskType.Revive, 1);
-            
+
             SaveGame.Heart++;
             SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
 
@@ -51,6 +51,7 @@ public class PopupLose : Popup
             PopupRestart.Show();
         });
     }
+
     private void Update()
     {
         txtHeart.text = SaveGame.Heart.ToString();
@@ -96,6 +97,7 @@ public class PopupLose : Popup
             //PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             SaveGame.Heart--;
         }
+
         Debug.Log("Heart: " + SaveGame.Heart);
 
         InitHeart();
@@ -138,7 +140,8 @@ public class PopupLose : Popup
 
         if (PlayerPrefs.HasKey(GameConfig.LAST_HEART_LOSS))
         {
-            float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
+            float timeSinceLastLoss =
+                (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
 
             int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
 
@@ -149,6 +152,7 @@ public class PopupLose : Popup
                 SaveGame.Heart += increaseHeart;
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
             }
+
             Debug.Log("timeSinceLastLossLOSE: " + timeSinceLastLoss);
             Debug.Log("timeSubLOSE: " + timeSub);
             Debug.Log("SaveGameLOSE: " + SaveGame.CountDownTimer);
@@ -161,7 +165,6 @@ public class PopupLose : Popup
             {
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
             }
-
         }
         else
         {

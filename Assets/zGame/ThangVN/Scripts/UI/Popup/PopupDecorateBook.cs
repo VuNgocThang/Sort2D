@@ -18,7 +18,16 @@ public class PopupDecorateBook : Popup
     [SerializeField] Image nColorChangeBook, nColorChangeBg1, nColorChangeBg2;
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
     [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate, txtCurrentProgress;
-    [SerializeField] GameObject bgScrollViewItem, bgSelectColor, imgChooseItem, imgNotChooseItem, imgChooseBg, imgNotChooseBg, nCurrentProgress, nBot;
+
+    [SerializeField] GameObject bgScrollViewItem,
+        bgSelectColor,
+        imgChooseItem,
+        imgNotChooseItem,
+        imgChooseBg,
+        imgNotChooseBg,
+        nCurrentProgress,
+        nBot;
+
     [SerializeField] public ItemDraggable currentItemDrag;
     [SerializeField] Transform nParent, nParentSlot, nContent, nColorChangeParent, nParentColorChange;
     public List<ImageItem> listItems;
@@ -45,15 +54,9 @@ public class PopupDecorateBook : Popup
 
     private void Awake()
     {
-        btnPrev.OnClick(() =>
-        {
-            scroll.horizontalScrollbar.value -= 0.5f;
-        });
+        btnPrev.OnClick(() => { scroll.horizontalScrollbar.value -= 0.5f; });
 
-        btnNext.OnClick(() =>
-        {
-            scroll.horizontalScrollbar.value += 0.5f;
-        });
+        btnNext.OnClick(() => { scroll.horizontalScrollbar.value += 0.5f; });
 
         btnSelectItem.OnClick(() =>
         {
@@ -75,7 +78,6 @@ public class PopupDecorateBook : Popup
             {
                 StartCoroutine(TutChooseColor(listItemSelectColor[0].GetComponent<RectTransform>()));
             }
-
         });
         btnBack.OnClick(() =>
         {
@@ -111,14 +113,12 @@ public class PopupDecorateBook : Popup
 
     void CheckNull()
     {
-
         Debug.Log("Kiểm tra biến null...");
         Debug.Log(listItems != null ? "✅ listItems OK" : "❌ listItems bị null");
         Debug.Log(slots != null ? "✅ slots OK" : "❌ slots bị null");
         Debug.Log(sprites != null ? "✅ sprites OK" : "❌ sprites bị null");
         Debug.Log(listItemDecors != null ? "✅ listItemDecors OK" : "❌ listItemDecors bị null");
         Debug.Log(scroll != null ? "✅ scroll OK" : "❌ scroll bị null");
-
     }
 
     public static async void Show(int index, bool IsRedecorated)
@@ -178,6 +178,7 @@ public class PopupDecorateBook : Popup
 
         nColorChangeBook.color = GameConfig.DEFAULT_COLOR;
     }
+
     public void Initialize(int index, bool IsRedecorated)
     {
         LoadDataBook();
@@ -188,6 +189,7 @@ public class PopupDecorateBook : Popup
         {
             slots[i].gameObject.SetActive(false);
         }
+
         slots.Clear();
         sprites.Clear();
 
@@ -195,6 +197,7 @@ public class PopupDecorateBook : Popup
         {
             listItemDecors[i].gameObject.SetActive(false);
         }
+
         listItemDecors.Clear();
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
@@ -310,7 +313,8 @@ public class PopupDecorateBook : Popup
                         int id = idItemDecorated;
                         ImageItem imageItem = itemData;
                         Slot slot = slots[k];
-                        Vector2 pos = new Vector2(bookDecorated.listItemDecorated[i].x, bookDecorated.listItemDecorated[i].y);
+                        Vector2 pos = new Vector2(bookDecorated.listItemDecorated[i].x,
+                            bookDecorated.listItemDecorated[i].y);
 
                         ItemDraggable itemDraggable = ItemDraggablePool.Instance.GetPooledObject();
                         itemDraggable.Init(sprite, id, pos, imageItem, slot);
@@ -453,7 +457,8 @@ public class PopupDecorateBook : Popup
         OpenNewBook();
     }
 
-    private void UpdateCurrentProgressBookDecorated(List<BookDecorated> listBookDecoratedCache, List<ItemDecorated> listItemDecoratedCache)
+    private void UpdateCurrentProgressBookDecorated(List<BookDecorated> listBookDecoratedCache,
+        List<ItemDecorated> listItemDecoratedCache)
     {
         float currentPercent = 0f;
         for (int i = 0; i < listBookDecoratedCache.Count; i++)
@@ -502,7 +507,6 @@ public class PopupDecorateBook : Popup
         {
             StartCoroutine(PlayAnimBookDecorate());
         }
-
     }
 
     private void ActionIfNotRedecorated()
@@ -510,12 +514,16 @@ public class PopupDecorateBook : Popup
         ListBookDecorated dataCache = SaveGame.ListBookDecorated;
 
         int count = 0;
-        for (int i = 0; i < dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count; i++)
+        for (int i = 0;
+             i < dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated.Count;
+             i++)
         {
-            if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
+            if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].listItemDecorated[i]
+                .isPainted) count++;
         }
 
-        if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].colorPainted != GameConfig.DEFAULT_COLOR) count++;
+        if (dataCache.listBookDecorated[dataCache.listBookDecorated.Count - 1].colorPainted !=
+            GameConfig.DEFAULT_COLOR) count++;
 
         for (int i = 0; i < dataConfigDecor.listDataBooks.Count; i++)
         {
@@ -546,7 +554,6 @@ public class PopupDecorateBook : Popup
                             isSetupFull = false,
                             listItemDecorated = new List<ItemDecorated>()
                             {
-
                             }
                         });
 
@@ -564,7 +571,6 @@ public class PopupDecorateBook : Popup
                             Debug.Log("Done Done Done");
                         }
                     }
-
                 }
             }
         }
@@ -578,7 +584,6 @@ public class PopupDecorateBook : Popup
 
     void ShowCurrentProgress()
     {
-
     }
 
     IEnumerator PlayAnimBookDecorate()
@@ -694,4 +699,3 @@ public class PopupDecorateBook : Popup
         PopupNewBook.Show();
     }
 }
-

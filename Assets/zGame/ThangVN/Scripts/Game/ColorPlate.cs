@@ -17,6 +17,7 @@ public enum ColorEnum
     Orange,
     Random
 }
+
 public enum Status
 {
     Right,
@@ -118,6 +119,7 @@ public class ColorPlate : MonoBehaviour
         listTypes.Clear();
         ListValue.Clear();
     }
+
     public void Init()
     {
         ListColor.Refresh();
@@ -201,7 +203,6 @@ public class ColorPlate : MonoBehaviour
         }
 
 
-
         InitValue(this.transform);
     }
 
@@ -221,7 +222,9 @@ public class ColorPlate : MonoBehaviour
             randomCountInStacks = levelData.RatioInStacks.Length + 1;
         }
 
-        randomCountInStacks = randomCountInStacks > LogicGame.Instance.countDiff ? LogicGame.Instance.countDiff : randomCountInStacks;
+        randomCountInStacks = randomCountInStacks > LogicGame.Instance.countDiff
+            ? LogicGame.Instance.countDiff
+            : randomCountInStacks;
 
         return randomCountInStacks;
     }
@@ -289,6 +292,7 @@ public class ColorPlate : MonoBehaviour
         ListValue.Add(group.type);
         InitValue(this.transform);
     }
+
     public void InitColorExisted(List<CurrentEnum> listCurrentEnum)
     {
         InitExistedValue(listCurrentEnum);
@@ -330,7 +334,6 @@ public class ColorPlate : MonoBehaviour
         }
 
         InitValue(this.transform);
-
     }
 
     public AnimationCurve customCurve;
@@ -376,14 +379,16 @@ public class ColorPlate : MonoBehaviour
         {
             if (index != 0) return;
 
-            Vector3 midPoint = new Vector3(colorZ.transform.localPosition.x / 2, -GameConfig.MID_POINT, -i * GameConfig.OFFSET_PLATE);
+            Vector3 midPoint = new Vector3(colorZ.transform.localPosition.x / 2, -GameConfig.MID_POINT,
+                -i * GameConfig.OFFSET_PLATE);
             CreatePathAnimation(colorZ, randomX, ROW, i, midPoint);
         }
         else if (Math.Abs(colorZ.transform.localPosition.y + colorZ.transform.localPosition.z) > 1)
         {
             if (index != 1 && index != 2) return;
 
-            Vector3 midPoint = new Vector3(-GameConfig.MID_POINT, colorZ.transform.localPosition.y / 2, -i * GameConfig.OFFSET_PLATE);
+            Vector3 midPoint = new Vector3(-GameConfig.MID_POINT, colorZ.transform.localPosition.y / 2,
+                -i * GameConfig.OFFSET_PLATE);
             CreatePathAnimation(colorZ, randomX, ROW, i, midPoint);
         }
         else
@@ -417,10 +422,7 @@ public class ColorPlate : MonoBehaviour
         //    });
 
         color.transform.DOLocalPath(new Vector3[] { from, midPoint, to }, GameConfig.TIME_MOVE, PathType.CatmullRom)
-            .OnStart(() =>
-            {
-                color.spriteRender.sortingOrder = 15;
-            })
+            .OnStart(() => { color.spriteRender.sortingOrder = 15; })
             .OnComplete(() =>
             {
                 //color.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f)
@@ -466,7 +468,6 @@ public class ColorPlate : MonoBehaviour
 
         IVisualPlate visual = new DefaultFinishPlate();
         visual.Execute(this, count, colorEnum, plusPoint);
-
     }
 
     public void ClearLastType()
@@ -489,6 +490,7 @@ public class ColorPlate : MonoBehaviour
 
         return IsNearLast;
     }
+
     public void LinkColorPlate(ColorPlate colorPlate)
     {
         if (colorPlate != null && !ListConnect.Contains(colorPlate) && colorPlate.status != Status.Empty)
@@ -505,7 +507,7 @@ public class ColorPlate : MonoBehaviour
         }
     }
 
-    public List<ColorPlate> CheckNearByCanConnect(/*ColorPlate colorPlate*/)
+    public List<ColorPlate> CheckNearByCanConnect( /*ColorPlate colorPlate*/)
     {
         List<ColorPlate> listSame = new List<ColorPlate>();
 
@@ -543,6 +545,7 @@ public class ColorPlate : MonoBehaviour
 
 
     public bool isPlayingOnClick = false;
+
     public void PlayAnimOnClick()
     {
         //if (anim != null)
@@ -599,7 +602,8 @@ public class ColorPlate : MonoBehaviour
 
     bool CheckArrow(ColorPlate c)
     {
-        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin || c.status == Status.CannotPlace || c.status == Status.Ads || c.status == Status.Empty) return true;
+        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin ||
+            c.status == Status.CannotPlace || c.status == Status.Ads || c.status == Status.Empty) return true;
         else return false;
     }
 
@@ -611,10 +615,7 @@ public class ColorPlate : MonoBehaviour
         logicVisual.arrowCannotClick.SetActive(false);
 
         logicVisual.arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
-            .OnComplete(() =>
-            {
-                logicVisual.arrowClick.transform.localScale = Vector3.one;
-            });
+            .OnComplete(() => { logicVisual.arrowClick.transform.localScale = Vector3.one; });
         yield return new WaitForSeconds(0.15f);
 
         isPlayingOnClick = false;
@@ -653,8 +654,11 @@ public class ColorPlate : MonoBehaviour
                     //Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
 
                     // Camera Space Screen
-                    Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
-                    Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+                    Vector3 screenPoint =
+                        RectTransformUtility.WorldToScreenPoint(Camera.main, targetUIPosition.position);
+                    Vector3 targetPos =
+                        Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y,
+                            Camera.main.nearClipPlane));
 
                     color.transform.DOMove(targetPos, GameConfig.TIME_FLY).OnComplete(() =>
                     {
@@ -679,6 +683,7 @@ public class ColorPlate : MonoBehaviour
             }
         }
     }
+
     public void DecreaseCountFrozenNearBy()
     {
         for (int i = 0; i < ListConnect.Count; ++i)
@@ -755,7 +760,5 @@ public class ColorPlate : MonoBehaviour
     public void Refresh()
     {
         txtPointUnlock.sortingOrder = 0;
-
     }
 }
-

@@ -33,6 +33,7 @@ public class PopupGallery : Popup
         {
             listRoom[i].gameObject.SetActive(false);
         }
+
         listRoom.Clear();
 
         for (int i = 0; i < countRoom; i++)
@@ -92,6 +93,7 @@ public class PopupGallery : Popup
                     index = i;
                 }
             }
+
             isDrag = true;
         }
 
@@ -112,9 +114,12 @@ public class PopupGallery : Popup
 
         for (int i = 0; i < pos.Length; i++)
         {
-            if (index == i) listRoom[i].transform.localScale = Vector2.Lerp(listRoom[i].transform.localScale, new Vector2(1f, 1f), 0.1f);
-            else listRoom[i].transform.localScale = Vector2.Lerp(listRoom[i].transform.localScale, new Vector2(0.85f, 0.85f), 0.1f);
+            if (index == i)
+                listRoom[i].transform.localScale =
+                    Vector2.Lerp(listRoom[i].transform.localScale, new Vector2(1f, 1f), 0.1f);
+            else
+                listRoom[i].transform.localScale =
+                    Vector2.Lerp(listRoom[i].transform.localScale, new Vector2(0.85f, 0.85f), 0.1f);
         }
-
     }
 }

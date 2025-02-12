@@ -78,11 +78,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
             }
 
 
-            if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover)) imgItemDrag.color = defaultColor;
+            if (IsRectTransformInsideParent(rectTransform, popupDecorateBook.nBookCover))
+                imgItemDrag.color = defaultColor;
             else imgItemDrag.color = redColor;
 
             Vector2 mousePos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform.parent as RectTransform, Input.mousePosition, null, out mousePos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform.parent as RectTransform,
+                Input.mousePosition, null, out mousePos);
 
             rectTransform.anchoredPosition = mousePos;
 
@@ -132,13 +134,13 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
                 AddNewObjectBook(false);
                 popupDecorateBook.OpenNewBook();
             }
+
             linkedImageItem.isPainted = true;
 
             if (!SaveGame.IsDoneTutGift)
             {
                 TutorialDecor.Instance.ShowStep(2);
             }
-
         }
         else
         {

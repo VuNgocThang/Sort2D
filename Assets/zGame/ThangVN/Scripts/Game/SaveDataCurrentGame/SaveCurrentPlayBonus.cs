@@ -11,4 +11,3 @@ public class SaveCurrentPlayBonus
     public float currentTime;
     public int countDiff;
 }
-

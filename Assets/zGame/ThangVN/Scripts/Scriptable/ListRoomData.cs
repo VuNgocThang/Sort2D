@@ -48,7 +48,6 @@ public class ListRoomPainted
 
 // ScriptableObject
 [CreateAssetMenu(fileName = "ListRoomData", menuName = "ScriptableObjects/ListRoomData")]
-
 public class ListRoomData : ScriptableObject
 {
     public List<ListObjectRoom> listRoom;

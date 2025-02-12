@@ -6,7 +6,7 @@ using UnityEngine;
 public class PopupOutOfHeartHome : Popup
 {
     [SerializeField] TextMeshProUGUI txtHeart, txtCoin;
-    [SerializeField] EasyButton  btnBuy, btnClosePopup;
+    [SerializeField] EasyButton btnBuy, btnClosePopup;
     [SerializeField] Transform nParentSub;
 
     private void Awake()
@@ -14,6 +14,7 @@ public class PopupOutOfHeartHome : Popup
         btnBuy.OnClick(BuyHeart);
         btnClosePopup.OnClick(Hide);
     }
+
     public static async void Show()
     {
         PopupOutOfHeartHome pop = await ManagerPopup.ShowPopup<PopupOutOfHeartHome>();

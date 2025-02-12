@@ -76,7 +76,8 @@ public class HandDrag : MonoBehaviour
 
     bool CheckConditionToSelect(ColorPlate clicked)
     {
-        if (clicked.ListValue.Count == 0 || clicked.status == Status.Frozen || clicked.status == Status.LockCoin || clicked.status == Status.CannotPlace) return false;
+        if (clicked.ListValue.Count == 0 || clicked.status == Status.Frozen || clicked.status == Status.LockCoin ||
+            clicked.status == Status.CannotPlace) return false;
         else return true;
     }
 
@@ -99,7 +100,6 @@ public class HandDrag : MonoBehaviour
             isDrag = true;
             selectingPlate = clickedPlate;
             currentLayer = selectingPlate.ListColor[0].spriteRender.sortingOrder;
-
         }
     }
 
@@ -158,7 +158,6 @@ public class HandDrag : MonoBehaviour
                         DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosters, 1);
                     LogicGame.Instance.homeInGame.ExitUsingItem();
                 }
-
             }
             else
             {
@@ -214,7 +213,8 @@ public class HandDrag : MonoBehaviour
             {
                 LogicColor c = selectingPlate.ListColor[i];
                 c.spriteRender.sortingOrder = 15;
-                c.transform.position = Vector3.MoveTowards(c.transform.position, hit.point + new Vector3(0, 1 + i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 1f);
+                c.transform.position = Vector3.MoveTowards(c.transform.position,
+                    hit.point + new Vector3(0, 1 + i * GameConfig.OFFSET_PLATE, -i * GameConfig.OFFSET_PLATE), 1f);
             }
         }
 
@@ -222,7 +222,8 @@ public class HandDrag : MonoBehaviour
         if (Physics.Raycast(ray, out var hitPlateHolder, 100f, layerPlate))
         {
             selectingPlate.circleZZZ.SetActive(true);
-            selectingPlate.circleZZZ.transform.position = hitPlateHolder.transform.position /*+ new Vector3(0, GameConfig.OFFSET_PLATE, 0)*/;
+            selectingPlate.circleZZZ.transform.position =
+                hitPlateHolder.transform.position /*+ new Vector3(0, GameConfig.OFFSET_PLATE, 0)*/;
         }
         else
         {

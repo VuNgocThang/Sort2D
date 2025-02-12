@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraRotate : MonoBehaviour
 {
-    public Transform target; 
-    public float orbitSpeed = 1.5f; 
+    public Transform target;
+    public float orbitSpeed = 1.5f;
 
     //void Update()
     //{

@@ -22,15 +22,9 @@ public class PopupWinMiniGame : Popup
 
     private void Awake()
     {
-        btnContinue.OnClick(() =>
-        {
-            PlayAgain();
-        });
+        btnContinue.OnClick(() => { PlayAgain(); });
 
-        btnHome.OnClick(() =>
-        {
-            Continue();
-        });
+        btnHome.OnClick(() => { Continue(); });
     }
 
     public static async void Show()

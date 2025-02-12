@@ -9,7 +9,8 @@ public class Floor
 {
     public List<Step> Steps = new List<Step>();
 
-    public void AddStepRecursively(ColorPlate colorRoot, List<ColorPlate> listDataConnect, HashSet<ColorPlate> processedNearBy)
+    public void AddStepRecursively(ColorPlate colorRoot, List<ColorPlate> listDataConnect,
+        HashSet<ColorPlate> processedNearBy)
     {
         ColorPlate colorNearBy = new Step().ColorNearByColorRoot(colorRoot, listDataConnect, processedNearBy);
 

@@ -12,6 +12,7 @@ public class ScreenshotManager : MonoBehaviour
     public Camera screenshotCamera;
     int screenshotWidth;
     int screenshotHeight;
+
     private void Awake()
     {
         Instance = this;
@@ -33,7 +34,6 @@ public class ScreenshotManager : MonoBehaviour
         screenshotFilePath = Path.Combine(Application.persistentDataPath, $"room{SaveGame.CurrentRoom}.png");
 
         StartCoroutine(LoadScreenshot(img));
-
     }
 
     IEnumerator LoadScreenshot(Image img)
@@ -55,7 +55,8 @@ public class ScreenshotManager : MonoBehaviour
             {
                 Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                    new Vector2(0.5f, 0.5f));
                 img.sprite = sprite;
             }
         }

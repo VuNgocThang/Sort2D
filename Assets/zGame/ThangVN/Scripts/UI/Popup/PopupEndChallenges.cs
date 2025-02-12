@@ -21,11 +21,13 @@ public class PopupEndChallenges : Popup
             SceneManager.LoadScene("SceneHome");
         });
     }
+
     public static async void Show()
     {
         PopupEndChallenges pop = await ManagerPopup.ShowPopup<PopupEndChallenges>();
         pop.Init();
     }
+
     public override void Init()
     {
         base.Init();

@@ -60,8 +60,8 @@ public class FindTarget
                         countFrozenDictionary.Add(c, 1);
                     }
                 }
-
             }
+
             if (countFrozenDictionary.Count > 0)
             {
                 //Debug.Log("countFrozenDictionary.Count : " + countFrozenDictionary.Count);
@@ -121,10 +121,10 @@ public class FindTarget
                         {
                             colorResult = remainingElement;
                         }
+
                         return colorResult;
                     }
                 }
-
             }
 
             // độ ưu tiên thứ 4: ưu tiên merge sang có ít stacks hơn
@@ -145,7 +145,7 @@ public class FindTarget
 
             if (colorResult != null)
                 return colorResult;
-  
+
             //Debug.Log(listDataConnect[0].name + " default");
 
             // độ ưu tiên cuối cùng: bản cũ ();
@@ -160,7 +160,8 @@ public class FindTarget
 
             if (countArrow == 2)
             {
-                if (listDataConnect[0].listTypes.Count > listDataConnect[1].listTypes.Count) colorResult = listDataConnect[1];
+                if (listDataConnect[0].listTypes.Count > listDataConnect[1].listTypes.Count)
+                    colorResult = listDataConnect[1];
                 else colorResult = listDataConnect[0];
             }
             else if (countArrow == 1)
@@ -170,7 +171,8 @@ public class FindTarget
             }
             else
             {
-                if (listDataConnect[0].listTypes.Count > listDataConnect[1].listTypes.Count) colorResult = listDataConnect[1];
+                if (listDataConnect[0].listTypes.Count > listDataConnect[1].listTypes.Count)
+                    colorResult = listDataConnect[1];
                 else colorResult = listDataConnect[0];
             }
         }
@@ -201,7 +203,6 @@ public class FindTarget
                         countFrozenDictionary.Add(c, 1);
                     }
                 }
-
             }
 
             if (countFrozenDictionary.Count > 0)
@@ -270,7 +271,6 @@ public class FindTarget
 
                             for (int i = 0; i < listCanBeRootFake.Count; i++)
                             {
-
                                 int count = listCanBeRootFake[i].CountHasSameTopValueInConnect();
                                 if (count > maxCount)
                                 {
@@ -331,7 +331,7 @@ public class FindTarget
             {
                 if (c.listTypes.Count < 2) continue;
 
-                foreach (ColorPlate n in c.CheckNearByCanConnect(/*c*/))
+                foreach (ColorPlate n in c.CheckNearByCanConnect( /*c*/))
                 {
                     if (n.listTypes.Count < 2) continue;
 
@@ -354,7 +354,6 @@ public class FindTarget
 
                 for (int i = 0; i < listCanBeRoot.Count; i++)
                 {
-
                     //Debug.Log(listCanBeRoot[i].name + " _-_ " + listCanBeRoot[i].CountHasSameTopValueInConnect());
                     int count = listCanBeRoot[i].CountHasSameTopValueInConnect();
                     if (count > maxCount)
@@ -402,7 +401,8 @@ public class FindTarget
 
     bool IsArrow(ColorPlate c)
     {
-        if (c.status == Status.Left || c.status == Status.Right || c.status == Status.Up || c.status == Status.Down) return true;
+        if (c.status == Status.Left || c.status == Status.Right || c.status == Status.Up ||
+            c.status == Status.Down) return true;
         else return false;
     }
 
