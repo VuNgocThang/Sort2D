@@ -45,8 +45,6 @@ public class TutorialDecor : MonoBehaviour
     {
         hand.SetActive(false);
         nBlackTut.gameObject.SetActive(false);
-        //-232 548
-        //414 469
         imgTut.sizeDelta = rect.sizeDelta;
         imgTut.position = rect.position;
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,14 @@ using TMPro;
 
 public class PopupEndless : Popup
 {
-    [SerializeField] EasyButton btnContinue;
+    [SerializeField] EasyButton btnContinue, btnClosePopup;
     [SerializeField] TextMeshProUGUI txtBestScore;
     [SerializeField] GameObject imgGray, hand;
+
+    private void Awake()
+    {
+        btnClosePopup.OnClick(Hide);
+    }
 
     public static async void Show()
     {
