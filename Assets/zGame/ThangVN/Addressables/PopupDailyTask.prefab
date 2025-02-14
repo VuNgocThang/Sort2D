@@ -59,8 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a698d5bbbea3646b492821d3e91b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnClose:
-  - {fileID: 3956869125390482433}
+  btnClose: []
   listDailyTasks: []
   dailyTaskPrefab: {fileID: 248416025648465176, guid: c894b0cda8113f54aa010ce58d6d47f5,
     type: 3}
@@ -72,6 +71,7 @@ MonoBehaviour:
   txtCurrentPoint: {fileID: 8235089612608368484}
   txtTimeRemain: {fileID: 6443348593822233832}
   imgFillProgress: {fileID: 5483647186846032474}
+  btnClosePopup: {fileID: 3956869125390482433}
   btnInfo: {fileID: 8395489456968504452}
   btnReward1: {fileID: 5550007105906151670}
   btnReward2: {fileID: 2427269981022779417}

@@ -69,7 +69,8 @@ public static class SaveGame
         }
         get
         {
-            if (isDoneTutorialDecor == -1) isDoneTutorialDecor = ES3.Load(ISDONETUTORIALDECOR, 0);
+            // change to 0
+            if (isDoneTutorialDecor == -1) isDoneTutorialDecor = ES3.Load(ISDONETUTORIALDECOR, 1);
             return isDoneTutorialDecor == 1;
         }
     }
@@ -694,7 +695,8 @@ public static class SaveGame
         }
         get
         {
-            if (firstDecor == -1) firstDecor = ES3.Load(FIRSTDECOR, 1);
+            // change to 1
+            if (firstDecor == -1) firstDecor = ES3.Load(FIRSTDECOR, 0);
             return firstDecor == 1;
         }
     }

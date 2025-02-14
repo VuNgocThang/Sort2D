@@ -54,7 +54,7 @@ namespace ntDev
             pop.transform.SetAsLastSibling();
             return pop;
         }
-
+        
         public static void HidePopup<T>() where T : Popup
         {
             foreach (Popup p in Instance.listPopup)

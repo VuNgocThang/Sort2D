@@ -5,6 +5,7 @@ using ntDev;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Threading.Tasks;
 
 public class PopupDailyTask : Popup
 {
@@ -19,12 +20,13 @@ public class PopupDailyTask : Popup
     [SerializeField] int currentPoint;
     [SerializeField] TextMeshProUGUI txtCurrentPoint, txtTimeRemain;
     [SerializeField] Image imgFillProgress;
-    [SerializeField] EasyButton btnInfo, btnReward1, btnReward2, btnReward3;
+    [SerializeField] EasyButton btnClosePopup, btnInfo, btnReward1, btnReward2, btnReward3;
     [SerializeField] GameObject Rewarded1, Rewarded2, Rewarded3, Locked1, Locked2, Locked3, Par1, Par2, Par3;
     [SerializeField] Animator anim1, anim2, anim3;
 
     private void Awake()
     {
+        btnClosePopup.OnClick(Hide);
         btnInfo.OnClick(PopupInfoDailyTask.Show);
         btnReward1.OnClick(() =>
         {
@@ -63,15 +65,18 @@ public class PopupDailyTask : Popup
         });
     }
 
-    public static async void Show()
+    public static async Task<bool> Show()
     {
         PopupDailyTask pop = await ManagerPopup.ShowPopup<PopupDailyTask>();
         pop.Init();
+        return true;
     }
 
     public override void Init()
     {
         // base.Init();
+        Debug.Log("3");
+
         transform.localScale = Vector3.one;
 
         ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, UpdateCountStar);
@@ -103,8 +108,9 @@ public class PopupDailyTask : Popup
         {
             Rewarded1.SetActive(SaveGame.ClaimReward1);
             Locked1.SetActive(!SaveGame.ClaimReward1);
+        }
 
-        };
+        ;
 
 
         if (CanClaimReward2())
@@ -115,8 +121,9 @@ public class PopupDailyTask : Popup
         {
             Rewarded2.SetActive(SaveGame.ClaimReward2);
             Locked2.SetActive(!SaveGame.ClaimReward2);
+        }
 
-        };
+        ;
 
         if (CanClaimReward3())
         {
@@ -126,8 +133,9 @@ public class PopupDailyTask : Popup
         {
             Rewarded3.SetActive(SaveGame.ClaimReward3);
             Locked3.SetActive(!SaveGame.ClaimReward3);
+        }
 
-        };
+        ;
     }
 
     private void RefreshList()
@@ -192,7 +200,6 @@ public class PopupDailyTask : Popup
         {
             PlayAnimReward(Rewarded1, Locked1, anim1);
             Par1.SetActive(true);
-
         }
         else
         {
@@ -205,7 +212,6 @@ public class PopupDailyTask : Popup
         {
             PlayAnimReward(Rewarded2, Locked2, anim2);
             Par2.SetActive(true);
-
         }
         else
         {
@@ -243,6 +249,7 @@ public class PopupDailyTask : Popup
     {
         return (ReachPoint(point2) && !SaveGame.ClaimReward2);
     }
+
     bool CanClaimReward3()
     {
         return (ReachPoint(maxDay) && !SaveGame.ClaimReward3);
@@ -259,5 +266,4 @@ public class PopupDailyTask : Popup
         Rewarded1.SetActive(true);
         SaveGame.ClaimReward1 = true;
     }
-
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using ntDev;
 using UnityEngine.SceneManagement;
@@ -7,20 +9,29 @@ using TMPro;
 
 public class PopupEndless : Popup
 {
-    [SerializeField] EasyButton btnContinue;
+    [SerializeField] private EasyButton btnContinue, btnClosePopup;
     [SerializeField] TextMeshProUGUI txtBestScore;
     [SerializeField] GameObject imgGray, hand;
 
-    public static async void Show()
+    private void Awake()
+    {
+        btnClosePopup.OnClick(Hide);
+    }
+
+    public static async Task<bool> Show()
     {
         PopupEndless pop = await ManagerPopup.ShowPopup<PopupEndless>();
 
         pop.Init();
+
+        return true;
     }
 
     public override void Init()
     {
         // base.Init();
+        Debug.Log("2");
+
         transform.localScale = Vector3.one;
         txtBestScore.text = SaveGame.BestScore.ToString();
         if (SaveGame.Level >= 15)

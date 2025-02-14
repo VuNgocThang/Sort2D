@@ -34,7 +34,7 @@ public class DailyTaskManager : MonoBehaviour
     {
         dataSaved.listTaskSaved = dailyTaskData.listTasks;
         dataSaved.currentPoint = dailyTaskData.currentPoint;
-        Debug.Log("Day: " + SaveGame.NewDay);
+        // Debug.Log("Day: " + SaveGame.NewDay);
         CheckNewDay();
 
         if (IsNewDay)
@@ -93,7 +93,7 @@ public class DailyTaskManager : MonoBehaviour
     {
         string json = PlayerPrefs.GetString(GameConfig.TASK_DATA, "");
 
-        Debug.Log(" LoadData: " + json);
+        // Debug.Log(" LoadData: " + json);
 
         if (!string.IsNullOrEmpty(json))
         {

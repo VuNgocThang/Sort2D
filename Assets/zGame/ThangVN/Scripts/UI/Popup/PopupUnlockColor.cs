@@ -28,7 +28,7 @@ public class PopupUnlockColor : Popup
     {
         base.Init();
         LogicGame.Instance.isPauseGame = true;
-        Debug.Log("Show" + index);
+        // Debug.Log("Show" + index);
 
         for (int i = 0; i < newColorData.listNewColorData.Count; i++)
         {
@@ -82,7 +82,7 @@ public class PopupUnlockColor : Popup
     {
         if (spineBox.AnimationState != null)
         {
-            Debug.Log("Play spine");
+            // Debug.Log("Play spine");
             spineBox.AnimationState.SetAnimation(0, animationName, isLoop);
         }
     }

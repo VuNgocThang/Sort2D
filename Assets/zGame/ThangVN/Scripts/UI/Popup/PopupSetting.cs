@@ -63,7 +63,7 @@ public class PopupSetting : Popup
     {
         base.Init();
         LogicGame.Instance.isPauseGame = true;
-        Debug.Log("init setting in game");
+        // Debug.Log("init setting in game");
         //imgMusicOff.SetActive(!SaveGame.Music);
         //imgSoundOff.SetActive(!SaveGame.Sound);
         //imgVibrateOff.SetActive(!SaveGame.Vibrate);

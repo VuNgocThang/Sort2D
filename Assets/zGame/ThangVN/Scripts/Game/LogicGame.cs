@@ -287,7 +287,7 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
-        Debug.Log("SaveGame.IsDoneTutorial: " + SaveGame.IsDoneTutorial);
+        // Debug.Log("SaveGame.IsDoneTutorial: " + SaveGame.IsDoneTutorial);
         //Logic Tutorial Arrow
         if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial)
         {
