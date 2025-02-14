@@ -38,7 +38,7 @@ public class PopupShopInGame : Popup
         canvasGroup.blocksRaycasts = true;
         boosterEnum = (BoosterEnum)index;
         btnBuyUseCoin.enabled = true;
-        btnBuyUseCoin.enabled = true;
+        btnBuyAds.enabled = true;
 
         btnBuyUseCoin.OnClick(() =>
         {

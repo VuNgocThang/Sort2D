@@ -25,9 +25,9 @@ public class DailyTaskManager : MonoBehaviour
 
     private void Start()
     {
-        //ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
-
-        // Init();
+        // ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
+    
+         Init();
     }
 
     public void Init()

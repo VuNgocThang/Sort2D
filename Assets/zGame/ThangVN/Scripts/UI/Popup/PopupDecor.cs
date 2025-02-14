@@ -21,6 +21,9 @@ public class PopupDecor : Popup
     [SerializeField] ScrollRect scroll;
 
     [SerializeField] DataConfigDecor dataBookConfig;
+    private const float paddingTop = 50f;
+    private const float cellSizeY = 469f;
+    private const float spacingY = 50f;
 
     private void Awake()
     {
@@ -45,6 +48,8 @@ public class PopupDecor : Popup
     {
         //base.Init();
         transform.localScale = Vector3.one;
+        scroll.enabled = true;
+
         SaveGame.Redecorated = false;
         ManagerPopup.HidePopup<PopupDecorateBook>();
 
@@ -60,6 +65,9 @@ public class PopupDecor : Popup
 
         LoadListBookItems();
 
+        MoveToCurrentBook();
+
+        
         if (!SaveGame.IsDoneTutorialDecor)
             StartCoroutine(InitTutorialDecor());
     }
@@ -102,6 +110,18 @@ public class PopupDecor : Popup
         TutorialDecor.Instance.ShowStep(0);
         //imgTut.position = scroll.content.GetChild(0).GetComponent<RectTransform>().position;
         //hand.position = imgTut.position;
+    }
+
+    void MoveToCurrentBook()
+    {
+        float posMove = 0f;
+        posMove = paddingTop + Mathf.Floor(SaveGame.CurrentBook / 2) * cellSizeY +
+                  Mathf.Floor(SaveGame.CurrentBook / 2) * spacingY;
+        RectTransform contentRect = scroll.content.GetComponent<RectTransform>();
+        // Debug.Log("SaveGame.CurrentBook: " + SaveGame.CurrentBook + " __  " + Mathf.Floor(SaveGame.CurrentBook / 2));
+        // Debug.Log("posMove : " + posMove);
+        contentRect.GetComponent<RectTransform>().anchoredPosition =
+            new Vector2(contentRect.anchoredPosition.x, posMove);
     }
 
 

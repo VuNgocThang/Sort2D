@@ -23,8 +23,12 @@ public class PopupRewardDecor : PopupReward
 
     protected override void ClaimReward(int multi)
     {
-        ManagerEvent.RaiseEvent(EventCMD.EVENT_CLAIM_REWARD_BOOK);
         base.ClaimReward(multi);
+    }
+
+    protected override void ReceiveReward(int countMagicWand, int countCrytalBall, int countMagicCard, bool isPopupRewardDecor = false)
+    {
+        base.ReceiveReward(countMagicWand, countCrytalBall, countMagicCard, true);
     }
 
     public override void Hide()

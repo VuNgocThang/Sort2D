@@ -17,16 +17,14 @@ public class PopupWin : Popup
     const string GLOW = "glow";
 
     // effect coin
-    [Header("EffectCoin")]
-    public GameObject pileCoin;
+    [Header("EffectCoin")] public GameObject pileCoin;
     public List<GameObject> pileOfCoins;
     public Vector3[] initPosCoin;
     public Quaternion[] initRotCoin;
     public Transform endPosCoin;
 
     //effect pigment
-    [Header("EffectPigment")]
-    public GameObject pilePigment;
+    [Header("EffectPigment")] public GameObject pilePigment;
     public List<GameObject> pileOfPigment;
     public Vector3[] initPosPigment;
     public Quaternion[] initRotPigment;
@@ -35,7 +33,7 @@ public class PopupWin : Popup
     //
     int currentCoin;
     int currentPigment;
-    float duration = 1f;
+    float duration = 0.5f;
 
     public static async void Show()
     {
@@ -106,7 +104,7 @@ public class PopupWin : Popup
 
         txtGoldReward.text = LogicGame.Instance.gold.ToString();
         txtPigmentReward.text = LogicGame.Instance.pigment.ToString();
-            
+
         GameManager.AddGold(LogicGame.Instance.gold);
         GameManager.AddPigment(LogicGame.Instance.pigment);
 
@@ -123,7 +121,8 @@ public class PopupWin : Popup
     IEnumerator LoadScene(string sceneName)
     {
         // yield return new WaitForSeconds(10.5f);
-        yield return new WaitForSeconds(duration);
+        // yield return new WaitForSeconds(duration);
+        yield return null;
         SceneManager.LoadScene(sceneName);
     }
 
@@ -189,16 +188,30 @@ public class PopupWin : Popup
         {
             if (i < pileOfCoins.Count && endPosCoin != null)
             {
-                sequence.Insert(delayMove, pileOfCoins[i].GetComponent<RectTransform>()
+                var coinTween = pileOfCoins[i].GetComponent<RectTransform>()
                     .DOMove(endPosCoin.position, 0.5f)
-                    .SetEase(Ease.InOutCirc));
+                    .SetEase(Ease.InOutCirc);
+
+                if (i == 0)
+                {
+                    coinTween.OnComplete(() => { UpdateMoney(SaveGame.Coin); });
+                }
+
+                sequence.Insert(delayMove, coinTween);
             }
 
             if (i < pileOfPigment.Count && endPosPigment != null)
             {
-                sequence.Insert(delayMove, pileOfPigment[i].GetComponent<RectTransform>()
+                var pigmentTween = pileOfPigment[i].GetComponent<RectTransform>()
                     .DOMove(endPosPigment.position, 0.5f)
-                    .SetEase(Ease.InOutCirc));
+                    .SetEase(Ease.InOutCirc);
+
+                if (i == 0)
+                {
+                    pigmentTween.OnComplete(() => { UpdatePigment(SaveGame.Pigment); });
+                }
+
+                sequence.Insert(delayMove, pigmentTween);
             }
 
             delayMove += 0.05f;
@@ -207,8 +220,8 @@ public class PopupWin : Popup
         sequence.AppendInterval(0.05f)
             .OnComplete(() =>
             {
-                UpdateMoney(SaveGame.Coin);
-                UpdatePigment(SaveGame.Pigment);
+                // UpdateMoney(SaveGame.Coin);
+                // UpdatePigment(SaveGame.Pigment);
 
                 StartCoroutine(LoadScene(sceneName));
             });

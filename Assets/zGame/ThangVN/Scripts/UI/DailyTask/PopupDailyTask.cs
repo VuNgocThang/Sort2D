@@ -71,7 +71,8 @@ public class PopupDailyTask : Popup
 
     public override void Init()
     {
-        base.Init();
+        // base.Init();
+        transform.localScale = Vector3.one;
 
         ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, UpdateCountStar);
 

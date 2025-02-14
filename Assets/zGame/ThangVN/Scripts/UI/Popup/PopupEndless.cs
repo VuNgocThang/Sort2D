@@ -9,7 +9,7 @@ public class PopupEndless : Popup
 {
     [SerializeField] EasyButton btnContinue;
     [SerializeField] TextMeshProUGUI txtBestScore;
-    [SerializeField] GameObject imgGray;
+    [SerializeField] GameObject imgGray, hand;
 
     public static async void Show()
     {
@@ -20,7 +20,8 @@ public class PopupEndless : Popup
 
     public override void Init()
     {
-        base.Init();
+        // base.Init();
+        transform.localScale = Vector3.one;
         txtBestScore.text = SaveGame.BestScore.ToString();
         if (SaveGame.Level >= 15)
         {
@@ -36,6 +37,14 @@ public class PopupEndless : Popup
         {
             imgGray.SetActive(true);
         }
+
+        if (!SaveGame.IsTutChallenges && SaveGame.Level >= GameConfig.LEVEL_CHALLENGES)
+        {
+            SaveGame.IsTutChallenges = true;
+            hand.SetActive(true);
+        }
+        else
+            hand.SetActive(false);
     }
 
     public override void Hide()

@@ -303,6 +303,7 @@ public class PopupDecorateBook : Popup
 
                 itemData.isPainted = true;
                 itemData.img.gameObject.SetActive(false);
+                itemData.itemDecor.SetActive(false);
 
                 // Lấy danh sách các slot có id khớp với item
                 for (int k = 0; k < slots.Count; k++)

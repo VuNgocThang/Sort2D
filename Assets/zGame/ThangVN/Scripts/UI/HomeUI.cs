@@ -12,11 +12,33 @@ using EasyUI.Helpers;
 public class HomeUI : MonoBehaviour
 {
     public static HomeUI Instance;
-    public EasyButton btnSetting, btnPlusCoin, btnPlusColorPlate, btnFreeCoin, btnChallenges, btnDecor, btnPlay, btnDailyTask, btnShop, btnCloseShop, btnNoAdsBundle;
+
+    public EasyButton btnSetting,
+        btnPlusCoin,
+        btnPlusColorPlate,
+        btnFreeCoin,
+        btnChallenges,
+        btnDecor,
+        btnPlay,
+        btnDailyTask,
+        btnShop,
+        btnCloseShop,
+        btnNoAdsBundle;
+
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
     [SerializeField] float countdownTimer, totalParts, currentParts;
-    public GameObject nTop, nBot, iconNotice, nParent, nPanelShop, nNoticeFreecoin, nNoticeDailyTask, nNoticeTask, imgGrayDecor;
+
+    public GameObject nTop,
+        nBot,
+        iconNotice,
+        nParent,
+        nPanelShop,
+        nNoticeFreecoin,
+        nNoticeDailyTask,
+        nNoticeTask,
+        imgGrayDecor;
+
     public Animator animator;
     public List<Sprite> listSprite;
     public Image bg, imgProgressTask;
@@ -31,7 +53,6 @@ public class HomeUI : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(Instance);
-
 
         btnSetting.OnClick(() => PopupSettingHome.Show());
 
@@ -60,8 +81,6 @@ public class HomeUI : MonoBehaviour
 
                 PopupDecor.Show();
             }
-
-
         });
 
         btnPlay.OnClick(() =>
@@ -102,16 +121,13 @@ public class HomeUI : MonoBehaviour
             nPanelShop.SetActive(false);
         });
 
-        btnNoAdsBundle.OnClick(() =>
-        {
-            PopupNoAdsBundle.Show();
-        });
+        btnNoAdsBundle.OnClick(() => { PopupNoAdsBundle.Show(); });
     }
 
     private void Start()
     {
         Application.targetFrameRate = 60;
-        DailyTaskManager.Instance.Init();
+        // DailyTaskManager.Instance.Init();
         int randomBG = UnityEngine.Random.Range(0, 2);
         bg.sprite = listSprite[randomBG];
 
@@ -130,9 +146,10 @@ public class HomeUI : MonoBehaviour
 
         InitFirstDecor();
 
+        InitButtonInHome();
+
         InitDataClaimedFreecoin();
         Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
-
     }
 
     private void Update()
@@ -180,10 +197,14 @@ public class HomeUI : MonoBehaviour
         listBook = SaveGame.ListBookDecorated;
 
         int count = 0;
-        for (int i = 0; i < listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated.Count; i++)
+        for (int i = 0;
+             i < listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated.Count;
+             i++)
         {
-            if (listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated[i].isPainted) count++;
+            if (listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].listItemDecorated[i]
+                .isPainted) count++;
         }
+
         currentParts = count;
         //if (!listBook.listBookDecorated[listBook.listBookDecorated.Count - 1].isPainted) currentParts++;
 
@@ -219,8 +240,55 @@ public class HomeUI : MonoBehaviour
             }
 
             txtHeart.fontSize = minSize;
-
         }
+    }
+
+    void InitButtonInHome()
+    {
+        if (SaveGame.Level < GameConfig.LEVEL_FREE_COIN)
+        {
+            btnFreeCoin.gameObject.SetActive(false);
+        }
+        else
+        {
+            btnFreeCoin.gameObject.SetActive(true);
+
+            if (!SaveGame.IsTutFreeCoin || !SaveGame.ShowFreeCoin)
+            {
+               
+                PopupFreeCoin.Show();
+            }
+        }
+        
+        if (SaveGame.Level < 5)
+        {
+            btnChallenges.gameObject.SetActive(false);
+        }
+        else
+        {
+            btnChallenges.gameObject.SetActive(true);
+
+            if (!SaveGame.IsTutChallenges && SaveGame.Level >= GameConfig.LEVEL_CHALLENGES)
+            {
+                PopupEndless.Show();
+            }
+        }
+
+        if (SaveGame.Level < GameConfig.LEVEL_DAILY_TASK)
+        {
+            btnDailyTask.gameObject.SetActive(false);
+        }
+        else
+        {
+            btnDailyTask.gameObject.SetActive(true);
+
+            if (!SaveGame.IsTutDailyTask)
+            {
+                PopupDailyTask.Show();
+            }
+        }
+
+       
     }
 
     void InitGrayDecor()
@@ -239,7 +307,8 @@ public class HomeUI : MonoBehaviour
 
         if (PlayerPrefs.HasKey(GameConfig.LAST_HEART_LOSS))
         {
-            float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
+            float timeSinceLastLoss =
+                (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
 
             int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
 
@@ -265,7 +334,6 @@ public class HomeUI : MonoBehaviour
             {
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
             }
-
         }
         else
         {
@@ -278,7 +346,6 @@ public class HomeUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         SceneManager.LoadScene(str);
-
     }
 
     void InitFirstDecor()
@@ -415,5 +482,4 @@ public class HomeUI : MonoBehaviour
 
         return isComingSoon;
     }
-
 }

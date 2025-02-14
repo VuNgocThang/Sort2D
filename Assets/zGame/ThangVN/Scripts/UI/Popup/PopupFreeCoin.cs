@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BaseGame;
 using TMPro;
+using UnityEngine.XR;
 
 public class PopupFreeCoin : Popup
 {
@@ -13,8 +14,8 @@ public class PopupFreeCoin : Popup
     public ItemFreeCoin itemFreeCoin;
     public Transform nContent;
     public List<ItemFreeCoin> listItem;
-    public EasyButton btnClaime50;
-    [SerializeField] GameObject imgActive, imgDeactive, imgClaimed, icon, bgCollectCoin;
+    public EasyButton btnClaime50, btnClosePopup;
+    [SerializeField] GameObject imgActive, imgDeactive, imgClaimed, icon, bgCollectCoin, hand;
 
     [Header("CollectCoin")] public List<GameObject> pileOfCoins;
     public Vector3[] initPosCoin;
@@ -33,11 +34,15 @@ public class PopupFreeCoin : Popup
         {
             if (!SaveGame.DataFreeCoin.isClaimed50)
             {
+                hand.SetActive(false);
+
                 if (DailyTaskManager.Instance != null)
                     DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
                 Claimed50();
             }
         });
+
+        btnClosePopup.OnClick(Hide);
     }
 
     public static async void Show()
@@ -48,12 +53,20 @@ public class PopupFreeCoin : Popup
 
     public override void Init()
     {
-        base.Init();
-        listItem.Clear();
-        txtGold.text = SaveGame.Coin.ToString();
+        // base.Init();
+        transform.localScale = Vector3.one;
         RefreshData();
-        // InitPile();
         InitClaim50();
+        InitListItemFreeCoin();
+        InitFirstTutorial();
+        SaveGame.IsTutFreeCoin = true;
+        SaveGame.ShowFreeCoin = true;
+    }
+
+    private void InitListItemFreeCoin()
+    {
+        listItem.Clear();
+
         for (int i = 0; i < freeCoinData.listDataFreeCoin.Count; i++)
         {
             ItemFreeCoin item = Instantiate(itemFreeCoin, nContent);
@@ -84,6 +97,8 @@ public class PopupFreeCoin : Popup
 
     public void UpdateListContent(object e)
     {
+        hand.SetActive(false);
+
         for (int i = 0; i < listItem.Count; i++)
         {
             if (listItem[i].index == SaveGame.DataFreeCoin.currentIndex)
@@ -94,7 +109,7 @@ public class PopupFreeCoin : Popup
         }
     }
 
-    public void Claimed50()
+    private void Claimed50()
     {
         currentCoin = SaveGame.Coin;
         GameManager.AddGold(50);
@@ -105,7 +120,7 @@ public class PopupFreeCoin : Popup
         ReceiveReward(btnClaime50.transform);
     }
 
-    public void InitClaim50()
+    private void InitClaim50()
     {
         if (SaveGame.DataFreeCoin.isClaimed50)
         {
@@ -123,28 +138,26 @@ public class PopupFreeCoin : Popup
         }
     }
 
-    void RefreshData()
+    private void InitFirstTutorial()
     {
-        if (SaveGame.NewDayFreeCoin != DateTime.Now.DayOfYear)
-        {
-            SaveGame.NewDayFreeCoin = DateTime.Now.DayOfYear;
-
-            SaveGame.DataFreeCoin.listDataFreeCoin.Clear();
-            SaveGame.DataFreeCoin.currentIndex = 0;
-            SaveGame.DataFreeCoin.isClaimed50 = false;
-
-            SaveGame.DataFreeCoin = SaveGame.DataFreeCoin;
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_FREECOIN);
-        }
+        hand.SetActive(!SaveGame.IsTutFreeCoin);
     }
 
-    void InitPile()
+    private void RefreshData()
     {
-        for (int i = 0; i < pileOfCoins.Count; i++)
-        {
-            initPosCoin[i] = pileOfCoins[i].transform.localPosition;
-            initRotCoin[i] = Quaternion.Euler(0, 0, 0);
-        }
+        txtGold.text = SaveGame.Coin.ToString();
+
+        if (SaveGame.NewDayFreeCoin == DateTime.Now.DayOfYear) return;
+
+        SaveGame.ShowFreeCoin = false;
+
+        SaveGame.NewDayFreeCoin = DateTime.Now.DayOfYear;
+        SaveGame.DataFreeCoin.listDataFreeCoin.Clear();
+        SaveGame.DataFreeCoin.currentIndex = 0;
+        SaveGame.DataFreeCoin.isClaimed50 = false;
+
+        SaveGame.DataFreeCoin = SaveGame.DataFreeCoin;
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_FREECOIN);
     }
 
     public void Reset()
@@ -180,9 +193,16 @@ public class PopupFreeCoin : Popup
         {
             if (i < pileOfCoins.Count && endPosCoin != null)
             {
-                sequence.Insert(delayMove, pileOfCoins[i].GetComponent<RectTransform>()
+                var coinTween = pileOfCoins[i].GetComponent<RectTransform>()
                     .DOMove(endPosCoin.position, 0.5f)
-                    .SetEase(Ease.InOutCirc));
+                    .SetEase(Ease.InOutCirc);
+
+                if (i == 0)
+                {
+                    coinTween.OnComplete(() => { UpdateMoney(SaveGame.Coin); });
+                }
+
+                sequence.Insert(delayMove, coinTween);
             }
 
             delayMove += 0.05f;
@@ -192,7 +212,7 @@ public class PopupFreeCoin : Popup
             .OnComplete(() =>
             {
                 bgCollectCoin.SetActive(false);
-                UpdateMoney(SaveGame.Coin);
+                // UpdateMoney(SaveGame.Coin);
             });
 
         for (int i = 0; i < pileOfCoins.Count; i++)
@@ -202,7 +222,7 @@ public class PopupFreeCoin : Popup
         }
     }
 
-    public void UpdateMoney(int targetMoney)
+    private void UpdateMoney(int targetMoney)
     {
         ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
         if (this.gameObject.activeSelf)
@@ -211,7 +231,7 @@ public class PopupFreeCoin : Popup
 
     private IEnumerator CountMoney(int start, int end, float duration)
     {
-        float elapsed = 0.0f;
+        var elapsed = 0.0f;
 
         while (elapsed < duration)
         {

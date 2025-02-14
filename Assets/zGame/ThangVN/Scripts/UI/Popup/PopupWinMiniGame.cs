@@ -105,8 +105,8 @@ public class PopupWinMiniGame : Popup
 
     IEnumerator LoadScene(string sceneName)
     {
-        yield return new WaitForSeconds(duration);
-
+        // yield return new WaitForSeconds(duration);
+        yield return null;
         SaveGame.PlayBonus = false;
         ManagerEvent.ClearEvent();
         SceneManager.LoadScene(sceneName);
@@ -172,7 +172,7 @@ public class PopupWinMiniGame : Popup
         Reset();
         nPiles.SetActive(true);
         nCoin.position = listReward[0].transform.position;
-        
+
         if (listReward.Count > 1)
             nBooster.position = listReward[1].transform.position;
 
@@ -204,9 +204,16 @@ public class PopupWinMiniGame : Popup
         {
             if (i < pileOfCoins.Count && endPosCoin != null)
             {
-                sequence.Insert(delayMove, pileOfCoins[i].GetComponent<RectTransform>()
+                var coinTween = pileOfCoins[i].GetComponent<RectTransform>()
                     .DOMove(endPosCoin.position, 0.5f)
-                    .SetEase(Ease.InOutCirc));
+                    .SetEase(Ease.InOutCirc);
+
+                if (i == 0)
+                {
+                    coinTween.OnComplete(() => { UpdateMoney(SaveGame.Coin); });
+                }
+
+                sequence.Insert(delayMove, coinTween);
             }
 
             if (i < countBooster && endPosBooster != null)
@@ -223,7 +230,7 @@ public class PopupWinMiniGame : Popup
             .OnComplete(() =>
             {
                 nPiles.SetActive(false);
-                UpdateMoney(SaveGame.Coin);
+                // UpdateMoney(SaveGame.Coin);
                 StartCoroutine(LoadScene(sceneName));
             });
 
@@ -242,13 +249,13 @@ public class PopupWinMiniGame : Popup
             }
         }
     }
-    
+
     public void UpdateMoney(int targetMoney)
     {
         ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
         StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
     }
-    
+
     private IEnumerator CountMoney(int start, int end, float duration)
     {
         float elapsed = 0.0f;

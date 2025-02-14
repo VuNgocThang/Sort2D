@@ -25,6 +25,10 @@ public class PopupReward2 : PopupReward
     {
         base.ClaimReward(multi);
     }
+    protected override void ReceiveReward(int countMagicWand, int countCrytalBall, int countMagicCard, bool isPopupRewardDecor = false)
+    {
+        base.ReceiveReward(countMagicWand, countCrytalBall, countMagicCard, isPopupRewardDecor);
+    }
 
     public override void Hide()
     {

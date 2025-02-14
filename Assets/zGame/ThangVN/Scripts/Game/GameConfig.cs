@@ -25,6 +25,12 @@ public static class GameConfig
 
     public static string TXT_HAMMER = "tap any stack to clear it";
 
+    public static int LEVEL_CHALLENGES = 15;
+
+    public static int LEVEL_FREE_COIN = 3;
+
+    public static int LEVEL_DAILY_TASK = 5;
+
     public static int LEVEL_LOCK_COIN = 4;
 
     public static int LEVEL_FROZEN = 10;
@@ -71,34 +77,22 @@ public static class GameConfig
 
     public static bool EnoughCoinBuyHammer
     {
-        get
-        {
-            return SaveGame.Coin >= COIN_HAMMER;
-        }
+        get { return SaveGame.Coin >= COIN_HAMMER; }
     }
 
     public static bool EnoughCoinBuySwap
     {
-        get
-        {
-            return SaveGame.Coin >= COIN_SWAP;
-        }
+        get { return SaveGame.Coin >= COIN_SWAP; }
     }
 
     public static bool EnoughCoinBuyRefresh
     {
-        get
-        {
-            return SaveGame.Coin >= COIN_REFRESH;
-        }
+        get { return SaveGame.Coin >= COIN_REFRESH; }
     }
 
     public static bool EnoughPigment
     {
-        get
-        {
-            return SaveGame.Pigment >= PIGMENT_UNLOCK;
-        }
+        get { return SaveGame.Pigment >= PIGMENT_UNLOCK; }
     }
 
     public static string DATACOIN = "DATACOIN";
@@ -118,5 +112,4 @@ public static class GameConfig
     public static float SCALE_X = 414f / 747f;
 
     public static float SCALE_Y = 469f / 924f;
-
 }

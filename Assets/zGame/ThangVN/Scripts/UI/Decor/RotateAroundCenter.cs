@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RotateAroundCenter : MonoBehaviour
 {
-    public Transform center; 
-    public float speed = 50f; 
-
+    public Transform center;
+    public float speed = 50f;
+    public bool isClaim;
     private Quaternion initialRotation;
 
     void Start()
@@ -16,8 +16,10 @@ public class RotateAroundCenter : MonoBehaviour
 
     void Update()
     {
-        transform.RotateAround(center.position, Vector3.forward, speed * Time.deltaTime);
-
-        transform.rotation = initialRotation;
+        if (!isClaim)
+        {
+            transform.RotateAround(center.position, Vector3.forward, speed * Time.deltaTime);
+            transform.rotation = initialRotation;
+        }
     }
 }

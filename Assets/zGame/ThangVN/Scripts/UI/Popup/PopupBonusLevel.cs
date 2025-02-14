@@ -11,7 +11,7 @@ public class PopupBonusLevel : Popup
     private void Awake()
     {
         btnHelp.OnClick(MoveToLevelBonus);
-        btnNo.OnClick(MoveToLevelNormal);
+        btnNo.OnClick(MoveToHome);
     }
 
     public static async void Show()
@@ -34,10 +34,10 @@ public class PopupBonusLevel : Popup
         SceneManager.LoadScene("SceneGame");
     }
 
-    void MoveToLevelNormal()
+    void MoveToHome()
     {
         SaveGame.PlayBonus = false;
         ManagerEvent.ClearEvent();
-        SceneManager.LoadScene("SceneGame");
+        SceneManager.LoadScene("SceneHome");
     }
 }

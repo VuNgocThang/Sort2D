@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utilities.Common;
 
 public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/ IEndDragHandler
 {
@@ -124,6 +125,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
             if (distance <= 100)
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
+                linkedImageItem.itemDecor.SetActive(false);
                 rectTransform.anchoredPosition = Vector2.zero;
                 AddNewObjectBook(true);
                 popupDecorateBook.OpenNewBook();
@@ -131,6 +133,7 @@ public class ItemDraggable : MonoBehaviour, IBeginDragHandler, /*IDragHandler,*/
             else
             {
                 this.gameObject.transform.SetParent(linkedSlot.gameObject.transform);
+                linkedImageItem.itemDecor.SetActive(false);
                 AddNewObjectBook(false);
                 popupDecorateBook.OpenNewBook();
             }
