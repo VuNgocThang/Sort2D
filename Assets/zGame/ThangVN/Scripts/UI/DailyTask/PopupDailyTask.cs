@@ -16,53 +16,66 @@ public class PopupDailyTask : Popup
     public List<DailyTask> listDailyTasks;
     public DailyTask dailyTaskPrefab;
     public Transform nHolderContent;
-    [SerializeField] DailyTaskSaved data;
-    [SerializeField] int currentPoint;
-    [SerializeField] TextMeshProUGUI txtCurrentPoint, txtTimeRemain;
-    [SerializeField] Image imgFillProgress;
-    [SerializeField] EasyButton btnClosePopup, btnInfo, btnReward1, btnReward2, btnReward3;
-    [SerializeField] GameObject Rewarded1, Rewarded2, Rewarded3, Locked1, Locked2, Locked3, Par1, Par2, Par3;
-    [SerializeField] Animator anim1, anim2, anim3;
+    [SerializeField] private DailyTaskSaved data;
+    [SerializeField] private int currentPoint;
+    [SerializeField] private TextMeshProUGUI txtCurrentPoint, txtTimeRemain;
+    [SerializeField] private Image imgFillProgress;
+    [SerializeField] private EasyButton btnInfo, btnClosePopup, btnReward1, btnReward2, btnReward3;
+
+    [SerializeField] GameObject Rewarded1,
+        Rewarded2,
+        Rewarded3,
+        Locked1,
+        Locked2,
+        Locked3,
+        Par1,
+        Par2,
+        Par3,
+        panelTut,
+        handImgTut;
+
+    [SerializeField] private Animator anim1, anim2, anim3;
+    [SerializeField] private RectTransform imgTutCircle;
 
     private void Awake()
     {
-        btnClosePopup.OnClick(Hide);
-        btnInfo.OnClick(PopupInfoDailyTask.Show);
+        btnInfo.OnClick(() =>
+        {
+            panelTut.SetActive(false);
+            handImgTut.SetActive(false);
+            PopupInfoDailyTask.Show();
+        });
         btnReward1.OnClick(() =>
         {
-            if (CanClaimReward1())
-            {
-                SaveGame.ClaimReward1 = true;
-                Par1.SetActive(false);
+            if (!CanClaimReward1()) return;
+            SaveGame.ClaimReward1 = true;
+            Par1.SetActive(false);
 
-                Rewarded1.SetActive(true);
-                PopupReward1.Show();
-            }
+            Rewarded1.SetActive(true);
+            PopupReward1.Show();
         });
 
         btnReward2.OnClick(() =>
         {
-            if (CanClaimReward2())
-            {
-                SaveGame.ClaimReward2 = true;
-                Par2.SetActive(false);
+            if (!CanClaimReward2()) return;
+            SaveGame.ClaimReward2 = true;
+            Par2.SetActive(false);
 
-                Rewarded2.SetActive(true);
-                PopupReward2.Show();
-            }
+            Rewarded2.SetActive(true);
+            PopupReward2.Show();
         });
 
         btnReward3.OnClick(() =>
         {
-            if (CanClaimReward3())
-            {
-                SaveGame.ClaimReward3 = true;
-                Par3.SetActive(false);
+            if (!CanClaimReward3()) return;
+            SaveGame.ClaimReward3 = true;
+            Par3.SetActive(false);
 
-                Rewarded3.SetActive(true);
-                PopupReward3.Show();
-            }
+            Rewarded3.SetActive(true);
+            PopupReward3.Show();
         });
+
+        btnClosePopup.OnClick(Hide);
     }
 
     public static async Task<bool> Show()
@@ -75,8 +88,6 @@ public class PopupDailyTask : Popup
     public override void Init()
     {
         // base.Init();
-        Debug.Log("3");
-
         transform.localScale = Vector3.one;
 
         ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, UpdateCountStar);
@@ -90,6 +101,26 @@ public class PopupDailyTask : Popup
         RefreshReward();
 
         CreateContent();
+
+        InitFirstTutorial();
+    }
+
+    private void InitFirstTutorial()
+    {
+        if (SaveGame.IsTutDailyTask) return;
+
+        SaveGame.IsTutDailyTask = true;
+        InitTutFocus(btnInfo.GetComponent<RectTransform>());
+    }
+
+    public void InitTutFocus(RectTransform rect)
+    {
+        imgTutCircle.sizeDelta = rect.sizeDelta;
+        imgTutCircle.position = rect.position;
+
+        handImgTut.GetComponent<RectTransform>().position = imgTutCircle.position;
+        panelTut.SetActive(true);
+        handImgTut.SetActive(true);
     }
 
     void RefreshPoint()
@@ -265,5 +296,10 @@ public class PopupDailyTask : Popup
         Debug.Log("Claim");
         Rewarded1.SetActive(true);
         SaveGame.ClaimReward1 = true;
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
     }
 }

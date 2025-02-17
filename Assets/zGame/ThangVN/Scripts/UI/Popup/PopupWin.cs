@@ -43,6 +43,8 @@ public class PopupWin : Popup
 
     private void Awake()
     {
+        ManagerEvent.RegEvent(EventCMD.EVENT_RECEIVE_REWARD, LoadSceneBonusLevel);
+
         btnContinue.OnClick(() =>
         {
             if (GameManager.ShowPopupBonus())
@@ -123,10 +125,18 @@ public class PopupWin : Popup
         // yield return new WaitForSeconds(10.5f);
         // yield return new WaitForSeconds(duration);
         yield return null;
+        ManagerEvent.ClearEvent();
         SceneManager.LoadScene(sceneName);
     }
 
-    void InitPile()
+    private void LoadSceneBonusLevel(object e)
+    {
+        string sceneName = e as string;
+        InitPile();
+        ReceiveReward(sceneName);
+    }
+
+    public void InitPile()
     {
         for (int i = 0; i < pileOfCoins.Count; i++)
         {

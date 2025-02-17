@@ -149,7 +149,7 @@ public class HomeUI : MonoBehaviour
         InitButtonInHome();
 
         InitDataClaimedFreecoin();
-        // Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
+        Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
     }
 
     private void Update()
@@ -255,7 +255,6 @@ public class HomeUI : MonoBehaviour
 
             if (!SaveGame.IsTutChallenges && SaveGame.Level >= GameConfig.LEVEL_CHALLENGES)
             {
-                Debug.Log("b");
                 bool b = await PopupEndless.Show();
             }
         }
@@ -270,11 +269,10 @@ public class HomeUI : MonoBehaviour
 
             if (!SaveGame.IsTutDailyTask)
             {
-                Debug.Log("c");
                 bool b = await PopupDailyTask.Show();
             }
         }
-
+        
         if (SaveGame.Level < GameConfig.LEVEL_FREE_COIN)
         {
             btnFreeCoin.gameObject.SetActive(false);
@@ -285,7 +283,6 @@ public class HomeUI : MonoBehaviour
 
             if (!SaveGame.IsTutFreeCoin || !SaveGame.ShowFreeCoin)
             {
-                Debug.Log("a");
                 bool b = await PopupFreeCoin.Show();
             }
         }
@@ -317,11 +314,11 @@ public class HomeUI : MonoBehaviour
 
             if (GameConfig.MAX_HEART >= SaveGame.Heart)
             {
-                // Debug.Log("Heart_Before:" + SaveGame.Heart);
+                Debug.Log("Heart_Before:" + SaveGame.Heart);
                 SaveGame.Heart += increaseHeart;
-                // Debug.Log("Heart_AfterAdd:" + SaveGame.Heart);
+                Debug.Log("Heart_AfterAdd:" + SaveGame.Heart);
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
-                // Debug.Log("Heart_After:" + SaveGame.Heart);
+                Debug.Log("Heart_After:" + SaveGame.Heart);
             }
 
             //Debug.Log("timeSinceLastLoss: " + timeSinceLastLoss);

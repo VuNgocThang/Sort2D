@@ -9,7 +9,7 @@ using TMPro;
 
 public class PopupEndless : Popup
 {
-    [SerializeField] private EasyButton btnContinue, btnClosePopup;
+    [SerializeField] EasyButton btnContinue, btnClosePopup;
     [SerializeField] TextMeshProUGUI txtBestScore;
     [SerializeField] GameObject imgGray, hand;
 
@@ -30,8 +30,6 @@ public class PopupEndless : Popup
     public override void Init()
     {
         // base.Init();
-        Debug.Log("2");
-
         transform.localScale = Vector3.one;
         txtBestScore.text = SaveGame.BestScore.ToString();
         if (SaveGame.Level >= 15)

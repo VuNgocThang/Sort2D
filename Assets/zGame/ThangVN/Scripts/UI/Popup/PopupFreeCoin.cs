@@ -50,13 +50,11 @@ public class PopupFreeCoin : Popup
     {
         PopupFreeCoin pop = await ManagerPopup.ShowPopup<PopupFreeCoin>();
         pop.Init();
-
         return true;
     }
 
     public override void Init()
     {
-        Debug.Log("1");
         // base.Init();
         transform.localScale = Vector3.one;
         RefreshData();
