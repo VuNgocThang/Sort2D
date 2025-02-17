@@ -3,6 +3,7 @@ using ntDev;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using BaseGame;
 using TMPro;
@@ -45,10 +46,11 @@ public class PopupFreeCoin : Popup
         btnClosePopup.OnClick(Hide);
     }
 
-    public static async void Show()
+    public static async Task<bool> Show()
     {
         PopupFreeCoin pop = await ManagerPopup.ShowPopup<PopupFreeCoin>();
         pop.Init();
+        return true;
     }
 
     public override void Init()

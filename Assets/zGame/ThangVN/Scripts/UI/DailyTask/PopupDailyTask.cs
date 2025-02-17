@@ -5,6 +5,7 @@ using ntDev;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Threading.Tasks;
 
 public class PopupDailyTask : Popup
 {
@@ -77,10 +78,11 @@ public class PopupDailyTask : Popup
         btnClosePopup.OnClick(Hide);
     }
 
-    public static async void Show()
+    public static async Task<bool> Show()
     {
         PopupDailyTask pop = await ManagerPopup.ShowPopup<PopupDailyTask>();
         pop.Init();
+        return true;
     }
 
     public override void Init()

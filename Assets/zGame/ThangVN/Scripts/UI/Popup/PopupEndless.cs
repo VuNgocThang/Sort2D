@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using ntDev;
 using UnityEngine.SceneManagement;
@@ -17,11 +18,13 @@ public class PopupEndless : Popup
         btnClosePopup.OnClick(Hide);
     }
 
-    public static async void Show()
+    public static async Task<bool> Show()
     {
         PopupEndless pop = await ManagerPopup.ShowPopup<PopupEndless>();
 
         pop.Init();
+
+        return true;
     }
 
     public override void Init()
