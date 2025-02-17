@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PopupEndChallenges : Popup
 {
-    [SerializeField] EasyButton btnHome;
+    [FormerlySerializedAs("btnHome")] [SerializeField]
+    EasyButton btnContinue;
+
     [SerializeField] TextMeshProUGUI txtCoin, txtColorPlate, txtScore;
     [SerializeField] GameObject imgBest;
 
@@ -15,11 +18,7 @@ public class PopupEndChallenges : Popup
 
     private void Awake()
     {
-        btnHome.OnClick(() =>
-        {
-            ManagerEvent.ClearEvent();
-            SceneManager.LoadScene("SceneHome");
-        });
+        btnContinue.OnClick(PopupRanking.Show);
     }
 
     public static async void Show()
@@ -45,5 +44,7 @@ public class PopupEndChallenges : Popup
         else imgBest.SetActive(false);
 
         txtScore.text = score.ToString();
+        SaveGame.CurrentScore = score;
+        // ManagerEvent.RaiseEvent(EventCMD.EVENT_SCORE_CHALLENGES, score);
     }
 }

@@ -30,14 +30,27 @@ public class PopupBonusLevel : Popup
         SaveGame.PlayBonus = true;
         if (DailyTaskManager.Instance != null)
             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.PlayBonusLevel, 1);
-        ManagerEvent.ClearEvent();
-        SceneManager.LoadScene("SceneGame");
+        
+        // ManagerEvent.ClearEvent();
+        // SceneManager.LoadScene("SceneGame");
+        Hide();
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_RECEIVE_REWARD, "SceneGame");
+
     }
 
     void MoveToHome()
     {
         SaveGame.PlayBonus = false;
-        ManagerEvent.ClearEvent();
-        SceneManager.LoadScene("SceneHome");
+        
+        // ManagerEvent.ClearEvent();
+        // SceneManager.LoadScene("SceneHome");
+        Hide();
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_RECEIVE_REWARD, "SceneHome");
+
+    }
+
+    public override void Hide()
+    {
+        base.Hide();
     }
 }

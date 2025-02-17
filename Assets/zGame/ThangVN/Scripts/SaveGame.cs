@@ -440,6 +440,23 @@ public static class SaveGame
             return pigment;
         }
     }
+    
+    const string CURRENTSCORE = "CURRENTSCORE";
+    static int currentScore = -1;
+
+    public static int CurrentScore
+    {
+        set
+        {
+            ES3.Save(CURRENTSCORE, value);
+            currentScore = value;
+        }
+        get
+        {
+            if (currentScore == -1) currentScore = ES3.Load(CURRENTSCORE, 0);
+            return currentScore;
+        }
+    }
 
     const string BESTSCORE = "BESTSCORE";
     static int bestScore = -1;

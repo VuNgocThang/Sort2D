@@ -245,20 +245,6 @@ public class HomeUI : MonoBehaviour
 
     async void InitButtonInHome()
     {
-        if (SaveGame.Level < GameConfig.LEVEL_FREE_COIN)
-        {
-            btnFreeCoin.gameObject.SetActive(false);
-        }
-        else
-        {
-            btnFreeCoin.gameObject.SetActive(true);
-
-            if (!SaveGame.IsTutFreeCoin || !SaveGame.ShowFreeCoin)
-            {
-                bool b = await PopupFreeCoin.Show();
-            }
-        }
-
         if (SaveGame.Level < 5)
         {
             btnChallenges.gameObject.SetActive(false);
@@ -284,6 +270,20 @@ public class HomeUI : MonoBehaviour
             if (!SaveGame.IsTutDailyTask)
             {
                 bool b = await PopupDailyTask.Show();
+            }
+        }
+        
+        if (SaveGame.Level < GameConfig.LEVEL_FREE_COIN)
+        {
+            btnFreeCoin.gameObject.SetActive(false);
+        }
+        else
+        {
+            btnFreeCoin.gameObject.SetActive(true);
+
+            if (!SaveGame.IsTutFreeCoin || !SaveGame.ShowFreeCoin)
+            {
+                bool b = await PopupFreeCoin.Show();
             }
         }
     }
