@@ -243,7 +243,7 @@ public class HomeUI : MonoBehaviour
         }
     }
 
-    void InitButtonInHome()
+    async void InitButtonInHome()
     {
         if (SaveGame.Level < GameConfig.LEVEL_FREE_COIN)
         {
@@ -255,11 +255,10 @@ public class HomeUI : MonoBehaviour
 
             if (!SaveGame.IsTutFreeCoin || !SaveGame.ShowFreeCoin)
             {
-               
-                PopupFreeCoin.Show();
+                bool b = await PopupFreeCoin.Show();
             }
         }
-        
+
         if (SaveGame.Level < 5)
         {
             btnChallenges.gameObject.SetActive(false);
@@ -270,7 +269,7 @@ public class HomeUI : MonoBehaviour
 
             if (!SaveGame.IsTutChallenges && SaveGame.Level >= GameConfig.LEVEL_CHALLENGES)
             {
-                PopupEndless.Show();
+                bool b = await PopupEndless.Show();
             }
         }
 
@@ -284,11 +283,9 @@ public class HomeUI : MonoBehaviour
 
             if (!SaveGame.IsTutDailyTask)
             {
-                PopupDailyTask.Show();
+                bool b = await PopupDailyTask.Show();
             }
         }
-
-       
     }
 
     void InitGrayDecor()
