@@ -11,14 +11,14 @@ using DG.Tweening;
 
 public class PopupWinMiniGame : Popup
 {
-    [SerializeField] EasyButton btnContinue, btnHome;
-    [SerializeField] SkeletonGraphic spineBox;
-    [SerializeField] Animator animShow;
-    [SerializeField] TextMeshProUGUI txtCoin, txtPigment;
-    [SerializeField] Reward rewardPrefab;
-    [SerializeField] Transform nReward;
+    [SerializeField] private EasyButton btnContinue, btnHome, btnClaimx2;
+    [SerializeField] private SkeletonGraphic spineBox;
+    [SerializeField] private Animator animShow;
+    [SerializeField] private TextMeshProUGUI txtCoin, txtPigment;
+    [SerializeField] private Reward rewardPrefab;
+    [SerializeField] private Transform nReward;
     [SerializeField] private List<Reward> listReward;
-    [SerializeField] CustomerMissionData customerMissionData;
+    [SerializeField] private CustomerMissionData customerMissionData;
 
     const string DROP = "drop";
     const string IDLE = "idle";
@@ -42,13 +42,20 @@ public class PopupWinMiniGame : Popup
     //
     int currentCoin;
     int currentBooster;
-    float duration = 1f;
+    public float duration = 1f;
+
+    public PopupWinMiniGame(EasyButton btnContinue)
+    {
+        this.btnContinue = btnContinue;
+    }
 
     private void Awake()
     {
-        btnContinue.OnClick(() => { PlayAgain(); });
+        btnContinue.OnClick(PlayAgain);
 
-        btnHome.OnClick(() => { Continue(); });
+        btnHome.OnClick(Continue);
+
+        btnClaimx2.OnClick(ClaimReward);
     }
 
     public static async void Show()
@@ -68,7 +75,7 @@ public class PopupWinMiniGame : Popup
         StartCoroutine(PlayAnimation());
     }
 
-    void InitReward()
+    private void InitReward()
     {
         List<DataReward> rewards = customerMissionData.listLevelBonus[SaveGame.LevelBonus - 10001].listRewards;
 
@@ -91,19 +98,19 @@ public class PopupWinMiniGame : Popup
         base.Hide();
     }
 
-    void PlayAgain()
+    private void PlayAgain()
     {
         animShow.enabled = false;
         ReceiveReward("SceneGame");
     }
 
-    void Continue()
+    private void Continue()
     {
         animShow.enabled = false;
         ReceiveReward("SceneHome");
     }
 
-    IEnumerator LoadScene(string sceneName)
+    private IEnumerator LoadScene(string sceneName)
     {
         // yield return new WaitForSeconds(duration);
         yield return null;
@@ -112,7 +119,7 @@ public class PopupWinMiniGame : Popup
         SceneManager.LoadScene(sceneName);
     }
 
-    IEnumerator PlayAnimation()
+    private IEnumerator PlayAnimation()
     {
         yield return new WaitForSeconds(0.5f);
         spineBox.gameObject.SetActive(true);
@@ -126,7 +133,7 @@ public class PopupWinMiniGame : Popup
             animShow.Play("Move");
     }
 
-    public void PlaySpine(string animationName, bool isLoop = false)
+    private void PlaySpine(string animationName, bool isLoop = false)
     {
         if (spineBox.AnimationState != null)
         {
@@ -135,7 +142,7 @@ public class PopupWinMiniGame : Popup
         }
     }
 
-    void InitPile()
+    private void InitPile()
     {
         for (int i = 0; i < pileOfCoins.Count; i++)
         {
@@ -167,7 +174,7 @@ public class PopupWinMiniGame : Popup
         }
     }
 
-    public void ReceiveReward(string sceneName)
+    private void ReceiveReward(string sceneName, bool isClaimx2 = false)
     {
         Reset();
         nPiles.SetActive(true);
@@ -180,6 +187,8 @@ public class PopupWinMiniGame : Popup
 
         var delaySpawn = 0f;
         float totalSpawnTime = (pileOfCoins.Count - 1) * 0.05f + 0.1f;
+
+        if (isClaimx2) countBooster *= 2;
         int maxCount = Mathf.Max(pileOfCoins.Count, countBooster);
 
         for (int i = 0; i < maxCount; i++)
@@ -249,11 +258,16 @@ public class PopupWinMiniGame : Popup
             }
         }
     }
+    private Coroutine tween;
 
-    public void UpdateMoney(int targetMoney)
+    private void UpdateMoney(int targetMoney)
     {
         ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
-        StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
+        if (tween != null)
+        {
+            StopCoroutine(tween);
+        }
+        tween = StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
     }
 
     private IEnumerator CountMoney(int start, int end, float duration)
@@ -270,5 +284,17 @@ public class PopupWinMiniGame : Popup
 
         currentCoin = end;
         txtCoin.text = currentCoin.ToString();
+    }
+
+    private void ClaimReward()
+    {
+        animShow.enabled = false;
+
+        for (int i = 0; i < listReward.Count; i++)
+        {
+            listReward[i].ShowReward(listReward[i].typeReward, listReward[i].count);
+        }
+
+        ReceiveReward("SceneGame");
     }
 }

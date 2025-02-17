@@ -32,8 +32,11 @@ public class PopupRanking : Popup
 
     private readonly string[] randomNames =
     {
-        "Alex", "Jordan", "Sam", "Taylor", "Chris", "Morgan", "Pat", "Jamie", "Riley", "Quinn", "Riven", "Yasuo",
-        "Thresh", "Cait"
+        "Sophia", "Ethan", "Maya", "Liam", "Olivia", "Noah", "Isabella", "Aiden", "Emily", "Lucas", "Aria", "Ben",
+        "Charlotte", "Eli", "Amelia", "Seb", "Chloe", "Alex", "Zoe", "Dan", "Peter", "Niny", "Sue", "Keren", "LunaGlow",
+        "BellaBliss", "StarrySky", "JadeGem", "KiraShine", "LivySpark", "ZoeStarlight", "MilaVibes", "NovaBloom",
+        "IvyAura", "RubyHeart", "EllaDreams", "SkyQueen", "LeoFlare", "NiaGlow", "AvaLuxe", "FinnWave", "JaxOrbit",
+        "TheoBeam", "LilaMoon", "EdenRose", "IslaSparkle", "ReyChic", "SageStar", "VeraBloom", "WrenWaves"
     };
 
     private void Awake()
@@ -58,8 +61,7 @@ public class PopupRanking : Popup
     private void GenerateLeaderBoard(string playerName, int playerScore)
     {
         leaderBoard.Clear();
-        int rankingPlayer = 1;
-        // int rankingPlayer = Random.Range(1, randomNames.Length);
+        int rankingPlayer = Random.Range(1, randomNames.Length);
 
         for (int i = 0; i < randomNames.Length; i++)
         {

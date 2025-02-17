@@ -252,13 +252,19 @@ public class PopupWin : Popup
         }
     }
 
-    public void UpdateMoney(int targetMoney)
+    private Coroutine tween;
+
+    private void UpdateMoney(int targetMoney)
     {
         ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
-        StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
+        if (tween != null)
+        {
+            StopCoroutine(tween);
+        }
+        tween = StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
     }
 
-    public void UpdatePigment(int targetPigment)
+    private void UpdatePigment(int targetPigment)
     {
         ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimPigment);
 

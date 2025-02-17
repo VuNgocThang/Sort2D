@@ -70,7 +70,7 @@ public static class SaveGame
         get
         {
             // change to 0
-            if (isDoneTutorialDecor == -1) isDoneTutorialDecor = ES3.Load(ISDONETUTORIALDECOR, 1);
+            if (isDoneTutorialDecor == -1) isDoneTutorialDecor = ES3.Load(ISDONETUTORIALDECOR, 0);
             return isDoneTutorialDecor == 1;
         }
     }
@@ -246,7 +246,7 @@ public static class SaveGame
             return isTutFreeCoin == 1;
         }
     }
-    
+
     const string ISTUTCHALLENGES = "ISTUTCHALLENGES";
     static int isTutChallenges = -1;
 
@@ -263,7 +263,7 @@ public static class SaveGame
             return isTutChallenges == 1;
         }
     }
-    
+
     const string ISTUTDAILYTASK = "ISTUTDAILYTASK";
     static int isTutDailyTask = -1;
 
@@ -441,7 +441,7 @@ public static class SaveGame
             return pigment;
         }
     }
-    
+
     const string CURRENTSCORE = "CURRENTSCORE";
     static int currentScore = -1;
 
@@ -475,7 +475,7 @@ public static class SaveGame
             return bestScore;
         }
     }
-    
+
     const string PLAYBONUS = "PLAYBONUS";
     static int playBonus = -1;
 
@@ -713,7 +713,7 @@ public static class SaveGame
         get
         {
             // change to 1
-            if (firstDecor == -1) firstDecor = ES3.Load(FIRSTDECOR, 0);
+            if (firstDecor == -1) firstDecor = ES3.Load(FIRSTDECOR, 1);
             return firstDecor == 1;
         }
     }
@@ -902,7 +902,7 @@ public static class SaveGame
             return claimReward3 == 1;
         }
     }
-    
+
     const string SHOWFREECOIN = "SHOWFREECOIN";
     static int showFreeCoin = -1;
 

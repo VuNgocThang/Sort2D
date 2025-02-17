@@ -86,6 +86,7 @@ namespace ntDev
         EVENT_CLAIM_REWARD_BOOK,
         EVENT_RECEIVE_REWARD,
         EVENT_SCORE_CHALLENGES,
+        EVENT_RATE_US,
     }
 
     public static class ManagerEvent

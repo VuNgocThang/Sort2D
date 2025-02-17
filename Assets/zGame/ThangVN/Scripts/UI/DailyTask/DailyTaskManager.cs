@@ -10,7 +10,6 @@ public class DailyTaskManager : MonoBehaviour
 
     private void Awake()
     {
-
         if (Instance == null)
             Instance = this;
 
@@ -26,11 +25,11 @@ public class DailyTaskManager : MonoBehaviour
     private void Start()
     {
         // ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
-    
-         Init();
+
+        Init();
     }
 
-    public void Init()
+    private void Init()
     {
         dataSaved.listTaskSaved = dailyTaskData.listTasks;
         dataSaved.currentPoint = dailyTaskData.currentPoint;
@@ -47,22 +46,10 @@ public class DailyTaskManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            //dataSaved.currentPoint = 10000;
-            ManagerEvent.RaiseEvent(EventCMD.EVENT_DAILYTASK, (int)10);
-            SaveData();
-        }
-    }
-
     public void ExecuteDailyTask(TaskType taskType, int amount)
     {
         TaskData taskData = dataSaved.listTaskSaved.Find(x => x.taskType == taskType);
-
         if (taskData == null) return;
-
         taskData.taskGoal.currentProgress += amount;
         SaveData();
     }
@@ -81,15 +68,13 @@ public class DailyTaskManager : MonoBehaviour
         {
             listTaskSaved = dataSaved.listTaskSaved,
             currentPoint = dataSaved.currentPoint
-
         }, true);
 
         PlayerPrefs.SetString(GameConfig.TASK_DATA, json);
         PlayerPrefs.Save();
-
     }
 
-    public void LoadData()
+    private void LoadData()
     {
         string json = PlayerPrefs.GetString(GameConfig.TASK_DATA, "");
 
@@ -100,21 +85,9 @@ public class DailyTaskManager : MonoBehaviour
             DailyTaskSaved dailyTaskSaved = JsonUtility.FromJson<DailyTaskSaved>(json);
             dataSaved = dailyTaskSaved;
         }
-
     }
 
-    void Test()
-    {
-        for (int i = 0; i < dataSaved.listTaskSaved.Count; i++)
-        {
-            if (dataSaved.listTaskSaved[i].taskGoal.IsCompleted())
-            {
-                Debug.Log("dataSaved.listTaskSaved[i]: " + dataSaved.listTaskSaved[i].taskType);
-            }
-        }
-    }
-
-    void RefreshData()
+    private void RefreshData()
     {
         for (int i = 0; i < dataSaved.listTaskSaved.Count; i++)
         {
@@ -134,7 +107,7 @@ public class DailyTaskManager : MonoBehaviour
         SaveGame.ClaimReward3 = false;
     }
 
-    void CheckNewDay()
+    private void CheckNewDay()
     {
         if (SaveGame.NewDay != DateTime.Now.DayOfYear)
         {
@@ -143,7 +116,7 @@ public class DailyTaskManager : MonoBehaviour
         }
     }
 
-    public bool NotYetClaimedAllReward()
+    private bool NotYetClaimedAllReward()
     {
         bool isNotClaimedAllReward = false;
 
@@ -164,7 +137,7 @@ public class DailyTaskManager : MonoBehaviour
         return isNotClaimedAllReward;
     }
 
-    public bool HasMissionDone()
+    private bool HasMissionDone()
     {
         bool hasMissionDone = false;
 

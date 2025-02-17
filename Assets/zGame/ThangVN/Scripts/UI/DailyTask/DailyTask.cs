@@ -32,8 +32,7 @@ public class DailyTask : MonoBehaviour
         btnGo.OnClick(() =>
         {
             SaveGame.PlayBonus = false;
-            ManagerEvent.ClearEvent();
-            SceneManager.LoadScene("SceneGame");
+            MoveToMissionDailyTask(taskType);
         });
     }
 
@@ -85,5 +84,37 @@ public class DailyTask : MonoBehaviour
         taskData.isClaimed = isClaimed;
 
         DailyTaskManager.Instance.SaveData();
+    }
+
+    void MoveToMissionDailyTask(TaskType taskType)
+    {
+        switch (taskType)
+        {
+            case TaskType.CollectFreeCoins:
+                PopupFreeCoin.Show();
+                break;
+            case TaskType.DecorateBook:
+                ManagerPopup.HidePopup<PopupDailyTask>();
+                PopupDecor.Show();
+                break;
+            case TaskType.PlayChallenges:
+                if (SaveGame.Level >= 15)
+                {
+                    ManagerEvent.ClearEvent();
+                    SaveGame.Challenges = true;
+                    SceneManager.LoadScene("SceneGame");
+                }
+                else
+                {
+                    ManagerEvent.ClearEvent();
+                    SaveGame.Challenges = false;
+                    SceneManager.LoadScene("SceneGame");  
+                }
+                break;
+            default:
+                ManagerEvent.ClearEvent();
+                SceneManager.LoadScene("SceneGame");
+                break;
+        }
     }
 }
