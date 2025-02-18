@@ -26,6 +26,7 @@ public class PopupDecorateBook : Popup
         imgChooseBg,
         imgNotChooseBg,
         nCurrentProgress,
+        nParticleNewBook,
         nBot;
 
     [SerializeField] public ItemDraggable currentItemDrag;
@@ -594,6 +595,9 @@ public class PopupDecorateBook : Popup
         //txtCurrentProgress.text = $"Progress: {current * 100}%";
 
         nBot.SetActive(false);
+        nParticleNewBook.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
 
         nColorChangeParent.transform.DOScale(new Vector3(1.15f, 1.15f, 1.15f), 0.5f);
 
@@ -616,6 +620,7 @@ public class PopupDecorateBook : Popup
 
         txtCurrentProgress.text = $"Progress: {targetProgress * 100}%";
         yield return new WaitForSeconds(1f);
+        nParticleNewBook.SetActive(false);
 
         if (current == 1)
         {

@@ -26,10 +26,10 @@ public class DailyTaskManager : MonoBehaviour
     {
         // ManagerEvent.RegEvent(EventCMD.EVENT_DAILYTASK, SaveCurrentStar);
 
-        Init();
+        // Init();
     }
 
-    private void Init()
+    public void Init()
     {
         dataSaved.listTaskSaved = dailyTaskData.listTasks;
         dataSaved.currentPoint = dailyTaskData.currentPoint;
@@ -126,13 +126,6 @@ public class DailyTaskManager : MonoBehaviour
             return true;
         if (dataSaved.currentPoint >= 120f && !SaveGame.ClaimReward3)
             return true;
-
-        //if (dataSaved.currentPoint >= 30f)
-        //{
-        //    if (SaveGame.ClaimReward1 && SaveGame.ClaimReward2 && SaveGame.ClaimReward3) return false;
-        //}
-        //else
-        //    return false;
 
         return isNotClaimedAllReward;
     }

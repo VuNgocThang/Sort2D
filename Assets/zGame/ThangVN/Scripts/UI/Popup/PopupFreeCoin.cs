@@ -57,7 +57,9 @@ public class PopupFreeCoin : Popup
     {
         // base.Init();
         transform.localScale = Vector3.one;
-        RefreshData();
+        txtGold.text = SaveGame.Coin.ToString();
+
+        // RefreshData();
         InitClaim50();
         InitListItemFreeCoin();
         InitFirstTutorial();
@@ -147,19 +149,18 @@ public class PopupFreeCoin : Popup
 
     private void RefreshData()
     {
-        txtGold.text = SaveGame.Coin.ToString();
 
-        if (SaveGame.NewDayFreeCoin == DateTime.Now.DayOfYear) return;
-
-        SaveGame.ShowFreeCoin = false;
-
-        SaveGame.NewDayFreeCoin = DateTime.Now.DayOfYear;
-        SaveGame.DataFreeCoin.listDataFreeCoin.Clear();
-        SaveGame.DataFreeCoin.currentIndex = 0;
-        SaveGame.DataFreeCoin.isClaimed50 = false;
-
-        SaveGame.DataFreeCoin = SaveGame.DataFreeCoin;
-        ManagerEvent.RaiseEvent(EventCMD.EVENT_FREECOIN);
+        // if (SaveGame.NewDayFreeCoin == DateTime.Now.DayOfYear) return;
+        //
+        // SaveGame.ShowFreeCoin = false;
+        //
+        // SaveGame.NewDayFreeCoin = DateTime.Now.DayOfYear;
+        // SaveGame.DataFreeCoin.listDataFreeCoin.Clear();
+        // SaveGame.DataFreeCoin.currentIndex = 0;
+        // SaveGame.DataFreeCoin.isClaimed50 = false;
+        //
+        // SaveGame.DataFreeCoin = SaveGame.DataFreeCoin;
+        // ManagerEvent.RaiseEvent(EventCMD.EVENT_FREECOIN);
     }
 
     public void Reset()

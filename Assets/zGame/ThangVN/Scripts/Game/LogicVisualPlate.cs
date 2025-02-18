@@ -21,6 +21,9 @@ public class LogicVisualPlate : MonoBehaviour
     public List<GameObject> listForzen;
     public GameObject existed;
     public GameObject ads;
+    public GameObject wood;
+    public List<GameObject> listBags;
+    public GameObject poison;
 
 
     //public Animator animLockCoin;
@@ -43,12 +46,14 @@ public class LogicVisualPlate : MonoBehaviour
             //hightlight.SetActive(false);
         }
     }
+
     public void PlayHighLight()
     {
         normal.SetActive(false);
         //target.SetActive(false);
         //hightlight.SetActive(true);
     }
+
     public void PlayTarget()
     {
         arrow.SetActive(false);
@@ -84,16 +89,12 @@ public class LogicVisualPlate : MonoBehaviour
         arrowCannotClick.SetActive(false);
 
         arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
-            .OnComplete(() =>
-            {
-                arrowClick.transform.localScale = Vector3.one;
-            });
+            .OnComplete(() => { arrowClick.transform.localScale = Vector3.one; });
         yield return new WaitForSeconds(0.15f);
 
         arrow.SetActive(true);
         arrowClick.SetActive(false);
         arrowCannotClick.SetActive(false);
-
     }
 
     public void SetDirectionArrow(Status stt, bool isLocked)
@@ -221,13 +222,19 @@ public class LogicVisualPlate : MonoBehaviour
         arrow.SetActive(false);
         lockCoin.SetActive(false);
         existed.SetActive(false);
-        for (int i = 0; i < listForzen.Count; i++)
+        foreach (var t in listForzen)
         {
-            listForzen[i].SetActive(false);
+            t.SetActive(false);
         }
 
         cannotPlace.SetActive(false);
         ads.SetActive(false);
+        wood.SetActive(false);
+        poison.SetActive(false);
+        foreach (var t in listBags)
+        {
+            t.SetActive(false);
+        }
     }
 
     public void Refresh()
@@ -244,6 +251,7 @@ public class LogicVisualPlate : MonoBehaviour
         cannotPlace.SetActive(false);
         ads.SetActive(false);
     }
+
     public void SetExistedPlate()
     {
         normal.SetActive(true);
@@ -254,12 +262,14 @@ public class LogicVisualPlate : MonoBehaviour
 
         existed.transform.localPosition = new Vector3(0, 0.5f, 0);
     }
+
     public void SetPlateArrow()
     {
         normal.SetActive(false);
 
         arrow.SetActive(true);
     }
+
     public void SetLockCoin()
     {
         normal.SetActive(false);
@@ -325,7 +335,6 @@ public class LogicVisualPlate : MonoBehaviour
             int layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
 
             listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
-
         }
 
         if (countFrozen == 2)

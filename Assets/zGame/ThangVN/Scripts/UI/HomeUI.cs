@@ -23,7 +23,8 @@ public class HomeUI : MonoBehaviour
         btnDailyTask,
         btnShop,
         btnCloseShop,
-        btnNoAdsBundle;
+        btnNoAdsBundle,
+        btnCoin;
 
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
@@ -43,6 +44,7 @@ public class HomeUI : MonoBehaviour
     public Animator animator;
     public List<Sprite> listSprite;
     public Image bg, imgProgressTask;
+    [SerializeField] private PopupShop popupShop;
     [SerializeField] DataConfigDecor bookDataConfig;
     [SerializeField] ListBookDecorated listBook;
     [SerializeField] DataClaimedFreecoin dataFreeCoinClaimed;
@@ -131,12 +133,20 @@ public class HomeUI : MonoBehaviour
         });
 
         btnNoAdsBundle.OnClick(() => { PopupNoAdsBundle.Show(); });
+        
+        btnCoin.OnClick(() =>
+        {
+            nParent.SetActive(false);
+            nPanelShop.SetActive(true);
+            popupShop.MoveToCoin();
+        });
     }
 
     private void Start()
     {
         Application.targetFrameRate = 60;
-        // DailyTaskManager.Instance.Init();
+        DailyTaskManager.Instance.Init();
+        FreeCoinManager.Instance.Init();
         int randomBG = UnityEngine.Random.Range(0, 2);
         bg.sprite = listSprite[randomBG];
 
@@ -160,7 +170,6 @@ public class HomeUI : MonoBehaviour
         InitDataClaimedFreecoin();
 
         CheckNoticeChallenge();
-        Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
     }
 
     private void Update()
@@ -179,26 +188,26 @@ public class HomeUI : MonoBehaviour
         else nNoticeFreecoin.SetActive(true);
 
         bool checkDailyTask = CheckNoticeDailyTask();
-        if (checkDailyTask) nNoticeDailyTask.SetActive(true);
-        else nNoticeDailyTask.SetActive(false);
+        nNoticeDailyTask.SetActive(checkDailyTask);
 
-        if (CheckTaskDecor()) nNoticeTask.SetActive(true);
-        else nNoticeTask.SetActive(false);
+        bool checkDecor = CheckTaskDecor();
+        nNoticeTask.SetActive(checkDecor);
+      
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            PopupReward1.Show();
-        }
-
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            PopupReward2.Show();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PopupReward3.Show();
-        }
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     PopupReward1.Show();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.W))
+        // {
+        //     PopupReward2.Show();
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     PopupReward3.Show();
+        // }
     }
 
     private void CalculateTask()
@@ -254,7 +263,7 @@ public class HomeUI : MonoBehaviour
         }
     }
 
-    async void InitButtonInHome()
+    private async void InitButtonInHome()
     {
         if (SaveGame.Level < 5)
         {
@@ -299,7 +308,7 @@ public class HomeUI : MonoBehaviour
         }
     }
 
-    void InitGrayDecor()
+    private void InitGrayDecor()
     {
         if (SaveGame.Level < 2)
             imgGrayDecor.SetActive(true);
@@ -396,7 +405,7 @@ public class HomeUI : MonoBehaviour
 
     #region Notice Freecoins
 
-    void InitDataClaimedFreecoin()
+    private void InitDataClaimedFreecoin()
     {
         dataFreeCoinClaimed = SaveGame.DataFreeCoin;
     }

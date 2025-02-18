@@ -82,6 +82,7 @@ public class PopupDailyTask : Popup
     {
         PopupDailyTask pop = await ManagerPopup.ShowPopup<PopupDailyTask>();
         pop.Init();
+        DailyTaskManager.Instance.IsNewDay = false;
         return true;
     }
 
