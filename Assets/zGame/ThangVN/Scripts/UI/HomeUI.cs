@@ -318,9 +318,9 @@ public class HomeUI : MonoBehaviour
             float timeSinceLastLoss =
                 (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
 
-            int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
+            int increaseHeart = (int)(Mathf.Abs(timeSinceLastLoss) / GameConfig.TIME_COUNT_DOWN);
 
-            float timeSub = timeSinceLastLoss % GameConfig.TIME_COUNT_DOWN;
+            float timeSub = Mathf.Abs(timeSinceLastLoss) % GameConfig.TIME_COUNT_DOWN;
 
 
             if (GameConfig.MAX_HEART >= SaveGame.Heart)

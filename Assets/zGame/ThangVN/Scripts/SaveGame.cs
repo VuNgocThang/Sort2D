@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class SaveGame
 {
@@ -772,7 +773,7 @@ public static class SaveGame
             return lastHeartLoss;
         }
     }
-    
+
     const string ISFIRSTCHALLENGES = "ISFIRSTCHALLENGES";
     static int isFirstChallenges = -1;
 

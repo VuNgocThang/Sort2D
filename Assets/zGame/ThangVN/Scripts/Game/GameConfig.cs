@@ -64,6 +64,8 @@ public static class GameConfig
     public static int OFFSET_LAYER = 10;
 
     public static int MAX_LEVEL = 49;
+    
+    public static int LOOP_START_LEVEL = 17;
 
     public static int MAX_LEVEL_BONUS = 10011;
 

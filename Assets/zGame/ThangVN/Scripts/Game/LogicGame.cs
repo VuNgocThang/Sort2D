@@ -196,7 +196,20 @@ public class LogicGame : MonoBehaviour
         countDiff = 3;
 
         if (GameManager.IsNormalGame())
-            dataLevel = await DataLevel.GetData(SaveGame.Level);
+        {
+            int indexLevelNormal = 0;
+            if (SaveGame.Level > GameConfig.MAX_LEVEL)
+            {
+                indexLevelNormal = (SaveGame.Level % GameConfig.MAX_LEVEL) + GameConfig.LOOP_START_LEVEL;
+            }
+            else
+            {
+                indexLevelNormal = SaveGame.Level;
+            }
+
+            // dataLevel = await DataLevel.GetData(SaveGame.Level);
+            dataLevel = await DataLevel.GetData(indexLevelNormal);
+        }
         else if (GameManager.IsBonusGame())
             dataLevel = await DataLevel.GetData(SaveGame.LevelBonus);
         else if (GameManager.IsChallengesGame())
@@ -310,8 +323,20 @@ public class LogicGame : MonoBehaviour
         {
             //Debug.Log("Level: " + SaveGame.Level);
             //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.Level}").ToString();
+            
+            int indexLevelNormal = 0;
+            if (SaveGame.Level > GameConfig.MAX_LEVEL)
+            {
+                indexLevelNormal = (SaveGame.Level % GameConfig.MAX_LEVEL) + GameConfig.LOOP_START_LEVEL;
+            }
+            else
+            {
+                indexLevelNormal = SaveGame.Level;
+            }
 
-            var ta = await ManagerAsset.LoadAssetAsync<TextAsset>($"Level_{SaveGame.Level}");
+
+            // var ta = await ManagerAsset.LoadAssetAsync<TextAsset>($"Level_{SaveGame.Level}");
+            var ta = await ManagerAsset.LoadAssetAsync<TextAsset>($"Level_{indexLevelNormal}");
             filePath = ta.text;
         }
         else if (GameManager.IsChallengesGame())
@@ -1522,12 +1547,12 @@ public class LogicGame : MonoBehaviour
 
         if (GameManager.IsNormalGame())
         {
-            if (SaveGame.Level < GameConfig.MAX_LEVEL)
-            {
-                if (DailyTaskManager.Instance != null)
-                    DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CompleteLevel, 1);
-                SaveGame.Level++;
-            }
+            // if (SaveGame.Level < GameConfig.MAX_LEVEL)
+            // {
+            if (DailyTaskManager.Instance != null)
+                DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CompleteLevel, 1);
+            SaveGame.Level++;
+            //}
 
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
