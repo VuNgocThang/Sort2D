@@ -153,6 +153,6 @@ public class DailyTaskManager : MonoBehaviour
 
     public bool CheckNotice()
     {
-        return (NotYetClaimedAllReward() || HasMissionDone());
+        return (NotYetClaimedAllReward() || HasMissionDone() || IsNewDay);
     }
 }

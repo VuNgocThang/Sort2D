@@ -37,6 +37,7 @@ public class HomeUI : MonoBehaviour
         nNoticeFreecoin,
         nNoticeDailyTask,
         nNoticeTask,
+        nNoticeChallenges,
         imgGrayDecor;
 
     public Animator animator;
@@ -62,7 +63,15 @@ public class HomeUI : MonoBehaviour
 
         btnFreeCoin.OnClick(() => PopupFreeCoin.Show());
 
-        btnChallenges.OnClick(() => PopupEndless.Show());
+        btnChallenges.OnClick(() =>
+        {
+            PopupEndless.Show();
+            if (!SaveGame.IsFirstChallenges)
+            {
+                SaveGame.IsFirstChallenges = true;
+                nNoticeChallenges.SetActive(false);
+            }
+        });
 
         btnDecor.OnClick(() =>
         {
@@ -149,6 +158,8 @@ public class HomeUI : MonoBehaviour
         InitButtonInHome();
 
         InitDataClaimedFreecoin();
+
+        CheckNoticeChallenge();
         Debug.Log("BonusLevel: " + SaveGame.LevelBonus);
     }
 
@@ -272,7 +283,7 @@ public class HomeUI : MonoBehaviour
                 bool b = await PopupDailyTask.Show();
             }
         }
-        
+
         if (SaveGame.Level < GameConfig.LEVEL_FREE_COIN)
         {
             btnFreeCoin.gameObject.SetActive(false);
@@ -461,6 +472,14 @@ public class HomeUI : MonoBehaviour
 
     #endregion
 
+    #region Notice Challenges
+
+    void CheckNoticeChallenge()
+    {
+        nNoticeChallenges.SetActive(!SaveGame.IsFirstChallenges);
+    }
+
+    #endregion
 
     public bool IsComingSoon()
     {

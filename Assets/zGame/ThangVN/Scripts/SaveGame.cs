@@ -772,6 +772,23 @@ public static class SaveGame
             return lastHeartLoss;
         }
     }
+    
+    const string ISFIRSTCHALLENGES = "ISFIRSTCHALLENGES";
+    static int isFirstChallenges = -1;
+
+    public static bool IsFirstChallenges
+    {
+        set
+        {
+            ES3.Save(ISFIRSTCHALLENGES, value ? 1 : 0);
+            isFirstChallenges = value ? 1 : 0;
+        }
+        get
+        {
+            if (isFirstChallenges == -1) isFirstChallenges = ES3.Load(ISFIRSTCHALLENGES, 0);
+            return isFirstChallenges == 1;
+        }
+    }
 
 
     const string CANSHOW = "CANSHOW";

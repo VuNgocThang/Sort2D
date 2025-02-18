@@ -1513,7 +1513,7 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-    void CheckWin()
+    private void CheckWin()
     {
         isWin = true;
         SaveGame.IsShowBook = false;
