@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using ntDev;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PopupBonusLevel : Popup
+public class PopupBonusLevelHome : Popup
 {
     [SerializeField] EasyButton btnHelp, btnNo;
 
@@ -16,7 +16,7 @@ public class PopupBonusLevel : Popup
 
     public static async void Show()
     {
-        PopupBonusLevel pop = await ManagerPopup.ShowPopup<PopupBonusLevel>();
+        PopupBonusLevelHome pop = await ManagerPopup.ShowPopup<PopupBonusLevelHome>();
         pop.Init();
     }
 
@@ -31,20 +31,16 @@ public class PopupBonusLevel : Popup
         if (DailyTaskManager.Instance != null)
             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.PlayBonusLevel, 1);
 
-        // ManagerEvent.ClearEvent();
-        // SceneManager.LoadScene("SceneGame");
-        Hide();
-        ManagerEvent.RaiseEvent(EventCMD.EVENT_RECEIVE_REWARD, "SceneGame");
+        ManagerEvent.ClearEvent();
+        SceneManager.LoadScene("SceneGame");
     }
 
     void MoveToHome()
     {
         SaveGame.PlayBonus = false;
 
-        // ManagerEvent.ClearEvent();
-        // SceneManager.LoadScene("SceneHome");
-        Hide();
-        ManagerEvent.RaiseEvent(EventCMD.EVENT_RECEIVE_REWARD, "SceneHome");
+        ManagerEvent.ClearEvent();
+        SceneManager.LoadScene("SceneGame");
     }
 
     public override void Hide()

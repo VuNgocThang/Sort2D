@@ -105,7 +105,7 @@ public class HomeUI : MonoBehaviour
             {
                 SaveGame.Challenges = false;
                 if (SaveGame.PlayBonus)
-                    PopupBonusLevel.Show();
+                    PopupBonusLevelHome.Show();
                 else
                 {
                     ManagerEvent.ClearEvent();

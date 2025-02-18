@@ -4587,7 +4587,7 @@ PrefabInstance:
     - target: {fileID: 5028630547688438957, guid: df17fd38ab7a5834e8e26e186f0a2fc8,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5028630547688438957, guid: df17fd38ab7a5834e8e26e186f0a2fc8,
         type: 3}
@@ -4607,7 +4607,7 @@ PrefabInstance:
     - target: {fileID: 6022803446889232574, guid: df17fd38ab7a5834e8e26e186f0a2fc8,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6022803446889232574, guid: df17fd38ab7a5834e8e26e186f0a2fc8,
         type: 3}
@@ -4705,6 +4705,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4058159706050043845}
     m_Modifications:
+    - target: {fileID: 667199475463789902, guid: 186ef8305bd093742b294f0cdaf314e6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 667199475463789902, guid: 186ef8305bd093742b294f0cdaf314e6,
         type: 3}
       propertyPath: m_SortingLayer

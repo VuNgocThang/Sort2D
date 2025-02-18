@@ -171,6 +171,12 @@ public class LogicVisualPlate : MonoBehaviour
             case Status.Ads:
                 SetAds();
                 break;
+            case Status.Wood:
+                SetWood();
+                break;
+            case Status.Poison:
+                SetPoison();
+                break;
             default:
                 return;
         }
@@ -239,27 +245,15 @@ public class LogicVisualPlate : MonoBehaviour
 
     public void Refresh()
     {
+        DeletePlate();
         normal.SetActive(true);
-        arrow.SetActive(false);
-        lockCoin.SetActive(false);
-        existed.SetActive(false);
-        for (int i = 0; i < listForzen.Count; i++)
-        {
-            listForzen[i].SetActive(false);
-        }
-
-        cannotPlace.SetActive(false);
-        ads.SetActive(false);
     }
 
     public void SetExistedPlate()
     {
+        DeletePlate();
         normal.SetActive(true);
         existed.SetActive(true);
-        cannotPlace.SetActive(false);
-        lockCoin.SetActive(false);
-        ads.SetActive(false);
-
         existed.transform.localPosition = new Vector3(0, 0.5f, 0);
     }
 
@@ -272,68 +266,38 @@ public class LogicVisualPlate : MonoBehaviour
 
     public void SetLockCoin()
     {
-        normal.SetActive(false);
-        arrow.SetActive(false);
-        cannotPlace.SetActive(false);
-        existed.SetActive(false);
-        ads.SetActive(false);
-
-        for (int i = 0; i < listForzen.Count; i++)
-        {
-            listForzen[i].SetActive(false);
-        }
-
+        DeletePlate();
         lockCoin.SetActive(true);
     }
 
 
     public void SetCannotPlace()
     {
-        normal.SetActive(false);
-        arrow.SetActive(false);
-        lockCoin.SetActive(false);
-        existed.SetActive(false);
-        ads.SetActive(false);
-
-        for (int i = 0; i < listForzen.Count; i++)
-        {
-            listForzen[i].SetActive(false);
-        }
-
+        DeletePlate();
         cannotPlace.SetActive(true);
     }
 
     public void SetFrozenVisual(int RowOffset)
     {
+        DeletePlate();
         normal.SetActive(true);
-        cannotPlace.SetActive(false);
-        lockCoin.SetActive(false);
-        ads.SetActive(false);
-
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
-            //Debug.Log((7 - RowOffset) * 10 - 5);
-            //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
-            int layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
-
+            var layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
             listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
         }
     }
 
-    public void SetFrozen(int countFrozen, int RowOffset)
+    private void SetFrozen(int countFrozen, int RowOffset)
     {
+        DeletePlate();
         normal.SetActive(true);
-        cannotPlace.SetActive(false);
-        lockCoin.SetActive(false);
-        ads.SetActive(false);
 
         for (int i = 0; i < listForzen.Count; i++)
         {
             listForzen[i].SetActive(true);
-            //listForzen[i].transform.localPosition = new Vector3(0, 0.2f, -(7 - RowOffset) * 10 - 5);
-            int layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
-
+            var layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
             listForzen[i].GetComponent<SpriteRenderer>().sortingOrder = layer;
         }
 
@@ -350,17 +314,32 @@ public class LogicVisualPlate : MonoBehaviour
 
     public void SetAds()
     {
-        normal.SetActive(false);
-        arrow.SetActive(false);
-        cannotPlace.SetActive(false);
-        lockCoin.SetActive(false);
-
-        for (int i = 0; i < listForzen.Count; i++)
-        {
-            listForzen[i].SetActive(false);
-        }
-
+        DeletePlate();
         ads.SetActive(true);
+    }
+
+    public void SetWood()
+    {
+        DeletePlate();
+        wood.SetActive(true);
+    }
+
+    public void SetPoison()
+    {
+        DeletePlate();
+        poison.SetActive(true);
+    }
+
+    public void SetBag(int typeBag)
+    {
+        DeletePlate();
+        for (int i = 0; i < listBags.Count; i++)
+        {
+            if (i == typeBag)
+            {
+                listBags[i].SetActive(true);
+            }
+        }
     }
 
     public void SetTutLockCoin()

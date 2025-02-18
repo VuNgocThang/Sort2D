@@ -517,9 +517,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3046224681861188621}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 96980111c305a9643a063e13411bc0d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3a5c51791f204fc4a9694f5be6744230, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -596,6 +596,7 @@ MonoBehaviour:
   btnClose: []
   btnPlayAgain: {fileID: 1405354322501181144}
   btnContinue: {fileID: 7535062070684966388}
+  anim: {fileID: 6528112467265506817}
 --- !u!95 &6528112467265506817
 Animator:
   serializedVersion: 5

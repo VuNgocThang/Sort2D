@@ -8,18 +8,13 @@ using UnityEngine.SceneManagement;
 public class PopupLoseMiniGame : Popup
 {
     [SerializeField] EasyButton btnPlayAgain, btnContinue;
+    [SerializeField] private Animator anim;
 
     private void Awake()
     {
-        btnPlayAgain.OnClick(() =>
-        {
-            PlayAgain();
-        });
+        btnPlayAgain.OnClick(() => { PlayAgain(); });
 
-        btnContinue.OnClick(() =>
-        {
-            Continue();
-        });
+        btnContinue.OnClick(() => { Continue(); });
     }
 
     public static async void Show()
@@ -31,11 +26,23 @@ public class PopupLoseMiniGame : Popup
     public override void Init()
     {
         base.Init();
+        // StartCoroutine(StopAnimator());
     }
 
     public override void Hide()
     {
         base.Hide();
+    }
+
+    public void StopAnimation()
+    {
+        anim.enabled = false;
+    }
+
+    IEnumerator StopAnimator()
+    {
+        yield return new WaitForSeconds(1.4f);
+        anim.enabled = false;
     }
 
     void PlayAgain()
