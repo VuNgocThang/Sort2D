@@ -323,7 +323,7 @@ public class LogicGame : MonoBehaviour
         {
             //Debug.Log("Level: " + SaveGame.Level);
             //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.Level}").ToString();
-            
+
             int indexLevelNormal = 0;
             if (SaveGame.Level > GameConfig.MAX_LEVEL)
             {
@@ -1318,6 +1318,7 @@ public class LogicGame : MonoBehaviour
 
                     colorPlate.InitClear(true);
                     colorPlate.DecreaseCountFrozenNearBy();
+                    colorPlate.CollectItemNearBy();
                     colorPlate.InitValue();
 
                     StartCoroutine(DelayToCheckMerge());

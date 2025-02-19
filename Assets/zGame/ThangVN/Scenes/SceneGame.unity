@@ -503,6 +503,7 @@ MonoBehaviour:
     listArrowData: []
     listExistedData: []
     listEmptyData: []
+    listBagsData: []
     rows: 0
     cols: 0
     goalScore: 0
@@ -512,9 +513,8 @@ MonoBehaviour:
   level: 0
   rows: 0
   cols: 0
+  cellSize: 0
   colorPlatePrefab: {fileID: 0}
-  arrowPlatePrefab: {fileID: 0}
-  emptyHolder: {fileID: 0}
   ListColorPlate: []
   holderColorPlate: {fileID: 0}
   goals: 0
@@ -3943,6 +3943,7 @@ MonoBehaviour:
     listArrowData: []
     listExistedData: []
     listEmptyData: []
+    listBagsData: []
     rows: 0
     cols: 0
     goalScore: 0

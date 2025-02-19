@@ -718,6 +718,25 @@ public class ColorPlate : MonoBehaviour
         }
     }
 
+    public void CollectItemNearBy()
+    {
+        for (int i = 0; i < ListConnect.Count; i++)
+        {
+            if (CanCollect(ListConnect[i]))
+            {
+                ListConnect[i].status = Status.None;
+                ListConnect[i].logicVisual.Refresh();
+            }
+        }
+    }
+
+    private bool CanCollect(ColorPlate c)
+    {
+        bool canCollect = c.status == Status.Bag || c.status == Status.Wood || c.status == Status.Poison;
+
+        return canCollect;
+    }
+
     public void UnlockedLockCoin(int currenPoint)
     {
         if (currenPoint >= pointToUnLock && isLocked)

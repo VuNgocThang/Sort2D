@@ -25,12 +25,17 @@ public class CheckGetHolderStatus : ICheckStatus
                 return null;
         }
     }
+
     bool IsBreak(ColorPlate c)
     {
-        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin || c.status == Status.CannotPlace || c.status == Status.Ads
-            || c.status == Status.Left || c.status == Status.Right || c.status == Status.Up || c.status == Status.Down || c.status == Status.Empty) return true;
+        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin ||
+            c.status == Status.CannotPlace || c.status == Status.Ads
+            || c.status == Status.Left || c.status == Status.Right || c.status == Status.Up ||
+            c.status == Status.Down || c.status == Status.Empty || c.status == Status.Bag ||
+            c.status == Status.Poison || c.status == Status.Wood) return true;
         else return false;
     }
+
     ColorPlate CheckPossibleMoveRight(ColorPlate arrowRight)
     {
         //int maxCol = -1;
@@ -41,7 +46,8 @@ public class CheckGetHolderStatus : ICheckStatus
         {
             if (LogicGame.Instance.ListColorPlate[i].Row == arrowRight.Row)
             {
-                if (LogicGame.Instance.ListColorPlate[i].Col > maxCol /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Left*/)
+                if (LogicGame.Instance.ListColorPlate[i].Col >
+                    maxCol /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Left*/)
                 {
                     if (IsBreak(LogicGame.Instance.ListColorPlate[i]))
                     {
@@ -77,8 +83,8 @@ public class CheckGetHolderStatus : ICheckStatus
             //}
             return null;
         }
-
     }
+
     ColorPlate CheckPossibleMoveLeft(ColorPlate arrowLeft)
     {
         //int minCol = LogicGame.Instance.cols;
@@ -89,7 +95,8 @@ public class CheckGetHolderStatus : ICheckStatus
         {
             if (LogicGame.Instance.ListColorPlate[i].Row == arrowLeft.Row)
             {
-                if (LogicGame.Instance.ListColorPlate[i].Col < minCol /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Right*/)
+                if (LogicGame.Instance.ListColorPlate[i].Col <
+                    minCol /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Right*/)
                 {
                     if (IsBreak(LogicGame.Instance.ListColorPlate[i]))
                     {
@@ -120,6 +127,7 @@ public class CheckGetHolderStatus : ICheckStatus
             return null;
         }
     }
+
     ColorPlate CheckPossibleMoveUp(ColorPlate arrowUp)
     {
         //int maxRow = -1;
@@ -130,7 +138,8 @@ public class CheckGetHolderStatus : ICheckStatus
         {
             if (LogicGame.Instance.ListColorPlate[i].Col == arrowUp.Col)
             {
-                if (LogicGame.Instance.ListColorPlate[i].Row > maxRow /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Down*/)
+                if (LogicGame.Instance.ListColorPlate[i].Row >
+                    maxRow /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Down*/)
                 {
                     if (IsBreak(LogicGame.Instance.ListColorPlate[i]))
                     {
@@ -161,6 +170,7 @@ public class CheckGetHolderStatus : ICheckStatus
             return null;
         }
     }
+
     ColorPlate CheckPossibleMoveDown(ColorPlate arrowDown)
     {
         //int minRow = LogicGame.Instance.rows;
@@ -171,7 +181,8 @@ public class CheckGetHolderStatus : ICheckStatus
         {
             if (LogicGame.Instance.ListColorPlate[i].Col == arrowDown.Col)
             {
-                if (LogicGame.Instance.ListColorPlate[i].Row < minRow /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Up*/)
+                if (LogicGame.Instance.ListColorPlate[i].Row <
+                    minRow /*&& LogicGame.Instance.ListColorPlate[i].status != Status.Up*/)
                 {
                     if (IsBreak(LogicGame.Instance.ListColorPlate[i]))
                     {
@@ -255,5 +266,4 @@ public class CheckGetHolderStatus : ICheckStatus
             }
         }
     }
-
 }
