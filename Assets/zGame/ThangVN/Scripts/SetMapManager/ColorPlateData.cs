@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [Serializable]
 public class SpecialData
 {
@@ -27,6 +28,7 @@ public class ExistedData
     public int Col;
     public int type;
 }
+
 [Serializable]
 public class EmptyData
 {
@@ -35,7 +37,14 @@ public class EmptyData
     public int type;
 }
 
-
+[Serializable]
+public class BagsData
+{
+    public int Row;
+    public int Col;
+    public int type;
+    public int typeBag;
+}
 
 [Serializable]
 public class ColorPlateData
@@ -44,6 +53,7 @@ public class ColorPlateData
     public List<ArrowData> listArrowData;
     public List<ExistedData> listExistedData;
     public List<EmptyData> listEmptyData;
+    public List<BagsData> listBagsData;
     public int rows;
     public int cols;
     public int goalScore;
@@ -51,4 +61,3 @@ public class ColorPlateData
     public int pigment;
 }
 // pos, so mau
-

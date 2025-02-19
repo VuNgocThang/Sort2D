@@ -254,7 +254,6 @@ public class LogicVisualPlate : MonoBehaviour
         DeletePlate();
         normal.SetActive(true);
         existed.SetActive(true);
-        existed.transform.localPosition = new Vector3(0, 0.5f, 0);
     }
 
     public void SetPlateArrow()
@@ -321,18 +320,21 @@ public class LogicVisualPlate : MonoBehaviour
     public void SetWood()
     {
         DeletePlate();
+        normal.SetActive(true);
         wood.SetActive(true);
     }
 
     public void SetPoison()
     {
         DeletePlate();
+        normal.SetActive(true);
         poison.SetActive(true);
     }
 
     public void SetBag(int typeBag)
     {
         DeletePlate();
+        normal.SetActive(true);
         for (int i = 0; i < listBags.Count; i++)
         {
             if (i == typeBag)
@@ -340,6 +342,13 @@ public class LogicVisualPlate : MonoBehaviour
                 listBags[i].SetActive(true);
             }
         }
+    }
+
+    public void SetBagVisual()
+    {
+        DeletePlate();
+        normal.SetActive(true);
+        listBags[0].SetActive(true);
     }
 
     public void SetTutLockCoin()
