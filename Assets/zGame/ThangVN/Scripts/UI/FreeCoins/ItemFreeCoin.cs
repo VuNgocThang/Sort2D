@@ -51,24 +51,26 @@ public class ItemFreeCoin : MonoBehaviour
         if (currentIndex >= index && !isClaimed)
         {
             imgActive.SetActive(true);
+            iconAds.SetActive(true);
             imgInActive.SetActive(false);
         }
         else
         {
             imgActive.SetActive(false);
+            iconAds.SetActive(false);
             imgInActive.SetActive(true);
         }
 
         if (isClaimed)
         {
-            iconAds.SetActive(false);
+            // iconAds.SetActive(false);
             imgClaimed.SetActive(true);
             //txtInactive.text = "Claimed";
         }
         else
         {
             imgClaimed.SetActive(false);
-            iconAds.SetActive(true);
+            // iconAds.SetActive(true);
             //txtInactive.text = "Free";
         }
     }

@@ -108,6 +108,7 @@ public class PopupFreeCoin : Popup
             if (listItem[i].index == SaveGame.DataFreeCoin.currentIndex)
             {
                 listItem[i].imgActive.SetActive(true);
+                listItem[i].iconAds.SetActive(true);
                 listItem[i].imgInActive.SetActive(false);
             }
         }
@@ -149,7 +150,6 @@ public class PopupFreeCoin : Popup
 
     private void RefreshData()
     {
-
         // if (SaveGame.NewDayFreeCoin == DateTime.Now.DayOfYear) return;
         //
         // SaveGame.ShowFreeCoin = false;
