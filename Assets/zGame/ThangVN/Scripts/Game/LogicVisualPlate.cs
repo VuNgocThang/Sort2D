@@ -175,7 +175,7 @@ public class LogicVisualPlate : MonoBehaviour
                 SetWood();
                 break;
             case Status.Poison:
-                SetPoison();
+                SetPoison(RowOffset);
                 break;
             default:
                 return;
@@ -324,11 +324,14 @@ public class LogicVisualPlate : MonoBehaviour
         wood.SetActive(true);
     }
 
-    public void SetPoison()
+    public void SetPoison(int RowOffset, int count = 0)
     {
         DeletePlate();
         normal.SetActive(true);
         poison.SetActive(true);
+        var layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
+        poison.GetComponent<SpriteRenderer>().sortingOrder = layer;
+        if (count != 0) poison.transform.localPosition = new Vector3(0, (count - 1) * GameConfig.OFFSET_PLATE, -1);
     }
 
     public void SetBag(int typeBag)

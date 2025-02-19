@@ -46,6 +46,9 @@ public class LogicGame : MonoBehaviour
     public PopupHome homeInGame;
 
     /*[HideInInspector]*/
+    public List<ColorPlate> listPoisonPlate;
+
+    /*[HideInInspector]*/
     public List<ColorPlate> ListArrowPlate;
 
     /*[HideInInspector]*/
@@ -461,6 +464,22 @@ public class LogicGame : MonoBehaviour
             if (ListColorPlate[index].status == Status.Ads)
             {
                 ListColorPlate[index].logicVisual.SetAds();
+            }
+
+            if (ListColorPlate[index].status == Status.Wood)
+            {
+                ListColorPlate[index].logicVisual.SetWood();
+            }
+
+            if (ListColorPlate[index].status == Status.Poison)
+            {
+                ListColorPlate[index].logicVisual.SetPoison(colorPlateData.listSpecialData[i].Row);
+            }
+
+            if (ListColorPlate[index].status == Status.Bag)
+            {
+                Debug.Log("?");
+                ListColorPlate[index].logicVisual.SetBagVisual();
             }
         }
 
@@ -894,7 +913,7 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-    void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
+    private void SetColor(ColorPlate startColorPlate, ColorPlate endColorPlate)
     {
         if (startColorPlate.ListValue.Count == 0)
         {
@@ -916,30 +935,13 @@ public class LogicGame : MonoBehaviour
             startColorPlate.ListColor.AddRange(listNextPlate[0].ListColor);
             startColorPlate.listTypes.AddRange(listNextPlate[0].listTypes);
 
-
             startColorPlate.InitValue(startColorPlate.transform, -1, endColorPlate.Row);
             listNextPlate[0].ListValue.Clear();
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
 
-            //return;
-
-            //Tween t = null; 
-
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
-                //Vector3 localPos = renderer.transform.localPosition;
-                //renderer.transform.SetParent(listNextPlate[0].transform);
-                //float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-
-                ///*t = */
-                ////renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
-                ////renderer.transform.DOLocalJump(new Vector3(randomX, localPos.y, localPos.z), 1f, 1, 0.3f);
-
-                //renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                //renderer.transform.localRotation = Quaternion.identity;
-                //renderer.transform.localScale = Vector3.one;
-
                 Vector3 worldPos = listNextPlate[0].transform.position;
                 Vector3 localPos = renderer.transform.localPosition;
                 Transform newParent = listNextPlate[0].transform;
@@ -1027,6 +1029,8 @@ public class LogicGame : MonoBehaviour
 
                 endColorPlate.isMoving = false;
 
+                SpawnPoison();
+
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
                     if (!isMergeing)
@@ -1097,6 +1101,23 @@ public class LogicGame : MonoBehaviour
         }
     }
 
+    private void SpawnPoison()
+    {
+        ColorPlate colorIsPoison = null;
+        PoisonBook poisonBook = new PoisonBook();
+        colorIsPoison = poisonBook.FindBookIsPoison(listPoisonPlate);
+
+        if (colorIsPoison != null)
+        {
+            colorIsPoison.status = Status.Poison;
+            colorIsPoison.logicVisual.SetPoison(colorIsPoison.Row, colorIsPoison.ListValue.Count);
+            listPoisonPlate.Add(colorIsPoison);
+        }
+        else
+        {
+            Debug.Log("LoseCMNR");
+        }
+    }
 
     public void SetColorUsingSwapItem(ColorPlate startColorPlate, ColorPlate endColorPlate, int currentLayer)
     {
@@ -1272,7 +1293,7 @@ public class LogicGame : MonoBehaviour
 
         foreach (ColorPlate c in listNearBySame)
         {
-            if (c.ListValue.Count == 0 || c.countFrozen != 0) continue;
+            if (c.ListValue.Count == 0 || c.countFrozen != 0 || c.status == Status.Poison) continue;
 
             if (c.TopValue == colorPlate.TopValue)
             {
@@ -1827,6 +1848,9 @@ public class LogicGame : MonoBehaviour
         for (int i = 0; i < saveGameNormal.ListColorPlate.Count; i++)
         {
             //Debug.Log(saveGameNormal.ListColorPlate[i].typeColorPlate + " ___ " + saveGameNormal.ListColorPlate[i].listEnum.Count);
+            ListColorPlate[i].Init(GetColorNew);
+
+            ListColorPlate[i].InitColorExisted(saveGameNormal.ListColorPlate[i].listEnum);
 
             ListColorPlate[i].status = (Status)saveGameNormal.ListColorPlate[i].typeColorPlate;
 
@@ -1846,6 +1870,22 @@ public class LogicGame : MonoBehaviour
                 ListColorPlate[i].txtPointUnlock.gameObject.SetActive(true);
             }
 
+            if (ListColorPlate[i].status == Status.Wood)
+            {
+                ListColorPlate[i].logicVisual.SetWood();
+            }
+
+            if (ListColorPlate[i].status == Status.Poison)
+            {
+                ListColorPlate[i].logicVisual.SetPoison(ListColorPlate[i].Row, ListColorPlate[i].ListValue.Count);
+            }
+
+            if (ListColorPlate[i].status == Status.Bag)
+            {
+                Debug.Log("?");
+                ListColorPlate[i].logicVisual.SetBagVisual();
+            }
+
             if (ListColorPlate[i].status == Status.Empty)
             {
                 ListColorPlate[i].logicVisual.DeletePlate();
@@ -1855,10 +1895,6 @@ public class LogicGame : MonoBehaviour
             {
                 ListColorPlate[i].logicVisual.Refresh();
             }
-
-            ListColorPlate[i].Init(GetColorNew);
-
-            ListColorPlate[i].InitColorExisted(saveGameNormal.ListColorPlate[i].listEnum);
         }
     }
 

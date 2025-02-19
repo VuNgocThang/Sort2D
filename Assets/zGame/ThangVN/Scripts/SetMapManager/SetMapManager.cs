@@ -678,7 +678,7 @@ public class SetMapManager : MonoBehaviour
             case EditMode.EditPoison:
                 if (c.status != Status.Poison)
                 {
-                    c.logicVisual.SetPoison();
+                    c.logicVisual.SetPoison(c.Row);
                     if (c.status == Status.Existed)
                     {
                         c.logicVisual.existed.SetActive(true);
