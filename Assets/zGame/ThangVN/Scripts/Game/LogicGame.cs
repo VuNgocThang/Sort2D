@@ -474,6 +474,7 @@ public class LogicGame : MonoBehaviour
             if (ListColorPlate[index].status == Status.Poison)
             {
                 ListColorPlate[index].logicVisual.SetPoison(colorPlateData.listSpecialData[i].Row);
+                listPoisonPlate.Add(ListColorPlate[index]);
             }
 
             if (ListColorPlate[index].status == Status.Bag)
@@ -1029,7 +1030,6 @@ public class LogicGame : MonoBehaviour
 
                 endColorPlate.isMoving = false;
 
-                SpawnPoison();
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
@@ -1038,6 +1038,14 @@ public class LogicGame : MonoBehaviour
                         List<ColorPlate> listDataConnect = new List<ColorPlate>();
                         CheckNearByRecursive(listDataConnect, endColorPlate);
 
+                        Debug.Log(listDataConnect.Count);
+                        foreach (var c in listDataConnect)
+                        {
+                            Debug.Log(c.name);
+                        }
+
+                        SpawnPoison(listDataConnect);
+
                         if (listDataConnect.Count <= 1)
                         {
                             if (!isLose) CheckLose();
@@ -1045,7 +1053,6 @@ public class LogicGame : MonoBehaviour
                         else
                         {
                             //listSteps.Clear();
-
                             FindTarget findTarget = new FindTarget();
                             if (colorRoot == null) colorRoot = findTarget.FindTargetRoot(listDataConnect);
                             HashSet<ColorPlate> processedNearBy = new HashSet<ColorPlate>();
@@ -1101,11 +1108,11 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-    private void SpawnPoison()
+    private void SpawnPoison(List<ColorPlate> listDataConnect)
     {
         ColorPlate colorIsPoison = null;
         PoisonBook poisonBook = new PoisonBook();
-        colorIsPoison = poisonBook.FindBookIsPoison(listPoisonPlate);
+        colorIsPoison = poisonBook.FindBookIsPoison(listPoisonPlate, listDataConnect);
 
         if (colorIsPoison != null)
         {
@@ -1878,6 +1885,7 @@ public class LogicGame : MonoBehaviour
             if (ListColorPlate[i].status == Status.Poison)
             {
                 ListColorPlate[i].logicVisual.SetPoison(ListColorPlate[i].Row, ListColorPlate[i].ListValue.Count);
+                listPoisonPlate.Add(ListColorPlate[i]);
             }
 
             if (ListColorPlate[i].status == Status.Bag)

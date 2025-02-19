@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class PoisonBook
 {
-    public ColorPlate FindBookIsPoison(List<ColorPlate> listPoisonPlate)
+    public ColorPlate FindBookIsPoison(List<ColorPlate> listPoisonPlate, List<ColorPlate> listDataConnect)
     {
         ColorPlate colorIsPoison = null;
         for (int i = 0; i < listPoisonPlate.Count; i++)
         {
+            Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
+            if (listDataConnect.Contains(listPoisonPlate[i]))
+            {
+                Debug.Log(listPoisonPlate[i].name);
+                continue;
+            }
+
             colorIsPoison = FindNextPoisonBook(listPoisonPlate[i].ListConnect);
             if (colorIsPoison == null) continue;
             else
