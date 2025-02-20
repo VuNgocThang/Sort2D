@@ -1033,18 +1033,17 @@ public class LogicGame : MonoBehaviour
 
                 if ((int)endColorPlate.TopValue != (int)ColorEnum.Random)
                 {
+                    List<ColorPlate> listDataConnect = new List<ColorPlate>();
+                    CheckNearByRecursive(listDataConnect, endColorPlate);
+                    SpawnPoison(listDataConnect);
+
                     if (!isMergeing)
                     {
-                        List<ColorPlate> listDataConnect = new List<ColorPlate>();
-                        CheckNearByRecursive(listDataConnect, endColorPlate);
-
                         Debug.Log(listDataConnect.Count);
                         foreach (var c in listDataConnect)
                         {
                             Debug.Log(c.name);
                         }
-
-                        SpawnPoison(listDataConnect);
 
                         if (listDataConnect.Count <= 1)
                         {
@@ -1232,7 +1231,8 @@ public class LogicGame : MonoBehaviour
         //Debug.Log(" _________________________________________ ");
         foreach (ColorPlate c in ListColorPlate)
         {
-            if (c.ListValue.Count == 0 || c.status == Status.Empty || c.countFrozen != 0 || c.isMoving) continue;
+            if (c.ListValue.Count == 0 || c.status == Status.Empty || c.countFrozen != 0 || c.isMoving ||
+                c.status == Status.Poison) continue;
             List<ColorPlate> listDataConnect = new List<ColorPlate>();
             CheckNearByRecursive(listDataConnect, c);
             if (listDataConnect.Count <= 1) continue;
@@ -1300,7 +1300,8 @@ public class LogicGame : MonoBehaviour
 
         foreach (ColorPlate c in listNearBySame)
         {
-            if (c.ListValue.Count == 0 || c.countFrozen != 0 || c.status == Status.Poison) continue;
+            if (c.CannotAddToDataConnect(c)) continue;
+            // if (c.ListValue.Count == 0 || c.countFrozen != 0 || c.status == Status.Poison) continue;
 
             if (c.TopValue == colorPlate.TopValue)
             {

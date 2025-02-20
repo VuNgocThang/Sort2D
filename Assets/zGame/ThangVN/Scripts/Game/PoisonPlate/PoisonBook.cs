@@ -6,37 +6,44 @@ public class PoisonBook
 {
     public ColorPlate FindBookIsPoison(List<ColorPlate> listPoisonPlate, List<ColorPlate> listDataConnect)
     {
+        HashSet<ColorPlate> excludedPlates = new HashSet<ColorPlate>();
         ColorPlate colorIsPoison = null;
-        for (int i = 0; i < listPoisonPlate.Count; i++)
+        foreach (var poisonPlate in listPoisonPlate)
         {
-            Debug.Log("listDataConnect.Count: " + listDataConnect.Count);
-            if (listDataConnect.Contains(listPoisonPlate[i]))
+            while (true)
             {
-                Debug.Log(listPoisonPlate[i].name);
-                continue;
-            }
+                colorIsPoison = FindNextPoisonBook(poisonPlate.ListConnect, excludedPlates);
 
-            colorIsPoison = FindNextPoisonBook(listPoisonPlate[i].ListConnect);
-            if (colorIsPoison == null) continue;
-            else
-            {
+                if (colorIsPoison == null)
+                    break;
+
+                if (listDataConnect.Contains(colorIsPoison))
+                {
+                    Debug.Log("Cant is poison: " + colorIsPoison.name);
+                    excludedPlates.Add(colorIsPoison);
+                    continue;
+                }
+
                 break;
             }
+
+            if (colorIsPoison != null)
+                break;
         }
 
         return colorIsPoison;
     }
 
-    public ColorPlate FindNextPoisonBook(List<ColorPlate> listDataConnect)
+    private ColorPlate FindNextPoisonBook(List<ColorPlate> ListConnect, HashSet<ColorPlate> excludedPlates)
     {
         ColorPlate cHasValue = null;
         ColorPlate cEmpty = null;
 
-        for (var i = 0; i < listDataConnect.Count; i++)
+        for (var i = 0; i < ListConnect.Count; i++)
         {
-            var plate = listDataConnect[i];
-            if (!CanSpread(plate)) continue;
-            Debug.Log(plate.name + " ___ " + plate.ListValue.Count);
+            var plate = ListConnect[i];
+            if (!CanSpread(plate) || excludedPlates.Contains(plate)) continue;
+            // Debug.Log(plate.name + " ___ " + plate.ListValue.Count);
             if (plate.ListValue.Count > 0 && cHasValue == null)
             {
                 cHasValue = plate;

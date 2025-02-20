@@ -1,8 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Spine.Unity;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LogicVisualPlate : MonoBehaviour
 {
@@ -24,7 +24,7 @@ public class LogicVisualPlate : MonoBehaviour
     public GameObject wood;
     public List<GameObject> listBags;
     public GameObject poison;
-
+    public SkeletonAnimation spine;
 
     //public Animator animLockCoin;
 
@@ -241,6 +241,14 @@ public class LogicVisualPlate : MonoBehaviour
         {
             t.SetActive(false);
         }
+
+        if (spine.gameObject.activeSelf)
+        {
+            spine.state.SetAnimation(0, "end", false).Complete += (TrackEntry) =>
+            {
+                spine.gameObject.SetActive(false);
+            };
+        }
     }
 
     public void Refresh()
@@ -328,10 +336,24 @@ public class LogicVisualPlate : MonoBehaviour
     {
         DeletePlate();
         normal.SetActive(true);
-        poison.SetActive(true);
+
         var layer = (GameConfig.OFFSET_LAYER - RowOffset) > 1 ? GameConfig.OFFSET_LAYER - RowOffset : 1;
-        poison.GetComponent<SpriteRenderer>().sortingOrder = layer;
-        if (count != 0) poison.transform.localPosition = new Vector3(0, (count - 1) * GameConfig.OFFSET_PLATE, -1);
+
+        // poison.GetComponent<SpriteRenderer>().sortingOrder = layer;
+        spine.GetComponent<MeshRenderer>().sortingOrder = layer;
+
+        if (count != 0)
+        {
+            // poison.transform.localPosition = new Vector3(0, (count - 1) * GameConfig.OFFSET_PLATE, -1);
+            spine.transform.localPosition = new Vector3(0, (count - 1) * GameConfig.OFFSET_PLATE, -1);
+        }
+
+        // poison.SetActive(true);
+        spine.gameObject.SetActive(true);
+        spine.state.SetAnimation(0, "drop", false).Complete += (TrackEntry) =>
+        {
+            spine.state.SetAnimation(0, "idle", true);
+        };
     }
 
     public void SetBag(int typeBag)

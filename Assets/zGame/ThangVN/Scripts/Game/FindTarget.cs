@@ -38,6 +38,61 @@ public class FindTarget
                 return colorResult;
             }
 
+            // độ ưu tiên thứ 1.1: gần ô poison, gần nhiều poison
+            Dictionary<ColorPlate, int> countPoisonDictionary = new Dictionary<ColorPlate, int>();
+            foreach (ColorPlate c in listDataConnect)
+            {
+                foreach (ColorPlate cl in c.ListConnect)
+                {
+                    if (cl.status != Status.Poison) continue;
+
+                    if (countPoisonDictionary.ContainsKey(c))
+                    {
+                        countPoisonDictionary[c]++;
+                    }
+                    else
+                    {
+                        countPoisonDictionary.Add(c, 1);
+                    }
+                }
+            }
+
+            if (countPoisonDictionary.Count > 0)
+            {
+                int maxCount = 0;
+                bool isSame = true;
+                if (countPoisonDictionary.Count == 1)
+                {
+                    foreach (var obj in countPoisonDictionary)
+                    {
+                        colorResult = obj.Key;
+                        return colorResult;
+                    }
+                }
+                else
+                {
+                    if (countPoisonDictionary.ElementAt(0).Value == countPoisonDictionary.ElementAt(1).Value)
+                    {
+                        isSame = true;
+                    }
+                    else isSame = false;
+                }
+
+                if (!isSame)
+                {
+                    foreach (var obj in countPoisonDictionary)
+                    {
+                        if (obj.Value > maxCount)
+                        {
+                            maxCount = obj.Value;
+                            colorResult = obj.Key;
+                        }
+                    }
+
+                    Debug.Log("colorResult if isSame: " + colorResult);
+                    return colorResult;
+                }
+            }
 
             // độ ưu tiên thứ 2: gần băng, gần nhiều băng
             Dictionary<ColorPlate, int> countFrozenDictionary = new Dictionary<ColorPlate, int>();
@@ -105,6 +160,8 @@ public class FindTarget
                 }
             }
 
+
+            // độ ưu tiên 3: 
             foreach (ColorPlate c in listDataConnect)
             {
                 if (c.listTypes.Count < 2) continue;

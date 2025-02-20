@@ -510,6 +510,13 @@ public class ColorPlate : MonoBehaviour
         }
     }
 
+    public bool CannotAddToDataConnect(ColorPlate c)
+    {
+        bool result = c.ListValue.Count == 0 || c.countFrozen != 0 || c.status == Status.Poison;
+
+        return result;
+    }
+
     public List<ColorPlate> CheckNearByCanConnect( /*ColorPlate colorPlate*/)
     {
         List<ColorPlate> listSame = new List<ColorPlate>();
@@ -517,7 +524,8 @@ public class ColorPlate : MonoBehaviour
         foreach (var c in ListConnect)
         {
             //Debug.Log(c.name + " ___ " + c.countFrozen);
-            if (c.ListValue.Count == 0 || c.countFrozen != 0) continue;
+            // if (c.ListValue.Count == 0 || c.countFrozen != 0 || c.status == Status.Poison) continue;
+            if (CannotAddToDataConnect(c)) continue;
 
             if (c.TopValue == TopValue)
             {
@@ -536,7 +544,9 @@ public class ColorPlate : MonoBehaviour
         int count = 0;
         foreach (var c in ListConnect)
         {
-            if (c.ListValue.Count == 0 || c.countFrozen != 0) continue;
+            // if (c.ListValue.Count == 0 || c.countFrozen != 0 || c.status == Status.Poison) continue;
+            if (CannotAddToDataConnect(c)) continue;
+
             if (c.TopValue == TopValue)
             {
                 count++;

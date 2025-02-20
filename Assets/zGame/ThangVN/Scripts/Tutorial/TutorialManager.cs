@@ -23,7 +23,6 @@ namespace ThangVN
             else if (indexCurrentLevel == GameConfig.LEVEL_FROZEN && !SaveGame.IsDoneTutFrozen)
             {
                 TutorialCamera.Instance.InitTutorialFrozen();
-
             }
             else if (indexCurrentLevel == GameConfig.LEVEL_REFRESH && !SaveGame.IsShowRefresh)
             {
@@ -83,6 +82,5 @@ namespace ThangVN
                 //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
             }
         }
-
     }
 }
