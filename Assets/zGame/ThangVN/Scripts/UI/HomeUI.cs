@@ -28,7 +28,7 @@ public class HomeUI : MonoBehaviour
 
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
-    [SerializeField] float countdownTimer, totalParts, currentParts;
+    [SerializeField] float countdownTimer, totalParts, currentParts, countDownTimerBook;
 
     public GameObject nTop,
         nBot,
@@ -48,6 +48,7 @@ public class HomeUI : MonoBehaviour
     [SerializeField] DataConfigDecor bookDataConfig;
     [SerializeField] ListBookDecorated listBook;
     [SerializeField] DataClaimedFreecoin dataFreeCoinClaimed;
+    public bool canShowGiftBook;
 
     const int bigSize = 60;
     const int minSize = 40;
@@ -133,7 +134,7 @@ public class HomeUI : MonoBehaviour
         });
 
         btnNoAdsBundle.OnClick(() => { PopupNoAdsBundle.Show(); });
-        
+
         btnCoin.OnClick(() =>
         {
             nParent.SetActive(false);
@@ -170,6 +171,15 @@ public class HomeUI : MonoBehaviour
         InitDataClaimedFreecoin();
 
         CheckNoticeChallenge();
+
+        if (SaveGame.CanShowGiftBook)
+        {
+            countDownTimerBook = GameConfig.TIME_COUNT_DOWN_BOOK;
+        }
+        else
+        {
+            countDownTimerBook = SaveGame.CountDownTimerBook;
+        }
     }
 
     private void Update()
@@ -183,6 +193,8 @@ public class HomeUI : MonoBehaviour
 
         CalculateHeart();
 
+        CalculateTimeShowGiftBook();
+
         int count = CheckNoticeFreecoin();
         if (count == 6) nNoticeFreecoin.SetActive(false);
         else nNoticeFreecoin.SetActive(true);
@@ -192,22 +204,6 @@ public class HomeUI : MonoBehaviour
 
         bool checkDecor = CheckTaskDecor();
         nNoticeTask.SetActive(checkDecor);
-      
-
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     PopupReward1.Show();
-        // }
-        //
-        // if (Input.GetKeyDown(KeyCode.W))
-        // {
-        //     PopupReward2.Show();
-        // }
-        //
-        // if (Input.GetKeyDown(KeyCode.E))
-        // {
-        //     PopupReward3.Show();
-        // }
     }
 
     private void CalculateTask()
@@ -260,6 +256,24 @@ public class HomeUI : MonoBehaviour
             }
 
             txtHeart.fontSize = minSize;
+        }
+    }
+
+    private void CalculateTimeShowGiftBook()
+    {
+        if (!SaveGame.CanShowGiftBook)
+        {
+            if (countDownTimerBook > 0)
+            {
+                countDownTimerBook -= Time.deltaTime;
+            }
+
+            if (countDownTimerBook <= 0)
+            {
+                countDownTimerBook = GameConfig.TIME_COUNT_DOWN_BOOK;
+                SaveGame.CountDownTimerBook = GameConfig.TIME_COUNT_DOWN_BOOK;
+                SaveGame.CanShowGiftBook = true;
+            }
         }
     }
 
@@ -377,6 +391,7 @@ public class HomeUI : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveGame.CountDownTimer = countdownTimer;
+        SaveGame.CountDownTimerBook = countDownTimerBook;
 
         if (SaveGame.Heart <= GameConfig.MAX_HEART)
         {
@@ -393,6 +408,8 @@ public class HomeUI : MonoBehaviour
             PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             PlayerPrefs.Save();
         }
+
+        SaveGame.CountDownTimerBook = countDownTimerBook;
     }
 
     //public void DisableObject()

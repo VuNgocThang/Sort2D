@@ -353,6 +353,23 @@ public static class SaveGame
             return level;
         }
     }
+    
+    const string LEVELGIFT = "LEVELGIFT";
+    static int levelGift = -1;
+
+    public static int LevelGift
+    {
+        set
+        {
+            ES3.Save(LEVELGIFT, value);
+            levelGift = value;
+        }
+        get
+        {
+            if (levelGift == -1) levelGift = ES3.Load(LEVELGIFT, 0);
+            return levelGift;
+        }
+    }
 
 
     const string HAMMER = "HAMMER";
@@ -739,6 +756,23 @@ public static class SaveGame
     #endregion
 
     #region HomeUI
+    
+    const string COUNTDOWNTIMERBOOK = "COUNTDOWNTIMERBOOK";
+    static float countDownTimerBook = -1;
+
+    public static float CountDownTimerBook
+    {
+        set
+        {
+            ES3.Save(COUNTDOWNTIMERBOOK, value);
+            countDownTimerBook = value;
+        }
+        get
+        {
+            if (countDownTimerBook == -1) countDownTimerBook = ES3.Load(COUNTDOWNTIMERBOOK, GameConfig.TIME_COUNT_DOWN_BOOK);
+            return countDownTimerBook;
+        }
+    }
 
     const string COUNTDOWNTIMER = "COUNTDOWNTIMER";
     static float countDownTimer = -1;
@@ -806,6 +840,23 @@ public static class SaveGame
         {
             if (canShow == -1) canShow = ES3.Load(CANSHOW, 0);
             return canShow == 1;
+        }
+    }
+    
+    const string CANSHOWGIFTBOOK = "CANSHOWGIFTBOOK";
+    static int canShowGiftBook = -1;
+
+    public static bool CanShowGiftBook
+    {
+        set
+        {
+            ES3.Save(CANSHOWGIFTBOOK, value ? 1 : 0);
+            canShowGiftBook = value ? 1 : 0;
+        }
+        get
+        {
+            if (canShowGiftBook == -1) canShowGiftBook = ES3.Load(CANSHOWGIFTBOOK, 1);
+            return canShowGiftBook == 1;
         }
     }
 
