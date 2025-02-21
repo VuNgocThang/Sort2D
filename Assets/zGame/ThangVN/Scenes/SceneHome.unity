@@ -13870,6 +13870,7 @@ MonoBehaviour:
   countdownTimer: 0
   totalParts: 0
   currentParts: 0
+  countDownTimerBook: 0
   nTop: {fileID: 2672043272533204442}
   nBot: {fileID: 8116844216878449585}
   iconNotice: {fileID: 0}
@@ -13894,6 +13895,7 @@ MonoBehaviour:
     listDataFreeCoin: []
     currentIndex: 0
     isClaimed50: 0
+  canShowGiftBook: 0
 --- !u!114 &6597502083811476603
 MonoBehaviour:
   m_ObjectHideFlags: 0

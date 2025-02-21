@@ -9,6 +9,8 @@ public static class GameConfig
     public static int MAX_HEART = 5;
 
     public static float TIME_COUNT_DOWN = 300f;
+    
+    public static float TIME_COUNT_DOWN_BOOK = 180f;
 
     public static float TIME_FLY = 0.5f;
     //public static string COUNT_DOWN_TIMER = "CountdownTimer";
@@ -24,6 +26,8 @@ public static class GameConfig
     public static string TXT_SWAP = "drag any stack to move it";
 
     public static string TXT_HAMMER = "tap any stack to clear it";
+
+    public static int COIN_HEART = 200;
 
     public static int LEVEL_CHALLENGES = 15;
 
@@ -64,7 +68,7 @@ public static class GameConfig
     public static int OFFSET_LAYER = 10;
 
     public static int MAX_LEVEL = 49;
-    
+
     public static int LOOP_START_LEVEL = 17;
 
     public static int MAX_LEVEL_BONUS = 10011;
@@ -95,6 +99,11 @@ public static class GameConfig
     public static bool EnoughPigment
     {
         get { return SaveGame.Pigment >= PIGMENT_UNLOCK; }
+    }
+
+    public static bool CanShowGift
+    {
+        get { return SaveGame.Level >= LEVEL_REFRESH && SaveGame.Level >= SaveGame.LevelGift; }
     }
 
     public static string DATACOIN = "DATACOIN";

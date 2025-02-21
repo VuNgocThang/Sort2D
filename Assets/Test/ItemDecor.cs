@@ -55,7 +55,10 @@ public class ItemDecor : MonoBehaviour
             {
                 if (imageItem.isBought) return;
 
-                EasyUI.Toast.Toast.Show("Not enough book!", 0.5f);
+                if (SaveGame.CanShowGiftBook)
+                    PopupGiftBook.Show();
+                else
+                    EasyUI.Toast.Toast.Show("Not enough book!", 0.5f);
             }
         });
     }

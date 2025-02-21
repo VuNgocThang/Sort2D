@@ -32,11 +32,11 @@ public class PopupOutOfHeartHome : Popup
 
     void BuyHeart()
     {
-        if (SaveGame.Coin >= 100)
+        if (SaveGame.Coin >= GameConfig.COIN_HEART)
         {
             btnBuy.enabled = false;
             PlayAnimSubGold();
-            GameManager.SubGold(100);
+            GameManager.SubGold(GameConfig.COIN_HEART);
             txtCoin.text = SaveGame.Coin.ToString();
             SaveGame.Heart += 1;
             StartCoroutine(LoadGame());

@@ -1,6 +1,7 @@
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ThangVN
@@ -78,9 +79,51 @@ namespace ThangVN
             }
             else
             {
-                LogicGame.Instance.isPauseGame = false;
                 //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
+
+                int indexBooster = FindBoosterEnum();
+                bool canShowGift = GameConfig.CanShowGift;
+                bool hasBooster = indexBooster != -1;
+
+                LogicGame.Instance.isPauseGame = hasBooster && canShowGift;
+
+                if (hasBooster && canShowGift)
+                {
+                    Debug.Log(SaveGame.Level + " ___ " + SaveGame.LevelGift);
+                    SaveGame.LevelGift = SaveGame.Level + 2;
+                    PopupGift.Show(indexBooster);
+                }
             }
+        }
+
+        private static int FindBoosterEnum()
+        {
+            int intResult = -1;
+
+            Dictionary<int, int> counts = new Dictionary<int, int>
+            {
+                { 0, SaveGame.Hammer },
+                { 1, SaveGame.Swap },
+                { 2, SaveGame.Refresh }
+            };
+
+            List<int> listCanBeResults =
+                counts.Where(booster => booster.Value == 1).Select(booster => booster.Key).ToList();
+
+            if (listCanBeResults.Count == 1)
+            {
+                intResult = listCanBeResults[0];
+            }
+            else if (listCanBeResults.Count > 1)
+            {
+                intResult = listCanBeResults[Random.Range(0, listCanBeResults.Count)];
+            }
+            else if (listCanBeResults.Count == 0)
+            {
+                intResult = -1;
+            }
+
+            return intResult;
         }
     }
 }
