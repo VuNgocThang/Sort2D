@@ -108,7 +108,7 @@ namespace ThangVN
             };
 
             List<int> listCanBeResults =
-                counts.Where(booster => booster.Value == 1).Select(booster => booster.Key).ToList();
+                counts.Where(booster => booster.Value <= 1).Select(booster => booster.Key).ToList();
 
             if (listCanBeResults.Count == 1)
             {
