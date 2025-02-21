@@ -7,12 +7,14 @@ public class PoisonBook
     public ColorPlate FindBookIsPoison(List<ColorPlate> listPoisonPlate, List<ColorPlate> listDataConnect)
     {
         HashSet<ColorPlate> excludedPlates = new HashSet<ColorPlate>();
-        ColorPlate colorIsPoison = null;
+        ColorPlate bestPlateWithValue = null;
+        ColorPlate bestEmptyPlate = null;
+
         foreach (var poisonPlate in listPoisonPlate)
         {
             while (true)
             {
-                colorIsPoison = FindNextPoisonBook(poisonPlate.ListConnect, excludedPlates);
+                var colorIsPoison = FindNextPoisonBook(poisonPlate.ListConnect, excludedPlates);
 
                 if (colorIsPoison == null)
                     break;
@@ -24,14 +26,22 @@ public class PoisonBook
                     continue;
                 }
 
+                // Ưu tiên ô có ListValue.Count > 0
+                if (colorIsPoison.ListValue.Count > 0)
+                {
+                    bestPlateWithValue = colorIsPoison;
+                }
+                else if (bestEmptyPlate == null)
+                {
+                    bestEmptyPlate = colorIsPoison;
+                }
+
                 break;
             }
-
-            if (colorIsPoison != null)
-                break;
         }
 
-        return colorIsPoison;
+        // Nếu tìm được ô có ListValue.Count > 0 thì trả về nó, nếu không thì trả về ô trống
+        return bestPlateWithValue ?? bestEmptyPlate;
     }
 
     private ColorPlate FindNextPoisonBook(List<ColorPlate> ListConnect, HashSet<ColorPlate> excludedPlates)

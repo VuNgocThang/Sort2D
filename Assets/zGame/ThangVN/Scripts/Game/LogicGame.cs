@@ -154,6 +154,7 @@ public class LogicGame : MonoBehaviour
     bool isHadSpawnSpecial = false;
     float timeClick = -1;
     float timerRun = -1;
+    private int countSpawnPoison = 0;
 
     //[SerializeField] SpineSelectionChange spineSelection;
     [SerializeField] ControllerAnimState ControllerAnimState;
@@ -406,6 +407,12 @@ public class LogicGame : MonoBehaviour
             ListColorPlate[index].status = (Status)colorPlateData.listSpecialData[i].type;
             ListColorPlate[index].logicVisual
                 .SetSpecialSquare(ListColorPlate[index].status, colorPlateData.listSpecialData[i].Row);
+
+            if (ListColorPlate[index].status == Status.Poison)
+            {
+                ListColorPlate[index].logicVisual.SetPoison(colorPlateData.listSpecialData[i].Row);
+                listPoisonPlate.Add(ListColorPlate[index]);
+            }
         }
 
         for (int i = 0; i < colorPlateData.listArrowData.Count; i++)
@@ -1107,8 +1114,17 @@ public class LogicGame : MonoBehaviour
         }
     }
 
+    private const int countMaxPoisonSpawn = 2;
+
     private void SpawnPoison(List<ColorPlate> listDataConnect)
     {
+        if (countSpawnPoison < countMaxPoisonSpawn)
+        {
+            countSpawnPoison++;
+            return;
+        }
+
+        countSpawnPoison = 0;
         ColorPlate colorIsPoison = null;
         PoisonBook poisonBook = new PoisonBook();
         colorIsPoison = poisonBook.FindBookIsPoison(listPoisonPlate, listDataConnect);
@@ -1119,10 +1135,10 @@ public class LogicGame : MonoBehaviour
             colorIsPoison.logicVisual.SetPoison(colorIsPoison.Row, colorIsPoison.ListValue.Count);
             listPoisonPlate.Add(colorIsPoison);
         }
-        else
-        {
-            Debug.Log("LoseCMNR");
-        }
+        // else
+        // {
+        //     Debug.Log("LoseCMNR");
+        // }
     }
 
     public void SetColorUsingSwapItem(ColorPlate startColorPlate, ColorPlate endColorPlate, int currentLayer)
@@ -1546,7 +1562,8 @@ public class LogicGame : MonoBehaviour
     bool CheckColorPlateValue(ColorPlate colorPlateCheck)
     {
         if (colorPlateCheck.isLocked || colorPlateCheck.status == Status.CannotPlace ||
-            colorPlateCheck.countFrozen != 0 || colorPlateCheck.status == Status.Ads)
+            colorPlateCheck.countFrozen != 0 || colorPlateCheck.status == Status.Ads ||
+            colorPlateCheck.status == Status.Poison)
         {
             return true;
         }
@@ -1943,6 +1960,12 @@ public class LogicGame : MonoBehaviour
             if (ListColorPlate[i].status == Status.None)
             {
                 ListColorPlate[i].logicVisual.Refresh();
+            }
+
+            if (ListColorPlate[i].status == Status.Poison)
+            {
+                ListColorPlate[i].logicVisual.SetPoison(ListColorPlate[i].Row, ListColorPlate[i].ListValue.Count);
+                listPoisonPlate.Add(ListColorPlate[i]);
             }
 
             ListColorPlate[i].Init(GetColorNew);

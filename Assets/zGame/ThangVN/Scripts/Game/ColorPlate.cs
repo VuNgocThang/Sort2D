@@ -734,6 +734,11 @@ public class ColorPlate : MonoBehaviour
         {
             if (CanCollect(ListConnect[i]))
             {
+                if (ListConnect[i].status == Status.Poison)
+                {
+                    LogicGame.Instance.listPoisonPlate.Remove(ListConnect[i]);
+                }
+
                 ListConnect[i].status = Status.None;
                 ListConnect[i].logicVisual.Refresh();
             }

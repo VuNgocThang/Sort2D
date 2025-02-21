@@ -238,6 +238,139 @@ public class FindTarget
             List<ColorPlate> listCanBeRoot = new List<ColorPlate>();
             listCanBeRoot.AddRange(listDataConnect);
 
+            // Check condition has poison
+            Dictionary<ColorPlate, int> countPoisonDictionary = new Dictionary<ColorPlate, int>();
+
+            foreach (ColorPlate c in listDataConnect)
+            {
+                foreach (ColorPlate cl in c.ListConnect)
+                {
+                    if (cl.status != Status.Poison) continue;
+
+                    if (countPoisonDictionary.ContainsKey(c))
+                    {
+                        countPoisonDictionary[c]++;
+                    }
+                    else
+                    {
+                        countPoisonDictionary.Add(c, 1);
+                    }
+                }
+            }
+
+            if (countPoisonDictionary.Count > 0)
+            {
+                listCanBeRoot.Clear();
+                foreach (var obj in countPoisonDictionary)
+                {
+                    listCanBeRoot.Add(obj.Key);
+                }
+
+                List<ColorPlate> listCanBeRootFake = new List<ColorPlate>();
+                listCanBeRootFake.AddRange(listCanBeRoot);
+
+                if (countPoisonDictionary.Count == 1)
+                {
+                    foreach (var obj in countPoisonDictionary)
+                    {
+                        colorResult = obj.Key;
+                        return colorResult;
+                    }
+                }
+                else
+                {
+                    bool isSame = true;
+
+                    int firstValue = countPoisonDictionary.First().Value;
+
+                    foreach (var obj in countPoisonDictionary)
+                    {
+                        if (obj.Value != firstValue)
+                        {
+                            isSame = false;
+                            break;
+                        }
+                    }
+
+
+                    if (isSame)
+                    {
+                        foreach (ColorPlate c in listCanBeRoot)
+                        {
+                            if (c.listTypes.Count < 2) continue;
+
+                            foreach (ColorPlate n in c.CheckNearByCanConnect())
+                            {
+                                if (n.listTypes.Count < 2) continue;
+
+                                if (n.listTypes[n.listTypes.Count - 2].type == c.listTypes[c.listTypes.Count - 2].type)
+                                {
+                                    listCanBeRootFake.Remove(c);
+                                }
+                            }
+                        }
+
+                        if (listCanBeRootFake.Count > 0 && listCanBeRootFake.Count < listCanBeRoot.Count)
+                        {
+                            int maxCount = -1;
+
+                            for (int i = 0; i < listCanBeRootFake.Count; i++)
+                            {
+                                int count = listCanBeRootFake[i].CountHasSameTopValueInConnect();
+                                if (count > maxCount)
+                                {
+                                    maxCount = count;
+                                    colorResult = listCanBeRootFake[i];
+                                }
+                            }
+                        }
+                        else if (listCanBeRootFake.Count == 0)
+                        {
+                            int minCount = 5;
+
+                            for (int i = 0; i < listCanBeRoot.Count; i++)
+                            {
+                                int count = listCanBeRoot[i].CountHasSameTopValueInConnect();
+                                if (count < minCount)
+                                {
+                                    minCount = count;
+                                    colorResult = listCanBeRoot[i];
+                                }
+                            }
+                        }
+                        else if (listCanBeRootFake.Count == listCanBeRoot.Count)
+                        {
+                            int minTypeDiff = 5;
+
+                            for (int i = 0; i < listCanBeRoot.Count; i++)
+                            {
+                                int countDiff = listCanBeRoot[i].listTypes.Count;
+                                if (countDiff < minTypeDiff)
+                                {
+                                    minTypeDiff = countDiff;
+                                    colorResult = listCanBeRoot[i];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int maxValue = 0;
+                        foreach (var obj in countPoisonDictionary)
+                        {
+                            if (obj.Value >= maxValue)
+                            {
+                                maxValue = obj.Value;
+                                colorResult = obj.Key;
+                            }
+                        }
+
+                        return colorResult;
+                    }
+                }
+            }
+
+
             // Check condition has frozen colorPlate 
             Dictionary<ColorPlate, int> countFrozenDictionary = new Dictionary<ColorPlate, int>();
 

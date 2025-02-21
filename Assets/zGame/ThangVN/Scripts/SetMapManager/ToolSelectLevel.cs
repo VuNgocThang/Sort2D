@@ -40,6 +40,13 @@ public class ToolSelectLevel : MonoBehaviour
         SaveGame.Level = int.Parse(inputField.text) - 1;
         SaveGame.IsDoneTutorial = true;
         SaveGame.IsDoneTutPoint = true;
+
+        SaveGame.FirstDecor = false;
+        SaveGame.IsTutDailyTask = true;
+        SaveGame.IsTutFreeCoin = true;
+        SaveGame.IsTutChallenges = true;
+        SaveGame.IsDoneTutorialDecor = true;
+
         LogicGame.Instance.DeleteSaveDataGame();
 
         SceneManager.LoadScene("SceneGame");
