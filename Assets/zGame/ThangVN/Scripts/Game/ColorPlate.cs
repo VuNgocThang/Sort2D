@@ -461,7 +461,7 @@ public class ColorPlate : MonoBehaviour
         throw new InvalidOperationException("Unexpected");
     }
 
-    public void InitClear(bool plusPoint = false)
+    public void InitClear(int countClear, bool plusPoint = false, bool playSound = false)
     {
         ColorEnum colorEnum = listTypes[listTypes.Count - 1].type;
         int count = listTypes[listTypes.Count - 1].listPlates.Count;
@@ -470,7 +470,7 @@ public class ColorPlate : MonoBehaviour
         listTypes.RemoveAt(listTypes.Count - 1);
 
         IVisualPlate visual = new DefaultFinishPlate();
-        visual.Execute(this, count, colorEnum, plusPoint);
+        visual.Execute(this, count, countClear, colorEnum, plusPoint, playSound);
     }
 
     public void ClearLastType()
@@ -594,20 +594,22 @@ public class ColorPlate : MonoBehaviour
     {
         if (CheckArrow(ListConnect[0]) && !isPlayingOnClick)
         {
+            canClick = false;
             logicVisual.PlayArrowCannotClick();
         }
 
         if (!CheckArrow(ListConnect[0]) && !isPlayingOnClick)
         {
+            canClick = true;
             logicVisual.PlayArrowNormal();
         }
     }
 
-    bool CheckArrow(ColorPlate c)
+    private bool CheckArrow(ColorPlate c)
     {
-        if (c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin ||
-            c.status == Status.CannotPlace || c.status == Status.Ads || c.status == Status.Empty) return true;
-        else return false;
+        return c.ListValue.Count > 0 || c.status == Status.Frozen || c.status == Status.LockCoin ||
+               c.status == Status.CannotPlace || c.status == Status.Ads || c.status == Status.Empty ||
+               c.status == Status.Poison || c.status == Status.Bag || c.status == Status.Wood;
     }
 
     IEnumerator PlayAnimClick()

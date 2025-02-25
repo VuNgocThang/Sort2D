@@ -91,6 +91,7 @@ public class DailyTask : MonoBehaviour
         switch (taskType)
         {
             case TaskType.CollectFreeCoins:
+                ManagerPopup.HidePopup<PopupDailyTask>();
                 PopupFreeCoin.Show();
                 break;
             case TaskType.DecorateBook:

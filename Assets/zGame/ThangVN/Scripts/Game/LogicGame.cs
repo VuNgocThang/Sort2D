@@ -323,7 +323,7 @@ public class LogicGame : MonoBehaviour
         {
             //Debug.Log("Level: " + SaveGame.Level);
             //filePath = Resources.Load<TextAsset>($"LevelData/Level_{SaveGame.Level}").ToString();
-            
+
             int indexLevelNormal = 0;
             if (SaveGame.Level > GameConfig.MAX_LEVEL)
             {
@@ -565,6 +565,7 @@ public class LogicGame : MonoBehaviour
             sequence.AppendInterval(0.2f);
         }
 
+        specialParticlePool.Release(currentSpecialParticle);
         ManagerAudio.PlaySound(ManagerAudio.Data.soundRefresh);
     }
 
@@ -671,8 +672,12 @@ public class LogicGame : MonoBehaviour
                     {
                         ColorPlate arrowPlate = hit.collider.GetComponent<ColorPlate>();
 
-                        //Debug.Log(arrowPlate.canClick);
-                        if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0 || !arrowPlate.canClick) return;
+                        if (arrowPlate.isLocked || arrowPlate.ListValue.Count > 0 || !arrowPlate.canClick)
+                        {
+                            Debug.Log("ohnocannotclick");
+                            ManagerAudio.PlaySound(ManagerAudio.Data.soundCannotClick);
+                            return;
+                        }
 
                         if (!SaveGame.IsDoneTutorial)
                         {
@@ -700,24 +705,10 @@ public class LogicGame : MonoBehaviour
 
                         if (isHadSpawnSpecial)
                         {
-                            ////countMove = 0;
-                            ////ManagerEvent.RaiseEvent(EventCMD.EVENT_COUNT, countMove);
-                            //Debug.Log("Play Effect Has Special");
-                            //Vector3 spawnPos = listNextPlate[0].transform.position;
-                            ////colorBookPool.Spawn(spawnPos, true);
-                            //listNextPlate[0].SpawnSpecialColor(GetColorNew);
-                            //currentSpecialParticle = specialParticlePool.Spawn(spawnPos, true);
-                            //isHadSpawnSpecial = false;
-
-
-                            Debug.Log("Play Effect Has Special");
                             Vector3 spawnPos = listNextPlate[1].transform.position;
                             listNextPlate[1].SpawnSpecialColor(GetColorNew);
                             currentSpecialParticle = specialParticlePool.Spawn(spawnPos, true);
                             isHadSpawnSpecial = false;
-                        }
-                        else
-                        {
                         }
                     }
 
@@ -1292,6 +1283,9 @@ public class LogicGame : MonoBehaviour
 
     public void CheckClear()
     {
+        int countCanClear = 0;
+        List<ColorPlate> listCanClear = new List<ColorPlate>();
+
         foreach (ColorPlate colorPlate in ListColorPlate)
         {
             if (colorPlate.listTypes.Count <= 0 || colorPlate.status == Status.Empty) continue;
@@ -1300,32 +1294,69 @@ public class LogicGame : MonoBehaviour
 
             if (count >= RULE_COMPLETE)
             {
-                if (!SaveGame.IsDoneTutorial)
+                countCanClear++;
+                listCanClear.Add(colorPlate);
+
+                // if (!SaveGame.IsDoneTutorial)
+                // {
+                //     TutorialCamera.Instance.PlayTut3();
+                //     isPauseGame = true;
+                // }
+                //
+                // if (!isPauseGame)
+                // {
+                //     if (ControllerAnimState.gameObject.activeSelf)
+                //     {
+                //         ControllerAnimState.ActionToBonus();
+                //     }
+                //
+                //     colorPlate.InitClear(true);
+                //     colorPlate.DecreaseCountFrozenNearBy();
+                //     colorPlate.InitValue();
+                //
+                //     StartCoroutine(DelayToCheckMerge());
+                // }
+            }
+        }
+
+        if (countCanClear <= 0) return;
+
+        if (countCanClear == 1)
+        {
+            if (!isPauseGame)
+            {
+                if (ControllerAnimState.gameObject.activeSelf)
                 {
-                    //canvasTutorial.enabled = true;
-                    //tutorial.PlayProgressTut(2);
-                    TutorialCamera.Instance.PlayTut3();
-                    isPauseGame = true;
+                    ControllerAnimState.ActionToBonus();
                 }
 
+                listCanClear[0].InitClear(countCanClear, true, true);
+                listCanClear[0].DecreaseCountFrozenNearBy();
+                listCanClear[0].InitValue();
+
+                StartCoroutine(DelayToCheckMerge());
+            }
+        }
+        else
+        {
+            for (int i = 0; i < listCanClear.Count; i++)
+            {
                 if (!isPauseGame)
                 {
                     if (ControllerAnimState.gameObject.activeSelf)
                     {
                         ControllerAnimState.ActionToBonus();
                     }
-                    //timerRun += timerConfigData.timeRun;
 
-                    colorPlate.InitClear(true);
-                    colorPlate.DecreaseCountFrozenNearBy();
-                    colorPlate.InitValue();
+                    listCanClear[i].InitClear(countCanClear, true, i == 0);
 
-                    StartCoroutine(DelayToCheckMerge());
+                    listCanClear[i].DecreaseCountFrozenNearBy();
+                    listCanClear[i].InitValue();
                 }
             }
+
+            StartCoroutine(DelayToCheckMerge());
         }
-        //Debug.Log("point: " + point);
-        //IncreaseCountDiff();
     }
 
     IEnumerator DelayToCheckMerge()
@@ -1411,7 +1442,7 @@ public class LogicGame : MonoBehaviour
             sequence.AppendCallback(() =>
             {
                 //Debug.Log("111111111");
-                //if (startColorPlate.TopValue == null || endColorPlate.TopValue == null) return;
+                if (startColorPlate.TopValue == null || endColorPlate.TopValue == null) return;
 
                 if (startColorPlate.TopValue == endColorPlate.TopValue)
                 {
