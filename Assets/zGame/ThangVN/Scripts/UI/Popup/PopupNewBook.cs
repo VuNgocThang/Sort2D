@@ -1,6 +1,7 @@
 using ntDev;
 using System.Collections;
 using System.Collections.Generic;
+using BaseGame;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,16 +15,14 @@ public class PopupNewBook : Popup
 
     private void Awake()
     {
-        btnNewBook.OnClick(() =>
-        {
-            StartCoroutine(ChangeBook());
-        });
+        btnNewBook.OnClick(() => { StartCoroutine(ChangeBook()); });
     }
 
     IEnumerator ChangeBook()
     {
         particle.Play();
         yield return new WaitForSeconds(0.5f);
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundNewBook);
         btnNewBook.gameObject.SetActive(false);
         nColorChange.SetActive(true);
         yield return new WaitForSeconds(1.25f);
@@ -49,8 +48,8 @@ public class PopupNewBook : Popup
         btnNewBook.gameObject.SetActive(true);
         imgNewBook.sprite = dataConfigDecor.listDataBooks[SaveGame.MaxCurrentBook].sprite;
         nColorChange.SetActive(false);
-
     }
+
     public override void Hide()
     {
         base.Hide();

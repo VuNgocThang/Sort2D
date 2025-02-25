@@ -8,7 +8,8 @@ using System.Net;
 
 public class DefaultFinishPlate : IVisualPlate
 {
-    public void Execute(ColorPlate colorPlate, int count, ColorEnum colorEnum, bool plusPoint)
+    public void Execute(ColorPlate colorPlate, int count, int countClear, ColorEnum colorEnum, bool plusPoint,
+        bool playSound)
     {
         Sequence sq = DOTween.Sequence();
         float delay = 0f;
@@ -121,9 +122,6 @@ public class DefaultFinishPlate : IVisualPlate
             //}
 
 
-
-
-
             LogicColor color = colorPlate.ListColor[i];
             if (i != colorPlate.ListValue.Count) listTest.Add(color);
             colorPlate.ListColor.Remove(color);
@@ -140,8 +138,10 @@ public class DefaultFinishPlate : IVisualPlate
                         //Vector3 targetPos = Camera.main.ViewportToWorldPoint(viewportPos);
 
                         // Camera Screen Space
-                        Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
-                        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Camera.main.nearClipPlane));
+                        Vector3 screenPoint =
+                            RectTransformUtility.WorldToScreenPoint(Camera.main, colorPlate.targetUIPosition.position);
+                        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y,
+                            Camera.main.nearClipPlane));
 
 
                         //ParticleSystem eatParticle = LogicGame.Instance.eatParticlePool.Spawn(colorPlate.transform.position, true);
@@ -161,7 +161,7 @@ public class DefaultFinishPlate : IVisualPlate
                         }
 
 
-                        CreatePathAnimation(color, targetPos, plusPoint, count);
+                        CreatePathAnimation(color, targetPos, plusPoint, count, countClear, playSound);
 
                         if (!SaveGame.IsDoneTutPoint)
                         {
@@ -189,7 +189,7 @@ public class DefaultFinishPlate : IVisualPlate
         }
     }
 
-    Color SwitchColor(ColorEnum colorEnum)
+    private static Color SwitchColor(ColorEnum colorEnum)
     {
         Color color;
         switch (colorEnum)
@@ -223,7 +223,8 @@ public class DefaultFinishPlate : IVisualPlate
         return color;
     }
 
-    void CreatePathAnimation(LogicColor color, Vector3 to, bool PlusPoint, int count)
+    private void CreatePathAnimation(LogicColor color, Vector3 to, bool PlusPoint, int count, int countClear,
+        bool playSound)
     {
         Vector3 from = color.transform.position;
 
@@ -249,6 +250,7 @@ public class DefaultFinishPlate : IVisualPlate
                     ManagerEvent.RaiseEvent(EventCMD.EVENT_POINT, count);
 
                 //Debug.Log(LogicGame.Instance.point + " ____POINT");
+                PlayRandomSoundEat(count, countClear, playSound);
                 LogicGame.Instance.ExecuteLockCoin(LogicGame.Instance.point);
                 LogicGame.Instance.IncreaseCountDiff();
                 LogicGame.Instance.SpawnSpecialColor();
@@ -258,4 +260,44 @@ public class DefaultFinishPlate : IVisualPlate
                 color.gameObject.SetActive(false);
             });
     }
+
+    private const int countFantastic = 15;
+
+    private void PlayRandomSoundEat(int count, int countClear, bool playSound)
+    {
+        if (!playSound) return;
+
+        if (countClear == 1)
+        {
+            if (count < countFantastic)
+            {
+                int r = Random.Range(0, 3);
+                switch (r)
+                {
+                    case 0:
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundGood);
+                        break;
+                    case 1:
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundGreat);
+                        break;
+                    case 2:
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundWellDone);
+                        break;
+                    default:
+                        ManagerAudio.PlaySound(ManagerAudio.Data.soundGood);
+                        break;
+                }
+            }
+        }
+        else
+        {
+            ManagerAudio.PlaySound(ManagerAudio.Data.soundFantastic);
+        }
+    }
+
+    // private bool IsEatSound(AudioClip audioClip)
+    // {
+    //     return audioClip == ManagerAudio.Data.soundGood || audioClip == ManagerAudio.Data.soundGreat ||
+    //            audioClip == ManagerAudio.Data.soundWellDone || audioClip == ManagerAudio.Data.soundFantastic;
+    // }
 }

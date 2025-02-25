@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using BaseGame;
 using DG.Tweening;
 using UnityEngine;
 using ntDev;
@@ -64,6 +65,7 @@ public class PopupReward : Popup
     {
         // base.Init();
         //ClaimReward();
+        ManagerAudio.PlaySound(ManagerAudio.Data.soundRewardDecor);
         this.transform.localScale = Vector3.one;
         Refresh();
         InitPile();
@@ -122,8 +124,6 @@ public class PopupReward : Popup
             pileOfMagicWands[i].transform.localPosition = initPosWand[i];
             pileOfMagicWands[i].transform.rotation = initRotWand[i];
         }
-
-       
     }
 
     protected virtual void ReceiveReward(int countMagicWand, int countCrytalBall, int countMagicCard,
@@ -134,6 +134,7 @@ public class PopupReward : Popup
         {
             listReward[i].isClaim = true;
         }
+
         nBlack.SetActive(true);
 
         var sequence = DOTween.Sequence();
@@ -210,6 +211,7 @@ public class PopupReward : Popup
         sequence.AppendInterval(0.05f)
             .OnComplete(() =>
             {
+                ManagerAudio.PlaySound(ManagerAudio.Data.soundClaimGold);
                 nBlack.SetActive(false);
                 StartCoroutine(RaiseEventClaimDecor(isPopupRewardDecor));
                 Reset();

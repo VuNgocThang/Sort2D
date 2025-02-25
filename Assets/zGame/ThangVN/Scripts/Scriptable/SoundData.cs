@@ -32,6 +32,11 @@ public class SoundData : ScriptableObject
     public AudioClip soundRewardDecor;
     public AudioClip soundStickers;
     public AudioClip soundSwap;
+    public AudioClip soundGood;
+    public AudioClip soundGreat;
+    public AudioClip soundWellDone;
+    public AudioClip soundFantastic;
+    public AudioClip soundExellent;
 
     public AudioClip musicInGame;
     public AudioClip musicBG;
