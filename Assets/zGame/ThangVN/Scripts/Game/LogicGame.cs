@@ -1320,43 +1320,22 @@ public class LogicGame : MonoBehaviour
         }
 
         if (countCanClear <= 0) return;
+        if (isPauseGame) return;
 
-        if (countCanClear == 1)
+        if (ControllerAnimState.gameObject.activeSelf)
         {
-            if (!isPauseGame)
-            {
-                if (ControllerAnimState.gameObject.activeSelf)
-                {
-                    ControllerAnimState.ActionToBonus();
-                }
-
-                listCanClear[0].InitClear(countCanClear, true, true);
-                listCanClear[0].DecreaseCountFrozenNearBy();
-                listCanClear[0].InitValue();
-
-                StartCoroutine(DelayToCheckMerge());
-            }
+            ControllerAnimState.ActionToBonus();
         }
-        else
+
+        for (int i = 0; i < listCanClear.Count; i++)
         {
-            for (int i = 0; i < listCanClear.Count; i++)
-            {
-                if (!isPauseGame)
-                {
-                    if (ControllerAnimState.gameObject.activeSelf)
-                    {
-                        ControllerAnimState.ActionToBonus();
-                    }
-
-                    listCanClear[i].InitClear(countCanClear, true, i == 0);
-
-                    listCanClear[i].DecreaseCountFrozenNearBy();
-                    listCanClear[i].InitValue();
-                }
-            }
-
-            StartCoroutine(DelayToCheckMerge());
+            bool isFirst = (i == 0);
+            listCanClear[i].InitClear(countCanClear, true, isFirst);
+            listCanClear[i].DecreaseCountFrozenNearBy();
+            listCanClear[i].InitValue();
         }
+
+        StartCoroutine(DelayToCheckMerge());
     }
 
     IEnumerator DelayToCheckMerge()
