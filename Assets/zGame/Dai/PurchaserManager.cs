@@ -1,0 +1,730 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Purchasing;
+using UnityEngine.Purchasing.Extension;
+using UnityEngine.Purchasing.Security;
+
+public class PurchaserManager : MonoBehaviour, 
+    //IDetailedStoreListener
+    IStoreListener
+{
+    #region IAP
+    public enum IAP_ID
+    {
+        starter_pack,
+        item_pack,
+        super_smash_pack,
+        remove_ads_pack,
+        coin_50,
+        coin_200,
+        coin_500,
+        coin_1000,
+        coin_2000,
+        coin_5000,
+        coin_10000,
+        remove_ads,
+        spring_pack,
+        summer_pack,
+        autumn_pack,
+        winter_pack,
+        spring_pack_sale50,
+        summer_pack_sale50,
+        autumn_pack_sale50,
+        winter_pack_sale50,
+        welcome_pack,
+        special_pack,
+        special_pack_sale50,
+        piggy_bank,
+        unlock_daily,
+        master_treasure_1,
+        master_treasure_2,
+        master_treasure_3
+    }
+#if UNITY_ANDROID
+    public static string GetStringIapId(IAP_ID type)
+    {
+        string str = "";
+        switch (type)
+        {
+            case IAP_ID.remove_ads:
+                str = "remove_ads";
+                break;
+            case IAP_ID.starter_pack:
+                str = "starter_pack";
+                break;
+            case IAP_ID.item_pack:
+                str = "item_pack";
+                break;
+            case IAP_ID.super_smash_pack:
+                str = "super_smash_pack";
+                break;
+            case IAP_ID.remove_ads_pack:
+                str = "remove_ads_pack";
+                break;
+            case IAP_ID.coin_50:
+                str = "coin_50";
+                break;
+            case IAP_ID.coin_200:
+                str = "coin_200";
+                break;
+            case IAP_ID.coin_500:
+                str = "coin_500";
+                break;
+            case IAP_ID.coin_1000:
+                str = "coin_1000";
+                break;
+            case IAP_ID.coin_2000:
+                str = "coin_2000";
+                break;
+            case IAP_ID.coin_5000:
+                str = "coin_5000";
+                break;
+            case IAP_ID.coin_10000:
+                str = "coin_10000";
+                break;
+            case IAP_ID.spring_pack:
+                str = "spring_pack";
+                break;
+
+            case IAP_ID.summer_pack:
+                str = "summer_pack";
+                break;
+            case IAP_ID.autumn_pack:
+                str = "autumn_pack";
+                break;
+            case IAP_ID.winter_pack:
+                str = "winter_pack";
+                break;
+            case IAP_ID.special_pack:
+                str = "special_pack";
+                break;
+            case IAP_ID.spring_pack_sale50:
+                str = "spring_pack_sale50";
+                break;
+
+            case IAP_ID.summer_pack_sale50:
+                str = "summer_pack_sale50";
+                break;
+            case IAP_ID.autumn_pack_sale50:
+                str = "autumn_pack_sale50";
+                break;
+            case IAP_ID.winter_pack_sale50:
+                str = "winter_pack_sale50";
+                break;
+            case IAP_ID.special_pack_sale50:
+                str = "special_pack_sale50";
+                break;
+            case IAP_ID.welcome_pack:
+                str = "welcome_pack";
+                break;
+            case IAP_ID.piggy_bank:
+                str = "piggy_bank";
+                break;
+            case IAP_ID.unlock_daily:
+                str = "unlock_daily";
+                break;
+            case IAP_ID.master_treasure_1:
+                str = "master_treasure_1";
+                break;
+            case IAP_ID.master_treasure_2:
+                str = "master_treasure_2";
+                break;
+            case IAP_ID.master_treasure_3:
+                str = "master_treasure_3";
+                break;
+        }
+        return str;
+    }
+
+#elif UNITY_IOS
+   public static string GetStringIapId(IAP_ID type)
+    {
+        string str = "";
+        switch (type)
+        {
+            case IAP_ID.remove_ads:
+                str = "cake_remove_ads_2";
+                break;
+            case IAP_ID.starter_pack:
+                str = "cake_starter_pack";
+                break;
+            case IAP_ID.item_pack:
+                str = "icake_tem_pack";
+                break;
+            case IAP_ID.super_smash_pack:
+                str = "cake_super_smash_pack";
+                break;
+            case IAP_ID.remove_ads_pack:
+                str = "cake_remove_ads_pack_2";
+                break;
+            case IAP_ID.coin_50:
+                str = "cake_coin_50";
+                break;
+            case IAP_ID.coin_200:
+                str = "cake_coin_200";
+                break;
+            case IAP_ID.coin_500:
+                str = "cake_coin_500";
+                break;
+            case IAP_ID.coin_1000:
+                str = "cake_coin_1000";
+                break;
+            case IAP_ID.coin_2000:
+                str = "cake_coin_2000";
+                break;
+            case IAP_ID.coin_5000:
+                str = "cake_coin_5000";
+                break;
+            case IAP_ID.coin_10000:
+                str = "cake_coin_10000";
+                break;
+
+
+
+            case IAP_ID.spring_pack:
+                str = "cake_spring_pack";
+                break;
+
+            case IAP_ID.summer_pack:
+                str = "cake_summer_pack";
+                break;
+            case IAP_ID.autumn_pack:
+                str = "cake_autumn_pack";
+                break;
+            case IAP_ID.winter_pack:
+                str = "cake_winter_pack";
+                break;
+            case IAP_ID.special_pack:
+                str = "cake_special_pack";
+                break;
+            case IAP_ID.spring_pack_sale50:
+                str = "cake_spring_pack_sale50";
+                break;
+
+            case IAP_ID.summer_pack_sale50:
+                str = "cake_summer_pack_sale50";
+                break;
+            case IAP_ID.autumn_pack_sale50:
+                str = "cake_autumn_pack_sale50";
+                break;
+            case IAP_ID.winter_pack_sale50:
+                str = "cake_winter_pack_sale50";
+                break;
+            case IAP_ID.special_pack_sale50:
+                str = "cake_special_pack_sale50";
+                break;
+            case IAP_ID.welcome_pack:
+                str = "cake_welcome_pack";
+                break;
+            case IAP_ID.piggy_bank:
+                str = "cake_piggy_bank";
+                break;
+            case IAP_ID.unlock_daily:
+                str = "cake_unlock_daily";
+                break;
+            case IAP_ID.master_treasure_1:
+                str = "cake_master_treasure_1";
+                break;
+            case IAP_ID.master_treasure_2:
+                str = "cake_master_treasure_2";
+                break;
+            case IAP_ID.master_treasure_3:
+                str = "cake_master_treasure_3";
+                break;
+        }
+        return str;
+    }
+#endif
+
+    #endregion
+
+    public static PurchaserManager instance;
+    private static IStoreController m_StoreController;          // The Unity Purchasing system.
+    private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
+
+    // Product identifiers for all products capable of being purchased: 
+    // "convenience" general identifiers for use with Purchasing, and their store-specific identifier 
+    // counterparts for use with and outside of Unity Purchasing. Define store-specific identifiers 
+    // also on each platform's publisher dashboard (iTunes Connect, Google Play Developer Console, etc.)
+
+    // General product identifiers for the consumable, non-consumable, and subscription products.
+    // Use these handles in the code to reference which product to purchase. Also use these values 
+    // when defining the Product Identifiers on the store. Except, for illustration purposes, the 
+    // kProductIDSubscription - it has custom Apple and Google identifiers. We declare their store-
+    // specific mapping to Unity Purchasing's AddProduct, below.
+    //public static string kProductIDConsumable = "consumable";
+   // public static string kProductIDNonConsumable = "nonconsumable";
+   // public static string kProductIDSubscription = "subscription";
+
+    // Apple App Store-specific product identifier for the subscription product.
+    private static string kProductNameAppleSubscription = "com.unity3d.subscription.new";
+
+    // Google Play Store-specific product identifier subscription product.
+    private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
+
+    private Action<string, IAP_CALLBACK_STATE> PurchaserManager_Callback = delegate (string _iapID, IAP_CALLBACK_STATE _callBackState) { };
+    public static Action InitializeSucceeded;
+    public static event Action RestoreCompleted;
+    public static event Action RestoreFailed;
+    private void Awake()
+    {
+        instance = this;
+        DontDestroyOnLoad(this);
+    }
+    void Start()
+    {
+        // If we haven't set up the Unity Purchasing reference
+        if (m_StoreController == null)
+        {
+            // Begin to configure our connection to Purchasing
+            InitializePurchasing();
+        }
+    }
+
+    public void InitializePurchasing()
+    {
+        // If we have already connected to Purchasing ...
+        if (IsInitialized())
+        {
+            // ... we are done here.
+            return;
+        }
+
+        // Create a builder, first passing in a suite of Unity provided stores.
+        var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
+
+        // Add a product to sell / restore by way of its identifier, associating the general identifier
+        // with its store-specific identifiers.
+       // builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
+        // Continue adding the non-consumable product.
+        //builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable);
+        // And finish adding the subscription product. Notice this uses store-specific IDs, illustrating
+        // if the Product ID was configured differently between Apple and Google stores. Also note that
+        // one uses the general kProductIDSubscription handle inside the game - the store-specific IDs 
+        // must only be referenced here. 
+       // builder.AddProduct(kProductIDSubscription, ProductType.Subscription, new IDs(){
+        //        { kProductNameAppleSubscription, AppleAppStore.Name },
+        //        { kProductNameGooglePlaySubscription, GooglePlay.Name },
+         //   });
+
+
+        //builder.AddProduct(Config.IAP_ID.removeAd.ToString(), ProductType.NonConsumable);
+        //foreach (string iapID in Enum.GetNames(typeof(PurchaserManager.IAP_ID)))
+            foreach (PurchaserManager.IAP_ID iapID in Enum.GetValues( typeof(PurchaserManager.IAP_ID)))
+            {
+            //Debug.Log("iapID------------- : " + GetStringIapId(iapID));
+            //if (!iapID.Equals(Config.IAP_ID.removeAd))
+            //{
+            //    builder.AddProduct(iapID, ProductType.Consumable);
+            //}
+#if UNITY_IOS
+            if (iapID == PurchaserManager.IAP_ID.remove_ads || iapID == PurchaserManager.IAP_ID.remove_ads_pack)
+            {
+                builder.AddProduct(GetStringIapId(iapID), ProductType.NonConsumable);
+            }
+            else {
+                builder.AddProduct(GetStringIapId(iapID), ProductType.Consumable);
+            }
+#else
+            builder.AddProduct(GetStringIapId(iapID), ProductType.Consumable);
+#endif
+
+        }
+
+
+        // Kick off the remainder of the set-up with an asynchrounous call, passing the configuration 
+        // and this class' instance. Expect a response either in OnInitialized or OnInitializeFailed.
+        UnityPurchasing.Initialize(this, builder);
+        //UnityPurchasing.Initialize(this, builder);
+    }
+
+
+    public bool IsInitialized()
+    {
+#if UNITY_EDITOR
+        return true;
+#endif
+        // Only say we are initialized if both the Purchasing references are set.
+        return m_StoreController != null && m_StoreExtensionProvider != null;
+    }
+
+
+    public void BuyConsumable()
+    {
+        // Buy the consumable product using its general identifier. Expect a response either 
+        // through ProcessPurchase or OnPurchaseFailed asynchronously.
+       // BuyProductID(kProductIDConsumable);
+    }
+
+
+    public void BuyConsumable(PurchaserManager.IAP_ID iapID, Action<string, IAP_CALLBACK_STATE> _purchaserManager_Callback)
+    {
+        //SortPlayManager.instance.ShowLoadingLayout();
+        Config.showInterOnPause = false;
+        PurchaserManager_Callback = _purchaserManager_Callback;
+        // Buy the consumable product using its general identifier. Expect a response either 
+        // through ProcessPurchase or OnPurchaseFailed asynchronously.
+        BuyProductID(GetStringIapId(iapID));
+    }
+
+
+    public void BuyNonConsumable(PurchaserManager.IAP_ID iapID, Action<string, IAP_CALLBACK_STATE> _purchaserManager_Callback)
+    {
+        PurchaserManager_Callback = _purchaserManager_Callback;
+        // Buy the non-consumable product using its general identifier. Expect a response either 
+        // through ProcessPurchase or OnPurchaseFailed asynchronously.
+        BuyProductID(GetStringIapId(iapID));
+    }
+    public void BuyNonConsumable()
+    {
+        // Buy the non-consumable product using its general identifier. Expect a response either 
+        // through ProcessPurchase or OnPurchaseFailed asynchronously.
+//        BuyProductID(kProductIDNonConsumable);
+    }
+
+
+    public void BuySubscription()
+    {
+        // Buy the subscription product using its the general identifier. Expect a response either 
+        // through ProcessPurchase or OnPurchaseFailed asynchronously.
+        // Notice how we use the general product identifier in spite of this ID being mapped to
+        // custom store-specific identifiers above.
+        //BuyProductID(kProductIDSubscription);
+    }
+
+    bool isBuying = false;
+    void BuyProductID(string productId)
+    {
+        isBuying = true;
+#if UNITY_EDITOR
+        isBuying = false;
+        PurchaserManager_Callback.Invoke(productId, IAP_CALLBACK_STATE.SUCCESS);
+#else
+        // If Purchasing has been initialized ...
+        if (IsInitialized())
+        {
+            // ... look up the Product reference with the general product identifier and the Purchasing 
+            // system's products collection.
+            Product product = m_StoreController.products.WithID(productId);
+
+            // If the look up found a product for this device's store and that product is ready to be sold ... 
+            if (product != null && product.availableToPurchase)
+            {
+                Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
+                // ... buy the product. Expect a response either through ProcessPurchase or OnPurchaseFailed 
+                // asynchronously.
+                m_StoreController.InitiatePurchase(product);
+            }
+            // Otherwise ...
+            else
+            {
+                // ... report the product look-up failure situation  
+                Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase : "+ productId);
+                //SortPlayManager.instance.HideLoadingLayout();
+            }
+        }
+        // Otherwise ...
+        else
+        {
+            // ... report the fact Purchasing has not succeeded initializing yet. Consider waiting longer or 
+            // retrying initiailization.
+            Debug.Log("BuyProductID FAIL. Not initialized.");
+        isBuying = false;
+            PurchaserManager_Callback.Invoke(productId, IAP_CALLBACK_STATE.FAIL);
+            //SortPlayManager.instance.HideLoadingLayout();
+        }
+#endif
+    }
+
+
+    // Restore purchases previously made by this customer. Some platforms automatically restore purchases, like Google. 
+    // Apple currently requires explicit purchase restoration for IAP, conditionally displaying a password prompt.
+    public void Restore(Action<bool> pOnRestored)
+    {
+        try
+        {
+            RestoreActive(pOnRestored);
+        }
+        catch (System.Exception)
+        {
+            if (pOnRestored != null)
+            {
+                pOnRestored(false);
+            }
+        }
+    }
+    private Action<bool> mOnRestored;
+    private void RestoreActive(Action<bool> pOnRestored)
+    {
+        if (!IsInitialized())
+        {
+            mOnRestored?.Invoke(false);
+            Debug.Log("GamePayment is not initialized.");
+            return;
+        }
+
+        mOnRestored = pOnRestored;
+
+        if (Application.platform == RuntimePlatform.IPhonePlayer ||
+            Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            var apple = m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
+            apple.RestoreTransactions((success) =>
+            {
+                Debug.Log("Transactions restored." + success);
+                mOnRestored?.Invoke(success);
+            });
+        }
+        else
+        {
+            mOnRestored?.Invoke(false);
+            // We are not running on an Apple device. No work is necessary to restore purchases.
+            Debug.Log("Couldn't restore IAP purchases: not supported on platform " + Application.platform.ToString());
+        }
+    }
+
+    //public void RestorePurchases()
+    //{
+    //    // If Purchasing has not yet been set up ...
+    //    if (!IsInitialized())
+    //    {
+    //        // ... report the situation and stop restoring. Consider either waiting longer, or retrying initialization.
+    //        Debug.Log("RestorePurchases FAIL. Not initialized.");
+    //        return;
+    //    }
+
+    //    // If we are running on an Apple device ... 
+    //    if (Application.platform == RuntimePlatform.IPhonePlayer ||
+    //        Application.platform == RuntimePlatform.OSXPlayer)
+    //    {
+    //        // ... begin restoring purchases
+    //        Debug.Log("RestorePurchases started ...");
+
+    //        // Fetch the Apple store-specific subsystem.
+    //        var apple = m_StoreExtensionProvider.GetExtension<IAppleExtensions>();
+    //        // Begin the asynchronous process of restoring purchases. Expect a confirmation response in 
+    //        // the Action<bool> below, and ProcessPurchase if there are previously purchased products to restore.
+    //        apple.RestoreTransactions((result) =>
+    //        {
+    //            // The first phase of restoration. If no more responses are received on ProcessPurchase then 
+    //            // no purchases are available to be restored.
+    //            Debug.Log("RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
+    //        });
+    //    }
+    //    // Otherwise ...
+    //    else
+    //    {
+    //        // We are not running on an Apple device. No work is necessary to restore purchases.
+    //        Debug.Log("RestorePurchases FAIL. Not supported on this platform. Current = " + Application.platform);
+    //    }
+    //}
+
+
+    //  
+    // --- IStoreListener
+    //
+
+    public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
+    {
+        // Purchasing has succeeded initializing. Collect our Purchasing references.
+        Debug.Log("OnInitialized: PASS");
+
+        // Overall Purchasing system, configured with products for this application.
+        m_StoreController = controller;
+        // Store specific subsystem, for accessing device-specific store features.
+        m_StoreExtensionProvider = extensions;
+
+    }
+
+    //public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
+   // {
+   //     Debug.Log("PURCHASE FALSE "+failureDescription.message);
+   //     PurchaserManager_Callback.Invoke(product.definition.id, IAP_CALLBACK_STATE.FAIL);
+    //    isBuying = false;
+   // }
+
+    private void OnApplePurchaseDeferred(Product pProduct)
+    {
+        Debug.Log("Purchase deferred: " + pProduct.definition.id);
+    }
+
+
+    public void OnInitializeFailed(InitializationFailureReason error)
+    {
+        // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
+        Debug.Log("OnInitializeFailed InitializationFailureReason:" + error);
+    }
+
+    public void OnInitializeFailed(InitializationFailureReason error, string message)
+    {
+        
+    }
+
+
+    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
+    {
+        //// A consumable product has been purchased by this user.
+        //if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+        //    //ScoreManager.score += 100;
+        //    PurchaserManager_Callback.Invoke(args.purchasedProduct.definition.id);
+        //}
+        //// Or ... a non-consumable product has been purchased by this user.
+        //else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
+        //}
+        //// Or ... a subscription product has been purchased by this user.
+        //else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        //    // TODO: The subscription item has been successfully purchased, grant this to the player.
+        //}
+        //// Or ... an unknown product has been purchased by this user. Fill in additional products here....
+        //else
+        //{
+        //    Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+        //}
+
+        // Return a flag indicating whether this product has completely been received, or if the application needs 
+        // to be reminded of this purchase at next app launch. Use PurchaseProcessingResult.Pending when still 
+        // saving purchased products to the cloud, and when that save is delayed. 
+        bool validPurchase = true; // Presume valid for platforms with no R.V.
+
+        // Unity IAP's validation logic is only included on these platforms.
+#if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX
+        // Prepare the validator with the secrets we prepared in the Editor
+        // obfuscation window.
+
+        var validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
+            AppleTangle.Data(), Application.identifier);
+
+        try
+        {
+            // On Google Play, result has a single product ID.
+            // On Apple stores, receipts contain multiple products.
+            var result = validator.Validate(args.purchasedProduct.receipt);
+            // For informational purposes, we list the receipt(s)
+            Debug.Log("Receipt is valid. Contents:");
+            foreach (IPurchaseReceipt productReceipt in result)
+            {
+                Debug.Log(productReceipt.productID);
+                Debug.Log(productReceipt.purchaseDate);
+                Debug.Log(productReceipt.transactionID);
+            }
+        }
+        catch (IAPSecurityException)
+        {
+            Debug.Log("Invalid receipt, not unlocking content");
+            validPurchase = false;
+        }
+#endif
+
+
+        if (isBuying)
+        {
+
+            if (validPurchase)
+            {
+
+                // Unlock the appropriate content here.
+                PurchaserManager_Callback.Invoke(args.purchasedProduct.definition.id, IAP_CALLBACK_STATE.SUCCESS);
+                // int soBanhProcess = 0; //dem tu 2
+                // if (DataUseInGame.gameData != null)
+                // {
+                //     soBanhProcess = DataUseInGame.gameData.userProgressCake;
+                // }
+                // FirebaseManager.instance.LogPaymentItem(args.purchasedProduct.definition.id, soBanhProcess);
+            }
+            else
+            {
+                PurchaserManager_Callback.Invoke(args.purchasedProduct.definition.id, IAP_CALLBACK_STATE.FAIL);
+            }
+            // SortPlayManager.instance.HideLoadingLayout();
+            isBuying = false;
+        }
+        else {
+            if (validPurchase) {
+                if (args.purchasedProduct.definition.id.Equals(GetStringIapId(PurchaserManager.IAP_ID.remove_ads_pack))
+                    || args.purchasedProduct.definition.id.Equals( GetStringIapId(PurchaserManager.IAP_ID.remove_ads)))
+                {
+                    Config.SetRemoveAd();
+                }
+            }
+        }
+        
+#if ACTIVE_APPSFLYER
+        if (validPurchase) {
+            AppsFlyerPurchaseEvent(args.purchasedProduct);
+        }
+        
+#endif
+        return PurchaseProcessingResult.Complete;
+    }
+
+
+    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
+    {
+        // A product purchase attempt did not succeed. Check failureReason for more detail. Consider sharing 
+        // this reason with the user to guide their troubleshooting actions.
+        Debug.Log(string.Format("OnPurchaseFailed: FAIL. Product: '{0}', PurchaseFailureReason: {1}", product.definition.storeSpecificId, failureReason));
+        PurchaserManager_Callback.Invoke(product.definition.id, IAP_CALLBACK_STATE.FAIL);
+        isBuying = false;
+        // SortPlayManager.instance.HideLoadingLayout();
+    }
+
+    //    public string GetLocalizedPriceString(string iapID)
+    //    {
+    //#if UNITY_EDITOR
+    //        return "45.000 đ";
+    //#endif
+    //        //Debug.Log("GetLocalizedPriceString:"+ iapID);
+    //        var product = m_StoreController.products.WithID(iapID);
+    //        //Debug.Log("GetLocalizedPriceString:" + product);
+    //        //Debug.Log("GetLocalizedPriceString:" + product.metadata.localizedPriceString);
+    //        if (product != null)
+    //            return product.metadata.localizedPriceString;
+    //        return "";
+    //    }
+    public string GetLocalizedPriceString(string pPackageId, string defaunt)
+    {
+        if (m_StoreController != null)
+        {
+            var product = m_StoreController.products.WithID(pPackageId);
+            if (product != null)
+            {
+                return product.metadata.localizedPriceString;
+            }
+        }
+        return defaunt;
+    }
+
+    public enum IAP_CALLBACK_STATE
+    {
+        SUCCESS,
+        FAIL
+    }
+
+#if ACTIVE_APPSFLYER
+    public static void AppsFlyerPurchaseEvent(Product product)
+    {
+        Dictionary<string, string> eventValue = new Dictionary<string, string>();
+        eventValue.Add("af_revenue", GetAppsflyerRevenue(product.metadata.localizedPrice));
+        eventValue.Add("af_content_id", product.definition.id);
+        eventValue.Add("af_currency", product.metadata.isoCurrencyCode);
+        AppsFlyerSDK.AppsFlyer.sendEvent("af_purchase", eventValue);
+    }
+
+    public static string GetAppsflyerRevenue(decimal amount)
+    {
+        decimal val = decimal.Multiply(amount, 0.63m);
+        return val.ToString();
+    }
+#endif
+
+}

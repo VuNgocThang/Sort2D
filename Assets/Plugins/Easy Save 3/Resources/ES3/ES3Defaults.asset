@@ -30,6 +30,7 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
+    - AirbridgeSDK
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - BuildReportTool
@@ -37,7 +38,12 @@ MonoBehaviour:
     - Coffee.UIParticle.Editor
     - Coffee.UnmaskForUGUI
     - Coffee.UnmaskForUGUI.Editor
+    - GoogleMobileAds.Editor
+    - IAPResolver
+    - MaxSdk.Scripts
+    - MaxSdk.Scripts.IntegrationManager.Editor
     - PPv2URPConverters
+    - Purchasing.Common
     - spine-csharp
     - spine-unity
     - spine-unity-editor
