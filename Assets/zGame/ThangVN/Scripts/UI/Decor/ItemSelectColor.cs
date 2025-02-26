@@ -9,7 +9,9 @@ public class ItemSelectColor : MonoBehaviour
     [SerializeField] EasyButton btnSelect;
     public Image bg;
     public GameObject imgAds;
+
     public bool CanSelect;
+
     //public bool IsBought;
     public Color color;
 
@@ -23,17 +25,19 @@ public class ItemSelectColor : MonoBehaviour
             {
                 // raise event change color;
                 ManagerEvent.RaiseEvent(EventCMD.EVENT_CHANGE_COLOR, color);
-
             }
             else
             {
-                Debug.Log("Watch ads to canselect");
+                Debug.Log("Watch ads to can select");
                 // watch ads to canSelect
 
                 if (imgAds == null) return;
 
-                imgAds.SetActive(false);
-                CanSelect = true;
+                AdsController.instance.ShowRewardedVideo((onCompleted) =>
+                {
+                    imgAds.SetActive(false);
+                    CanSelect = true;
+                }, null, "Color Decor");
             }
         });
     }

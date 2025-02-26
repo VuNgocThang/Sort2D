@@ -11,7 +11,10 @@ public class PopupGiftBook : Popup
     private void Awake()
     {
         btnClosePopup.OnClick(Hide);
-        btnClaim.OnClick(ClaimReward);
+        btnClaim.OnClick(() =>
+        {
+            AdsController.instance.ShowRewardedVideo((onCOmpleted) => { ClaimReward(); }, null, "Claim Gift Book");
+        });
     }
 
     public async static void Show()

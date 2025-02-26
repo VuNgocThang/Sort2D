@@ -10,7 +10,11 @@ public class PopupBonusLevel : Popup
 
     private void Awake()
     {
-        btnHelp.OnClick(MoveToLevelBonus);
+        btnHelp.OnClick(() =>
+        {
+            AdsController.instance.ShowRewardedVideo((onCompleted) => { MoveToLevelBonus(); }, null,
+                "Reward Play Bonus");
+        });
         btnNo.OnClick(MoveToHome);
     }
 

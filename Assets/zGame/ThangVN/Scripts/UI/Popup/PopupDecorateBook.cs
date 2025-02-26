@@ -326,7 +326,7 @@ public class PopupDecorateBook : Popup
         }
     }
 
-    void InitColor()
+    private void InitColor()
     {
         for (int i = 0; i < dataBook.listColorDecor.Count; i++)
         {

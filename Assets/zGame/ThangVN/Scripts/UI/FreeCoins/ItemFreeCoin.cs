@@ -19,7 +19,10 @@ public class ItemFreeCoin : MonoBehaviour
 
     private void Awake()
     {
-        btnClaim.OnClick(() => ClaimRewardAds());
+        btnClaim.OnClick(() =>
+        {
+            AdsController.instance.ShowRewardedVideo((onCompleted) => { ClaimRewardAds(); }, null, "Free Coin");
+        });
     }
 
     public void Show(int currentIndex, PopupFreeCoin popupFreeCoin)
@@ -75,7 +78,7 @@ public class ItemFreeCoin : MonoBehaviour
         }
     }
 
-    void ClaimRewardAds()
+    private void ClaimRewardAds()
     {
         if (isClaimed) return;
 
@@ -84,7 +87,6 @@ public class ItemFreeCoin : MonoBehaviour
             // reward ads here
             if (countCoin > 0)
             {
-                //SaveGame.Coin += countCoin;
                 if (DailyTaskManager.Instance != null)
                     DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
                 popupFreeCoin.ReceiveReward(this.transform);

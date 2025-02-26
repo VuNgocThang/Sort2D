@@ -50,7 +50,7 @@ public class PopupReward : Popup
 
         btnClaimx2.OnClick(() =>
         {
-            ClaimReward(2);
+            AdsController.instance.ShowRewardedVideo((onCompleted) => { ClaimReward(2); }, null, "Claim Reward");
             // Hide();
         });
     }
