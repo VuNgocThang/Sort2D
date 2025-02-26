@@ -78,6 +78,11 @@ public class HomeUI : MonoBehaviour
 
         btnDecor.OnClick(() =>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+            {
+                AdsController.instance.ShowInterAd(null, "Home to Decor");
+            }
+
             if (SaveGame.Level < 2)
             {
                 return;
@@ -180,6 +185,8 @@ public class HomeUI : MonoBehaviour
         {
             countDownTimerBook = SaveGame.CountDownTimerBook;
         }
+
+        GameManager.ShowInterAds("Back Home");
     }
 
     private void Update()
@@ -348,11 +355,11 @@ public class HomeUI : MonoBehaviour
 
             if (GameConfig.MAX_HEART >= SaveGame.Heart)
             {
-                Debug.Log("Heart_Before:" + SaveGame.Heart);
+                // Debug.Log("Heart_Before:" + SaveGame.Heart);
                 SaveGame.Heart += increaseHeart;
-                Debug.Log("Heart_AfterAdd:" + SaveGame.Heart);
+                // Debug.Log("Heart_AfterAdd:" + SaveGame.Heart);
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
-                Debug.Log("Heart_After:" + SaveGame.Heart);
+                // Debug.Log("Heart_After:" + SaveGame.Heart);
             }
 
             //Debug.Log("timeSinceLastLoss: " + timeSinceLastLoss);

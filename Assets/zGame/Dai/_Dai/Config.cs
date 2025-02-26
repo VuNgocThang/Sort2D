@@ -17,11 +17,13 @@ public class Config
     public const int PUB_G_RK = 1;
     public const int PUB_G_AB = 2;
     public const int PUB_G_FACOL = 3;
+
     public const int PUB_G_HOPEE = 6;
+
     //-------------
-    public const bool ACTIVE_TEST = false;//false
+    public const bool ACTIVE_TEST = false; //false
 #if UNITY_EDITOR
-    public static bool ACTIVE_DEBUG_LOG = true;//false
+    public static bool ACTIVE_DEBUG_LOG = true; //false
 #else
     public static bool ACTIVE_DEBUG_LOG = false;
 #endif
@@ -40,15 +42,19 @@ public class Config
 
     public static int countRestart = 0;
 
-    public static int currLevel = 0;//moi khi player choi 1 man` choi thi` set bang` level cua map choi //FIXME
+    public static int currLevel = 0; //moi khi player choi 1 man` choi thi` set bang` level cua map choi //FIXME
+
     //---------
     static float START_POINT_CHECK_TIME = 0;
+
     //----------------
     public static bool isActiveBanner = true;
     public static bool isActiveInter = true;
     public static bool isActiveAOA = true;
     public static bool isActiveAOA_Switch = true;
+
     public static bool isActiveVideoReward = true;
+
     //------
     public const int TYPE_USER_PURCHASE_1 = 1;
     public const int TYPE_USER_PURCHASE_2 = 2;
@@ -59,9 +65,9 @@ public class Config
     public const int TYPE_USER_PURCHASE_1_FREE = 7;
 
     //----*********** remote config **********---
-    public static bool ACTIVE_CHECK_TYPE_USER = true;//false
+    public static bool ACTIVE_CHECK_TYPE_USER = true; //false
 
-    public static bool ACTIVE_BANNER_ALWAY_TYPE_USER = true;//false
+    public static bool ACTIVE_BANNER_ALWAY_TYPE_USER = true; //false
 
     public static double CAPPING_FREE_USER_TIME_INTER_BY_INTER = 10;
     public static double CAPPING_FREE_USER_TIME_INTER_BY_REWARD = 10;
@@ -73,40 +79,45 @@ public class Config
     public static double CAPPING_ADS_USER_TIME_INTER_BY_REWARD = 10;
 
     public static double CAPPING_FREE_2_USER_TIME_INTER_BY_INTER = 10;
+
     public static double CAPPING_FREE_2_USER_TIME_INTER_BY_REWARD = 10;
+
     //------main value---
     public static int COUNT_PURCHASE_GET_PURCHASE_1 = 1;
     public static int COUNT_PURCHASE_GET_PURCHASE_2 = 2;
     public static int COUNT_VIEW_GET_ADS_1 = 2;
     public static int COUNT_VIEW_GET_ADS_2 = 4;
 
-    public static int SECOND_BUY_PURCHASE_ADD = 30;//45m 2700
-    public static int SECOND_VIEW_REWARD_ADD = 10;//2m 120
+    public static int SECOND_BUY_PURCHASE_ADD = 30; //45m 2700
+    public static int SECOND_VIEW_REWARD_ADD = 10; //2m 120
 
     public static int LEVEL_FIRST_CHECK_TYPE_USER = 0;
-    public static int TIME_FIRST_CHECK_TYPE_USER = 10;//5m 300
+    public static int TIME_FIRST_CHECK_TYPE_USER = 10; //5m 300
 
-    public static int MAX_COUNT_CHECK_WAIT = 1;//check wwait bao nhieu lan la max
+    public static int MAX_COUNT_CHECK_WAIT = 1; //check wwait bao nhieu lan la max
 
     public static float TILE_WIN_RATE_E = 0.6f;
     public static int MAX_COUNT_LEVEL_CHECK_RATE_WIN_E = 1;
 
     public static int MAX_COUNT_LEVEL_CHECK_RATE_WIN_SUM = 2;
 
-    public static int TIME_ADD_WAIT_CHECK = 10;//2m 120
+    public static int TIME_ADD_WAIT_CHECK = 10; //2m 120
 
-    public static int MAX_TIME_START_TO_END_LEVEL = 10;//3m 180
+    public static int MAX_TIME_START_TO_END_LEVEL = 10; //3m 180
 
-    public static int TIME_ADD_TO_TYPE_USER_DROP = 10;//2m  120
+    public static int TIME_ADD_TO_TYPE_USER_DROP = 10; //2m  120
+
     //---time menu---
-    public static int TIME_MENU_CHECK_USER_WHAT_DOING = 10;//thoi gian user o ngaoi menu qua' lau
-    public static int TIME_MAX_MENU_CHECK_TO_LEVEL_START = 10;//thoi gian toi da o? ngoai` menu den luc start level
+    public static int TIME_MENU_CHECK_USER_WHAT_DOING = 10; //thoi gian user o ngaoi menu qua' lau
+    public static int TIME_MAX_MENU_CHECK_TO_LEVEL_START = 10; //thoi gian toi da o? ngoai` menu den luc start level
 
     //-----End remote config-------------
 
     public static int COUNT_TIME_INGAME = 0;
     //----------------
-#region check user
+
+    #region check user
+
     public const int MAX_VALUE_RATE_WIN = int.MaxValue / 3;
 
     public static bool isFirstCheckUserDone = false;
@@ -132,6 +143,7 @@ public class Config
     const string key_first_detect_type_user = "dai_first_detect_type_user";
     const string key_type_user = "dai_type_user";
     const string key_count_time_type_user = "dai_count_time_type_user";
+
     public static string GetLogStringDebugTypeUser()
     {
         StringBuilder strBuilderResulf = new StringBuilder();
@@ -160,8 +172,10 @@ public class Config
             return strBuilderResulf.ToString() + "\n" + strLogLoad.ToString();
         }
     }
+
     //----------
     public static StringBuilder strLogLoad = null;
+
     public static void AddLogShowDebug(string nameLog)
     {
         if (ConfigIdsAds.TEST_TYPE_USER)
@@ -170,17 +184,21 @@ public class Config
             {
                 strLogLoad = new StringBuilder();
             }
+
             strLogLoad.Append(Time.time + ": " + nameLog + " -> ");
         }
     }
+
     //---------------
     public static bool InitedDetectUser = false;
+
     public static void FirstCheckTypeUser()
     {
         if (InitedDetectUser)
         {
             return;
         }
+
         InitedDetectUser = true;
         bool firstSetup = Get_FirstSetup();
         isFirstCheckUserDone = Get_FirstDetectTypeUser();
@@ -213,8 +231,10 @@ public class Config
             TYPE_USER_NOW = Get_TypeUser();
             COUNT_TIME_INGAME = Get_CountTimeTypeUser();
         }
+
         CheckSetActiveAds();
     }
+
     //--------
     static void CheckSetActiveAds()
     {
@@ -228,9 +248,9 @@ public class Config
             AdsController.instance.CheckActiveChangeTypeUser();
             return;
         }
+
         if (isFirstCheckUserDone)
         {
-
             switch (TYPE_USER_NOW)
             {
                 case TYPE_USER_PURCHASE_1:
@@ -240,10 +260,10 @@ public class Config
                     isActiveAOA_Switch = false;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 case TYPE_USER_PURCHASE_2:
                     isActiveBanner = false;
@@ -252,10 +272,10 @@ public class Config
                     isActiveAOA_Switch = false;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 case TYPE_USER_ADS_1:
                     isActiveBanner = true;
@@ -264,10 +284,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 case TYPE_USER_ADS_2:
                     isActiveBanner = true;
@@ -276,10 +296,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 case TYPE_USER_FREE:
                     isActiveBanner = true;
@@ -288,10 +308,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 case TYPE_USER_FREE_2:
                     isActiveBanner = true;
@@ -300,10 +320,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 case TYPE_USER_PURCHASE_1_FREE:
                     isActiveBanner = true;
@@ -312,10 +332,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
                 default:
                     isActiveBanner = true;
@@ -324,10 +344,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                    {
-                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
-                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
-                    }
+                {
+                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
+                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
+                }
                     break;
             }
         }
@@ -344,16 +364,20 @@ public class Config
                 AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
             }
         }
+
         if (Config.ACTIVE_BANNER_ALWAY_TYPE_USER)
         {
             isActiveBanner = true;
         }
+
         AdsController.instance.CheckActiveChangeTypeUser();
     }
+
     //-------
     const int MAX_VALUE_TIME_MENU = 9999999;
     static bool isActiveTimeMenu = false;
     static int countTimeMenu = 0;
+
     static void ActiveTimeMenu()
     {
         //if (!isActiveTimeMenu)
@@ -363,6 +387,7 @@ public class Config
             AdsController.instance.ActiveCountTimeMenu();
         }
     }
+
     static void CheckEndTimeMenu()
     {
         isActiveTimeMenu = false;
@@ -371,9 +396,9 @@ public class Config
         if (countTimeMenu >= TIME_MAX_MENU_CHECK_TO_LEVEL_START)
         {
             //--user vao` game play ----
-
         }
     }
+
     public static void UpdateTimeMenu(int timeAdd)
     {
         if (isActiveTimeMenu)
@@ -383,13 +408,14 @@ public class Config
             {
                 countTimeMenu = MAX_VALUE_TIME_MENU;
             }
+
             if (countTimeMenu >= TIME_MENU_CHECK_USER_WHAT_DOING)
             {
                 //--user o ngoai menu 1 thoi gian---
-
             }
         }
     }
+
     static string GetTypeUser_Debug()
     {
         string str = "ERROR";
@@ -419,120 +445,151 @@ public class Config
             default:
                 break;
         }
+
         return str;
     }
+
     //--------------
-#region func save
+
+    #region func save
+
     static void Active_FirstSetup()
     {
         PlayerPrefs.SetInt(key_first_setup_type_user, 1);
     }
+
     static bool Get_FirstSetup()
     {
         return (PlayerPrefs.GetInt(key_first_setup_type_user, 0) == 1);
     }
+
     static void Active_FirstDetectTypeUser()
     {
         PlayerPrefs.SetInt(key_first_detect_type_user, 1);
     }
+
     static bool Get_FirstDetectTypeUser()
     {
         return (PlayerPrefs.GetInt(key_first_detect_type_user, 0) == 1);
     }
+
     static void Set_TypeUser(int value)
     {
         PlayerPrefs.SetInt(key_type_user, value);
     }
+
     static int Get_TypeUser()
     {
         return PlayerPrefs.GetInt(key_type_user, TYPE_USER_FREE);
     }
+
     static void Set_CountTimeTypeUser(int value)
     {
         PlayerPrefs.SetInt(key_count_time_type_user, value);
     }
+
     static int Get_CountTimeTypeUser()
     {
         return PlayerPrefs.GetInt(key_count_time_type_user, 0);
     }
+
     //----------------
     static void Set_CountRewardedAds(int value)
     {
         PlayerPrefs.SetInt(key_count_rewarded_ads, value);
     }
+
     static int Get_CountRewardedAds()
     {
         return PlayerPrefs.GetInt(key_count_rewarded_ads, 0);
     }
+
     static void Set_CountBuyPurchase(int value)
     {
         PlayerPrefs.SetInt(key_count_purchase, value);
     }
+
     static int Get_CountBuyPurchase()
     {
         return PlayerPrefs.GetInt(key_count_purchase, 0);
     }
+
     //---
     static void Set_CountLevelStartSum(int value)
     {
         PlayerPrefs.SetInt(key_count_level_start_sum, value);
     }
+
     static int Get_CountLevelStartSum()
     {
         return PlayerPrefs.GetInt(key_count_level_start_sum, 0);
     }
+
     static void Set_CountLevelLoseSum(int value)
     {
         PlayerPrefs.SetInt(key_count_level_lose_sum, value);
     }
+
     static int Get_CountLevelLoseSum()
     {
         return PlayerPrefs.GetInt(key_count_level_lose_sum, 0);
     }
+
     static void Set_CountLevelWinSum(int value)
     {
         PlayerPrefs.SetInt(key_count_level_win_sum, value);
     }
+
     static int Get_CountLevelWinSum()
     {
         return PlayerPrefs.GetInt(key_count_level_win_sum, 0);
     }
+
     static void Set_CountLevelQuitSum(int value)
     {
         PlayerPrefs.SetInt(key_count_level_quit_sum, value);
     }
+
     static int Get_CountLevelQuitSum()
     {
         return PlayerPrefs.GetInt(key_count_level_quit_sum, 0);
     }
+
     static void Set_CountLevelStartE(int value)
     {
         PlayerPrefs.SetInt(key_count_level_start_e, value);
     }
+
     static int Get_CountLevelStartE()
     {
         return PlayerPrefs.GetInt(key_count_level_start_e, 0);
     }
+
     static void Set_CountLevelLoseE(int value)
     {
         PlayerPrefs.SetInt(key_count_level_lose_e, value);
     }
+
     static int Get_CountLevelLoseE()
     {
         return PlayerPrefs.GetInt(key_count_level_lose_e, 0);
     }
+
     static void Set_CountLevelWinE(int value)
     {
         PlayerPrefs.SetInt(key_count_level_win_e, value);
     }
+
     static int Get_CountLevelWinE()
     {
         return PlayerPrefs.GetInt(key_count_level_win_e, 0);
     }
+
     static void Set_CountLevelQuitE(int value)
     {
         PlayerPrefs.SetInt(key_count_level_quit_e, value);
     }
+
     static int Get_CountLevelQuitE()
     {
         return PlayerPrefs.GetInt(key_count_level_quit_e, 0);
@@ -542,19 +599,24 @@ public class Config
     {
         PlayerPrefs.SetInt(key_count_check_wait, value);
     }
+
     static int Get_CountCheckWait()
     {
         return PlayerPrefs.GetInt(key_count_check_wait, 0);
     }
+
     static void Set_CountCheckWaitSum(int value)
     {
         PlayerPrefs.SetInt(key_count_check_wait_sum, value);
     }
+
     static int Get_CountCheckWaitSum()
     {
         return PlayerPrefs.GetInt(key_count_check_wait_sum, 0);
     }
-#endregion
+
+    #endregion
+
     //----------------
     public static void Add_TimeIngameCheck(int timeAdd)
     {
@@ -562,6 +624,7 @@ public class Config
         Set_CountTimeTypeUser(COUNT_TIME_INGAME);
         PlayerPrefs.Save();
     }
+
     static void SetFirstDetectTypeUser(bool value)
     {
         isFirstCheckUserDone = Get_FirstDetectTypeUser();
@@ -569,10 +632,12 @@ public class Config
         {
             Active_FirstDetectTypeUser();
         }
+
         isFirstCheckUserDone = Get_FirstDetectTypeUser();
     }
 
     const string key_count_rewarded_ads = "dai_count_rewarded_ads";
+
     public static void AddCountRewardedAds()
     {
         Add_TimeIngameCheck(SECOND_VIEW_REWARD_ADD);
@@ -588,6 +653,7 @@ public class Config
         {
             return;
         }
+
         countRewardedAdsCheck += 1;
         countRewardedAds += 1;
         Set_CountRewardedAds(countRewardedAdsCheck);
@@ -596,6 +662,7 @@ public class Config
     }
 
     const string key_count_purchase = "dai_count_purchase";
+
     public static void AddCountPurchase()
     {
         Add_TimeIngameCheck(SECOND_BUY_PURCHASE_ADD);
@@ -611,14 +678,17 @@ public class Config
         {
             return;
         }
+
         countPurchaseCheck += 1;
         countPurchase += 1;
         Set_CountBuyPurchase(countPurchaseCheck);
         CheckActionBuyView(true, countPurchaseCheck);
         PlayerPrefs.Save();
     }
+
     //-----
     const string key_count_level_start_sum = "dai_count_level_start_sum";
+
     public static void AddCountLevelStartSum()
     {
         START_POINT_CHECK_TIME = Time.time;
@@ -628,6 +698,7 @@ public class Config
         {
             return;
         }
+
         countLevelStartSumCheck += 1;
         countLevelStart_Sum += 1;
         Set_CountLevelStartSum(countLevelStartSumCheck);
@@ -638,7 +709,9 @@ public class Config
         //----------
         CheckEndTimeMenu();
     }
+
     const string key_count_level_lose_sum = "dai_count_level_lose_sum";
+
     public static void AddCountLevelLoseSum()
     {
         int countLevelLoseSumCheck = Get_CountLevelLoseSum();
@@ -646,6 +719,7 @@ public class Config
         {
             return;
         }
+
         countLevelLoseSumCheck += 1;
         countLevelLose_Sum += 1;
         Set_CountLevelLoseSum(countLevelLoseSumCheck);
@@ -655,7 +729,9 @@ public class Config
         CheckEndLevelSum();
         PlayerPrefs.Save();
     }
+
     const string key_count_level_win_sum = "dai_count_level_win_sum";
+
     public static void AddCountLevelWinSum()
     {
         int countLevelWinSumCheck = Get_CountLevelWinSum();
@@ -663,6 +739,7 @@ public class Config
         {
             return;
         }
+
         countLevelWinSumCheck += 1;
         countLevelWin_Sum += 1;
         Set_CountLevelWinSum(countLevelWinSumCheck);
@@ -672,7 +749,9 @@ public class Config
         CheckEndLevelSum();
         PlayerPrefs.Save();
     }
+
     const string key_count_level_quit_sum = "dai_count_level_quit_sum";
+
     public static void AddCountLevelQuitSum()
     {
         int countLevelQuitSumCheck = Get_CountLevelQuitSum();
@@ -680,6 +759,7 @@ public class Config
         {
             return;
         }
+
         countLevelQuitSumCheck += 1;
         countLevelQuit_Sum += 1;
         Set_CountLevelQuitSum(countLevelQuitSumCheck);
@@ -689,6 +769,7 @@ public class Config
         CheckEndLevelSum();
         PlayerPrefs.Save();
     }
+
     //-----
     static void CheckEndLevelSum()
     {
@@ -705,20 +786,25 @@ public class Config
             {
                 deltaTime = MAX_TIME_START_TO_END_LEVEL;
             }
+
             COUNT_TIME_INGAME -= (int)deltaTime;
             if (COUNT_TIME_INGAME <= 0)
             {
                 COUNT_TIME_INGAME = 0;
                 CheckOutTimeBuyView();
             }
+
             Set_CountTimeTypeUser(COUNT_TIME_INGAME);
         }
+
         START_POINT_CHECK_TIME = timeEnd;
         //---------
         ActiveTimeMenu();
     }
+
     //-----
     const string key_count_level_start_e = "dai_count_level_start_e";
+
     static void AddCountLevelStartE()
     {
         int countLevelStartECheck = Get_CountLevelStartE();
@@ -726,12 +812,15 @@ public class Config
         {
             return;
         }
+
         countLevelStartECheck += 1;
         countLevelStart_E += 1;
         Set_CountLevelStartE(countLevelStartECheck);
         PlayerPrefs.Save();
     }
+
     const string key_count_level_lose_e = "dai_count_level_lose_e";
+
     static void AddCountLevelLoseE()
     {
         int countLevelLoseECheck = Get_CountLevelLoseE();
@@ -739,12 +828,15 @@ public class Config
         {
             return;
         }
+
         countLevelLoseECheck += 1;
         countLevelLose_E += 1;
         Set_CountLevelLoseE(countLevelLoseECheck);
         PlayerPrefs.Save();
     }
+
     const string key_count_level_win_e = "dai_count_level_win_e";
+
     static void AddCountLevelWinE()
     {
         int countLevelWinECheck = Get_CountLevelWinE();
@@ -752,12 +844,15 @@ public class Config
         {
             return;
         }
+
         countLevelWinECheck += 1;
         countLevelWin_E += 1;
         Set_CountLevelWinE(countLevelWinECheck);
         PlayerPrefs.Save();
     }
+
     const string key_count_level_quit_e = "dai_count_level_quit_e";
+
     static void AddCountLevelQuitE()
     {
         int countLevelQuitECheck = Get_CountLevelQuitE();
@@ -765,11 +860,13 @@ public class Config
         {
             return;
         }
+
         countLevelQuitECheck += 1;
         countLevelQuit_E += 1;
         Set_CountLevelQuitE(countLevelQuitECheck);
         PlayerPrefs.Save();
     }
+
     public static void ResetCountLevelE()
     {
         Set_CountLevelStartE(0);
@@ -778,6 +875,7 @@ public class Config
         Set_CountLevelQuitE(0);
         PlayerPrefs.Save();
     }
+
     //-----
     const string key_count_check_wait = "dai_count_check_wait";
 
@@ -791,6 +889,7 @@ public class Config
         {
             return false;
         }
+
         int countCheckWaitCheck = Get_CountCheckWait();
         if (countCheckWaitCheck < MAX_COUNT_CHECK_WAIT)
         {
@@ -798,6 +897,7 @@ public class Config
             {
                 return false;
             }
+
             //Debug.Log("---AddCountCheckWait 111111111");
             countCheckWaitCheck += 1;
             Set_CountCheckWait(countCheckWaitCheck);
@@ -805,6 +905,7 @@ public class Config
             {
                 Set_CountCheckWaitSum(countCheckWaitCheckSum + 1);
             }
+
             //---set wait ----> reset data---
             ResetCountLevelE();
             PlayerPrefs.Save();
@@ -815,12 +916,14 @@ public class Config
             return false;
         }
     }
+
     static void ResetCountCheckWait()
     {
         //Debug.Log("---ResetCountCheckWait");
         Set_CountCheckWait(0);
         PlayerPrefs.Save();
     }
+
     //--------
     static float CheckTileWin_E(int countWinE, int countLoseE, int countQuitE)
     {
@@ -847,6 +950,7 @@ public class Config
             //co win
             resulf = (float)countWinE / (countWinE + countQuitE + countLoseE);
         }
+
         //}
         //else
         //{
@@ -856,6 +960,7 @@ public class Config
         //}
         return resulf;
     }
+
     static float ActiveCheckLevelWinRate()
     {
         float rate = 1;
@@ -876,11 +981,12 @@ public class Config
             countQuitE = Get_CountLevelQuitSum();
 
             rate = CheckTileWin_E(countWinE, countLoseE, countQuitE);
-
         }
+
         //Debug.Log("---ActiveCheckLevelWinRate: " + rate);
         return rate;
     }
+
     //---------
     public static void CheckActionBuyView(bool isPurchase, int sumValue)
     {
@@ -928,6 +1034,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_PURCHASE_1;
                     }
                 }
+
                 break;
             case TYPE_USER_PURCHASE_1:
                 if (isPurchase)
@@ -937,6 +1044,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_PURCHASE_2;
                     }
                 }
+
                 break;
             case TYPE_USER_PURCHASE_2:
                 break;
@@ -964,6 +1072,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_ADS_2;
                     }
                 }
+
                 break;
             case TYPE_USER_ADS_2:
                 if (isPurchase)
@@ -982,6 +1091,7 @@ public class Config
                         //TYPE_USER_NOW = TYPE_USER_WAIT_CHECK;
                     }
                 }
+
                 break;
             case TYPE_USER_FREE:
                 if (isPurchase)
@@ -1011,6 +1121,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_ADS_1;
                     }
                 }
+
                 break;
             case TYPE_USER_FREE_2:
                 if (isPurchase)
@@ -1044,21 +1155,25 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_FREE;
                     }
                 }
+
                 break;
             default:
                 Debug.LogError("ERROR  : " + TYPE_USER_NOW);
                 break;
         }
+
         if (oldValue != TYPE_USER_NOW)
         {
             //SetActiveCheckWait(false);
             //ResetCountLevelE();
             Set_TypeUser(TYPE_USER_NOW);
         }
+
         if (!isFirstCheckUserDone)
         {
             SetFirstDetectTypeUser(true);
         }
+
         CheckSetActiveAds();
         //Debug.Log("---CheckActionBuyView: " + TYPE_USER_NOW);
     }
@@ -1090,6 +1205,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_PURCHASE_1_FREE;
                     }
                 }
+
                 break;
             case TYPE_USER_PURCHASE_2:
                 //TYPE_USER_NOW = TYPE_USER_PURCHASE_1;
@@ -1109,6 +1225,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_PURCHASE_1;
                     }
                 }
+
                 break;
             case TYPE_USER_ADS_1:
                 //TYPE_USER_NOW = TYPE_USER_FREE;
@@ -1128,6 +1245,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_FREE;
                     }
                 }
+
                 break;
             case TYPE_USER_ADS_2:
                 //TYPE_USER_NOW = TYPE_USER_ADS_1;
@@ -1147,6 +1265,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_ADS_1;
                     }
                 }
+
                 break;
             case TYPE_USER_FREE:
                 //TYPE_USER_NOW = TYPE_USER_FREE_2;
@@ -1166,6 +1285,7 @@ public class Config
                         TYPE_USER_NOW = TYPE_USER_FREE_2;
                     }
                 }
+
                 break;
             case TYPE_USER_FREE_2:
                 TYPE_USER_NOW = TYPE_USER_FREE_2;
@@ -1174,6 +1294,7 @@ public class Config
                 Debug.LogError("ERROR  : " + TYPE_USER_NOW);
                 break;
         }
+
         if (oldValue != TYPE_USER_NOW)
         {
             //SetActiveCheckWait(false);
@@ -1188,14 +1309,17 @@ public class Config
                 Add_TimeIngameCheck(TIME_ADD_TO_TYPE_USER_DROP);
             }
         }
+
         if (!isFirstCheckUserDone)
         {
             SetFirstDetectTypeUser(true);
         }
+
         CheckSetActiveAds();
         //Debug.Log("---CheckOutTimeBuyView: " + TYPE_USER_NOW);
     }
-#endregion
+
+    #endregion
 
     //void FuncTest()
     //{
@@ -1242,9 +1366,11 @@ public class Config
     //}
 
 
-#region Sound, Music
+    #region Sound, Music
+
     public const string SOUND = "sound";
     public static bool isSound = true;
+
     public static void SetSound(bool _isSound)
     {
         isSound = _isSound;
@@ -1256,6 +1382,7 @@ public class Config
         {
             PlayerPrefs.SetInt(SOUND, 0);
         }
+
         PlayerPrefs.Save();
     }
 
@@ -1275,6 +1402,7 @@ public class Config
 
     public const string MUSIC = "music";
     public static bool isMusic = true;
+
     public static void SetMusic(bool _isMusic)
     {
         isMusic = _isMusic;
@@ -1286,6 +1414,7 @@ public class Config
         {
             PlayerPrefs.SetInt(MUSIC, 0);
         }
+
         PlayerPrefs.Save();
     }
 
@@ -1302,9 +1431,10 @@ public class Config
         }
     }
 
-#endregion
+    #endregion
 
-#region ADS_INTERSTITIAL
+    #region ADS_INTERSTITIAL
+
     public const int interstitialAd_levelShowAd = 2;
     public const int interstitialAd_SHOW_WIN_INTERVAL = 2;
     public const int interstitialAd_SHOW_LOSE_INTERVAL = 2;
@@ -1315,7 +1445,8 @@ public class Config
     public static int interstitialAd_countPause = 0;
 
     public static int LEVEL_ACTIVE_INTER_COMEBACK = 2;
-#endregion
+
+    #endregion
 
     //khi click vao` ok show rate
     public static void ActiveShowPopupRate()
@@ -1329,11 +1460,14 @@ public class Config
         {
             return true;
         }
+
         return false;
     }
 
-#region RATE
+    #region RATE
+
     public const string RATE = "rate";
+
     public static void SetRate()
     {
         PlayerPrefs.SetInt(RATE, 1);
@@ -1345,9 +1479,13 @@ public class Config
         if (PlayerPrefs.GetInt(RATE, 0) == 1) return true;
         return false;
     }
-#endregion
-#region Level Best
+
+    #endregion
+
+    #region Level Best
+
     public const string LEVEL_BEST = "level_best";
+
     public static void SetLevelBest(int level)
     {
         PlayerPrefs.SetInt(LEVEL_BEST, level);
@@ -1358,9 +1496,13 @@ public class Config
     {
         return PlayerPrefs.GetInt(LEVEL_BEST, 0);
     }
-#endregion
-#region Level Fail Count
+
+    #endregion
+
+    #region Level Fail Count
+
     public const string LEVEL_FAIL_COUNT = "level_fail_count_";
+
     public static void SetLevelFailCount(int level)
     {
         PlayerPrefs.SetInt(LEVEL_FAIL_COUNT + level.ToString(), GetLevelFailCount(level) + 1);
@@ -1371,12 +1513,15 @@ public class Config
     {
         return PlayerPrefs.GetInt(LEVEL_FAIL_COUNT + level.ToString(), 0);
     }
-#endregion
-#region REMOVE_AD
+
+    #endregion
+
+    #region REMOVE_AD
+
     public const string REMOVE_AD = "remove_Ad";
+
     public static void SetRemoveAd()
     {
-
         PlayerPrefs.SetInt(REMOVE_AD, 1);
         PlayerPrefs.Save();
     }
@@ -1386,9 +1531,13 @@ public class Config
         if (PlayerPrefs.GetInt(REMOVE_AD, 0) == 1) return true;
         return false;
     }
-#endregion
-#region UnlockAll
+
+    #endregion
+
+    #region UnlockAll
+
     public const string UNLOCK_ALL = "unlock_all";
+
     public static void SetUnlockAll()
     {
         PlayerPrefs.SetInt(UNLOCK_ALL, 1);
@@ -1400,9 +1549,10 @@ public class Config
         if (PlayerPrefs.GetInt(UNLOCK_ALL, 0) == 1) return true;
         return false;
     }
-#endregion
 
-#region retent day
+    #endregion
+
+    #region retent day
 
     public const string TIME_FIRST_OPEN_GAME = "time_first_open_game";
     public const string CACHE_RETENT_GAME = "cache_retent_game";
@@ -1424,7 +1574,7 @@ public class Config
                 dayRetent = 0;
                 //if (FirebaseManager.instance.firebaseInitialized)
                 {
-                    FirebaseManager.instance.LogUserPropertyLevelReach(1);//lan dau cai game la` 1
+                    FirebaseManager.instance.LogUserPropertyLevelReach(1); //lan dau cai game la` 1
                 }
             }
             else
@@ -1437,6 +1587,7 @@ public class Config
         {
             Debug.LogError("error parse fire");
         }
+
         int cacheDayRetent = PlayerPrefs.GetInt(CACHE_RETENT_GAME, -1);
         if (dayRetent > cacheDayRetent)
         {
@@ -1457,13 +1608,15 @@ public class Config
                 FirebaseManager.instance.LogUserPropertyCountPlayGame(countDayPlayGame);
             }
         }
-
     }
-#endregion
 
-#region New day
+    #endregion
+
+    #region New day
+
     public const string DAY_CHECK_ACTIVE = "day_check_active";
     public const string COUNT_DAY_ACTIVE = "count_day_active";
+
     public static bool CheckNewDay()
     {
         int day = DateTime.Now.DayOfYear;
@@ -1490,10 +1643,14 @@ public class Config
                 return true;
             }
         }
+
         return false;
     }
-#endregion
-#region level complete
+
+    #endregion
+
+    #region level complete
+
     public const string CURR_LEVEL_COMPLETE = "curr_level_complete";
 
     //public static int currLevelComplete = 0;//level ma player da hoan` thanh`
@@ -1510,7 +1667,7 @@ public class Config
             PlayerPrefs.SetInt(CURR_LEVEL_COMPLETE, _LevelComplete);
             PlayerPrefs.Save();
 
-            FirebaseManager.instance.LogUserPropertyLevelReach(currLevel + 1);//mac dinh la 1 , lay moc level comp + 1
+            FirebaseManager.instance.LogUserPropertyLevelReach(currLevel + 1); //mac dinh la 1 , lay moc level comp + 1
         }
     }
 
@@ -1518,16 +1675,20 @@ public class Config
     {
         return PlayerPrefs.GetInt(CURR_LEVEL_COMPLETE, 0);
     }
+
     public static int GetCurrLevelComplete_Save_Now()
     {
         return PlayerPrefs.GetInt(CURR_LEVEL_COMPLETE, 0);
     }
-#endregion
-#region Gold total Spent , Earn
-    public const string GOLD_SPENT = "gold_spent";//Gold tieu thu.
-    public const string GOLD_EARN = "gold_earn";//Gold kiem dc.
 
-    public static void AddGoldSpent(int pGold, string pWhere)//truyen vao` so' + gold tieu thu.
+    #endregion
+
+    #region Gold total Spent , Earn
+
+    public const string GOLD_SPENT = "gold_spent"; //Gold tieu thu.
+    public const string GOLD_EARN = "gold_earn"; //Gold kiem dc.
+
+    public static void AddGoldSpent(int pGold, string pWhere) //truyen vao` so' + gold tieu thu.
     {
         int goldSpentNow = PlayerPrefs.GetInt(GOLD_SPENT, 0) + pGold;
         PlayerPrefs.SetInt(GOLD_SPENT, goldSpentNow);
@@ -1536,7 +1697,7 @@ public class Config
         FirebaseManager.instance.LogUserPropertyTotalSpent(goldSpentNow, pGold, pWhere);
     }
 
-    public static void AddGoldEarn(int pGold, string pWhere)//truyen vao` so' + gold nhan. dc.
+    public static void AddGoldEarn(int pGold, string pWhere) //truyen vao` so' + gold nhan. dc.
     {
         int goldEarnNow = PlayerPrefs.GetInt(GOLD_EARN, 0) + pGold;
         PlayerPrefs.SetInt(GOLD_EARN, goldEarnNow);
@@ -1544,10 +1705,11 @@ public class Config
 
         FirebaseManager.instance.LogUserPropertyTotalEarn(goldEarnNow, pGold, pWhere);
     }
-    public const string GEM_SPENT = "gem_spent";//Gold tieu thu.
-    public const string GEM_EARN = "gem_earn";//Gold kiem dc.
 
-    public static void AddGemSpent(int pGem, string pWhere)//truyen vao` so' + gold tieu thu.
+    public const string GEM_SPENT = "gem_spent"; //Gold tieu thu.
+    public const string GEM_EARN = "gem_earn"; //Gold kiem dc.
+
+    public static void AddGemSpent(int pGem, string pWhere) //truyen vao` so' + gold tieu thu.
     {
         int gemSpentNow = PlayerPrefs.GetInt(GEM_SPENT, 0) + pGem;
         PlayerPrefs.SetInt(GEM_SPENT, gemSpentNow);
@@ -1556,7 +1718,7 @@ public class Config
         FirebaseManager.instance.LogUserPropertyTotalSpentGem(gemSpentNow, pGem, pWhere);
     }
 
-    public static void AddGemEarn(int pGem, string pWhere)//truyen vao` so' + gold nhan. dc.
+    public static void AddGemEarn(int pGem, string pWhere) //truyen vao` so' + gold nhan. dc.
     {
         int gemEarnNow = PlayerPrefs.GetInt(GEM_EARN, 0) + pGem;
         PlayerPrefs.SetInt(GEM_EARN, gemEarnNow);
@@ -1566,10 +1728,10 @@ public class Config
     }
 
     //----
-    public const string HINT_SPENT = "hint_spent";//Gold tieu thu.
-    public const string HINT_EARN = "hint_earn";//Gold kiem dc.
+    public const string HINT_SPENT = "hint_spent"; //Gold tieu thu.
+    public const string HINT_EARN = "hint_earn"; //Gold kiem dc.
 
-    public static void AddHintSpent(int pHint, int pLevel)//truyen vao` so' + gold tieu thu.
+    public static void AddHintSpent(int pHint, int pLevel) //truyen vao` so' + gold tieu thu.
     {
         int hintSpentNow = PlayerPrefs.GetInt(HINT_SPENT, 0) + pHint;
         PlayerPrefs.SetInt(HINT_SPENT, hintSpentNow);
@@ -1578,7 +1740,7 @@ public class Config
         FirebaseManager.instance.LogUserPropertyTotalSpentHint(hintSpentNow, pHint, pLevel);
     }
 
-    public static void AddHintEarn(int pHint, string pWhere)//truyen vao` so' + gold nhan. dc.
+    public static void AddHintEarn(int pHint, string pWhere) //truyen vao` so' + gold nhan. dc.
     {
         int hintEarnNow = PlayerPrefs.GetInt(HINT_EARN, 0) + pHint;
         PlayerPrefs.SetInt(HINT_EARN, hintEarnNow);
@@ -1586,8 +1748,6 @@ public class Config
 
         FirebaseManager.instance.LogUserPropertyTotalEarnHint(hintEarnNow, pHint, pWhere);
     }
-#endregion
+
+    #endregion
 }
-
-
-

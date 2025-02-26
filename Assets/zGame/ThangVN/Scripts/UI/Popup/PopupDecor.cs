@@ -67,7 +67,7 @@ public class PopupDecor : Popup
 
         MoveToCurrentBook();
 
-        
+
         if (!SaveGame.IsDoneTutorialDecor)
             StartCoroutine(InitTutorialDecor());
     }
@@ -133,6 +133,11 @@ public class PopupDecor : Popup
     public void BackHome()
     {
         Debug.Log("BackHome");
+        if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+        {
+            AdsController.instance.ShowInterAd(null, "Decor to Home");
+        }
+
         HomeUI.Instance.animator.Play("Show");
         //HomeUI.Instance.DisableObject();
 

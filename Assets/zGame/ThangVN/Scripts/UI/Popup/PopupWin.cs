@@ -47,6 +47,9 @@ public class PopupWin : Popup
 
         btnContinue.OnClick(() =>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                SaveGame.CanShowInter = true;
+
             RefreshButton(false);
 
             if (GameManager.ShowPopupBonus())
@@ -69,6 +72,9 @@ public class PopupWin : Popup
 
         btnHome.OnClick(() =>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                SaveGame.CanShowInter = true;
+
             RefreshButton(false);
 
             ManagerEvent.ClearEvent();
@@ -271,6 +277,7 @@ public class PopupWin : Popup
         {
             StopCoroutine(tween);
         }
+
         tween = StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
     }
 

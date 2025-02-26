@@ -23,20 +23,23 @@ public class PopupLose : Popup
     {
         btnRevive.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo((onCompleted) =>
+            AdsController.instance.ShowRewardedVideo(successful =>
             {
-                RefreshButton(false);
+                if (successful)
+                {
+                    RefreshButton(false);
 
-                if (DailyTaskManager.Instance != null)
-                    DailyTaskManager.Instance.ExecuteDailyTask(TaskType.Revive, 1);
+                    if (DailyTaskManager.Instance != null)
+                        DailyTaskManager.Instance.ExecuteDailyTask(TaskType.Revive, 1);
 
-                SaveGame.Heart++;
-                SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
+                    SaveGame.Heart++;
+                    SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
 
-                LogicGame.Instance.ReviveGame();
-                Hide();
-                LogicGame.Instance.isPauseGame = false;
-                LogicGame.Instance.isLose = false;
+                    LogicGame.Instance.ReviveGame();
+                    Hide();
+                    LogicGame.Instance.isPauseGame = false;
+                    LogicGame.Instance.isLose = false;
+                }
             }, null, "Reward Revive");
         });
 

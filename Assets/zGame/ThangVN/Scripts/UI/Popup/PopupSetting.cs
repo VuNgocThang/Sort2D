@@ -10,6 +10,7 @@ using ThangVN;
 public class PopupSetting : Popup
 {
     public EasyButton btnSound, btnMusic, btnVibrate, btnReplay, btnHome, btnSoundOff, btnMusicOff, btnVibrateOff;
+
     //public GameObject imgMusicOff, imgSoundOff, imgVibrateOff;
     public static async void Show()
     {
@@ -19,30 +20,12 @@ public class PopupSetting : Popup
 
     private void Awake()
     {
-        btnMusic.OnClick(() =>
-        {
-            ToggleBtnMusic();
-        });
-        btnSound.OnClick(() =>
-        {
-            ToggleBtnSound();
-        });
-        btnVibrate.OnClick(() =>
-        {
-            ToggleBtnVibrate();
-        });
-        btnMusicOff.OnClick(() =>
-        {
-            ToggleBtnMusic();
-        });
-        btnSoundOff.OnClick(() =>
-        {
-            ToggleBtnSound();
-        });
-        btnVibrateOff.OnClick(() =>
-        {
-            ToggleBtnVibrate();
-        });
+        btnMusic.OnClick(() => { ToggleBtnMusic(); });
+        btnSound.OnClick(() => { ToggleBtnSound(); });
+        btnVibrate.OnClick(() => { ToggleBtnVibrate(); });
+        btnMusicOff.OnClick(() => { ToggleBtnMusic(); });
+        btnSoundOff.OnClick(() => { ToggleBtnSound(); });
+        btnVibrateOff.OnClick(() => { ToggleBtnVibrate(); });
 
         btnReplay.OnClick(() =>
         {
@@ -52,6 +35,9 @@ public class PopupSetting : Popup
 
         btnHome.OnClick(() =>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                SaveGame.CanShowInter = true;
+
             LogicGame.Instance.SaveDataGame();
             ManagerEvent.ClearEvent();
 

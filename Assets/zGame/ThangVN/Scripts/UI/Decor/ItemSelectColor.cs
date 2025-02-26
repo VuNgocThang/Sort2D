@@ -33,10 +33,13 @@ public class ItemSelectColor : MonoBehaviour
 
                 if (imgAds == null) return;
 
-                AdsController.instance.ShowRewardedVideo((onCompleted) =>
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    imgAds.SetActive(false);
-                    CanSelect = true;
+                    if (successful)
+                    {
+                        imgAds.SetActive(false);
+                        CanSelect = true;
+                    }
                 }, null, "Color Decor");
             }
         });

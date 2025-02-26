@@ -353,7 +353,7 @@ public static class SaveGame
             return level;
         }
     }
-    
+
     const string LEVELGIFT = "LEVELGIFT";
     static int levelGift = -1;
 
@@ -756,7 +756,7 @@ public static class SaveGame
     #endregion
 
     #region HomeUI
-    
+
     const string COUNTDOWNTIMERBOOK = "COUNTDOWNTIMERBOOK";
     static float countDownTimerBook = -1;
 
@@ -769,7 +769,8 @@ public static class SaveGame
         }
         get
         {
-            if (countDownTimerBook == -1) countDownTimerBook = ES3.Load(COUNTDOWNTIMERBOOK, GameConfig.TIME_COUNT_DOWN_BOOK);
+            if (countDownTimerBook == -1)
+                countDownTimerBook = ES3.Load(COUNTDOWNTIMERBOOK, GameConfig.TIME_COUNT_DOWN_BOOK);
             return countDownTimerBook;
         }
     }
@@ -842,7 +843,7 @@ public static class SaveGame
             return canShow == 1;
         }
     }
-    
+
     const string CANSHOWGIFTBOOK = "CANSHOWGIFTBOOK";
     static int canShowGiftBook = -1;
 
@@ -986,6 +987,27 @@ public static class SaveGame
         {
             if (showFreeCoin == -1) showFreeCoin = ES3.Load(SHOWFREECOIN, 0);
             return showFreeCoin == 1;
+        }
+    }
+
+    #endregion
+
+    #region Ads
+
+    const string CANSHOWINTER = "CANSHOWINTER";
+    static int canShowInter = -1;
+
+    public static bool CanShowInter
+    {
+        set
+        {
+            ES3.Save(CANSHOWINTER, value ? 1 : 0);
+            canShowInter = value ? 1 : 0;
+        }
+        get
+        {
+            if (canShowInter == -1) canShowInter = ES3.Load(CANSHOWINTER, 0);
+            return canShowInter == 1;
         }
     }
 

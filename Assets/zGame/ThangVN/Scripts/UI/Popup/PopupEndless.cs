@@ -15,7 +15,11 @@ public class PopupEndless : Popup
 
     private void Awake()
     {
-        btnClosePopup.OnClick(Hide);
+        btnClosePopup.OnClick(() =>
+        {
+            SaveGame.CanShowInter = true;
+            Hide();
+        });
     }
 
     public static async Task<bool> Show()

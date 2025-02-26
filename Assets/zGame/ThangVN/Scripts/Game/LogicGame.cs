@@ -184,6 +184,8 @@ public class LogicGame : MonoBehaviour
         InitListCheckPlate();
         spawnBook.gameObject.SetActive(true);
         spawnBook.PlayAnimSpawn();
+        GameManager.ShowInterAds("Replay");
+
         //InitNextPlate();
         RecursiveMerge();
         //enabled = true;
@@ -207,13 +209,20 @@ public class LogicGame : MonoBehaviour
                 indexLevelNormal = SaveGame.Level;
             }
 
+            Config.currLevel = indexLevelNormal;
             // dataLevel = await DataLevel.GetData(SaveGame.Level);
             dataLevel = await DataLevel.GetData(indexLevelNormal);
         }
         else if (GameManager.IsBonusGame())
+        {
             dataLevel = await DataLevel.GetData(SaveGame.LevelBonus);
+            Config.currLevel = SaveGame.LevelBonus;
+        }
         else if (GameManager.IsChallengesGame())
+        {
             dataLevel = await DataLevel.GetData(SaveGame.LevelChallenges);
+            Config.currLevel = SaveGame.LevelChallenges;
+        }
 
         countDiffMax = dataLevel.CountDiff;
         listIntColor = dataLevel.Colors.ToList();
@@ -1320,13 +1329,13 @@ public class LogicGame : MonoBehaviour
         }
 
         if (countCanClear <= 0) return;
-        
+
         if (!SaveGame.IsDoneTutorial)
         {
             TutorialCamera.Instance.PlayTut3();
             isPauseGame = true;
         }
-        
+
         if (isPauseGame) return;
 
         if (ControllerAnimState.gameObject.activeSelf)

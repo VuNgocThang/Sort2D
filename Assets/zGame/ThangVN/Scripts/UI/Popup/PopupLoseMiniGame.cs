@@ -15,7 +15,13 @@ public class PopupLoseMiniGame : Popup
         btnPlayAgain.OnClick(() =>
         {
             // RefreshButton(false);
-            AdsController.instance.ShowRewardedVideo((onCompleted) => { PlayAgain(); }, null, "Play Again Bonus Level");
+            AdsController.instance.ShowRewardedVideo(successful =>
+            {
+                if (successful)
+                {
+                    PlayAgain();
+                }
+            }, null, "Play Again Bonus Level");
         });
 
         btnContinue.OnClick(() =>

@@ -9,7 +9,7 @@ public static class GameConfig
     public static int MAX_HEART = 5;
 
     public static float TIME_COUNT_DOWN = 300f;
-    
+
     public static float TIME_COUNT_DOWN_BOOK = 180f;
 
     public static float TIME_FLY = 0.5f;
@@ -72,6 +72,8 @@ public static class GameConfig
     public static int LOOP_START_LEVEL = 17;
 
     public static int MAX_LEVEL_BONUS = 10011;
+
+    public static int LEVEL_INTER = 2;
 
     public static Color DEFAULT_COLOR = new Color(1, 1, 1, 1);
 

@@ -108,7 +108,13 @@ public class PopupShopInGame : Popup
             case BoosterEnum.BoosterSwap:
                 if (useAds)
                 {
-                    AdsController.instance.ShowRewardedVideo((onCompleted) => { SaveGame.Swap++; }, null, "Buy Swap");
+                    AdsController.instance.ShowRewardedVideo(successful =>
+                    {
+                        if (successful)
+                        {
+                            SaveGame.Swap++;
+                        }
+                    }, null, "Buy Swap");
                 }
                 else
                 {
@@ -132,7 +138,13 @@ public class PopupShopInGame : Popup
             case BoosterEnum.BoosterHammer:
                 if (useAds)
                 {
-                    AdsController.instance.ShowRewardedVideo((onCompleted) => { SaveGame.Hammer++; }, null,
+                    AdsController.instance.ShowRewardedVideo(successful =>
+                        {
+                            if (successful)
+                            {
+                                SaveGame.Hammer++;
+                            }
+                        }, null,
                         "Buy Hammer");
                 }
                 else
@@ -160,7 +172,13 @@ public class PopupShopInGame : Popup
             case BoosterEnum.BoosterRefresh:
                 if (useAds)
                 {
-                    AdsController.instance.ShowRewardedVideo((onCompleted) => { SaveGame.Refresh++; }, null,
+                    AdsController.instance.ShowRewardedVideo(successful =>
+                        {
+                            if (successful)
+                            {
+                                SaveGame.Refresh++;
+                            }
+                        }, null,
                         "Buy Refresh");
                 }
                 else

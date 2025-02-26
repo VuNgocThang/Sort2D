@@ -27,10 +27,13 @@ public class PopupBookItem : Popup
     {
         btnDecorate.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo((onCompleted) =>
+            AdsController.instance.ShowRewardedVideo(successful =>
             {
-                SaveGame.Redecorated = true;
-                PopupDecorateBook.Show(SaveGame.CurrentBook, true);
+                if (successful)
+                {
+                    SaveGame.Redecorated = true;
+                    PopupDecorateBook.Show(SaveGame.CurrentBook, true);
+                }
             }, null, "Redecorate Book");
         });
 

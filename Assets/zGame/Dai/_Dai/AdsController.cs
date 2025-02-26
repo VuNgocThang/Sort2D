@@ -46,7 +46,7 @@ public class AdsController : MonoBehaviour
     public PopupGDPR popupGDPR;
     public GameObject SplashObj;
 
-    public GameObject objNotification;//De deactive khi keo vao
+    public GameObject objNotification; //De deactive khi keo vao
 
     public void AddCallendars()
     {
@@ -55,6 +55,7 @@ public class AdsController : MonoBehaviour
         new System.Globalization.UmAlQuraCalendar();
         new System.Globalization.ThaiBuddhistCalendar();
     }
+
     private void Awake()
     {
         AddCallendars();
@@ -72,9 +73,9 @@ public class AdsController : MonoBehaviour
         //}
         Application.targetFrameRate = 60;
     }
+
     private void Start()
     {
-
 #if UNITY_IOS
         if (Application.platform == RuntimePlatform.IPhonePlayer && PlayerPrefs.GetInt("ATTShowed", 0) == 0 && UnityATTPlugin.Instance.IsIOS14AndAbove())
         {
@@ -107,6 +108,7 @@ public class AdsController : MonoBehaviour
         }
         // InitStart();
     }
+
     public void InitStart()
     {
         if (SplashObj != null)
@@ -120,18 +122,22 @@ public class AdsController : MonoBehaviour
             StopCoroutine(waitFetchFirebase);
             waitFetchFirebase = null;
         }
+
         waitFetchFirebase = StartCoroutine(StartWaitFirebaseFetch());
         if (Config.ACTIVE_TEST)
         {
             Config.SetUnlockAll();
         }
+
         m_TimeShowInterstitial = DateTime.Now;
 
         StartCoroutine(WaitFirstLoading());
         StartCoroutine(WaitNotificationActive());
     }
+
     Coroutine waitFetchFirebase;
     bool startActiveLoadAOA = false;
+
     public void ActiveFetchFirebaseDone()
     {
         Config.AddLogShowDebug("FetchDone");
@@ -141,12 +147,14 @@ public class AdsController : MonoBehaviour
             Config.FirstCheckTypeUser();
             admob.StartLoadAOA();
         }
+
         if (waitFetchFirebase != null)
         {
             StopCoroutine(waitFetchFirebase);
             waitFetchFirebase = null;
         }
     }
+
     public void ActiveFetchFailed()
     {
         Config.AddLogShowDebug("FetchFailed");
@@ -157,6 +165,7 @@ public class AdsController : MonoBehaviour
             waitFetchFirebase = null;
         }
     }
+
     IEnumerator StartWaitFirebaseFetch()
     {
         //--them vao vi` doi fetch firebase---
@@ -166,6 +175,7 @@ public class AdsController : MonoBehaviour
         Config.AddLogShowDebug("FetchOut");
         ActiveFetchFirebaseDone();
     }
+
     IEnumerator WaitNotificationActive()
     {
         yield return null;
@@ -175,6 +185,7 @@ public class AdsController : MonoBehaviour
             objNotification.SetActive(true);
         }
     }
+
     IEnumerator WaitFirstLoading()
     {
         yield return new WaitForSeconds(Config.TIME_WAIT_LOADING);
@@ -186,15 +197,20 @@ public class AdsController : MonoBehaviour
         //    admob.LoadAgainWhenAOAFail();
         //}
     }
-    public void FirstLoadAOA_Done() {
+
+    public void FirstLoadAOA_Done()
+    {
         admob.FirstLoadAOA_Done();
     }
+
     private void OnDestroy()
     {
         admob.OnDestroy();
     }
+
     //------------
-    public void CheckActiveChangeTypeUser(){
+    public void CheckActiveChangeTypeUser()
+    {
         admob.ActiveCheckFirst_LoadAD();
         admob.CheckLoadPreAOAWhenChangeTypeUser();
     }
@@ -230,19 +246,24 @@ public class AdsController : MonoBehaviour
     {
         Invoke(nameof(LoadRewardedAd), time);
     }
+
     void LoadRewardedAd()
     {
         admob.LoadRewardedAd();
     }
+
     public bool IsRewardedVideoAvailable(string where = null)
     {
         bool check = false;
-        if (!Config.isActiveVideoReward) {
+        if (!Config.isActiveVideoReward)
+        {
             return false;
         }
+
         check = admob.IsRewardedVideoAvailable(where);
         return check;
     }
+
     public void ShowRewardedVideo(Action<bool> pOnCompleted, Action pOnClose, string pWhere = "unknown")
     {
         if (!Config.isActiveVideoReward)
@@ -263,16 +284,19 @@ public class AdsController : MonoBehaviour
 
         FirebaseManager.instance.LogCallShowVR();
     }
+
     public void RewardVideoComplete(string pWhere)
     {
         //timeLastShowReward = Config.GetTimeStamp();
         FirebaseManager.instance.LogRewarded(pWhere, Config.currLevel);
     }
+
     //---------
     public void ReloadInter(float time)
     {
         Invoke(nameof(LoadInterstitial), time);
     }
+
     void LoadInterstitial()
     {
         admob.LoadInterstitial();
@@ -280,7 +304,8 @@ public class AdsController : MonoBehaviour
 
     public bool IsInterAdAvailable(string where = null)
     {
-        if (Config.GetRemoveAd() || Config.currLevel < AdsController.VALUE_CONFIG_INTER_LEVEL_SHOW || !Config.ACTIVE_INTER_ADS) return false;
+        if (Config.GetRemoveAd() || Config.currLevel < AdsController.VALUE_CONFIG_INTER_LEVEL_SHOW ||
+            !Config.ACTIVE_INTER_ADS) return false;
 
         if (!Config.isActiveInter)
         {
@@ -305,6 +330,7 @@ public class AdsController : MonoBehaviour
         {
             return true;
         }
+
         return false;
     }
 
@@ -316,10 +342,12 @@ public class AdsController : MonoBehaviour
         {
             return false;
         }
+
         bool check = false;
         check = admob.IsInterAvailable();
         return check;
     }
+
     public void ShowInterAd(Action<bool> pOnCompleted, string pWhere = "unknown", bool isPopupBack = false)
     {
         if (!Config.isActiveInter)
@@ -332,9 +360,9 @@ public class AdsController : MonoBehaviour
             //return;
         }
 #endif
-        //#if UNITY_EDITOR
-        //        Debug.LogError("Show inter");
-        //#endif
+// #if UNITY_EDITOR
+//         Debug.LogError("Show inter");
+// #endif
         if (!Config.ENABLE_INTER_BACK_POPUP && isPopupBack)
         {
             return;
@@ -345,6 +373,7 @@ public class AdsController : MonoBehaviour
             //----check xem 
             return;
         }
+
         FirebaseManager.instance.LogCallShowInter();
         if (!admob.IsInterAvailable())
         {
@@ -361,15 +390,17 @@ public class AdsController : MonoBehaviour
             {
                 Debug.Log("ShowInterAds");
             }
+
             FirebaseManager.instance.LogShowInter(pWhere, Config.currLevel);
         }
-
     }
+
     public void CloseInterShow()
     {
         m_TimeShowInterstitial = DateTime.Now;
         m_TimeShowInterstitial = m_TimeShowInterstitial.AddSeconds(AdsController.CAPPING_TIME_INTER_BY_INTER_NOW);
     }
+
     public void CloseAOAShow()
     {
         DateTime presentTime = DateTime.Now.AddSeconds(AdsController.TIME_AOA_SHOWINTERTITIAL);
@@ -380,6 +411,7 @@ public class AdsController : MonoBehaviour
             //m_TimeShowInterstitial = m_TimeShowInterstitial.AddSeconds(AdsController.TIME_AOA_SHOWINTERTITIAL);
         }
     }
+
     public void CloseVideoRewarded()
     {
         DateTime presentTime = DateTime.Now.AddSeconds(AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW);
@@ -388,19 +420,24 @@ public class AdsController : MonoBehaviour
             m_TimeShowInterstitial = presentTime;
         }
     }
+
     //-----banner----
     public bool isInit = false;
+
     public void EndInitAds()
     {
         isInit = true;
         //LoadBannerAds();
     }
-    void CheckLoadBannerAds() {
+
+    void CheckLoadBannerAds()
+    {
         if (Config.isActiveBanner)
         {
             LoadBannerAds();
         }
     }
+
     //-------load banner collap----
     public bool canResetCollapBanner = true;
 
@@ -420,40 +457,48 @@ public class AdsController : MonoBehaviour
     {
         CancelInvoke(nameof(ResetActiveLoadBannerCollapActive));
     }
+
     //ko goi gam` nay` -> chi phuc. vu cho sdk
     public void ResetActiveLoadBannerCollap(float time)
     {
         CancelReloadBannerCollapOnFailLoad();
         Invoke(nameof(ResetActiveLoadBannerCollapActive), time);
     }
+
     void ResetActiveLoadBannerCollapActive()
     {
         AppOpenAdManager.ResetActiveLoadBannerCollap();
     }
+
     //-----------
     public void CancelReloadBannerCollapOnFailLoad()
     {
         CancelInvoke(nameof(ReloadBannerCollapFail));
     }
+
     public void ReloadBannerCollapOnFailLoad(float time)
     {
         CancelReloadBannerCollapOnFailLoad();
         Invoke(nameof(ReloadBannerCollapFail), time);
     }
+
     void ReloadBannerCollapFail()
     {
         AppOpenAdManager.LoadBannerAd();
     }
+
     //----------
     public void CancelDelayLoadAgainBanner()
     {
         CancelInvoke(nameof(DelayLoadAgainBanner));
     }
+
     public void DelayLoadAgainBanner()
     {
         CancelDelayLoadAgainBanner();
         Invoke(nameof(LoadBannerAds), 3f);
     }
+
     void LoadBannerAds()
     {
         if (!Config.GetRemoveAd())
@@ -467,19 +512,23 @@ public class AdsController : MonoBehaviour
             //admob.Request_Banner2();
         }
     }
+
     public void HideBannerAd()
     {
         isCallShowBanner = false;
         admob.HideBannerAd();
     }
+
     public void HideBannerAdCollap()
     {
         //isCallShowBanner = false;
         isCallShowBannerCollap = false;
         AppOpenAdManager.HideBannerCollap();
-        if (backFillBannerCollap) {
+        if (backFillBannerCollap)
+        {
             backFillBannerCollap = false;
-            if (isCallShowBanner) {
+            if (isCallShowBanner)
+            {
                 HideBannerAd();
             }
         }
@@ -491,24 +540,29 @@ public class AdsController : MonoBehaviour
         {
             return;
         }
+
         isCallShowBanner = true;
         if (Config.ACTIVE_TEST || !SCREEN_SHOW_BANNER)
         {
             admob.HideBannerAd();
             return;
         }
+
         if (!Config.GetRemoveAd())
         {
             admob.ShowBannerAd();
         }
     }
-   public bool backFillBannerCollap = false;
+
+    public bool backFillBannerCollap = false;
+
     public void ShowBannerAdCollap()
     {
         if (!Config.isActiveBanner)
         {
             return;
         }
+
         //isCallShowBanner = true;
         isCallShowBannerCollap = true;
         if (Config.ACTIVE_TEST || !SCREEN_SHOW_BANNER)
@@ -516,6 +570,7 @@ public class AdsController : MonoBehaviour
             AppOpenAdManager.HideBannerCollap();
             return;
         }
+
         if (!Config.GetRemoveAd())
         {
             if (AppOpenAdManager.isBannerCollapLoaded)
@@ -529,12 +584,14 @@ public class AdsController : MonoBehaviour
             }
         }
     }
+
     public void ActiveResetBannerCollap()
     {
         if (!Config.isActiveBanner)
         {
             return;
         }
+
         if (!AppOpenAdManager.isBannerCollapLoaded)
         {
             ShowBannerAd();
@@ -542,7 +599,6 @@ public class AdsController : MonoBehaviour
         }
         else
         {
-
             if (canResetCollapBanner)
             {
                 AppOpenAdManager.ResetShowBannerCollap();
@@ -554,6 +610,7 @@ public class AdsController : MonoBehaviour
             }
         }
     }
+
     //---------MRec Ad-------
     public void ShowMrecAd()
     {
@@ -561,11 +618,13 @@ public class AdsController : MonoBehaviour
         {
             return;
         }
+
         if (!Config.GetRemoveAd())
         {
             admob.ShowMRec();
         }
     }
+
     public void HideMrecAd()
     {
         if (!Config.GetRemoveAd())
@@ -700,24 +759,32 @@ public class AdsController : MonoBehaviour
     //    //}
     //}
     //---------------
-    const int timeMenuUpdate=5;
+    const int timeMenuUpdate = 5;
     WaitForSeconds timeCountMenu = new WaitForSeconds(timeMenuUpdate);
     Coroutine corCountMenu = null;
-    public void ActiveCountTimeMenu() {
-        if (corCountMenu != null) {
+
+    public void ActiveCountTimeMenu()
+    {
+        if (corCountMenu != null)
+        {
             StopCoroutine(corCountMenu);
             corCountMenu = null;
         }
+
         corCountMenu = StartCoroutine(CountTimeMenuAction());
     }
-    IEnumerator CountTimeMenuAction() {
+
+    IEnumerator CountTimeMenuAction()
+    {
         while (true)
         {
             yield return timeCountMenu;
             Config.UpdateTimeMenu(timeMenuUpdate);
         }
     }
-    public void EndCountTimeMenu() {
+
+    public void EndCountTimeMenu()
+    {
         if (corCountMenu != null)
         {
             StopCoroutine(corCountMenu);

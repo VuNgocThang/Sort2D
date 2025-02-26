@@ -53,12 +53,18 @@ public class PopupWinMiniGame : Popup
     {
         btnContinue.OnClick(() =>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                SaveGame.CanShowInter = true;
+            
             RefreshButton(false);
             PlayAgain();
         });
 
         btnHome.OnClick(()=>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                SaveGame.CanShowInter = true;
+            
             RefreshButton(false);
 
             Continue();

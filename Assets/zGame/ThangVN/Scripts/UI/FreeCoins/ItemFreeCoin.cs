@@ -21,7 +21,13 @@ public class ItemFreeCoin : MonoBehaviour
     {
         btnClaim.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo((onCompleted) => { ClaimRewardAds(); }, null, "Free Coin");
+            AdsController.instance.ShowRewardedVideo(successful =>
+            {
+                if (successful)
+                {
+                    ClaimRewardAds();
+                }
+            }, null, "Free Coin");
         });
     }
 

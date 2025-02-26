@@ -28,6 +28,9 @@ public class PopupRestart : Popup
     {
         btnRestart.OnClick(() =>
         {
+            if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                SaveGame.CanShowInter = true;
+
             btnRestart.enabled = false;
 
             if (SaveGame.Heart > 0)
@@ -67,7 +70,8 @@ public class PopupRestart : Popup
     {
         if (PlayerPrefs.HasKey(GameConfig.LAST_HEART_LOSS))
         {
-            float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
+            float timeSinceLastLoss =
+                (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
 
             int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
 
@@ -78,6 +82,7 @@ public class PopupRestart : Popup
                 SaveGame.Heart += increaseHeart;
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
             }
+
             countdownTimer = SaveGame.CountDownTimer - timeSub;
             countdownTimer = Mathf.Max(countdownTimer, 0);
 
@@ -167,5 +172,4 @@ public class PopupRestart : Popup
             SceneManager.LoadScene(strScene);
         });
     }
-
 }

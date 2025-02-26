@@ -26,6 +26,9 @@ public class PopupReplay : Popup
         {
             if (SaveGame.Heart > 0)
             {
+                if (SaveGame.Level >= GameConfig.LEVEL_INTER)
+                    SaveGame.CanShowInter = true;
+                
                 btnReplay.enabled = false;
                 PlayAnim();
                 SaveGame.Heart--;
@@ -33,6 +36,7 @@ public class PopupReplay : Popup
                 {
                     PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
                 }
+
                 LogicGame.Instance.DeleteSaveDataGame();
                 StartCoroutine(LoadGame());
             }
@@ -62,7 +66,8 @@ public class PopupReplay : Popup
     {
         if (PlayerPrefs.HasKey(GameConfig.LAST_HEART_LOSS))
         {
-            float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
+            float timeSinceLastLoss =
+                (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
 
             int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
 
@@ -82,7 +87,6 @@ public class PopupReplay : Popup
             {
                 countdownTimer = GameConfig.TIME_COUNT_DOWN;
             }
-
         }
         else
         {
@@ -143,5 +147,4 @@ public class PopupReplay : Popup
         ManagerEvent.ClearEvent();
         LoadScene("SceneGame");
     }
-
 }

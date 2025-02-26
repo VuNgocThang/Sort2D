@@ -20,10 +20,13 @@ public class PopupGift : Popup
         btnClosePopup.OnClick(Hide);
         btnGet.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo((onCOmpleted) =>
+            AdsController.instance.ShowRewardedVideo(successful =>
             {
-                ClaimReward(indexBooster);
-                Hide();
+                if (successful)
+                {
+                    ClaimReward(indexBooster);
+                    Hide();
+                }
             }, null, "Claim Gift Booster");
         });
     }

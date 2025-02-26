@@ -44,13 +44,20 @@ public class PopupReward : Popup
     {
         btnClaim.OnClick(() =>
         {
+            AdsController.instance.ShowInterAd(null, "Claim Reward");
             ClaimReward(1);
             // Hide();
         });
 
         btnClaimx2.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo((onCompleted) => { ClaimReward(2); }, null, "Claim Reward");
+            AdsController.instance.ShowRewardedVideo(successful =>
+            {
+                if (successful)
+                {
+                    ClaimReward(2);
+                }
+            }, null, "Claim Reward");
             // Hide();
         });
     }

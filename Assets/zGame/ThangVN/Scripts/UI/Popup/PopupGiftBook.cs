@@ -13,7 +13,13 @@ public class PopupGiftBook : Popup
         btnClosePopup.OnClick(Hide);
         btnClaim.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo((onCOmpleted) => { ClaimReward(); }, null, "Claim Gift Book");
+            AdsController.instance.ShowRewardedVideo(successful =>
+            {
+                if (successful)
+                {
+                    ClaimReward();
+                }
+            }, null, "Claim Gift Book");
         });
     }
 

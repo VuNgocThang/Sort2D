@@ -1,5 +1,6 @@
 using BaseGame;
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class GameManager
 {
@@ -73,6 +74,7 @@ public static class GameManager
             ++t;
             sum += list[t];
         }
+
         return t;
     }
 
@@ -81,5 +83,16 @@ public static class GameManager
         List<float> listRatio = new List<float>();
         listRatio.AddRange(list);
         return listRatio;
+    }
+
+    public static void ShowInterAds(string pWhere)
+    {
+        Debug.Log("Config.Level: " + Config.currLevel);
+        if (SaveGame.CanShowInter)
+        {
+            SaveGame.CanShowInter = false;
+
+            AdsController.instance.ShowInterAd(null, pWhere);
+        }
     }
 }
