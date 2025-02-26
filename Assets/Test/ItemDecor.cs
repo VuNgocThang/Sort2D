@@ -55,8 +55,12 @@ public class ItemDecor : MonoBehaviour
             {
                 if (imageItem.isBought) return;
 
+                Debug.Log("SaveGame.CanShowGiftBook: " + SaveGame.CanShowGiftBook);
+                Debug.Log("time countDown Gift: " + HomeUI.Instance.countDownTimerBook);
                 if (SaveGame.CanShowGiftBook)
+                {
                     PopupGiftBook.Show();
+                }
                 else
                     EasyUI.Toast.Toast.Show("Not enough book!", 0.5f);
             }

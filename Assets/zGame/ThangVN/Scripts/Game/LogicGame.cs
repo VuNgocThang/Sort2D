@@ -768,15 +768,21 @@ public class LogicGame : MonoBehaviour
 
                         if (adsPlate.status != Status.Ads) return;
 
-                        ParticleSystem unlockPart = unlockAdsParticlePool.Spawn();
-                        unlockPart.transform.SetParent(adsPlate.transform);
-                        unlockPart.transform.localPosition = Vector3.zero;
-                        unlockPart.transform.localScale = Vector3.one;
-                        unlockPart.Play();
+                        AdsController.instance.ShowRewardedVideo(successful =>
+                        {
+                            if (successful)
+                            {
+                                ParticleSystem unlockPart = unlockAdsParticlePool.Spawn();
+                                unlockPart.transform.SetParent(adsPlate.transform);
+                                unlockPart.transform.localPosition = Vector3.zero;
+                                unlockPart.transform.localScale = Vector3.one;
+                                unlockPart.Play();
 
-                        Debug.Log(" Watch Ads to Unlock AdsPlate");
-                        adsPlate.status = Status.None;
-                        adsPlate.logicVisual.Refresh();
+                                Debug.Log(" Watch Ads to Unlock AdsPlate");
+                                adsPlate.status = Status.None;
+                                adsPlate.logicVisual.Refresh();
+                            }
+                        }, null, "Reward Ads Plate");
                     }
                 }
             }

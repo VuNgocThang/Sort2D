@@ -28,7 +28,7 @@ public class HomeUI : MonoBehaviour
 
     public TextMeshProUGUI txtCoin, txtHeart, txtCountdownHeart, txtColor, txtLevel, txtProgressTask;
     [SerializeField] int heart;
-    [SerializeField] float countdownTimer, totalParts, currentParts, countDownTimerBook;
+    [SerializeField] public float countdownTimer, totalParts, currentParts, countDownTimerBook;
 
     public GameObject nTop,
         nBot,
