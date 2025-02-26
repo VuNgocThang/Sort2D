@@ -94,7 +94,7 @@ public class PopupRestart : Popup
 
     private void Update()
     {
-        Debug.Log("saveHeart" + SaveGame.Heart);
+        // Debug.Log("saveHeart" + SaveGame.Heart);
         if (SaveGame.Heart >= GameConfig.MAX_HEART)
         {
             //txtCountdownHeart.text = "FULL";
@@ -124,7 +124,7 @@ public class PopupRestart : Popup
     public void ShowHeart()
     {
         int heart = SaveGame.Heart + 1;
-        if (heart >= 5) heart = 5;
+        if (heart > 5) heart = 5;
         txtHeart.text = heart.ToString();
     }
 

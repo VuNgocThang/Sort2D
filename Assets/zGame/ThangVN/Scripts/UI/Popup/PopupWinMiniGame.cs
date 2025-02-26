@@ -51,11 +51,25 @@ public class PopupWinMiniGame : Popup
 
     private void Awake()
     {
-        btnContinue.OnClick(PlayAgain);
+        btnContinue.OnClick(() =>
+        {
+            RefreshButton(false);
+            PlayAgain();
+        });
 
-        btnHome.OnClick(Continue);
+        btnHome.OnClick(()=>
+        {
+            RefreshButton(false);
 
-        btnClaimx2.OnClick(ClaimReward);
+            Continue();
+        });
+
+        btnClaimx2.OnClick(()=>
+        {
+            RefreshButton(false);
+
+            ClaimReward();
+        });
     }
 
     public static async void Show()
@@ -67,12 +81,21 @@ public class PopupWinMiniGame : Popup
     public override void Init()
     {
         base.Init();
+        RefreshButton(true);
+
         currentCoin = SaveGame.Coin;
         txtCoin.text = $"{SaveGame.Coin}";
         txtPigment.text = $"{SaveGame.Pigment}";
         InitPile();
         InitReward();
         StartCoroutine(PlayAnimation());
+    }
+
+    private void RefreshButton(bool enabled)
+    {
+        btnContinue.enabled = enabled;
+        btnHome.enabled = enabled;
+        btnClaimx2.enabled = enabled;
     }
 
     private void InitReward()
@@ -258,6 +281,7 @@ public class PopupWinMiniGame : Popup
             }
         }
     }
+
     private Coroutine tween;
 
     private void UpdateMoney(int targetMoney)
@@ -267,6 +291,7 @@ public class PopupWinMiniGame : Popup
         {
             StopCoroutine(tween);
         }
+
         tween = StartCoroutine(CountMoney(currentCoin, targetMoney, duration));
     }
 

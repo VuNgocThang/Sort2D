@@ -12,9 +12,17 @@ public class PopupLoseMiniGame : Popup
 
     private void Awake()
     {
-        btnPlayAgain.OnClick(() => { PlayAgain(); });
+        btnPlayAgain.OnClick(() =>
+        {
+            RefreshButton(false);
+            PlayAgain();
+        });
 
-        btnContinue.OnClick(() => { Continue(); });
+        btnContinue.OnClick(() => 
+        {
+            RefreshButton(false);
+            Continue();
+        });
     }
 
     public static async void Show()
@@ -26,12 +34,19 @@ public class PopupLoseMiniGame : Popup
     public override void Init()
     {
         base.Init();
+        RefreshButton(true);
         // StartCoroutine(StopAnimator());
     }
 
     public override void Hide()
     {
         base.Hide();
+    }
+
+    private void RefreshButton(bool enabled)
+    {
+        btnContinue.enabled = enabled;
+        btnPlayAgain.enabled = enabled;
     }
 
     public void StopAnimation()
