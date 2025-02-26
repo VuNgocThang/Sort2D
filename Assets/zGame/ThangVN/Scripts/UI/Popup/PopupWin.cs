@@ -47,6 +47,8 @@ public class PopupWin : Popup
 
         btnContinue.OnClick(() =>
         {
+            RefreshButton(false);
+
             if (GameManager.ShowPopupBonus())
                 PopupBonusLevel.Show();
             else
@@ -67,8 +69,9 @@ public class PopupWin : Popup
 
         btnHome.OnClick(() =>
         {
-            ManagerEvent.ClearEvent();
+            RefreshButton(false);
 
+            ManagerEvent.ClearEvent();
             InitPile();
             ReceiveReward("SceneHome");
         });
@@ -97,6 +100,7 @@ public class PopupWin : Popup
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPopupWin);
 
         Debug.Log("init popup win");
+        RefreshButton(true);
 
         currentCoin = SaveGame.Coin;
         currentPigment = SaveGame.Pigment;
@@ -112,6 +116,12 @@ public class PopupWin : Popup
 
         if (DailyTaskManager.Instance != null)
             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectBooks, LogicGame.Instance.pigment);
+    }
+
+    private void RefreshButton(bool enabled)
+    {
+        btnContinue.enabled = enabled;
+        btnHome.enabled = enabled;
     }
 
     private void Update()

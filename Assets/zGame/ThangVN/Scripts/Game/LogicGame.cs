@@ -1320,6 +1320,13 @@ public class LogicGame : MonoBehaviour
         }
 
         if (countCanClear <= 0) return;
+        
+        if (!SaveGame.IsDoneTutorial)
+        {
+            TutorialCamera.Instance.PlayTut3();
+            isPauseGame = true;
+        }
+        
         if (isPauseGame) return;
 
         if (ControllerAnimState.gameObject.activeSelf)

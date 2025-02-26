@@ -23,10 +23,8 @@ public class PopupLose : Popup
     {
         btnRevive.OnClick(() =>
         {
-            //if (SaveGame.Heart > 0)
-            //{
-            //    PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
-            //    SaveGame.Heart--;
+            RefreshButton(false);
+
             if (DailyTaskManager.Instance != null)
                 DailyTaskManager.Instance.ExecuteDailyTask(TaskType.Revive, 1);
 
@@ -37,16 +35,12 @@ public class PopupLose : Popup
             Hide();
             LogicGame.Instance.isPauseGame = false;
             LogicGame.Instance.isLose = false;
-            //LoadScene("SceneGame");
-            //}
-            //else
-            //{
-            //    LoadScene("SceneHome");
-            //}
         });
 
         btnRetry.OnClick(() =>
         {
+            RefreshButton(false);
+
             PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
             PopupRestart.Show();
         });
@@ -88,6 +82,8 @@ public class PopupLose : Popup
     public override void Init()
     {
         base.Init();
+        RefreshButton(true);
+        
         if (LogicGame.Instance.countRevive == 0) btnRevive.gameObject.SetActive(false);
         else btnRevive.gameObject.SetActive(true);
 
@@ -113,6 +109,12 @@ public class PopupLose : Popup
         }
 
         Debug.Log("init popup lose");
+    }
+
+    private void RefreshButton(bool enabled)
+    {
+        btnRetry.enabled = enabled;
+        btnRevive.enabled = enabled;
     }
 
     public override void Hide()
