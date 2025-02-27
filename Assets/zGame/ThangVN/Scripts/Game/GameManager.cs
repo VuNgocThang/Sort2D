@@ -93,7 +93,7 @@ public static class GameManager
 
             if (AdsController.instance.IsInterCheckTimeShow())
                 PopupAdsBreak.Show(pWhere);
-            // AdsController.instance.ShowInterAd(null, pWhere);
         }
     }
+    
 }

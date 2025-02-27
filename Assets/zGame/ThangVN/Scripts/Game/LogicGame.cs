@@ -175,11 +175,11 @@ public class LogicGame : MonoBehaviour
 
         //ManagerEvent.RegEvent(EventCMD.EVENT_SPAWN_PLATE, InitPlateSpawn);
     }
-    
+
     void ShowInterAds(object e)
     {
         string pWhere = e as string;
-        AdsController.instance.ShowInterAd(null, pWhere);
+        AdsController.instance.ShowInterAd((check) => { SaveGame.CountWatchInter++; }, pWhere);
     }
 
     async void Start()
@@ -662,8 +662,10 @@ public class LogicGame : MonoBehaviour
 
     RaycastHit raycastHit;
 
-    void Update()
+    private void Update()
     {
+        Debug.Log("inter watched:  " + SaveGame.CountWatchInter);
+
         if (!LogicGame.Instance.IsDataLoaded) return;
 
 

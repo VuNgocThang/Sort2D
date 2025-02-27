@@ -89,6 +89,9 @@ public class DailyTaskManager : MonoBehaviour
 
     private void RefreshData()
     {
+        if (!SaveGame.Submitted)
+            SaveGame.CanRateUs = true;
+
         for (int i = 0; i < dataSaved.listTaskSaved.Count; i++)
         {
             dataSaved.listTaskSaved[i].isClaimed = false;

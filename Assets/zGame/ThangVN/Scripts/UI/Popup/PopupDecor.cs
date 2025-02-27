@@ -135,8 +135,10 @@ public class PopupDecor : Popup
         Debug.Log("BackHome");
         if (SaveGame.Level >= GameConfig.LEVEL_INTER)
         {
+            SaveGame.CanShowInter = true;
             string pWhere = "Decor To Home";
-            PopupAdsBreak.Show(pWhere);
+            GameManager.ShowInterAds(pWhere);
+            // PopupAdsBreak.Show(pWhere);
             // AdsController.instance.ShowInterAd(null, "Decor to Home");
         }
 

@@ -1011,5 +1011,74 @@ public static class SaveGame
         }
     }
 
+    const string CANRATEUS = "CANRATEUS";
+    static int canRateUs = -1;
+
+    public static bool CanRateUs
+    {
+        set
+        {
+            ES3.Save(CANRATEUS, value ? 1 : 0);
+            canRateUs = value ? 1 : 0;
+        }
+        get
+        {
+            if (canRateUs == -1) canRateUs = ES3.Load(CANRATEUS, 1);
+            return canRateUs == 1;
+        }
+    }
+
+    const string SUBMITTED = "SUBMITTED";
+    static int submitted = -1;
+
+    public static bool Submitted
+    {
+        set
+        {
+            ES3.Save(SUBMITTED, value ? 1 : 0);
+            submitted = value ? 1 : 0;
+        }
+        get
+        {
+            if (submitted == -1) submitted = ES3.Load(SUBMITTED, 0);
+            return submitted == 1;
+        }
+    }
+
+
+    const string ISBOUGHTNOADS = "ISBOUGHTNOADS";
+    static int isBoughtNoAds = -1;
+
+    public static bool IsBoughtNoAds
+    {
+        set
+        {
+            ES3.Save(ISBOUGHTNOADS, value ? 1 : 0);
+            isBoughtNoAds = value ? 1 : 0;
+        }
+        get
+        {
+            if (isBoughtNoAds == -1) isBoughtNoAds = ES3.Load(ISBOUGHTNOADS, 0);
+            return isBoughtNoAds == 1;
+        }
+    }
+
+    const string COUNTWATCHINTER = "COUNTWATCHINTER";
+    static int countWatchInter = -1;
+
+    public static int CountWatchInter
+    {
+        set
+        {
+            ES3.Save(COUNTWATCHINTER, value);
+            countWatchInter = value;
+        }
+        get
+        {
+            if (countWatchInter == -1) countWatchInter = ES3.Load(COUNTWATCHINTER, 0);
+            return countWatchInter;
+        }
+    }
+
     #endregion
 }

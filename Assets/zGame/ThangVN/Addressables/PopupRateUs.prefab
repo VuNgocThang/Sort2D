@@ -197,15 +197,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1e84e39733b8e4fb046f8cb25a6cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnClose:
-  - {fileID: 9030070469774246082}
+  btnClose: []
   btnSubmit: {fileID: 7902924600902378805}
+  btnClosePopup: {fileID: 9030070469774246082}
   listStars:
   - {fileID: 5007161046039692760}
   - {fileID: 7452944762345561702}
   - {fileID: 5127460721784422602}
   - {fileID: 8148860658030603700}
   - {fileID: 3452381934825850440}
+  rate: 0
 --- !u!95 &3407360656638385252
 Animator:
   serializedVersion: 5

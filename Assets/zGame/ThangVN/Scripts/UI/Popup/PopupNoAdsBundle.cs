@@ -12,6 +12,7 @@ public class PopupNoAdsBundle : Popup
         PopupNoAdsBundle pop = await ManagerPopup.ShowPopup<PopupNoAdsBundle>();
         pop.Init();
     }
+
     private void Awake()
     {
         btnBuy.OnClick(BuyBundle);
@@ -22,8 +23,10 @@ public class PopupNoAdsBundle : Popup
         base.Init();
     }
 
-    void BuyBundle()
+    private void BuyBundle()
     {
+        SaveGame.IsBoughtNoAds = true;
+        HomeUI.Instance.btnNoAdsBundle.gameObject.SetActive(false);
         Debug.Log("Buy Bundle No Ads");
     }
 }

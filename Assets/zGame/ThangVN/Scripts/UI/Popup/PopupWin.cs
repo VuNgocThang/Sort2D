@@ -124,6 +124,16 @@ public class PopupWin : Popup
 
         if (DailyTaskManager.Instance != null)
             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectBooks, LogicGame.Instance.pigment);
+
+        // ShowPopupRateUs();
+    }
+
+    public void ShowPopupRateUs()
+    {
+        if (SaveGame.CanRateUs && SaveGame.Level >= 5)
+        {
+            PopupRateUs.Show();
+        }
     }
 
     private void RefreshButton(bool enabled)

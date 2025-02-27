@@ -82,8 +82,10 @@ public class HomeUI : MonoBehaviour
         {
             if (SaveGame.Level >= GameConfig.LEVEL_INTER)
             {
+                SaveGame.CanShowInter = true;
                 string pWhere = "Home to Decor";
-                PopupAdsBreak.Show(pWhere);
+                GameManager.ShowInterAds(pWhere);
+                // PopupAdsBreak.Show(pWhere);
 
                 // AdsController.instance.ShowInterAd(null, "Home to Decor");
             }
@@ -143,7 +145,7 @@ public class HomeUI : MonoBehaviour
             nPanelShop.SetActive(false);
         });
 
-        btnNoAdsBundle.OnClick(() => { PopupNoAdsBundle.Show(); });
+        btnNoAdsBundle.OnClick(PopupNoAdsBundle.Show);
 
         btnCoin.OnClick(() =>
         {
@@ -191,6 +193,12 @@ public class HomeUI : MonoBehaviour
             countDownTimerBook = SaveGame.CountDownTimerBook;
         }
 
+        if (!SaveGame.IsBoughtNoAds && SaveGame.CountWatchInter >= 2 && SaveGame.Level >= 4)
+        {
+            PopupNoAdsBundle.Show();
+            btnNoAdsBundle.gameObject.SetActive(true);
+        }
+
         GameManager.ShowInterAds("Back Home");
     }
 
@@ -218,11 +226,11 @@ public class HomeUI : MonoBehaviour
         nNoticeTask.SetActive(checkDecor);
     }
 
-    void ShowInterAds(object e)
+    private void ShowInterAds(object e)
     {
         Debug.Log("Config.currLevel: " + Config.currLevel);
         string pWhere = e as string;
-        AdsController.instance.ShowInterAd(null, pWhere);
+        AdsController.instance.ShowInterAd((check) => { SaveGame.CountWatchInter++; }, pWhere);
     }
 
     private void CalculateTask()

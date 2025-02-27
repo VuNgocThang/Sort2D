@@ -6,14 +6,20 @@ using ntDev;
 
 public class PopupRateUs : Popup
 {
-    [SerializeField] EasyButton btnSubmit;
+    [SerializeField] EasyButton btnSubmit, btnClosePopup;
     [SerializeField] private List<GameObject> listStars;
     [SerializeField] private int rate;
 
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_RATE_US, ShowRate);
-        btnSubmit.OnClick(() => { Debug.Log("Rate: " + rate); });
+        btnSubmit.OnClick(() =>
+        {
+            SaveGame.Submitted = true;
+            SaveGame.CanRateUs = false;
+            Debug.Log("Rate: " + rate);
+        });
+        btnClosePopup.OnClick(LaterRateUs);
     }
 
     public static async void Show()
@@ -46,6 +52,12 @@ public class PopupRateUs : Popup
         {
             star.SetActive(false);
         }
+    }
+
+    private void LaterRateUs()
+    {
+        SaveGame.CanRateUs = false;
+        Hide();
     }
 
     public override void Hide()
