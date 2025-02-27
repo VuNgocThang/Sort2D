@@ -44,6 +44,9 @@ public class DailyTaskManager : MonoBehaviour
         {
             LoadData();
         }
+
+        Debug.Log("SaveGame.Submitted: " + SaveGame.Submitted);
+        Debug.Log("SaveGame.CanRateUs: " + SaveGame.CanRateUs);
     }
 
     public void ExecuteDailyTask(TaskType taskType, int amount)
@@ -89,6 +92,8 @@ public class DailyTaskManager : MonoBehaviour
 
     private void RefreshData()
     {
+        Debug.Log("refresh data");
+
         if (!SaveGame.Submitted)
             SaveGame.CanRateUs = true;
 
@@ -116,6 +121,10 @@ public class DailyTaskManager : MonoBehaviour
         {
             SaveGame.NewDay = DateTime.Now.DayOfYear;
             IsNewDay = true;
+        }
+        else
+        {
+            IsNewDay = false;
         }
     }
 

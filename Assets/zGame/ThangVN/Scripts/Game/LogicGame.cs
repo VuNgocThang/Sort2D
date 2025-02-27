@@ -28,7 +28,8 @@ public class LogicGame : MonoBehaviour
     [SerializeField] Transform holder;
     [SerializeField] Transform nParentArrow;
 
-    [SerializeField] Transform nParentNextCubeNormal,
+    [SerializeField]
+    Transform nParentNextCubeNormal,
         nParentNextCubeMini,
         nParentSpawnBookNormal,
         nParentSpawnBookMini,
@@ -664,7 +665,7 @@ public class LogicGame : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("inter watched:  " + SaveGame.CountWatchInter);
+        //Debug.Log("inter watched:  " + SaveGame.CountWatchInter);
 
         if (!LogicGame.Instance.IsDataLoaded) return;
 
@@ -750,7 +751,7 @@ public class LogicGame : MonoBehaviour
                             if (plateSelect.ListValue.Count == 0 || plateSelect.status == Status.Frozen) return;
                             if (!SaveGame.IsDoneTutHammer)
                             {
-                                Debug.Log("?");
+                                //Debug.Log("?");
                                 isPauseGame = false;
                                 SaveGame.IsDoneTutHammer = true;
                                 TutorialCamera.Instance.EndTut();
@@ -1002,10 +1003,10 @@ public class LogicGame : MonoBehaviour
 
                 sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
                         .SetEase(curveMove)
-                    //.OnComplete(() =>
-                    //{
-                    //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                    //})
+                //.OnComplete(() =>
+                //{
+                //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                //})
                 );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
@@ -1453,7 +1454,7 @@ public class LogicGame : MonoBehaviour
             sequence.AppendCallback(() =>
             {
                 //Debug.Log("111111111");
-                if (startColorPlate.TopValue == null || endColorPlate.TopValue == null) return;
+                //if (startColorPlate.TopValue == null || endColorPlate.TopValue == null) return;
 
                 if (startColorPlate.TopValue == endColorPlate.TopValue)
                 {
@@ -1813,20 +1814,17 @@ public class LogicGame : MonoBehaviour
     {
         if (GameManager.IsNormalGame())
         {
-            //if (PlayerPrefs.HasKey(GameConfig.GAMESAVENORMAL))
-            //{
-            //    Debug.Log("fuck! van con");
-            //}
-
             string gameSaveData = PlayerPrefs.GetString(GameConfig.GAMESAVENORMAL, "");
             if (string.IsNullOrEmpty(gameSaveData))
             {
                 saveGameNormal = null;
+                Debug.Log("savegameNormal = null");
                 return;
             }
             else
             {
                 saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
+                Debug.Log(saveGameNormal);
             }
         }
         else if (GameManager.IsChallengesGame())

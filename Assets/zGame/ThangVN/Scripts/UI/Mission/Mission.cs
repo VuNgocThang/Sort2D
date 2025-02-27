@@ -47,7 +47,7 @@ public class Mission : MonoBehaviour
     {
         ColorEnum typeCheck = missionProgress.missionType;
         int currentCheck = missionProgress.current;
-        Debug.Log(this.transform.position);
+        //Debug.Log(this.transform.position);
 
         if (missionType == typeCheck)
         {

@@ -37,7 +37,7 @@ public class SplashScene : MonoBehaviour
             x += Time.deltaTime / loadingTime;
             if (imgFill.fillAmount < 1)
             {
-                Debug.Log("x: " + x);
+                //Debug.Log("x: " + x);
                 imgFill.fillAmount = x;
             }
             else

@@ -59,7 +59,9 @@ public class ColorPlate : MonoBehaviour
     public List<LogicColor> ListColor;
     public Status status = Status.None;
     public List<ColorEnum> ListValue = new List<ColorEnum>();
-    public ColorEnum TopValue => ListValue[ListValue.Count - 1];
+    //public ColorEnum TopValue => ListValue[ListValue.Count - 1];
+    public ColorEnum TopValue => (ListValue?.Count > 0) ? ListValue[ListValue.Count - 1] : throw new InvalidOperationException("ListValue is empty.");
+
     public LogicColor TopColor => ListColor[ListColor.Count - 1];
     GetColorNew GetColorNew;
     public int count => listTypes[listTypes.Count - 1].listPlates.Count;

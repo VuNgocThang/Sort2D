@@ -114,6 +114,7 @@ public class PopupDecor : Popup
 
     void MoveToCurrentBook()
     {
+        Debug.Log("SaveGame.CurrentBook: " + SaveGame.CurrentBook);
         float posMove = 0f;
         posMove = paddingTop + Mathf.Floor(SaveGame.CurrentBook / 2) * cellSizeY +
                   Mathf.Floor(SaveGame.CurrentBook / 2) * spacingY;

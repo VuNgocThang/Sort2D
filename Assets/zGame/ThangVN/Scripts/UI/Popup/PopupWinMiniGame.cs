@@ -44,10 +44,6 @@ public class PopupWinMiniGame : Popup
     int currentBooster;
     public float duration = 1f;
 
-    public PopupWinMiniGame(EasyButton btnContinue)
-    {
-        this.btnContinue = btnContinue;
-    }
 
     private void Awake()
     {
