@@ -1584,17 +1584,12 @@ public class LogicGame : MonoBehaviour
     {
         isWin = true;
         SaveGame.IsShowBook = false;
-        //Debug.Log(point + " __ " + gold + " __ " + pigment);
-        //Debug.Log("check win");
 
         if (GameManager.IsNormalGame())
         {
-            // if (SaveGame.Level < GameConfig.MAX_LEVEL)
-            // {
             if (DailyTaskManager.Instance != null)
                 DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CompleteLevel, 1);
             SaveGame.Level++;
-            //}
 
             saveGameNormal = null;
             PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
@@ -1608,16 +1603,6 @@ public class LogicGame : MonoBehaviour
                 Debug.Log("clear saveGameNormal");
             }
         }
-        //else if (GameManager.IsBonusGame())
-        //{
-        //    SaveGame.PlayBonus = false;
-
-        //    if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
-        //        SaveGame.LevelBonus++;
-
-        //    saveGameBonus = null;
-        //    PlayerPrefs.DeleteKey(GameConfig.GAMESAVEBONUS);
-        //}
 
         PlayerPrefs.Save();
 
@@ -1692,7 +1677,8 @@ public class LogicGame : MonoBehaviour
     private void OnApplicationQuit()
     {
         //SaveGame.PlayBonus = false;
-        SaveDataGame();
+        if (!isWin)
+            SaveDataGame();
     }
 
     private void OnApplicationPause(bool pause)

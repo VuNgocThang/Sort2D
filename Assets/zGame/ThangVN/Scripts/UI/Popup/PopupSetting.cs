@@ -29,7 +29,8 @@ public class PopupSetting : Popup
 
         btnReplay.OnClick(() =>
         {
-            LogicGame.Instance.SaveDataGame();
+            if (!LogicGame.Instance.isWin)
+                LogicGame.Instance.SaveDataGame();
             PopupReplay.Show();
         });
 
@@ -38,7 +39,8 @@ public class PopupSetting : Popup
             if (SaveGame.Level >= GameConfig.LEVEL_INTER)
                 SaveGame.CanShowInter = true;
 
-            LogicGame.Instance.SaveDataGame();
+            if (!LogicGame.Instance.isWin)
+                LogicGame.Instance.SaveDataGame();
             ManagerEvent.ClearEvent();
 
             StartCoroutine(LoadScene("SceneHome"));
