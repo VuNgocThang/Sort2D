@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class SplashScene : MonoBehaviour
 {
     [SerializeField] private float loadingTime;
+    public bool startLoading = false;
+    [SerializeField] private Image imgFill;
 
     private string targetScene;
     private float x;
@@ -16,15 +18,33 @@ public class SplashScene : MonoBehaviour
 
     public void Start()
     {
-        //DataUserIngame.instance.LoadGame();
         x = 0;
         count = 0;
         isOutOfLoading = false;
+        startLoading = true;
+        loadingTime = 2f;
         NetworkController.instance.CheckNetwork();
         StartCoroutine(LoadScene());
 
         //StartCoroutine(CheckAdsLoading());
         Invoke(nameof(Load), Config.TIME_WAIT_LOADING);
+    }
+
+    void Update()
+    {
+        if (startLoading)
+        {
+            x += Time.deltaTime / loadingTime;
+            if (imgFill.fillAmount < 1)
+            {
+                Debug.Log("x: " + x);
+                imgFill.fillAmount = x;
+            }
+            else
+            {
+                startLoading = false;
+            }
+        }
     }
 
     IEnumerator CheckAdsLoading()
@@ -57,36 +77,17 @@ public class SplashScene : MonoBehaviour
     {
         yield return null;
         string strScene = "SceneHome";
-//        if (!DataUseInGame.gameData.tutGameplay)
-//        {
-//            strScene = "HomeScene";
-//            //SceneManager.LoadScene("HomeScene");
-//        }
-//        else
-//        {
-//            DataUseInGame.instance.currentTheme = "Casual";
-//            //SceneManager.LoadScene("FashionScene");
-//            strScene = "FashionScene";
-//        }
-        //Begin to load the Scene you specify
+        string strSceneName = "SceneGame";
 
-//        if (DataManager.GamePlayData.IndexTutorial == 0)
-//        {
-//            strScene = ScenePaths.TUTORIAL;
-////            TranslationScene.Show(
-////                delegate { SceneManager.LoadScene(ScenePaths.TUTORIAL); });
-//        }
-//        else
-//        {
-//            strScene = ScenePaths.HOME;
-////                SceneManager.LoadScene(ScenePaths.HOME);
-////            TranslationScene.Show(
-////
-////                delegate { SceneManager.LoadScene(ScenePaths.HOME); });
-//        }
+        if (SaveGame.Level == 0)
+        {
+            asyncOperation = SceneManager.LoadSceneAsync(strSceneName);
+        }
+        else
+        {
+            asyncOperation = SceneManager.LoadSceneAsync(strScene);
+        }
 
-
-        asyncOperation = SceneManager.LoadSceneAsync(strScene);
         //Don't let the Scene activate until you allow it to
         asyncOperation.allowSceneActivation = false;
         //Debug.Log("Pro :" + asyncOperation.progress);

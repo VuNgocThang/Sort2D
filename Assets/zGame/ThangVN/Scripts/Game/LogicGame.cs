@@ -171,7 +171,15 @@ public class LogicGame : MonoBehaviour
     {
         Instance = this;
         ManagerEvent.RegEvent(EventCMD.EVENT_SWITCH, SwitchNextPlate);
+        ManagerEvent.RegEvent(EventCMD.EVENT_INTER_ADS, ShowInterAds);
+
         //ManagerEvent.RegEvent(EventCMD.EVENT_SPAWN_PLATE, InitPlateSpawn);
+    }
+    
+    void ShowInterAds(object e)
+    {
+        string pWhere = e as string;
+        AdsController.instance.ShowInterAd(null, pWhere);
     }
 
     async void Start()
@@ -184,7 +192,7 @@ public class LogicGame : MonoBehaviour
         InitListCheckPlate();
         spawnBook.gameObject.SetActive(true);
         spawnBook.PlayAnimSpawn();
-        GameManager.ShowInterAds("Replay");
+        // GameManager.ShowInterAds("Replay");
 
         //InitNextPlate();
         RecursiveMerge();

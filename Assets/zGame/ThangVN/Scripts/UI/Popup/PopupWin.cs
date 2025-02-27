@@ -76,6 +76,8 @@ public class PopupWin : Popup
                 SaveGame.CanShowInter = true;
 
             RefreshButton(false);
+            if (GameManager.ShowPopupBonus())
+                SaveGame.PlayBonus = true;
 
             ManagerEvent.ClearEvent();
             InitPile();

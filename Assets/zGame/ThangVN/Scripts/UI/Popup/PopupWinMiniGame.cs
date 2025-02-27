@@ -72,9 +72,13 @@ public class PopupWinMiniGame : Popup
 
         btnClaimx2.OnClick(()=>
         {
-            RefreshButton(false);
-
-            ClaimReward();
+            AdsController.instance.ShowRewardedVideo(successful =>
+            {
+                if (successful)
+                {
+                    ClaimReward();
+                }
+            }, null, "Reward Bonus Level");
         });
     }
 

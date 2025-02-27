@@ -93,6 +93,10 @@ namespace ThangVN
                     SaveGame.LevelGift = SaveGame.Level + 2;
                     PopupGift.Show(indexBooster);
                 }
+                else
+                {
+                    GameManager.ShowInterAds("Level");
+                }
             }
         }
 

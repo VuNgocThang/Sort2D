@@ -58,6 +58,8 @@ public class HomeUI : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(Instance);
 
+        ManagerEvent.RegEvent(EventCMD.EVENT_INTER_ADS, ShowInterAds);
+
         btnSetting.OnClick(() => PopupSettingHome.Show());
 
         btnPlusCoin.OnClick(() => PopupFreeCoin.Show());
@@ -80,7 +82,10 @@ public class HomeUI : MonoBehaviour
         {
             if (SaveGame.Level >= GameConfig.LEVEL_INTER)
             {
-                AdsController.instance.ShowInterAd(null, "Home to Decor");
+                string pWhere = "Home to Decor";
+                PopupAdsBreak.Show(pWhere);
+
+                // AdsController.instance.ShowInterAd(null, "Home to Decor");
             }
 
             if (SaveGame.Level < 2)
@@ -211,6 +216,13 @@ public class HomeUI : MonoBehaviour
 
         bool checkDecor = CheckTaskDecor();
         nNoticeTask.SetActive(checkDecor);
+    }
+
+    void ShowInterAds(object e)
+    {
+        Debug.Log("Config.currLevel: " + Config.currLevel);
+        string pWhere = e as string;
+        AdsController.instance.ShowInterAd(null, pWhere);
     }
 
     private void CalculateTask()
@@ -386,11 +398,10 @@ public class HomeUI : MonoBehaviour
         SceneManager.LoadScene(str);
     }
 
-    void InitFirstDecor()
+    public void InitFirstDecor()
     {
         if (SaveGame.Level >= 2 && SaveGame.FirstDecor)
         {
-            //TutorialDecor.Instance.InitTut();
             TutorialDecor.Instance.SetParent(btnDecor.transform);
         }
     }

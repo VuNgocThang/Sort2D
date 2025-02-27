@@ -87,12 +87,13 @@ public static class GameManager
 
     public static void ShowInterAds(string pWhere)
     {
-        Debug.Log("Config.Level: " + Config.currLevel);
         if (SaveGame.CanShowInter)
         {
             SaveGame.CanShowInter = false;
 
-            AdsController.instance.ShowInterAd(null, pWhere);
+            if (AdsController.instance.IsInterCheckTimeShow())
+                PopupAdsBreak.Show(pWhere);
+            // AdsController.instance.ShowInterAd(null, pWhere);
         }
     }
 }

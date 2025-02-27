@@ -71,7 +71,11 @@ public class AdsController : MonoBehaviour
         //{
         //    SCREEN_SHOW_BANNER = false;
         //}
+#if UNITY_ANDROID
         Application.targetFrameRate = 60;
+#elif UNITY_IOS
+        Application.targetFrameRate = 90;
+#endif
     }
 
     private void Start()
@@ -117,6 +121,7 @@ public class AdsController : MonoBehaviour
         }
 
         admob.Setup();
+        /*
         if (waitFetchFirebase != null)
         {
             StopCoroutine(waitFetchFirebase);
@@ -124,6 +129,7 @@ public class AdsController : MonoBehaviour
         }
 
         waitFetchFirebase = StartCoroutine(StartWaitFirebaseFetch());
+        */
         if (Config.ACTIVE_TEST)
         {
             Config.SetUnlockAll();
@@ -135,16 +141,27 @@ public class AdsController : MonoBehaviour
         StartCoroutine(WaitNotificationActive());
     }
 
+    public void ActiveWaitFetchFirebase()
+    {
+        if (waitFetchFirebase != null)
+        {
+            StopCoroutine(waitFetchFirebase);
+            waitFetchFirebase = null;
+        }
+
+        waitFetchFirebase = StartCoroutine(StartWaitFirebaseFetch());
+    }
+
     Coroutine waitFetchFirebase;
     bool startActiveLoadAOA = false;
 
     public void ActiveFetchFirebaseDone()
     {
-        Config.AddLogShowDebug("FetchDone");
+        Config.AddLogShowDebug("FetchDone " + startActiveLoadAOA);
         if (!startActiveLoadAOA)
         {
             startActiveLoadAOA = true;
-            Config.FirstCheckTypeUser();
+            //Config.FirstCheckTypeUser();
             admob.StartLoadAOA();
         }
 
@@ -153,10 +170,22 @@ public class AdsController : MonoBehaviour
             StopCoroutine(waitFetchFirebase);
             waitFetchFirebase = null;
         }
+
+        Config.FirstCheckTypeUser();
+        //-----
+        if (Config.isActiveAOA
+            || Config.isActiveAOA_Switch)
+        {
+        }
+        else
+        {
+            Config.FIRST_LOAD_ADS_DONE = true;
+        }
     }
 
     public void ActiveFetchFailed()
     {
+        //Debug.Log("firebase done 111111  ---- 111111");
         Config.AddLogShowDebug("FetchFailed");
         ActiveFetchFirebaseDone();
         if (waitFetchFirebase != null)
@@ -166,12 +195,20 @@ public class AdsController : MonoBehaviour
         }
     }
 
+    WaitForSeconds w1 = new WaitForSeconds(0.3f);
+
     IEnumerator StartWaitFirebaseFetch()
     {
+        //Debug.Log("firebase done 111111  ---- 33333333");
         //--them vao vi` doi fetch firebase---
         AdsController.instance.admob.FirstLoadAdsMax_WhenWaitFetch();
+
+        //yield return w1;
+        //yield return w1;
         //------------
+        //yield return new WaitForSeconds(6f);
         yield return new WaitForSeconds(6f);
+        //Debug.Log("firebase done 111111  ---- 222222");
         Config.AddLogShowDebug("FetchOut");
         ActiveFetchFirebaseDone();
     }
@@ -271,12 +308,20 @@ public class AdsController : MonoBehaviour
             return;
         }
 #if CHECK_NETWORK_CONNECT
-        if( !Config.GetRemoveAd()&&Config.isCheckConnetNetwork){
+        if (!Config.GetRemoveAd() && Config.isCheckConnetNetwork)
+        {
             NetworkController.instance.CheckNetwork();
             //return;
         }
 #endif
-        bool check = admob.ShowRewardedVideo(pOnCompleted, pWhere);
+        bool check = admob.ShowRewardedVideo((bool check) =>
+        {
+            if (check)
+            {
+                pOnCompleted(check);
+                Config.AddCountRewardedAds();
+            }
+        }, pWhere);
         if (check)
         {
             FirebaseManager.instance.LogShowReward(pWhere, Config.currLevel);
@@ -304,20 +349,25 @@ public class AdsController : MonoBehaviour
 
     public bool IsInterAdAvailable(string where = null)
     {
+        
+
         if (Config.GetRemoveAd() || Config.currLevel < AdsController.VALUE_CONFIG_INTER_LEVEL_SHOW ||
             !Config.ACTIVE_INTER_ADS) return false;
 
+        Debug.Log("Config.isActiveInter: " + Config.isActiveInter);
         if (!Config.isActiveInter)
         {
             return false;
         }
 
+        Debug.Log("IsInterCheckTimeShow" + IsInterCheckTimeShow());
         if (IsInterCheckTimeShow())
         {
-            //bool check = false;
-            //check = admob.IsInterAvailable();
-            //return check;
-            return true;
+            bool check = false;
+            check = admob.IsInterAvailable();
+            Debug.Log("check__: " + check);
+            return check;
+            //return true;
         }
 
         return false;
@@ -355,14 +405,15 @@ public class AdsController : MonoBehaviour
             return;
         }
 #if CHECK_NETWORK_CONNECT
-        if( !Config.GetRemoveAd()&&Config.isCheckConnetNetwork){
+        if (!Config.GetRemoveAd() && Config.isCheckConnetNetwork)
+        {
             NetworkController.instance.CheckNetwork();
             //return;
         }
 #endif
-// #if UNITY_EDITOR
-//         Debug.LogError("Show inter");
-// #endif
+        //#if UNITY_EDITOR
+        //        Debug.LogError("Show inter");
+        //#endif
         if (!Config.ENABLE_INTER_BACK_POPUP && isPopupBack)
         {
             return;

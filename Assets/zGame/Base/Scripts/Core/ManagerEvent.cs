@@ -8,6 +8,7 @@ namespace ntDev
     {
         public EventCMD cmd;
         public Action<object> callBack;
+
         public EventObject(EventCMD c, Action<object> cal)
         {
             cmd = c;
@@ -19,6 +20,7 @@ namespace ntDev
     {
         public EventCMD cmd;
         public object obj;
+
         public RaiseEventObject(EventCMD c, object o)
         {
             cmd = c;
@@ -87,20 +89,24 @@ namespace ntDev
         EVENT_RECEIVE_REWARD,
         EVENT_SCORE_CHALLENGES,
         EVENT_RATE_US,
+        EVENT_INTER_ADS,
     }
 
     public static class ManagerEvent
     {
         static List<EventObject> listEvent = new List<EventObject>();
+
         public static void RegEvent(EventCMD cmd, Action<object> cal)
         {
             if (cal != null)
             {
                 foreach (EventObject o in listEvent)
-                    if (o.cmd == cmd && o.callBack == cal) return;
+                    if (o.cmd == cmd && o.callBack == cal)
+                        return;
                 listEvent.Add(new EventObject(cmd, cal));
             }
         }
+
         public static void RaiseEvent(EventCMD cmd, object obj = null)
         {
             for (int i = 0; i < listEvent.Count; ++i)
@@ -109,10 +115,12 @@ namespace ntDev
                     listEvent[i].callBack(obj);
             }
         }
+
         public static void RaiseEventNextFrame(EventCMD cmd, object obj = null)
         {
             ManagerGame.ListEvent.Add(new RaiseEventObject(cmd, obj));
         }
+
         public static void RemoveEvent(EventCMD cmd, Action<object> cal = null)
         {
             for (int i = 0; i < listEvent.Count; ++i)
@@ -122,6 +130,7 @@ namespace ntDev
                         listEvent.RemoveAt(i);
             }
         }
+
         public static void ClearEvent()
         {
             listEvent.Clear();

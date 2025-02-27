@@ -44,7 +44,9 @@ public class PopupReward : Popup
     {
         btnClaim.OnClick(() =>
         {
-            AdsController.instance.ShowInterAd(null, "Claim Reward");
+            string pWhere = "Claim Reward";
+            PopupAdsBreak.Show(pWhere);
+            // AdsController.instance.ShowInterAd(null, "Claim Reward");
             ClaimReward(1);
             // Hide();
         });

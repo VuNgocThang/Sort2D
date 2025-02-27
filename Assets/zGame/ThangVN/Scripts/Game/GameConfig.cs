@@ -73,7 +73,7 @@ public static class GameConfig
 
     public static int MAX_LEVEL_BONUS = 10011;
 
-    public static int LEVEL_INTER = 2;
+    public static int LEVEL_INTER = 3;
 
     public static Color DEFAULT_COLOR = new Color(1, 1, 1, 1);
 
