@@ -28,8 +28,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] Transform holder;
     [SerializeField] Transform nParentArrow;
 
-    [SerializeField]
-    Transform nParentNextCubeNormal,
+    [SerializeField] Transform nParentNextCubeNormal,
         nParentNextCubeMini,
         nParentSpawnBookNormal,
         nParentSpawnBookMini,
@@ -292,7 +291,7 @@ public class LogicGame : MonoBehaviour
     }
 
 
-    async Task LoadData()
+    private async Task LoadData()
     {
         await LoadDataFromAsset();
 
@@ -334,7 +333,7 @@ public class LogicGame : MonoBehaviour
         IsDataLoaded = true;
     }
 
-    public async Task LoadDataFromAsset()
+    private async Task LoadDataFromAsset()
     {
         string filePath = "";
         if (GameManager.IsNormalGame())
@@ -1003,10 +1002,10 @@ public class LogicGame : MonoBehaviour
 
                 sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
                         .SetEase(curveMove)
-                //.OnComplete(() =>
-                //{
-                //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                //})
+                    //.OnComplete(() =>
+                    //{
+                    //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                    //})
                 );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
@@ -1673,7 +1672,6 @@ public class LogicGame : MonoBehaviour
 
     public SaveCurrentDataGame saveGameNormal = new SaveCurrentDataGame();
     public SaveCurrentChallenges saveGameChallenges = new SaveCurrentChallenges();
-    public SaveCurrentPlayBonus saveGameBonus = new SaveCurrentPlayBonus();
 
     private void OnApplicationQuit()
     {
@@ -1686,8 +1684,9 @@ public class LogicGame : MonoBehaviour
     {
         if (pause)
         {
-            //Debug.Log("Páue");
-            SaveDataGame();
+            Debug.Log("Pause");
+            if (!isWin)
+                SaveDataGame();
         }
         else
         {
@@ -1717,13 +1716,9 @@ public class LogicGame : MonoBehaviour
         {
             SaveGameChallenges();
         }
-        else if (GameManager.IsBonusGame())
-        {
-            SaveGameBonus();
-        }
     }
 
-    void SaveGameNormal()
+    private void SaveGameNormal()
     {
         if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial) return;
 
@@ -1765,7 +1760,7 @@ public class LogicGame : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    void SaveGameChallenges()
+    private void SaveGameChallenges()
     {
         SaveCurrentChallenges currentData = new SaveCurrentChallenges();
 
@@ -1806,11 +1801,7 @@ public class LogicGame : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    void SaveGameBonus()
-    {
-    }
-
-    void LoadSaveData()
+    private void LoadSaveData()
     {
         if (GameManager.IsNormalGame())
         {
@@ -1819,12 +1810,11 @@ public class LogicGame : MonoBehaviour
             {
                 saveGameNormal = null;
                 Debug.Log("savegameNormal = null");
-                return;
             }
             else
             {
                 saveGameNormal = JsonUtility.FromJson<SaveCurrentDataGame>(gameSaveData);
-                Debug.Log(saveGameNormal);
+                Debug.Log("SaveGameNormal: " + saveGameNormal);
             }
         }
         else if (GameManager.IsChallengesGame())
@@ -1834,7 +1824,6 @@ public class LogicGame : MonoBehaviour
             {
                 Debug.Log("nullll");
                 saveGameChallenges = null;
-                return;
             }
             else
             {
@@ -1843,7 +1832,7 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-    void LoadSaveNormalData()
+    private void LoadSaveNormalData()
     {
         //Debug.Log("saveGameNormal.currentPoint: " + saveGameNormal.currentPoint);
         point = saveGameNormal.currentPoint;
@@ -1887,7 +1876,7 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-    void LoadSaveChallengesData()
+    private void LoadSaveChallengesData()
     {
         //Debug.Log("saveGameChallenges.currentPoint: " + saveGameChallenges.currentPoint);
         point = saveGameChallenges.currentPoint;
@@ -1937,12 +1926,6 @@ public class LogicGame : MonoBehaviour
     #region Sort List
 
     public List<int> ListIntCurrent = new List<int>();
-
-    //public void Calculate()
-    //{
-    //    CalculateListCurrent();
-    //    CalculateCountColorInDesk();
-    //}
 
     public List<int> CalculateCountColorInDesk()
     {
