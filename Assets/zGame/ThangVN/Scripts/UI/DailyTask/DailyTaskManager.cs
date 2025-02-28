@@ -93,6 +93,7 @@ public class DailyTaskManager : MonoBehaviour
     private void RefreshData()
     {
         Debug.Log("refresh data");
+        SaveGame.CanShowAdsBundle = true;
 
         if (!SaveGame.Submitted)
             SaveGame.CanRateUs = true;

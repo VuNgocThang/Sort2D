@@ -1080,5 +1080,23 @@ public static class SaveGame
         }
     }
 
+
+    const string CANSHOWADSBUNDLE = "CANSHOWADSBUNDLE";
+    static int canShowAdsBundle = -1;
+
+    public static bool CanShowAdsBundle
+    {
+        set
+        {
+            ES3.Save(CANSHOWADSBUNDLE, value ? 1 : 0);
+            canShowAdsBundle = value ? 1 : 0;
+        }
+        get
+        {
+            if (canShowAdsBundle == -1) canShowAdsBundle = ES3.Load(CANSHOWADSBUNDLE, 1);
+            return canShowAdsBundle == 1;
+        }
+    }
+
     #endregion
 }

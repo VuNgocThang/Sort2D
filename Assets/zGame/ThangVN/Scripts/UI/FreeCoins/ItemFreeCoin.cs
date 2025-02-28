@@ -19,16 +19,7 @@ public class ItemFreeCoin : MonoBehaviour
 
     private void Awake()
     {
-        btnClaim.OnClick(() =>
-        {
-            AdsController.instance.ShowRewardedVideo(successful =>
-            {
-                if (successful)
-                {
-                    ClaimRewardAds();
-                }
-            }, null, "Free Coin");
-        });
+        btnClaim.OnClick(ClaimRewardAds);
     }
 
     public void Show(int currentIndex, PopupFreeCoin popupFreeCoin)
@@ -91,22 +82,29 @@ public class ItemFreeCoin : MonoBehaviour
         if (index == SaveGame.DataFreeCoin.currentIndex)
         {
             // reward ads here
-            if (countCoin > 0)
+
+            AdsController.instance.ShowRewardedVideo(successful =>
             {
-                if (DailyTaskManager.Instance != null)
-                    DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
-                popupFreeCoin.ReceiveReward(this.transform);
-                GameManager.AddGold(countCoin);
-                isClaimed = true;
-                Debug.Log($" claimed {countCoin}");
-                UpdateStateClaim();
-            }
-            else
-            {
-                isClaimed = true;
-                Debug.Log("claimed heart");
-                UpdateStateClaim();
-            }
+                if (successful)
+                {
+                    if (countCoin > 0)
+                    {
+                        if (DailyTaskManager.Instance != null)
+                            DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
+                        popupFreeCoin.ReceiveReward(this.transform);
+                        GameManager.AddGold(countCoin);
+                        isClaimed = true;
+                        Debug.Log($" claimed {countCoin}");
+                        UpdateStateClaim();
+                    }
+                    else
+                    {
+                        isClaimed = true;
+                        Debug.Log("claimed heart");
+                        UpdateStateClaim();
+                    }
+                }
+            }, null, "Free Coin");
         }
     }
 

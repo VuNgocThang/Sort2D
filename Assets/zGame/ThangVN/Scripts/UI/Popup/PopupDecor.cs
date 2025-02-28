@@ -108,6 +108,7 @@ public class PopupDecor : Popup
         yield return new WaitForEndOfFrame();
         TutorialDecor.Instance.InitTutFocus(listBookItems[0].GetComponent<RectTransform>());
         TutorialDecor.Instance.ShowStep(0);
+       
         //imgTut.position = scroll.content.GetChild(0).GetComponent<RectTransform>().position;
         //hand.position = imgTut.position;
     }
@@ -138,7 +139,8 @@ public class PopupDecor : Popup
         {
             SaveGame.CanShowInter = true;
             string pWhere = "Decor To Home";
-            GameManager.ShowInterAds(pWhere);
+            
+             GameManager.ShowInterAds(pWhere);
             // PopupAdsBreak.Show(pWhere);
             // AdsController.instance.ShowInterAd(null, "Decor to Home");
         }

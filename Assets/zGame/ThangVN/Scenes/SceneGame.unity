@@ -3957,17 +3957,13 @@ MonoBehaviour:
   listSteps: []
   listNearByCanConnect: []
   saveGameNormal:
+    currentLevel: 0
     ListColorPlate: []
     currentPoint: 0
     countDiff: 0
   saveGameChallenges:
     ListColorPlate: []
     currentPoint: 0
-    countDiff: 0
-  saveGameBonus:
-    ListColorPlate: []
-    ListBonusMissions: []
-    currentTime: 0
     countDiff: 0
   ListIntCurrent: 
 --- !u!4 &603901195
@@ -19640,7 +19636,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5829381166133242161}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8696f3dc6f9603a41937a62cbe6085fd, type: 3}
   m_Name: 

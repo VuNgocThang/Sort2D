@@ -18,6 +18,7 @@ public class SplashScene : MonoBehaviour
 
     public void Start()
     {
+        Application.targetFrameRate = 60;
         x = 0;
         count = 0;
         isOutOfLoading = false;

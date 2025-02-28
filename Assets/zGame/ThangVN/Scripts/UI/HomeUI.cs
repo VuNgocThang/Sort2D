@@ -157,7 +157,7 @@ public class HomeUI : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
+        // Application.targetFrameRate = 60;
         DailyTaskManager.Instance.Init();
         FreeCoinManager.Instance.Init();
         int randomBG = UnityEngine.Random.Range(0, 2);
@@ -192,11 +192,19 @@ public class HomeUI : MonoBehaviour
         {
             countDownTimerBook = SaveGame.CountDownTimerBook;
         }
-
-        if (!SaveGame.IsBoughtNoAds && SaveGame.CountWatchInter >= 2 && SaveGame.Level >= 4)
+        
+        if (SaveGame.CountWatchInter >= 2 && SaveGame.Level >= 4)
         {
-            PopupNoAdsBundle.Show();
-            btnNoAdsBundle.gameObject.SetActive(true);
+            if (!SaveGame.IsBoughtNoAds)
+            {
+                btnNoAdsBundle.gameObject.SetActive(true);
+
+                if (SaveGame.CanShowAdsBundle)
+                {
+                    SaveGame.CanShowAdsBundle = false;
+                    PopupNoAdsBundle.Show();
+                }
+            }
         }
 
         GameManager.ShowInterAds("Back Home");

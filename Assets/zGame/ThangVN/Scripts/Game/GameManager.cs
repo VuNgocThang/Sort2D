@@ -91,9 +91,8 @@ public static class GameManager
         {
             SaveGame.CanShowInter = false;
 
-            if (AdsController.instance.IsInterCheckTimeShow())
+            if (AdsController.instance.IsInterAdAvailable())
                 PopupAdsBreak.Show(pWhere);
         }
     }
-    
 }

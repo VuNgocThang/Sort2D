@@ -184,7 +184,7 @@ public class LogicGame : MonoBehaviour
 
     async void Start()
     {
-        Application.targetFrameRate = 60;
+        // Application.targetFrameRate = 60;
         //enabled = false;
         await Refresh();
         LoadSaveData();
@@ -661,6 +661,7 @@ public class LogicGame : MonoBehaviour
 
 
     RaycastHit raycastHit;
+    private const float timeCanClick = 0.8f;
 
     private void Update()
     {
@@ -679,7 +680,8 @@ public class LogicGame : MonoBehaviour
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-                timeClick = .8f;
+                // timeClick = .8f;
+                timeClick = timeCanClick;
                 Vector3 spawnPosition = GetMouseWorldPosition();
                 clickParticlePool.Spawn(spawnPosition, true);
 

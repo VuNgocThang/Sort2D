@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ntDev;
 using UnityEngine;
 using DG.Tweening;
@@ -58,9 +59,13 @@ public class ColorPlate : MonoBehaviour
     public List<ColorPlate> ListConnect;
     public List<LogicColor> ListColor;
     public Status status = Status.None;
+
     public List<ColorEnum> ListValue = new List<ColorEnum>();
+
     //public ColorEnum TopValue => ListValue[ListValue.Count - 1];
-    public ColorEnum TopValue => (ListValue?.Count > 0) ? ListValue[ListValue.Count - 1] : throw new InvalidOperationException("ListValue is empty.");
+    public ColorEnum TopValue => (ListValue?.Count > 0)
+        ? ListValue[ListValue.Count - 1]
+        : throw new InvalidOperationException("ListValue is empty.");
 
     public LogicColor TopColor => ListColor[ListColor.Count - 1];
     GetColorNew GetColorNew;
@@ -93,7 +98,13 @@ public class ColorPlate : MonoBehaviour
     {
         if (ListColor.Count <= 0 || ListValue.Count <= 0) return;
 
-        if (isMerging || countFrozen > 0)
+        // if (status == Status.Frozen)
+        // {
+        //     Debug.Log("this.name:  " + gameObject.name + " ___ " + listTypes.Count +
+        //               " ___ " + listTypes[listTypes.Count - 1].listPlates.Count);
+        // }
+
+        if (isMerging || status == Status.Frozen)
         {
             for (int i = 0; i < ListColor.Count; i++)
             {
@@ -112,7 +123,7 @@ public class ColorPlate : MonoBehaviour
             TopColor.nBoxText.gameObject.SetActive(true);
             TopColor.txtCount.gameObject.SetActive(true);
             TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
-            TopColor.txtCount.text = this.listTypes[this.listTypes.Count - 1].listPlates.Count.ToString();
+            TopColor.txtCount.text = listTypes[listTypes.Count - 1].listPlates.Count.ToString();
         }
     }
 
@@ -180,19 +191,20 @@ public class ColorPlate : MonoBehaviour
             }
 
             int maxReach = 0;
-            if (isSpecial) maxReach = 6;
+            if (isSpecial)
+            {
+                maxReach = 6;
+            }
             else maxReach = 10;
-            // Spawn Count Same Type
+
             foreach (int type in listDiff)
             {
-                //Debug.Log("type: " + type + " __ " + (ColorEnum)type);
                 GroupEnum group = new GroupEnum { type = (ColorEnum)type };
                 listTypes.Add(group);
 
                 int remainingCount = maxReach - ListValue.Count;
                 int maxPossibleAdditions = listDiff.Count > 3 ? remainingCount / listDiff.Count : 3;
                 int randomCount = UnityEngine.Random.Range(2, Mathf.Min(4, maxPossibleAdditions + 1));
-                //int randomCount = UnityEngine.Random.Range(5, Mathf.Min(5, maxPossibleAdditions + 1));
 
                 for (int j = 0; j < randomCount; j++)
                 {
@@ -205,13 +217,26 @@ public class ColorPlate : MonoBehaviour
                     ListValue.Add(group.type);
                 }
             }
+
+            // if (isSpecial)
+            //     Debug.Log("this.name: " + gameObject.name + " ____ " + listDiff.Count + " ___ " +
+            //               listTypes[listTypes.Count - 1].listPlates.Count);
+
+            if (listTypes[listTypes.Count - 1].listPlates.Count == 0)
+            {
+                listTypes.RemoveAt(listTypes.Count - 1);
+            }
+
+            // if (isSpecial)
+            //     Debug.Log("this.name_ after_remove: " + gameObject.name + " ____ " + listDiff.Count + " ___ " +
+            //               listTypes[listTypes.Count - 1].listPlates.Count);
         }
 
 
         InitValue(this.transform);
     }
 
-    int CalculateCountInStacks(DataLevel levelData)
+    private int CalculateCountInStacks(DataLevel levelData)
     {
         int randomCountInStacks = -1;
         int rdRatioCountInStacks = UnityEngine.Random.Range(0, 100);
@@ -305,7 +330,7 @@ public class ColorPlate : MonoBehaviour
         InitValue(this.transform);
     }
 
-    public void InitExistedValue(List<CurrentEnum> listCurrentEnum)
+    private void InitExistedValue(List<CurrentEnum> listCurrentEnum)
     {
         listTypes.Clear();
 

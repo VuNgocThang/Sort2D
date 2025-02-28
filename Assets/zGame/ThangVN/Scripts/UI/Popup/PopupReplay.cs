@@ -28,7 +28,7 @@ public class PopupReplay : Popup
             {
                 if (SaveGame.Level >= GameConfig.LEVEL_INTER)
                     SaveGame.CanShowInter = true;
-                
+
                 btnReplay.enabled = false;
                 PlayAnim();
                 SaveGame.Heart--;
@@ -97,6 +97,8 @@ public class PopupReplay : Popup
     private void Update()
     {
         txtHeart.text = $"{SaveGame.Heart}";
+        if (SaveGame.Heart >= GameConfig.MAX_HEART) return;
+
         if (countdownTimer > 0)
         {
             countdownTimer -= Time.deltaTime;

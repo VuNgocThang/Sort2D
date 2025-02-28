@@ -47,7 +47,8 @@ public class PopupRateUs : Popup
 
     public override void Init()
     {
-        base.Init();
+        // base.Init();
+        transform.localScale = Vector3.one;
         foreach (var star in listStars)
         {
             star.SetActive(false);

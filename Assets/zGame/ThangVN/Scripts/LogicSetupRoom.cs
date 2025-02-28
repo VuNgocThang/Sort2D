@@ -29,7 +29,7 @@ public class LogicSetupRoom : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
+        // Application.targetFrameRate = 60;
         //upgradeSparklesParticleePool = new CustomPool<ParticleSystem>(upgradeSparklesParticle, 2, transform, false);
 
         SaveGame.CanShow = false;
