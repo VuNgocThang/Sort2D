@@ -63,8 +63,9 @@ public class DailyTask : MonoBehaviour
         if (!CanClaim()) return;
         if (isClaimed) return;
 
-        isClaimed = true;
+        FirebaseCustom.LogDailyTaskCompleted((int)taskType);
 
+        isClaimed = true;
         canClaim.SetActive(!isClaimed);
         claimed.SetActive(isClaimed);
         imgStarClaimed.SetActive(isClaimed);
@@ -109,8 +110,9 @@ public class DailyTask : MonoBehaviour
                 {
                     ManagerEvent.ClearEvent();
                     SaveGame.Challenges = false;
-                    SceneManager.LoadScene("SceneGame");  
+                    SceneManager.LoadScene("SceneGame");
                 }
+
                 break;
             default:
                 ManagerEvent.ClearEvent();

@@ -31,6 +31,8 @@ public class PopupEndChallenges : Popup
     {
         base.Init();
 
+        FirebaseCustom.LogScoreChallenges(SaveGame.BestScore);
+
         if (DailyTaskManager.Instance != null)
             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.PlayChallenges, 1);
 
@@ -40,7 +42,10 @@ public class PopupEndChallenges : Popup
 
         score = LogicGame.Instance.point;
 
-        if (score >= SaveGame.BestScore) imgBest.SetActive(true);
+        if (score >= SaveGame.BestScore)
+        {
+            imgBest.SetActive(true);
+        }
         else imgBest.SetActive(false);
 
         txtScore.text = score.ToString();

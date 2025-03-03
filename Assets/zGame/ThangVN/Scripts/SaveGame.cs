@@ -579,6 +579,24 @@ public static class SaveGame
         }
     }
 
+    const string TIMEPLAYED = "TIMEPLAYED";
+    static double timePlayed = -1;
+
+    public static double TimePlayed
+    {
+        set
+        {
+            ES3.Save(TIMEPLAYED, value);
+            timePlayed = value;
+        }
+        get
+        {
+            if (timePlayed == -1)
+                timePlayed = ES3.Load(TIMEPLAYED, 0);
+            return timePlayed;
+        }
+    }
+
     #endregion
 
     #region Decor

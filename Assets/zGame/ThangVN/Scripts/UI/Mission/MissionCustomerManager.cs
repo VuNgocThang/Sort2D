@@ -113,6 +113,7 @@ public class MissionCustomerManager : MonoBehaviour
         if (IsOverTime() || LogicGame.Instance.isLose)
         {
             LogicGame.Instance.isLose = true;
+            FirebaseCustom.LogBonusLoseTime(SaveGame.LevelBonus);
             RaiseEventLose();
             Debug.Log("isoverTime");
         }
@@ -182,6 +183,8 @@ public class MissionCustomerManager : MonoBehaviour
     {
         SaveGame.PlayBonus = false;
         //PopupWinMiniGame.Show();
+        FirebaseManager.instance.LogLevelWin(SaveGame.LevelBonus, 0);
+
         StartCoroutine(ShowPopupWin());
     }
 

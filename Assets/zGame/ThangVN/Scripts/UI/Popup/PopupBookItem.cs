@@ -31,6 +31,9 @@ public class PopupBookItem : Popup
             {
                 if (successful)
                 {
+                    Debug.Log("Redecorate Book At : " + SaveGame.CurrentBook);
+                    FirebaseCustom.LogRedecorateBook(SaveGame.CurrentBook);
+
                     SaveGame.Redecorated = true;
                     PopupDecorateBook.Show(SaveGame.CurrentBook, true);
                 }

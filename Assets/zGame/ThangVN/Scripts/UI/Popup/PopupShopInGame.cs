@@ -120,7 +120,9 @@ public class PopupShopInGame : Popup
                 {
                     if (GameConfig.EnoughCoinBuySwap)
                     {
-                        Debug.Log("swap");
+                        Debug.Log("Buy Booster Swap");
+                        FirebaseCustom.LogBuyBooster((int)BoosterEnum.BoosterSwap);
+                        
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
                         //SaveGame.Coin -= GameConfig.COIN_SWAP;
                         ManagerEvent.RaiseEvent(EventCMD.EVENT_SUB_GOLD, GameConfig.COIN_SWAP);
@@ -151,7 +153,9 @@ public class PopupShopInGame : Popup
                 {
                     if (GameConfig.EnoughCoinBuyHammer)
                     {
-                        Debug.Log("Hammer");
+                        Debug.Log("Buy Booster Hammer");
+                        FirebaseCustom.LogBuyBooster((int)BoosterEnum.BoosterHammer);
+                        
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
 
                         //SaveGame.Coin -= GameConfig.COIN_HAMMER;
@@ -185,7 +189,9 @@ public class PopupShopInGame : Popup
                 {
                     if (GameConfig.EnoughCoinBuyRefresh)
                     {
-                        Debug.Log("Refresh");
+                        Debug.Log("Buy Booster Refresh");
+                        FirebaseCustom.LogBuyBooster((int)BoosterEnum.BoosterRefresh);
+                        
                         ManagerAudio.PlaySound(ManagerAudio.Data.soundDropGold);
 
                         //SaveGame.Coin -= GameConfig.COIN_REFRESH;

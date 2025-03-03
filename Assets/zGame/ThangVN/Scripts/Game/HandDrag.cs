@@ -149,6 +149,10 @@ public class HandDrag : MonoBehaviour
                     selectingPlate.circleZZZ.SetActive(false);
                     LogicGame.Instance.SetColorUsingSwapItem(selectingPlate, colorPlate, currentLayer);
                     LogicGame.Instance.isUsingHand = false;
+
+                    Debug.Log("Use Booster At Level: " + SaveGame.Level);
+                    FirebaseCustom.LogUseBoosterAtLevel(SaveGame.Level);
+
                     SaveGame.Swap--;
                     isDrag = false;
                     if (DailyTaskManager.Instance != null)

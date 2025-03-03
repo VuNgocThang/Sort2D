@@ -89,8 +89,11 @@ public class ItemFreeCoin : MonoBehaviour
                 {
                     if (countCoin > 0)
                     {
+                        FirebaseCustom.LogDailyRewardFreeCoin(index);
+
                         if (DailyTaskManager.Instance != null)
                             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectFreeCoins, 1);
+
                         popupFreeCoin.ReceiveReward(this.transform);
                         GameManager.AddGold(countCoin);
                         isClaimed = true;

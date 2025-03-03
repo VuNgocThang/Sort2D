@@ -133,9 +133,7 @@ public class LogicGame : MonoBehaviour
     public CustomPool<ParticleSystem> changeColorParticlePool;
     public CustomPool<ParticleSystem> frostExplosionPool;
 
-
     Tweener tweenerMove;
-
 
     [SerializeField] RectTransform slot_5;
     [SerializeField] RectTransform slot_6;
@@ -160,7 +158,9 @@ public class LogicGame : MonoBehaviour
     public ColorPlateData colorPlateData;
     public DataLevel dataLevel = new DataLevel();
     public bool IsDataLoaded { get; private set; } = false;
-
+    private double timePlayed;
+    private DateTime timeStart;
+    private DateTime timeEnd;
 
     LogicColor GetColorNew()
     {
@@ -218,13 +218,16 @@ public class LogicGame : MonoBehaviour
             }
 
             Config.currLevel = indexLevelNormal;
-            // dataLevel = await DataLevel.GetData(SaveGame.Level);
             dataLevel = await DataLevel.GetData(indexLevelNormal);
+
+            FirebaseManager.instance.LogLevelStart(SaveGame.Level);
         }
         else if (GameManager.IsBonusGame())
         {
             dataLevel = await DataLevel.GetData(SaveGame.LevelBonus);
             Config.currLevel = SaveGame.LevelBonus;
+            
+            FirebaseManager.instance.LogLevelStart(SaveGame.LevelBonus);
         }
         else if (GameManager.IsChallengesGame())
         {
@@ -311,8 +314,19 @@ public class LogicGame : MonoBehaviour
             gold = colorPlateData.gold;
             pigment = colorPlateData.pigment;
 
-            if (saveGameNormal == null) LoadLevelNormal();
-            else LoadSaveNormalData();
+            if (saveGameNormal == null)
+            {
+                LoadLevelNormal();
+                timeStart = DateTime.Now;
+                SaveGame.TimePlayed = 0;
+                timePlayed = 0;
+            }
+            else
+            {
+                LoadSaveNormalData();
+                timeStart = DateTime.Now;
+                timePlayed = SaveGame.TimePlayed;
+            }
         }
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
@@ -763,6 +777,9 @@ public class LogicGame : MonoBehaviour
                             hammerSpine.animPen.transform.position = plateSelect.transform.position;
                             hammerSpine.PlayAnim();
                             hammerSpine.colorPlateDestroy = plateSelect;
+
+                            Debug.Log("Use Booster At Level: " + SaveGame.Level);
+                            FirebaseCustom.LogUseBoosterAtLevel(SaveGame.Level);
 
                             SaveGame.Hammer--;
                             isUsingHammer = false;
@@ -1509,7 +1526,7 @@ public class LogicGame : MonoBehaviour
         });
     }
 
-    void CheckLose()
+    private void CheckLose()
     {
         //bool allPlaced = true;
         int countZeroListValues = 0;
@@ -1543,18 +1560,23 @@ public class LogicGame : MonoBehaviour
             isLose = true;
 
             DeleteSaveDataGame();
-            //saveGameNormal = null;
-            //PlayerPrefs.DeleteKey(GameConfig.GAMESAVENORMAL);
-
-            //if (GameManager.IsChallengesGame())
-            //{
-            //    saveGameChallenges = null;
-            //    PlayerPrefs.DeleteKey(GameConfig.GAMESAVECHALLENGES);
-            //}
-
             Debug.Log("You lose");
             StartCoroutine(RaiseEventLose());
+            CalculateLevelLose();
         }
+    }
+
+    private void CalculateLevelLose()
+    {
+        if (!GameManager.IsNormalGame()) return;
+
+        timeEnd = DateTime.Now;
+        double durationPlayed = (timeEnd - timeStart).TotalSeconds;
+
+        timePlayed += durationPlayed;
+        int time = (int)timePlayed;
+        Debug.Log("Lose Level: " + SaveGame.Level + " in " + time);
+        FirebaseManager.instance.LogLevelLose(SaveGame.Level, time);
     }
 
     bool CheckColorPlateValue(ColorPlate colorPlateCheck)
@@ -1577,6 +1599,7 @@ public class LogicGame : MonoBehaviour
             ManagerEvent.RaiseEvent(EventCMD.EVENT_CHALLENGES);
         else if (GameManager.IsBonusGame())
         {
+            FirebaseCustom.LogBonusLoseSlot(SaveGame.LevelBonus);
             PopupLoseMiniGame.Show();
             Debug.Log("Raise PopupLose BonusGame");
         }
@@ -1589,6 +1612,8 @@ public class LogicGame : MonoBehaviour
 
         if (GameManager.IsNormalGame())
         {
+            CalculateLogLevelWin();
+
             if (DailyTaskManager.Instance != null)
                 DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CompleteLevel, 1);
             SaveGame.Level++;
@@ -1616,6 +1641,17 @@ public class LogicGame : MonoBehaviour
         }
     }
 
+    private void CalculateLogLevelWin()
+    {
+        timeEnd = DateTime.Now;
+        double durationPlayed = (timeEnd - timeStart).TotalSeconds;
+
+        timePlayed += durationPlayed;
+        int time = (int)timePlayed;
+        Debug.Log("Win Level: " + SaveGame.Level + " in " + time);
+        FirebaseManager.instance.LogLevelWin(SaveGame.Level, time);
+    }
+
     IEnumerator RaiseEventWin()
     {
         yield return new WaitForSeconds(GameConfig.TIME_FLY + 1f);
@@ -1630,6 +1666,10 @@ public class LogicGame : MonoBehaviour
     public void ReviveGame()
     {
         countRevive--;
+
+        Debug.Log("Revive at " + SaveGame.Level);
+        FirebaseCustom.LogLevelRevive(SaveGame.Level);
+
         StartCoroutine(ClearSomeArrows());
     }
 
@@ -1679,7 +1719,9 @@ public class LogicGame : MonoBehaviour
     {
         //SaveGame.PlayBonus = false;
         if (!isWin)
+        {
             SaveDataGame();
+        }
     }
 
     private void OnApplicationPause(bool pause)
@@ -1692,7 +1734,10 @@ public class LogicGame : MonoBehaviour
         }
         else
         {
-            //Debug.Log("UnPause");
+            Debug.Log("UnPause");
+
+            timePlayed = SaveGame.TimePlayed;
+            timeStart = DateTime.Now;
         }
     }
 
@@ -1713,6 +1758,9 @@ public class LogicGame : MonoBehaviour
         if (GameManager.IsNormalGame())
         {
             SaveGameNormal();
+
+            double timeSecond = (DateTime.Now - timeStart).TotalSeconds;
+            SaveGame.TimePlayed = timeSecond;
         }
         else if (GameManager.IsChallengesGame())
         {

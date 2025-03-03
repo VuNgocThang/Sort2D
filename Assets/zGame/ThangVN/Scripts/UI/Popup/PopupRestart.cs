@@ -35,6 +35,9 @@ public class PopupRestart : Popup
 
             if (SaveGame.Heart > 0)
             {
+                Debug.Log("Retry at " + SaveGame.Level);
+                FirebaseManager.instance.LogLevelReplay(SaveGame.Level, 0);
+
                 ManagerEvent.RaiseEvent(EventCMD.EVENT_SUB_HEART);
                 txtHeart.text = SaveGame.Heart.ToString();
                 StartCoroutine(LoadGame());

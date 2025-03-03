@@ -20,6 +20,7 @@ public class PopupOutOfHeart : Popup
         btnBuy.OnClick(BuyHeart);
         btnClosePopup.OnClick(Hide);
     }
+
     public static async void Show()
     {
         PopupOutOfHeart pop = await ManagerPopup.ShowPopup<PopupOutOfHeart>();
@@ -70,6 +71,9 @@ public class PopupOutOfHeart : Popup
     {
         if (SaveGame.Coin >= GameConfig.COIN_HEART)
         {
+            Debug.Log("Use Gold To Buy Heart");
+            FirebaseCustom.LogCountBuyLivesUseGold();
+
             btnBuy.enabled = false;
             PlayAnimSubGold();
             GameManager.SubGold(GameConfig.COIN_HEART);
@@ -116,7 +120,8 @@ public class PopupOutOfHeart : Popup
     {
         if (PlayerPrefs.HasKey(GameConfig.LAST_HEART_LOSS))
         {
-            float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
+            float timeSinceLastLoss =
+                (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString(GameConfig.LAST_HEART_LOSS))).TotalSeconds;
 
             int increaseHeart = (int)(timeSinceLastLoss / GameConfig.TIME_COUNT_DOWN);
 
@@ -127,6 +132,7 @@ public class PopupOutOfHeart : Popup
                 SaveGame.Heart += increaseHeart;
                 SaveGame.Heart = Mathf.Min(SaveGame.Heart, GameConfig.MAX_HEART);
             }
+
             countdownTimer = SaveGame.CountDownTimer - timeSub;
             countdownTimer = Mathf.Max(countdownTimer, 0);
 
@@ -154,4 +160,3 @@ public class PopupOutOfHeart : Popup
         SceneManager.LoadScene("SceneGame");
     }
 }
-

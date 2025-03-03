@@ -13,7 +13,15 @@ public class PopupHome : MonoBehaviour
 {
     [SerializeField] Camera cam;
     public EasyButton btnSetting, btnCloseItem, btnOpenTool;
-    public TextMeshProUGUI txtPoint, txtLevel, txtCount, txtCurrentScore, txtBestScore, txtTargetPigment, txtLevelInTarget;
+
+    public TextMeshProUGUI txtPoint,
+        txtLevel,
+        txtCount,
+        txtCurrentScore,
+        txtBestScore,
+        txtTargetPigment,
+        txtLevelInTarget;
+
     public Image imgFill;
     public GameObject itemObj, nLevel, nBar, nScoreChallenges, nTargetPigment, nChallenges;
     [SerializeField] Animator animBtnSwitch;
@@ -38,10 +46,7 @@ public class PopupHome : MonoBehaviour
 
     private void Awake()
     {
-        btnSetting.OnClick(() =>
-        {
-            PopupSetting.Show();
-        });
+        btnSetting.OnClick(() => { PopupSetting.Show(); });
         btnCloseItem.OnClick(ExitUsingItem);
         btnOpenTool.OnClick(() => tool.SetActive(true));
 
@@ -57,6 +62,9 @@ public class PopupHome : MonoBehaviour
                 if (SaveGame.Refresh > 0)
                 {
                     SaveGame.Refresh--;
+                    Debug.Log("Use Booster At Level: " + SaveGame.Level);
+                    FirebaseCustom.LogUseBoosterAtLevel(SaveGame.Level);
+
                     if (DailyTaskManager.Instance != null)
                         DailyTaskManager.Instance.ExecuteDailyTask(TaskType.UseBoosterRefresh, 1);
 
@@ -158,7 +166,8 @@ public class PopupHome : MonoBehaviour
         if (GameManager.IsNormalGame())
         {
             imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
-            txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point}</color><color=#3A2B74>/{LogicGame.Instance.maxPoint} </color>";
+            txtPoint.text =
+                $"<color=#E3382F>{LogicGame.Instance.point}</color><color=#3A2B74>/{LogicGame.Instance.maxPoint} </color>";
         }
         else if (GameManager.IsChallengesGame())
         {
@@ -179,10 +188,12 @@ public class PopupHome : MonoBehaviour
             ShuffleRandomColorSpawn();
         }
     }
+
     public void ResetNBar()
     {
         nBar.transform.SetParent(nTopBar);
     }
+
     void UpdatePoint(object e)
     {
         if (animBar != null && nBar.activeSelf)
@@ -192,12 +203,13 @@ public class PopupHome : MonoBehaviour
 
         if (GameManager.IsNormalGame())
         {
-            if (LogicGame.Instance.point >= LogicGame.Instance.maxPoint) LogicGame.Instance.point = LogicGame.Instance.maxPoint;
+            if (LogicGame.Instance.point >= LogicGame.Instance.maxPoint)
+                LogicGame.Instance.point = LogicGame.Instance.maxPoint;
 
             if (imgFill != null)
                 imgFill.fillAmount = (float)LogicGame.Instance.point / (float)LogicGame.Instance.maxPoint;
-            txtPoint.text = $"<color=#E3382F>{LogicGame.Instance.point} </color>/ <color=#3A2B74>{LogicGame.Instance.maxPoint} </color>";
-
+            txtPoint.text =
+                $"<color=#E3382F>{LogicGame.Instance.point} </color>/ <color=#3A2B74>{LogicGame.Instance.maxPoint} </color>";
         }
         else if (GameManager.IsChallengesGame())
         {
@@ -374,16 +386,14 @@ public class PopupHome : MonoBehaviour
         txtChallengesObj.gameObject.SetActive(false);
 
         txtFake.transform.DOMove(rectTransformChallenges.position, 0.3f)
-           .OnComplete(() =>
-           {
-               txtFake.gameObject.SetActive(false);
-               nScoreChallenges.SetActive(true);
-               nChallenges.SetActive(false);
-               LogicGame.Instance.isPauseGame = false;
-               //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
-
-           });
-
+            .OnComplete(() =>
+            {
+                txtFake.gameObject.SetActive(false);
+                nScoreChallenges.SetActive(true);
+                nChallenges.SetActive(false);
+                LogicGame.Instance.isPauseGame = false;
+                //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
+            });
     }
 
     public void ResetPositionAfterTutorial()

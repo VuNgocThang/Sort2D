@@ -42,6 +42,7 @@ public class PopupEndless : Popup
             btnContinue.OnClick(() =>
             {
                 SaveGame.Challenges = true;
+                FirebaseCustom.LogCountPlayChallenges();
                 ManagerEvent.ClearEvent();
                 SceneManager.LoadScene("SceneGame");
             });

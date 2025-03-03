@@ -24,6 +24,7 @@ public class PopupReward3 : PopupReward
     protected override void ClaimReward(int multi)
     {
         base.ClaimReward(multi);
+        FirebaseCustom.LogDailyTaskRewardClaimed(1);
     }
     
     protected override void ReceiveReward(int countMagicWand, int countCrytalBall, int countMagicCard, bool isPopupRewardDecor = false)

@@ -34,6 +34,9 @@ public class PopupOutOfHeartHome : Popup
     {
         if (SaveGame.Coin >= GameConfig.COIN_HEART)
         {
+            Debug.Log("Use Gold To Buy Heart");
+            FirebaseCustom.LogCountBuyLivesUseGold();
+
             btnBuy.enabled = false;
             PlayAnimSubGold();
             GameManager.SubGold(GameConfig.COIN_HEART);

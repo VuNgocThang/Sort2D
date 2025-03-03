@@ -125,4 +125,6 @@ public static class GameConfig
     public static float SCALE_X = 414f / 747f;
 
     public static float SCALE_Y = 469f / 924f;
+
+    public const string PLAY_CHALLENGES = "PLAY_CHALLENGES";
 }

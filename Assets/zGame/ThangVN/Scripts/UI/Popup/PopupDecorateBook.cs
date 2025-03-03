@@ -609,6 +609,10 @@ public class PopupDecorateBook : Popup
         float elapsedTime = 0f;
         float duration = 1f;
 
+        int score = Mathf.RoundToInt(targetProgress * 100);
+        int indexBook = SaveGame.CurrentBook - 1;
+        FirebaseCustom.LogScoreBookDecorated(score, indexBook);
+
         while (elapsedTime < duration)
         {
             float progress = Mathf.Lerp(0f, targetProgress, elapsedTime / duration);

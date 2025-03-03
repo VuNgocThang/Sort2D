@@ -7,161 +7,175 @@ using UnityEngine;
 
 public class FirebaseCustom
 {
-    public static void LogCountUseHammer()
+    #region NgocThang
+
+    public static void LogLevelRevive(int indexLevel)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_hammer");
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("revive_level_" + indexLevel);
+#endif
+        }
+    }
+
+    public static void LogCountBuyLivesUseGold()
+    {
+        if (FirebaseManager.instance.firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("buy_lives_");
             //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
 #endif
         }
     }
 
-    public static void LogCountUseSuperHammer()
+    public static void LogUseBoosterAtLevel(int indexLevel)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_hammer");
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_booster_level_" + indexLevel);
 #endif
         }
     }
 
-    public static void LogCountUseDrag()
+    public static void LogBuyBooster(int indexBooster)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_drag");
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("buy_booster_" + indexBooster);
 #endif
         }
     }
 
-    public static void LogCountUseRefresh()
+    public static void LogRedecorateBook(int indexBook)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_refresh");
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("redecorate_book_" + indexBook);
 #endif
         }
     }
 
-    public static void LogLosePoint(int currentPoint)
+    public static void LogScoreBookDecorated(int score, int indexBook)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("lose_point", "point", currentPoint);
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            int indexScore = 0;
+
+            if (score >= 0 && score <= 50) indexScore = 1;
+            else if (score >= 51 && score <= 99) indexScore = 2;
+            else indexScore = 3;
+            Debug.Log($"score_{indexScore}_book_" + indexBook);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent($"score_{indexScore}_book_" + indexBook);
 #endif
         }
     }
 
-    public static void LogTotalCake(int totalCake)
+    public static void LogDailyRewardFreeCoin(int indexFreeCoin)
     {
-        Config.AddCountLevelWinSum();
-        Config.AddCountLevelStartSum();
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("total_unlock_cake", "total_cake", "index_" + totalCake);
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Debug.Log("daily_reward_" + indexFreeCoin);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("daily_reward_" + indexFreeCoin);
 #endif
         }
     }
 
-    public static void LogBackHome()
+    public static void LogCountPlayChallenges()
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("back_home");
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Debug.Log("play_challenge");
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("play_challenge");
 #endif
         }
     }
 
-    public static void LogOpenDecor()
+    public static void LogBonusPlay(int indexLevel)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("open_decor");
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("play_bonus_" + indexLevel);
 #endif
         }
     }
 
-    public static void LogLoseAtProcessCake(int indexProcessCake)
+    public static void LogBonusWin(int indexLevel)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("lose_at_process_cake_" + indexProcessCake);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("win_bonus_" + indexLevel);
 #endif
         }
     }
 
-    public static void LogDayGetProcessCake(int indexProcessCake)
-    {
-        int countDayActiveNew = PlayerPrefs.GetInt(Config.COUNT_DAY_ACTIVE, 0);
-        if (FirebaseManager.instance.firebaseInitialized)
-        {
-#if ACTIVE_FIREBASE_ANALYTIC
-            // int countDayActiveNew = PlayerPrefs.GetInt(Config.COUNT_DAY_ACTIVE, 0);E    
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("get_process_cake_" + indexProcessCake,
-                new Firebase.Analytics.Parameter[]
-                    { new Firebase.Analytics.Parameter("day", "day_" + (countDayActiveNew - 1)) });
-#endif
-        }
-#if ACTIVE_APPSFLYER
-            Dictionary<string, string> eventValues = new Dictionary<string, string>();
-            eventValues.Add("day", "day_" + (countDayActiveNew - 1));
-            switch (Config.TYPE_PUB_G)
-            {
-                case Config.PUB_G_RK:
-                    break;
-                case Config.PUB_G_AB:
-                    AppsFlyer.sendEvent("get_process_cake_" + indexProcessCake, eventValues);
-                    break;
-                default:
-                    break;
-            }
-#endif
-    }
-
-    public static void LogDay3AtProcessCake(int indexProcessCake)
+    public static void LogBonusLoseTime(int indexLevel)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            bool activeLog = PlayerPrefs.GetInt("log_day_3_get_cake", 0) == 0;
-            if (activeLog)
-            {
-                int countDayActiveNew = PlayerPrefs.GetInt(Config.COUNT_DAY_ACTIVE, 0);
-                if (countDayActiveNew >= 3)
-                {
-                    Firebase.Analytics.FirebaseAnalytics.LogEvent("day3_at_process_cake_" + indexProcessCake);
-                    PlayerPrefs.SetInt("log_day_3_get_cake", 1);
-                }
-            }
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("lose_time_level_" + indexLevel);
 #endif
         }
     }
 
-    public static void LogInterShowContinueEndGame(int indexProcessCake)
+    public static void LogBonusLoseSlot(int indexLevel)
     {
         if (FirebaseManager.instance.firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("inter_continue_end_game", "placement",
-                "index_" + indexProcessCake);
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("lose_slot_level_" + indexLevel);
+#endif
+        }
+    }
+
+    public static void LogDailyTaskCompleted(int indexTask)
+    {
+        if (FirebaseManager.instance.firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Debug.Log("complete_task_" + indexTask);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("complete_task_" + indexTask);
+#endif
+        }
+    }
+
+    public static void LogDailyTaskRewardClaimed(int indexReward)
+    {
+        if (FirebaseManager.instance.firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Debug.Log("reward_task_" + indexReward);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("reward_task_" + indexReward);
+#endif
+        }
+    }
+
+    #endregion
+
+
+    public static void LogScoreChallenges(int bestScore)
+    {
+        if (FirebaseManager.instance.firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            int indexScore = 0;
+
+            if (bestScore >= 0 && bestScore <= 150) indexScore = 1;
+            else if (bestScore >= 151 && bestScore <= 500) indexScore = 2;
+            else if (bestScore >= 501 && bestScore <= 1000) indexScore = 3;
+            else indexScore = 4;
+            Debug.Log($"best_score_{indexScore}_challenge");
+            Firebase.Analytics.FirebaseAnalytics.LogEvent($"best_score_{indexScore}_challenge");
 #endif
         }
     }
