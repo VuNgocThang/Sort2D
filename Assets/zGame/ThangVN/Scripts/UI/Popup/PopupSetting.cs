@@ -20,12 +20,12 @@ public class PopupSetting : Popup
 
     private void Awake()
     {
-        btnMusic.OnClick(() => { ToggleBtnMusic(); });
-        btnSound.OnClick(() => { ToggleBtnSound(); });
-        btnVibrate.OnClick(() => { ToggleBtnVibrate(); });
-        btnMusicOff.OnClick(() => { ToggleBtnMusic(); });
-        btnSoundOff.OnClick(() => { ToggleBtnSound(); });
-        btnVibrateOff.OnClick(() => { ToggleBtnVibrate(); });
+        btnMusic.OnClick(ToggleBtnMusic);
+        btnSound.OnClick(ToggleBtnSound);
+        btnVibrate.OnClick(ToggleBtnVibrate);
+        btnMusicOff.OnClick(ToggleBtnMusic);
+        btnSoundOff.OnClick(ToggleBtnSound);
+        btnVibrateOff.OnClick(ToggleBtnVibrate);
 
         btnReplay.OnClick(() =>
         {

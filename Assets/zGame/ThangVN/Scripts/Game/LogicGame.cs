@@ -158,7 +158,7 @@ public class LogicGame : MonoBehaviour
     public ColorPlateData colorPlateData;
     public DataLevel dataLevel = new DataLevel();
     public bool IsDataLoaded { get; private set; } = false;
-    private double timePlayed;
+    private int timePlayed;
     private DateTime timeStart;
     private DateTime timeEnd;
 
@@ -226,7 +226,7 @@ public class LogicGame : MonoBehaviour
         {
             dataLevel = await DataLevel.GetData(SaveGame.LevelBonus);
             Config.currLevel = SaveGame.LevelBonus;
-            
+
             FirebaseManager.instance.LogLevelStart(SaveGame.LevelBonus);
         }
         else if (GameManager.IsChallengesGame())
@@ -1573,8 +1573,8 @@ public class LogicGame : MonoBehaviour
         timeEnd = DateTime.Now;
         double durationPlayed = (timeEnd - timeStart).TotalSeconds;
 
-        timePlayed += durationPlayed;
-        int time = (int)timePlayed;
+        timePlayed += (int)Math.Round(durationPlayed);
+        int time = timePlayed;
         Debug.Log("Lose Level: " + SaveGame.Level + " in " + time);
         FirebaseManager.instance.LogLevelLose(SaveGame.Level, time);
     }
@@ -1646,8 +1646,8 @@ public class LogicGame : MonoBehaviour
         timeEnd = DateTime.Now;
         double durationPlayed = (timeEnd - timeStart).TotalSeconds;
 
-        timePlayed += durationPlayed;
-        int time = (int)timePlayed;
+        timePlayed += (int)Math.Round(durationPlayed);
+        int time = timePlayed;
         Debug.Log("Win Level: " + SaveGame.Level + " in " + time);
         FirebaseManager.instance.LogLevelWin(SaveGame.Level, time);
     }
@@ -1760,7 +1760,8 @@ public class LogicGame : MonoBehaviour
             SaveGameNormal();
 
             double timeSecond = (DateTime.Now - timeStart).TotalSeconds;
-            SaveGame.TimePlayed = timeSecond;
+            int time = (int)Math.Round(timeSecond);
+            SaveGame.TimePlayed = time;
         }
         else if (GameManager.IsChallengesGame())
         {

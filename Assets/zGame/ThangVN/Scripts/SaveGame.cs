@@ -580,9 +580,9 @@ public static class SaveGame
     }
 
     const string TIMEPLAYED = "TIMEPLAYED";
-    static double timePlayed = -1;
+    static int timePlayed = -1;
 
-    public static double TimePlayed
+    public static int TimePlayed
     {
         set
         {

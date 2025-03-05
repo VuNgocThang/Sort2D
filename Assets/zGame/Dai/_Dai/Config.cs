@@ -21,7 +21,7 @@ public class Config
     public const int PUB_G_HOPEE = 6;
 
     //-------------
-    public const bool ACTIVE_TEST = false; //false
+    public const bool ACTIVE_TEST = true; //false
 #if UNITY_EDITOR
     public static bool ACTIVE_DEBUG_LOG = true; //false
 #else
@@ -260,10 +260,10 @@ public class Config
                     isActiveAOA_Switch = false;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 case TYPE_USER_PURCHASE_2:
                     isActiveBanner = false;
@@ -272,10 +272,10 @@ public class Config
                     isActiveAOA_Switch = false;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 case TYPE_USER_ADS_1:
                     isActiveBanner = true;
@@ -284,10 +284,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 case TYPE_USER_ADS_2:
                     isActiveBanner = true;
@@ -296,10 +296,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_ADS_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_ADS_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 case TYPE_USER_FREE:
                     isActiveBanner = true;
@@ -308,10 +308,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 case TYPE_USER_FREE_2:
                     isActiveBanner = true;
@@ -320,10 +320,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_2_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 case TYPE_USER_PURCHASE_1_FREE:
                     isActiveBanner = true;
@@ -332,10 +332,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_PURCHASE_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
                 default:
                     isActiveBanner = true;
@@ -344,10 +344,10 @@ public class Config
                     isActiveAOA_Switch = true;
                     isActiveVideoReward = true;
                     //if (ACTIVE_CHECK_TYPE_USER)
-                {
-                    AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
-                    AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
-                }
+                    {
+                        AdsController.CAPPING_TIME_INTER_BY_INTER_NOW = CAPPING_FREE_USER_TIME_INTER_BY_INTER;
+                        AdsController.CAPPING_TIME_INTER_BY_REWARD_VIDEO_NOW = CAPPING_FREE_USER_TIME_INTER_BY_REWARD;
+                    }
                     break;
             }
         }
