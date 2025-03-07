@@ -32,10 +32,10 @@ public class PopupReplay : Popup
                 btnReplay.enabled = false;
                 PlayAnim();
                 SaveGame.Heart--;
-                if (SaveGame.Heart == GameConfig.MAX_HEART)
-                {
-                    PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
-                }
+                //if (SaveGame.Heart == GameConfig.MAX_HEART)
+                //{
+                PlayerPrefs.SetString(GameConfig.LAST_HEART_LOSS, DateTime.Now.ToString());
+                //}
 
                 LogicGame.Instance.DeleteSaveDataGame();
                 StartCoroutine(LoadGame());

@@ -30,7 +30,7 @@ public class Config
     public static bool ENABLE_INTER_BACK_POPUP = false;
 
 
-    public const float TIME_WAIT_LOADING = 10f;
+    public const float TIME_WAIT_LOADING = 2f;
     public static bool FIRST_LOAD_ADS_DONE = false;
 
     public static float TIME_INTER_AUTO_INGAME = 29f;
@@ -1659,7 +1659,7 @@ public class Config
     {
         if (_LevelComplete <= 0)
         {
-            Debug.LogError("SetCurrentLevel fail : " + _LevelComplete);
+            //Debug.LogError("SetCurrentLevel fail : " + _LevelComplete);
         }
 
         if (_LevelComplete > GetCurrLevelComplete())
