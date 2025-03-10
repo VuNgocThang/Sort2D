@@ -588,34 +588,34 @@ public class ColorPlate : MonoBehaviour
         StartCoroutine(PlayAnimClick());
     }
 
-    public bool IsPlayingOnClick()
-    {
-        return isPlayingOnClick;
-    }
+    //public bool IsPlayingOnClick()
+    //{
+    //    return isPlayingOnClick;
+    //}
 
-    public void PlayAnimNormal()
-    {
-        if (anim != null)
-            anim.Play("Normal");
-    }
+    //public void PlayAnimNormal()
+    //{
+    //    if (anim != null)
+    //        anim.Play("Normal");
+    //}
 
-    public void PlayAnimCanClick()
-    {
-        if (anim != null)
-            anim.Play("CanClick");
-    }
+    //public void PlayAnimCanClick()
+    //{
+    //    if (anim != null)
+    //        anim.Play("CanClick");
+    //}
 
-    IEnumerator PlayAnim()
-    {
-        if (anim != null)
-        {
-            anim.Play("OnClick");
-            isPlayingOnClick = true;
-            yield return new WaitForSeconds(0.3f);
-            anim.Play("Normal");
-            isPlayingOnClick = false;
-        }
-    }
+    //IEnumerator PlayAnim()
+    //{
+    //    if (anim != null)
+    //    {
+    //        anim.Play("OnClick");
+    //        isPlayingOnClick = true;
+    //        yield return new WaitForSeconds(0.3f);
+    //        anim.Play("Normal");
+    //        isPlayingOnClick = false;
+    //    }
+    //}
 
     public void PlayAnimArrow()
     {
@@ -646,9 +646,17 @@ public class ColorPlate : MonoBehaviour
         logicVisual.arrowClick.SetActive(true);
         logicVisual.arrowCannotClick.SetActive(false);
 
-        logicVisual.arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
-            .OnComplete(() => { logicVisual.arrowClick.transform.localScale = Vector3.one; });
-        yield return new WaitForSeconds(0.15f);
+        logicVisual.arrowClick.transform.DOScale(new Vector3(1.2f, 0.9f, 0.9f), 0.15f)
+            .OnComplete(() =>
+            {
+                logicVisual.arrowClick.transform.DOScale(new Vector3(0.8f, 0.9f, 0.9f), 0.3f)
+                      .OnComplete(() =>
+                      {
+
+                          logicVisual.arrowClick.transform.localScale = Vector3.one;
+                      });
+            });
+        yield return new WaitForSeconds(0.45f);
 
         isPlayingOnClick = false;
     }

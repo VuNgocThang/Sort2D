@@ -16,6 +16,7 @@ public class LogicVisualPlate : MonoBehaviour
     public GameObject arrow;
     public GameObject arrowClick;
     public GameObject arrowCannotClick;
+    public GameObject grow;
     public GameObject lockCoin;
     public GameObject cannotPlace;
     public List<GameObject> listForzen;
@@ -77,25 +78,25 @@ public class LogicVisualPlate : MonoBehaviour
         arrowCannotClick.SetActive(false);
     }
 
-    public void PlayArrowClicked()
-    {
-        StartCoroutine(ClickArrow());
-    }
+    //public void PlayArrowClicked()
+    //{
+    //    StartCoroutine(ClickArrow());
+    //}
 
-    IEnumerator ClickArrow()
-    {
-        arrow.SetActive(false);
-        arrowClick.SetActive(true);
-        arrowCannotClick.SetActive(false);
+    //IEnumerator ClickArrow()
+    //{
+    //    arrow.SetActive(false);
+    //    arrowClick.SetActive(true);
+    //    arrowCannotClick.SetActive(false);
 
-        arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
-            .OnComplete(() => { arrowClick.transform.localScale = Vector3.one; });
-        yield return new WaitForSeconds(0.15f);
+    //    arrowClick.transform.DOScale(new Vector3(0.9f, 0.9f, 0.9f), 0.15f)
+    //        .OnComplete(() => { arrowClick.transform.localScale = Vector3.one; });
+    //    yield return new WaitForSeconds(0.15f);
 
-        arrow.SetActive(true);
-        arrowClick.SetActive(false);
-        arrowCannotClick.SetActive(false);
-    }
+    //    arrow.SetActive(true);
+    //    arrowClick.SetActive(false);
+    //    arrowCannotClick.SetActive(false);
+    //}
 
     public void SetDirectionArrow(Status stt, bool isLocked)
     {

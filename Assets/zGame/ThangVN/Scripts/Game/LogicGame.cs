@@ -28,7 +28,8 @@ public class LogicGame : MonoBehaviour
     [SerializeField] Transform holder;
     [SerializeField] Transform nParentArrow;
 
-    [SerializeField] Transform nParentNextCubeNormal,
+    [SerializeField]
+    Transform nParentNextCubeNormal,
         nParentNextCubeMini,
         nParentSpawnBookNormal,
         nParentSpawnBookMini,
@@ -400,6 +401,8 @@ public class LogicGame : MonoBehaviour
                 ListCheckPlate.Add(ListArrowPlate[i].ListConnect[0]);
             }
         }
+
+        StartCoroutine(ArrowController.instance.LightUpArrows(ListArrowPlate));
     }
 
     void ResetNDesk()
@@ -1021,10 +1024,10 @@ public class LogicGame : MonoBehaviour
 
                 sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
                         .SetEase(curveMove)
-                    //.OnComplete(() =>
-                    //{
-                    //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                    //})
+                //.OnComplete(() =>
+                //{
+                //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
+                //})
                 );
                 //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
