@@ -85,6 +85,8 @@ public class MissionCustomerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             LogicGame.Instance.isWin = true;
+            FirebaseManager.instance.LogLevelWin(SaveGame.LevelBonus, 0);
+
             if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
                 SaveGame.LevelBonus++;
             Debug.Log("completed");
@@ -122,6 +124,8 @@ public class MissionCustomerManager : MonoBehaviour
         {
             LogicGame.Instance.isWin = true;
             Debug.Log("completed");
+            FirebaseManager.instance.LogLevelWin(SaveGame.LevelBonus, 0);
+
             if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
                 SaveGame.LevelBonus++;
             RaiseEventWin();
@@ -183,7 +187,6 @@ public class MissionCustomerManager : MonoBehaviour
     {
         SaveGame.PlayBonus = false;
         //PopupWinMiniGame.Show();
-        FirebaseManager.instance.LogLevelWin(SaveGame.LevelBonus, 0);
 
         StartCoroutine(ShowPopupWin());
     }
