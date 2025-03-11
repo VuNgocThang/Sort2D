@@ -181,7 +181,7 @@ public class SetMapManager : MonoBehaviour
 
     float offSetX;
     float offSetY;
-    float offSetY_Arrow = 0.3f;
+    float offSetY_Arrow = 0f;
 
     public void InitArrowPlates(int rows, int cols, List<ColorPlate> listColorPlate, Transform parent, ColorPlate colorPlatePrefab, List<ColorPlate> listArrowPlate)
     {
@@ -231,7 +231,7 @@ public class SetMapManager : MonoBehaviour
             }
             else
             {
-                pos = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - offSetY_Arrow * scale, 0);
+                pos = new Vector3(listColorPlate[0].transform.position.x + i * offSetX, basePosition.y - offSetY_Arrow * scale - 2.2f, 0);
             }
 
             arrow.transform.position = pos;
@@ -267,7 +267,7 @@ public class SetMapManager : MonoBehaviour
             //arrow.transform.localEulerAngles = rotation;
             parent.localScale = new Vector3(scale, scale, scale);
 
-            arrow.transform.position = new Vector3(basePosition.x - offSetY_Arrow * scale, listColorPlate[0].transform.position.y + i * offSetY, 0);
+            arrow.transform.position = new Vector3(basePosition.x - offSetY_Arrow * scale - 0.2f, listColorPlate[0].transform.position.y + i * offSetY, 0);
 
             int max = rows >= cols ? rows : cols;
 
@@ -311,7 +311,7 @@ public class SetMapManager : MonoBehaviour
                 arrow.logicVisual.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
             }
 
-            arrow.transform.position = new Vector3(basePosition.x + offSetY_Arrow * scale, listColorPlate[0].transform.position.y + i * offSetY, 0);
+            arrow.transform.position = new Vector3(basePosition.x + offSetY_Arrow * scale + 0.2f, listColorPlate[0].transform.position.y + i * offSetY, 0);
             arrow.name = arrowName;
             listArrowPlate.Add(arrow);
         }

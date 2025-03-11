@@ -136,9 +136,6 @@ public class LogicGame : MonoBehaviour
 
     Tweener tweenerMove;
 
-    [SerializeField] RectTransform slot_5;
-    [SerializeField] RectTransform slot_6;
-
     public AnimationCurve curveMove;
     [SerializeField] SetMapManager setMapManager;
     [SerializeField] public Canvas canvasTutorial;
@@ -407,13 +404,18 @@ public class LogicGame : MonoBehaviour
 
     void ResetNDesk()
     {
-        float offset = 0f;
+        //float offset = 0f;
+        float offset = 1.65f;
         if (GameManager.IsBonusGame()) offset = 2.2f;
 
         if (cols >= rows)
         {
             float y = 0.3f * (6 - cols);
-            testStack.transform.position = new Vector3(0, 1.8f + y - offset, 0);
+            if (cols == 6 /*&& rows == 6*/)
+            {
+                y += 0.1f;
+            }
+            testStack.transform.position = new Vector3(0, 1.2f + y - offset, 0);
 
             float scale = 6f / cols;
             holder.localScale = new Vector3(scale, scale, scale);
@@ -421,7 +423,11 @@ public class LogicGame : MonoBehaviour
         else
         {
             float y = 0.3f * (6 - rows);
-            testStack.transform.position = new Vector3(0, 1.8f + y - offset, 0);
+            if (/*cols == 5 &&*/ rows == 6)
+            {
+                y += 0.1f;
+            }
+            testStack.transform.position = new Vector3(0, 1.2f + y - offset, 0);
 
             float scale = 6f / rows;
             holder.localScale = new Vector3(scale, scale, scale);

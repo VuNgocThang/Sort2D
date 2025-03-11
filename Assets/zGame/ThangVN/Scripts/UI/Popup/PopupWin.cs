@@ -53,7 +53,9 @@ public class PopupWin : Popup
             RefreshButton(false);
 
             if (GameManager.ShowPopupBonus())
+            {
                 PopupBonusLevel.Show();
+            }
             else
             {
                 ManagerEvent.ClearEvent();

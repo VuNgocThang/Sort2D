@@ -24,7 +24,11 @@ public class ArrowController : MonoBehaviour
             {
                 cl.logicVisual.grow.SetActive(false);
             }
-            c.logicVisual.grow.SetActive(true);
+
+            if (c.logicVisual.arrow.activeSelf)
+            {
+                c.logicVisual.grow.SetActive(true);
+            }
 
 
             yield return new WaitForSeconds(delay);

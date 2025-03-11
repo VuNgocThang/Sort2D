@@ -51,8 +51,8 @@ public static class GameManager
 
     public static bool ShowPopupBonus()
     {
-        //return false;
-        return (SaveGame.Level >= 5 && SaveGame.Level % 5 == 0);
+        return false;
+        //return (SaveGame.Level >= 5 && SaveGame.Level % 5 == 0);
     }
 
     public static int GetRandomWithRatio(this float[] list)

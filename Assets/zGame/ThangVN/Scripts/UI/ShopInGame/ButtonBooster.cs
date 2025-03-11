@@ -12,7 +12,7 @@ namespace ThangVN
         public EasyButton button;
         public Image imgIcon;
         public TextMeshProUGUI txtCount, txtLevelUnlock;
-        public GameObject nCount, ads, imgLock, imgUnLocked;
+        public GameObject nCount, ads, imgLock, imgUnLocked, imgGrey, magic;
         public int numCount;
         public int indexLevelUnlock;
 
@@ -24,18 +24,23 @@ namespace ThangVN
                 imgLock.SetActive(false);
                 if (numCount > 0)
                 {
+                    magic.SetActive(true);
                     nCount.SetActive(true);
                     ads.SetActive(false);
+                    imgGrey.SetActive(false);
                     txtCount.text = numCount.ToString();
                 }
                 else
                 {
+                    magic.SetActive(false);
                     nCount.SetActive(false);
+                    imgGrey.SetActive(true);
                     ads.SetActive(true);
                 }
             }
             else
             {
+                magic.SetActive(false);
                 imgUnLocked.SetActive(false);
                 imgLock.SetActive(true);
                 txtLevelUnlock.text = $"level {indexLevelUnlock + 1}";
@@ -50,13 +55,17 @@ namespace ThangVN
                 imgLock.SetActive(false);
                 if (numCount > 0)
                 {
+                    magic.SetActive(true);
                     nCount.SetActive(true);
+                    imgGrey.SetActive(false);
                     ads.SetActive(false);
                     txtCount.text = numCount.ToString();
                 }
                 else
                 {
+                    magic.SetActive(false);
                     nCount.SetActive(false);
+                    imgGrey.SetActive(true);
                     ads.SetActive(true);
                 }
             }
