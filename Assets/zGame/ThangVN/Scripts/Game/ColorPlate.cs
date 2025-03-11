@@ -652,7 +652,6 @@ public class ColorPlate : MonoBehaviour
                 logicVisual.arrowClick.transform.DOScale(new Vector3(0.8f, 0.9f, 0.9f), 0.3f)
                       .OnComplete(() =>
                       {
-
                           logicVisual.arrowClick.transform.localScale = Vector3.one;
                       });
             });

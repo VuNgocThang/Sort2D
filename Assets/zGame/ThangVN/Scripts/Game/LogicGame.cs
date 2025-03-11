@@ -413,7 +413,7 @@ public class LogicGame : MonoBehaviour
             float y = 0.3f * (6 - cols);
             if (cols == 6 /*&& rows == 6*/)
             {
-                y += 0.1f;
+                y += 0.2f;
             }
             testStack.transform.position = new Vector3(0, 1.2f + y - offset, 0);
 
@@ -425,7 +425,7 @@ public class LogicGame : MonoBehaviour
             float y = 0.3f * (6 - rows);
             if (/*cols == 5 &&*/ rows == 6)
             {
-                y += 0.1f;
+                y += 0.2f;
             }
             testStack.transform.position = new Vector3(0, 1.2f + y - offset, 0);
 
