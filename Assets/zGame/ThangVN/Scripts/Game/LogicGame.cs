@@ -159,6 +159,7 @@ public class LogicGame : MonoBehaviour
     private int timePlayed;
     private DateTime timeStart;
     private DateTime timeEnd;
+    public bool IsInitDone;
 
     LogicColor GetColorNew()
     {
@@ -236,6 +237,7 @@ public class LogicGame : MonoBehaviour
         countDiffMax = dataLevel.CountDiff;
         listIntColor = dataLevel.Colors.ToList();
 
+        IsInitDone = false;
         isWin = false;
         isLose = false;
         isMergeing = false;
@@ -744,6 +746,8 @@ public class LogicGame : MonoBehaviour
                             holder.magicRune.Play();
                             SetColor(arrowPlate, holder);
 
+                            ArrowController.instance.PlayAnim(ListArrowPlate);
+
                             if (!SaveGame.IsDoneTutorial) canvasTutorial.enabled = false;
                         }
 
@@ -915,6 +919,7 @@ public class LogicGame : MonoBehaviour
         else
         {
             isContiuneMerge = false;
+            ArrowController.instance.PlayAnim(ListArrowPlate);
 
             if (isWin) return;
 
@@ -929,6 +934,7 @@ public class LogicGame : MonoBehaviour
                 colorRoot = null;
                 isMergeing = false;
                 CheckClear();
+                ArrowController.instance.PlayAnim(ListArrowPlate);
             }
         }
 
@@ -1394,6 +1400,7 @@ public class LogicGame : MonoBehaviour
             listCanClear[i].DecreaseCountFrozenNearBy();
             listCanClear[i].InitValue();
         }
+        ArrowController.instance.PlayAnim(ListArrowPlate);
 
         StartCoroutine(DelayToCheckMerge());
     }

@@ -30,10 +30,10 @@ public class ArrowController : MonoBehaviour
                     cl.logicVisual.grow.SetActive(false);
                 }
 
-                if (c.logicVisual.arrow.activeSelf)
-                {
-                    c.logicVisual.grow.SetActive(true);
-                }
+                //if (c.logicVisual.arrow.activeSelf)
+                //{
+                c.logicVisual.grow.SetActive(true);
+                //}
             }
             else if (type == 1)
             {
@@ -46,8 +46,8 @@ public class ArrowController : MonoBehaviour
                 {
                     if ((i + index) % 2 == 0)
                     {
-                        if (listColorPlate[i].logicVisual.arrow.activeSelf)
-                            listColorPlate[i].logicVisual.grow.SetActive(true);
+                        //if (listColorPlate[i].logicVisual.arrow.activeSelf)
+                        listColorPlate[i].logicVisual.grow.SetActive(true);
                     }
                 }
 
@@ -64,6 +64,8 @@ public class ArrowController : MonoBehaviour
                 if (type == 2)
                 {
                     type = 0;
+
+                    yield return new WaitForSeconds(1.5f);
                 }
             }
         }
@@ -108,6 +110,24 @@ public class ArrowController : MonoBehaviour
             listSort.Add(listLeft[i]);
         }
         return listSort;
+    }
+
+    public void PlayAnim(List<ColorPlate> listArrow)
+    {
+        for (int i = 0; i < listArrow.Count; i++)
+        {
+            ColorPlate c = listArrow[i];
+
+            if (c.CheckHolderStatus(LogicGame.Instance.listNextPlate[0]))
+            {
+                c.logicVisual.PlayAnimationArrowPending();
+            }
+            else
+            {
+                c.logicVisual.RefreshAnimation();
+            };
+        }
+
     }
 }
 

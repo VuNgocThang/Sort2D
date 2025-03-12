@@ -63,9 +63,9 @@ public class ColorPlate : MonoBehaviour
     public List<ColorEnum> ListValue = new List<ColorEnum>();
 
     //public ColorEnum TopValue => ListValue[ListValue.Count - 1];
-    public ColorEnum TopValue => (ListValue?.Count > 0)
+    public ColorEnum TopValue => (ListValue?.Count > 0 && !isArrow())
         ? ListValue[ListValue.Count - 1]
-        : throw new InvalidOperationException("ListValue is empty.");
+        : throw new InvalidOperationException("ListValue is empty." + this.name);
 
     public LogicColor TopColor => ListColor[ListColor.Count - 1];
     GetColorNew GetColorNew;
@@ -96,13 +96,17 @@ public class ColorPlate : MonoBehaviour
 
     private void Update()
     {
-        if (ListColor.Count <= 0 || ListValue.Count <= 0) return;
+        //if (CheckHolderStatus(LogicGame.Instance.listNextPlate[0]))
+        //{
+        //    this.logicVisual.PlayAnimationArrowPending();
+        //}
+        //else
+        //{
+        //    if (logicVisual != null)
+        //        logicVisual.RefreshAnimation();
+        //};
 
-        // if (status == Status.Frozen)
-        // {
-        //     Debug.Log("this.name:  " + gameObject.name + " ___ " + listTypes.Count +
-        //               " ___ " + listTypes[listTypes.Count - 1].listPlates.Count);
-        // }
+        if (ListColor.Count <= 0 || ListValue.Count <= 0) return;
 
         if (isMerging || status == Status.Frozen)
         {
@@ -125,6 +129,39 @@ public class ColorPlate : MonoBehaviour
             TopColor.txtCount.color = new Color(0.2156863f, 0.1098039f, 0.4313726f, 1f);
             TopColor.txtCount.text = listTypes[listTypes.Count - 1].listPlates.Count.ToString();
         }
+    }
+
+    bool IsArrowCanCheck()
+    {
+        return (!isLocked && ListValue.Count == 0 && canClick);
+    }
+
+    bool isArrow()
+    {
+        return status == Status.Right || status == Status.Left || status == Status.Up || status == Status.Down;
+    }
+
+    public bool CheckHolderStatus(ColorPlate colorPLateCheck)
+    {
+        if (!IsArrowCanCheck() || !isArrow())
+            return false;
+
+        if (!LogicGame.Instance.IsInitDone) return false;
+
+        ICheckStatus checkStatusHolder = new CheckGetHolderStatus();
+        ColorPlate holder = checkStatusHolder.CheckHolder(this);
+
+        if (holder == null) return false;
+
+        for (int i = 0; i < holder.ListConnect.Count; i++)
+        {
+            if (holder.ListConnect[i].ListValue.Count == 0) continue;
+            if (holder.ListConnect[i].TopValue != colorPLateCheck.TopValue) continue;
+
+            if (holder.ListConnect[i].TopValue == colorPLateCheck.TopValue) return true;
+        }
+
+        return false;
     }
 
     public void Init(GetColorNew getColorNew)

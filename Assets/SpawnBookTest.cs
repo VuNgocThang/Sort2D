@@ -20,6 +20,8 @@ public class SpawnBookTest : MonoBehaviour
         Debug.Log("Spawn Book");
 
         LogicGame.Instance.InitNextPlate(SaveGame.TutorialFirst);
+        LogicGame.Instance.IsInitDone = true;
+        ArrowController.instance.PlayAnim(LogicGame.Instance.ListArrowPlate);
         SaveGame.TutorialFirst = false;
 
         ManagerAudio.PlaySound(ManagerAudio.Data.soundOpenBox);

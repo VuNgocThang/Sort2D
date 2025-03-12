@@ -1,8 +1,7 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LogicVisualPlate : MonoBehaviour
 {
@@ -26,7 +25,7 @@ public class LogicVisualPlate : MonoBehaviour
     public List<GameObject> listBags;
     public GameObject poison;
 
-
+    public AnimationCurve animCurve;
     //public Animator animLockCoin;
 
     //logic visual ingame
@@ -76,6 +75,47 @@ public class LogicVisualPlate : MonoBehaviour
         arrow.SetActive(true);
         arrowClick.SetActive(false);
         arrowCannotClick.SetActive(false);
+    }
+    public float moveDistance = 0.2f;
+    public float duration = 0.3f;
+    public Vector3 smallScale = new Vector3(0.8f, 1.2f, 1);
+    public Vector3 bigScale = new Vector3(1.2f, 0.8f, 1);
+    public Vector3 startPosition = Vector3.zero;
+    private Tween arrowTween;
+    private Tween growTween;
+    public void PlayAnimationArrowPending()
+    {
+        if (arrowTween != null) arrowTween.Kill();
+        if (growTween != null) growTween.Kill();
+
+        arrowTween = DOTween.Sequence()
+           .Append(arrow.transform.DOLocalMoveY(startPosition.z - moveDistance, duration).SetEase(Ease.InOutSine))
+           .Join(arrow.transform.DOScale(bigScale, duration))
+           .Append(arrow.transform.DOLocalMoveY(startPosition.z, duration).SetEase(Ease.InOutSine))
+           .Join(arrow.transform.DOScale(smallScale, duration))
+           .SetLoops(-1, LoopType.Yoyo);
+
+        growTween = DOTween.Sequence()
+         .Append(grow.transform.DOLocalMoveY(startPosition.z - moveDistance, duration).SetEase(Ease.InOutSine))
+         .Join(grow.transform.DOScale(bigScale, duration))
+         .Append(grow.transform.DOLocalMoveY(startPosition.z, duration).SetEase(Ease.InOutSine))
+         .Join(grow.transform.DOScale(smallScale, duration))
+         .SetLoops(-1, LoopType.Yoyo);
+    }
+
+    public void RefreshAnimation()
+    {
+        arrow.transform.localPosition = startPosition;
+        arrow.transform.localScale = Vector3.one;
+
+        grow.transform.localPosition = startPosition;
+        grow.transform.localScale = Vector3.one;
+
+        if (arrowTween != null) arrowTween.Kill();
+
+        if (growTween != null) growTween.Kill();
+
+
     }
 
     //public void PlayArrowClicked()
