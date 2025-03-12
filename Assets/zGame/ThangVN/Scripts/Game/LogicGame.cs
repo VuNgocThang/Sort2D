@@ -163,7 +163,10 @@ public class LogicGame : MonoBehaviour
 
     LogicColor GetColorNew()
     {
+        //LogicColor logicColor = listColors.GetClone();
+        //logicColor.RefreshColor();
         return listColors.GetClone();
+        //return logicColor;
     }
 
     private void Awake()
@@ -284,6 +287,7 @@ public class LogicGame : MonoBehaviour
         if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial)
         {
             SaveGame.TutorialFirst = true;
+            nParentNextCubeNormal.localScale = new Vector3(1.2f, 1.2f, 1.2f);
         }
     }
 
@@ -331,7 +335,7 @@ public class LogicGame : MonoBehaviour
 
         setMapManager.InitArrowPlates(rows, cols, ListColorPlate, nParentArrow, arrowPlatePrefab, ListArrowPlate);
 
-        // Debug.Log("SaveGame.IsDoneTutorial: " + SaveGame.IsDoneTutorial);
+        Debug.Log("SaveGame.IsDoneTutorial: " + SaveGame.IsDoneTutorial);
         //Logic Tutorial Arrow
         if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial)
         {
@@ -339,6 +343,7 @@ public class LogicGame : MonoBehaviour
             {
                 if (i != 1)
                 {
+                    Debug.Log("i: " + i);
                     ListArrowPlate[i].canClick = false;
                 }
             }
@@ -611,37 +616,28 @@ public class LogicGame : MonoBehaviour
         ManagerAudio.PlaySound(ManagerAudio.Data.soundRefresh);
     }
 
-    //public void InitPlateSpawn(object e)
-    //{
-    //    Sequence sequenceSpawn = DOTween.Sequence();
+    public List<LogicColor> InitTutorialColorPlate(int index)
+    {
+        List<LogicColor> listColor = new List<LogicColor>();
 
-    //    for (int i = 0; i < listSpawnNew.Count; i++)
-    //    {
-    //        int index = i;
+        ListArrowPlate[index].Init(GetColorNew);
+        ListArrowPlate[index].InitColor(false, true);
 
-    //        if (listSpawnNew[index].ListValue.Count == 0)
-    //        {
-    //            sequenceSpawn.AppendCallback(() =>
-    //            {
-    //                //ManagerAudio.PlaySound(ManagerAudio.Data.soundSwitch);
-    //                listSpawnNew[index].Init(GetColorNew);
-    //                listSpawnNew[index].InitColor();
+        for (int i = 0; i < ListArrowPlate[index].ListColor.Count; i++)
+        {
+            LogicColor logicColor = ListArrowPlate[index].ListColor[i];
 
-    //                foreach (LogicColor c in listSpawnNew[index].ListColor)
-    //                {
-    //                    c.transform.localPosition = new Vector3(5f, c.transform.localPosition.y, c.transform.localPosition.z);
-    //                }
+            logicColor.InitTutorial();
 
-    //                foreach (LogicColor c in listSpawnNew[index].ListColor)
-    //                {
-    //                    c.transform.DOLocalMoveX(0, 0.3f);
-    //                }
-    //            });
+            listColor.Add(logicColor);
+        }
 
-    //            sequenceSpawn.AppendInterval(0.2f);
-    //        }
-    //    }
-    //}
+        ListArrowPlate[index].ListValue.Clear();
+        ListArrowPlate[index].ListColor.Clear();
+        ListArrowPlate[index].listTypes.Clear();
+
+        return listColor;
+    }
 
     public void InitNextPlate(bool tutorialFirst)
     {
@@ -651,9 +647,6 @@ public class LogicGame : MonoBehaviour
             {
                 listNextPlate[i].Init(GetColorNew);
                 listNextPlate[i].InitColor(false, tutorialFirst);
-
-                //if (i == 0) listNextPlate[i].InitColor(false, tutorialFirst);
-                //else listNextPlate[i].InitColor(false, tutorialFirst);
             }
         }
     }
@@ -669,19 +662,6 @@ public class LogicGame : MonoBehaviour
 
     void SwitchNextPlate(object e)
     {
-        //listNextPlate[0].transform.DOLocalMove(listNextPlate[1].transform.localPosition, 0.2f).SetEase(Ease.OutCirc);
-        //listNextPlate[1].transform.DOLocalMove(listNextPlate[0].transform.localPosition, 0.2f).SetEase(Ease.InCirc);
-        //foreach (LogicColor c in listNextPlate[0].ListColor)
-        //{
-        //    c.transform.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.2f);
-        //}
-
-        //foreach (LogicColor c in listNextPlate[1].ListColor)
-        //{
-        //    c.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f);
-        //}
-
-        //Swap(listNextPlate);
     }
 
 
@@ -950,6 +930,12 @@ public class LogicGame : MonoBehaviour
         {
             if (listNextPlate[0].ListValue.Count == 0) return;
 
+            if (!SaveGame.IsDoneTutorial || TutorialCamera.Instance.isDoneStep2)
+            {
+                TutorialCamera.Instance.tweenTutorial.Kill();
+                TutorialCamera.Instance.RefreshListColorTutorial();
+                nParentNextCubeNormal.localScale = Vector3.one;
+            }
 
             foreach (LogicColor renderer in listNextPlate[0].ListColor)
             {
@@ -972,24 +958,8 @@ public class LogicGame : MonoBehaviour
             listNextPlate[0].ListColor.Clear();
             listNextPlate[0].listTypes.Clear();
 
-            //return;
-
-            //Tween t = null; 
-
             foreach (LogicColor renderer in listNextPlate[1].ListColor)
             {
-                //Vector3 localPos = renderer.transform.localPosition;
-                //renderer.transform.SetParent(listNextPlate[0].transform);
-                //float randomX = UnityEngine.Random.Range(-0.05f, 0.05f);
-
-                ///*t = */
-                ////renderer.transform.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.3f);
-                ////renderer.transform.DOLocalJump(new Vector3(randomX, localPos.y, localPos.z), 1f, 1, 0.3f);
-
-                //renderer.transform.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                //renderer.transform.localRotation = Quaternion.identity;
-                //renderer.transform.localScale = Vector3.one;
-
                 Vector3 worldPos = listNextPlate[0].transform.position;
                 Vector3 localPos = renderer.transform.localPosition;
                 Transform newParent = listNextPlate[0].transform;
@@ -1017,6 +987,7 @@ public class LogicGame : MonoBehaviour
             listNextPlate[1].ListColor.Clear();
             listNextPlate[1].listTypes.Clear();
 
+
             spawnBook.PlayAnimSpawn();
 
             float delay = 0f;
@@ -1036,12 +1007,7 @@ public class LogicGame : MonoBehaviour
 
                 sq.Insert(delay, transformCache.DOLocalMove(new Vector3(randomX, localPos.y, localPos.z), 0.4f)
                         .SetEase(curveMove)
-                //.OnComplete(() =>
-                //{
-                //    transformCache.localPosition = new Vector3(randomX, localPos.y, localPos.z);
-                //})
                 );
-                //transformCache.DOLocalMove(new Vector3(0, localPos.y, localPos.z), 0.4f);
 
                 renderer.transform.localRotation = Quaternion.identity;
                 renderer.transform.localScale = Vector3.one;

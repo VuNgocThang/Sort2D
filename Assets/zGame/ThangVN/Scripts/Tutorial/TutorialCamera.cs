@@ -79,13 +79,52 @@ public class TutorialCamera : MonoBehaviour
         particleHandObject.SetActive(false);
     }
 
+    // thay đổi nếu thay đổi grid hoặc đầu vào index của arrow
+    int offSetIndex = 12;
+
+    public Sequence tweenTutorial;
+
+    public List<LogicColor> listColor = new List<LogicColor>();
     public void MoveHand(int index, int indexStep)
     {
         if (index == 0) isDoneStep2 = true;
         LogicGame.Instance.ListArrowPlate[index].canClick = true;
+
+        RefreshListColorTutorial();
+        listColor = LogicGame.Instance.InitTutorialColorPlate(index);
+
+        Vector3 targetPos = LogicGame.Instance.ListColorPlate[index + offSetIndex].transform.position;
         Vector3 pos = LogicGame.Instance.ListArrowPlate[index].transform.position;
         SetPositionHand(pos);
         listSteps[indexStep].SetActive(true);
+
+        MoveColorsLoop(listColor, pos, targetPos);
+    }
+
+    private void MoveColorsLoop(List<LogicColor> listColor, Vector3 startPos, Vector3 targetPos)
+    {
+        float duration = 0.5f;
+        float delay = 1f;
+
+        if (tweenTutorial != null)
+        {
+            tweenTutorial.Kill();
+        }
+
+        tweenTutorial = DOTween.Sequence();
+
+        for (int i = 0; i < listColor.Count; i++)
+        {
+            tweenTutorial.Join(listColor[i].transform.DOMoveY(targetPos.y, duration)
+                .SetEase(Ease.InOutSine));
+        }
+
+        tweenTutorial.AppendInterval(delay);
+        tweenTutorial.SetLoops(-1, LoopType.Restart);
+        //tweenTutorial.OnKill(() =>
+        //{
+        //    tweenTutorial = null;
+        //});
     }
 
     private void SetPositionHand(Vector3 pos)
@@ -103,8 +142,22 @@ public class TutorialCamera : MonoBehaviour
         particleHand.gameObject.SetActive(true);
     }
 
+    public void RefreshListColorTutorial()
+    {
+        foreach (LogicColor c in listColor)
+        {
+            c.RefreshColor();
+            c.gameObject.SetActive(false);
+        }
+
+        listColor.Clear();
+    }
+
     public void PlayTut3()
     {
+        Debug.Log("Kill Twwen");
+        tweenTutorial.Kill();
+        RefreshListColorTutorial();
         btnContinue.gameObject.SetActive(true);
         listSteps[2].SetActive(true);
     }

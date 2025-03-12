@@ -75,6 +75,7 @@ namespace ThangVN
             {
                 LogicGame.Instance.isPauseGame = false;
                 //ManagerEvent.RaiseEvent(EventCMD.EVENT_SPAWN_PLATE);
+                Debug.Log("sdadad");
                 LogicGame.Instance.InitTutorial();
             }
             else

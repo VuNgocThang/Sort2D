@@ -96,16 +96,6 @@ public class ColorPlate : MonoBehaviour
 
     private void Update()
     {
-        //if (CheckHolderStatus(LogicGame.Instance.listNextPlate[0]))
-        //{
-        //    this.logicVisual.PlayAnimationArrowPending();
-        //}
-        //else
-        //{
-        //    if (logicVisual != null)
-        //        logicVisual.RefreshAnimation();
-        //};
-
         if (ListColor.Count <= 0 || ListValue.Count <= 0) return;
 
         if (isMerging || status == Status.Frozen)
@@ -130,6 +120,7 @@ public class ColorPlate : MonoBehaviour
             TopColor.txtCount.text = listTypes[listTypes.Count - 1].listPlates.Count.ToString();
         }
     }
+
 
     bool IsArrowCanCheck()
     {
@@ -255,18 +246,11 @@ public class ColorPlate : MonoBehaviour
                 }
             }
 
-            // if (isSpecial)
-            //     Debug.Log("this.name: " + gameObject.name + " ____ " + listDiff.Count + " ___ " +
-            //               listTypes[listTypes.Count - 1].listPlates.Count);
 
             if (listTypes[listTypes.Count - 1].listPlates.Count == 0)
             {
                 listTypes.RemoveAt(listTypes.Count - 1);
             }
-
-            // if (isSpecial)
-            //     Debug.Log("this.name_ after_remove: " + gameObject.name + " ____ " + listDiff.Count + " ___ " +
-            //               listTypes[listTypes.Count - 1].listPlates.Count);
         }
 
 
@@ -403,7 +387,6 @@ public class ColorPlate : MonoBehaviour
         InitValue(this.transform);
     }
 
-    public AnimationCurve customCurve;
 
     public void InitValue(Transform transform = null, int index = -1, int _Row = -1)
     {
@@ -615,44 +598,8 @@ public class ColorPlate : MonoBehaviour
 
     public void PlayAnimOnClick()
     {
-        //if (anim != null)
-        //{
-        //    anim.Play("OnClick");
-        //    isPlayingOnClick = true;
-        //}
-
-        //StartCoroutine(PlayAnim());
         StartCoroutine(PlayAnimClick());
     }
-
-    //public bool IsPlayingOnClick()
-    //{
-    //    return isPlayingOnClick;
-    //}
-
-    //public void PlayAnimNormal()
-    //{
-    //    if (anim != null)
-    //        anim.Play("Normal");
-    //}
-
-    //public void PlayAnimCanClick()
-    //{
-    //    if (anim != null)
-    //        anim.Play("CanClick");
-    //}
-
-    //IEnumerator PlayAnim()
-    //{
-    //    if (anim != null)
-    //    {
-    //        anim.Play("OnClick");
-    //        isPlayingOnClick = true;
-    //        yield return new WaitForSeconds(0.3f);
-    //        anim.Play("Normal");
-    //        isPlayingOnClick = false;
-    //    }
-    //}
 
     public void PlayAnimArrow()
     {
@@ -664,6 +611,8 @@ public class ColorPlate : MonoBehaviour
 
         if (!CheckArrow(ListConnect[0]) && !isPlayingOnClick)
         {
+            if (!SaveGame.IsDoneTutorial) return;
+
             canClick = true;
             logicVisual.PlayArrowNormal();
         }

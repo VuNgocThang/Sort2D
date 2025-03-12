@@ -185,12 +185,6 @@ MonoBehaviour:
   isMerging: 0
   canClick: 1
   pathType: 0
-  customCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   isPlayingOnClick: 0
 --- !u!1 &4949787787438748909
 GameObject:
@@ -254,6 +248,17 @@ MonoBehaviour:
   wood: {fileID: 0}
   listBags: []
   poison: {fileID: 0}
+  animCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveDistance: 0.2
+  duration: 0.3
+  smallScale: {x: 0.8, y: 1.2, z: 1}
+  bigScale: {x: 1.2, y: 0.8, z: 1}
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &5265235796109072604
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using BaseGame;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class SpawnBookTest : MonoBehaviour
     public void Spawn()
     {
         Debug.Log("Spawn Book");
-
+        //TutorialCamera.Instance.tweenTutorial.Kill();
         LogicGame.Instance.InitNextPlate(SaveGame.TutorialFirst);
         LogicGame.Instance.IsInitDone = true;
         ArrowController.instance.PlayAnim(LogicGame.Instance.ListArrowPlate);
