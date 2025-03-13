@@ -7,7 +7,6 @@ using BaseGame;
 using TMPro;
 using System;
 using UnityEngine.UI;
-using EasyUI.Helpers;
 
 public class HomeUI : MonoBehaviour
 {

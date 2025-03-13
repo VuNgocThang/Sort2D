@@ -126,25 +126,25 @@ public class ImageItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         while (isPointerDown && !isLongPressed)
         {
-            double elapsedSeconds = (DateTime.Now - pressTime).TotalSeconds;
+            //double elapsedSeconds = (DateTime.Now - pressTime).TotalSeconds;
 
-            if (elapsedSeconds >= holdDuration)
-            {
-                isLongPressed = true;
-                if (btn.img.enabled)
-                {
-                    // su kien keo
-                    PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
+            //if (elapsedSeconds >= holdDuration)
+            //{
+            //    isLongPressed = true;
+            //    if (btn.img.enabled)
+            //    {
+            //        // su kien keo
+            //        PopupDecorateBook popupDecorateBook = FindObjectOfType<PopupDecorateBook>();
 
-                    if (popupDecorateBook != null)
-                    {
-                        popupDecorateBook.scroll.enabled = false;
-                        popupDecorateBook.SpawnItemDrag(this, eventData);
-                    }
-                }
+            //        if (popupDecorateBook != null)
+            //        {
+            //            popupDecorateBook.scroll.enabled = false;
+            //            popupDecorateBook.SpawnItemDrag(this, eventData);
+            //        }
+            //    }
 
-                yield break;
-            }
+            //    yield break;
+            //}
 
             yield return delay;
         }

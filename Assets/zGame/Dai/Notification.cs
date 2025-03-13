@@ -31,7 +31,7 @@ public class NotificationController : MonoBehaviour
             Importance = Importance.Default,
             Description = "Generic notifications",
         };
-        
+
         AndroidNotificationCenter.RegisterNotificationChannel(channel);
         SendNotif();
     }
@@ -65,7 +65,7 @@ public class NotificationController : MonoBehaviour
         int hour21 = 21 - now.Hour;
         if (hour12 >= 4)
         {
-           ScheduleNotification(am12);
+            ScheduleNotification(am12);
         }
         else
         if (hour21 >= 4)
@@ -93,18 +93,18 @@ public class NotificationController : MonoBehaviour
         int index = UnityEngine.Random.Range(1, 4);
         if (index == 1)
         {
-            title = "Greattt";
-            message = "Super cute Minmon ❤️️";
+            title = "The new day has come🌞";
+            message = "Claim your money💸";
         }
         else if (index == 2)
         {
-            title = "Can you hear the water flow 💧";
-            message = "Minmon here waiting for you 😍";
+            title = "Time to feed the cat 🐈🙀";
+            message = "Let's go now, fishy! 🐾🐾";
         }
         else if (index == 3)
         {
-            title = "Fly to the sky";
-            message = "Merge Minmon and claim Reward🤑🤑";
+            title = "Busy hour! Help me 🥺️📓";
+            message = "Buzz buzz ❣️💌";
         }
 #if UNITY_ANDROID
         var notification = new AndroidNotification

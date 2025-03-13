@@ -154,7 +154,7 @@ public class PopupWin : Popup
     {
         // yield return new WaitForSeconds(10.5f);
         // yield return new WaitForSeconds(duration);
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
         ManagerEvent.ClearEvent();
         SceneManager.LoadScene(sceneName);
     }
