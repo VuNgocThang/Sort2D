@@ -11,31 +11,31 @@ public class ConfigIdsAds
     public const int TYPE_PUB_G = Config.PUB_G_HOPEE;//1-RK ; 2-AB
 #if UNITY_ANDROID
     //---AOA----
-    public const string ID_TIER_1 = "ca-app-pub-2227789348341993/2791875406";// /112517806,23154201080/7421716960610
-    public const string ID_TIER_2 = "ca-app-pub-2227789348341993/2791875406";//ca-app-pub-2227789348341993/2845941916
-    public const string ID_TIER_3 = "ca-app-pub-2227789348341993/2791875406";
+    public const string ID_TIER_1 = "ca-app-pub-9819920607806935/8444793771";// /112517806,23154201080/7421716960610
+    public const string ID_TIER_2 = "ca-app-pub-9819920607806935/8444793771";//ca-app-pub-2227789348341993/2845941916
+    public const string ID_TIER_3 = "ca-app-pub-9819920607806935/8444793771";
     //public const string ID_TIER_3 = "ca-app-pub-9819920607806935/4868981397";
     //---BANNER COLLAP----
     public static string _adUnitId = "";
     //----Native Ad google-----
     public static string _adNativeId = "";//ca-app-pub-3940256099942544/2247696110
     //------backfill-----
-    public static string _adInterID = "ca-app-pub-2227789348341993/6389443287";//  /112517806,23154201080/3561716896169
+    public static string _adInterID = "ca-app-pub-9819920607806935/7131712108";//  /112517806,23154201080/3561716896169
     //public static string _adInterID = "ca-app-pub-9819920607806935/1199845101";//ca-app-pub-3940256099942544/1033173712
     //public static string _adInterID = "/21622890900,22442147457/anymind_vn_famousfashion_android_all_interstitial_l5_231207";//ca-app-pub-3940256099942544/1033173712
     //public static string _adInterID = "/104502601/interstitial.pubtestandroid";
 
     //public static string _adRewardID = "ca-app-pub-9819920607806935/6404850577";//ca-app-pub-3940256099942544/5354046379
-    public static string _adRewardID = "ca-app-pub-2227789348341993/5946590152";//  /112517806,23154201080/6231716901618
+    public static string _adRewardID = "ca-app-pub-9819920607806935/5778267831";//  /112517806,23154201080/6231716901618
 
     //------MAX mediation----
     public static MaxSdkBase.BannerPosition bannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
     public static MaxSdkBase.AdViewPosition adViewPositionMrec = MaxSdkBase.AdViewPosition.TopCenter;
 
     public const string MaxSdkKey = "-grlCu5OBhsTl2CFy4WAOWiyqDgOtDfyg_nb88uO-EcxPfiLMJm9GUL5UXCclL_3lOT7TZ9DdyPDAq-XaPHZFP";
-    public const string InterstitialAdUnitId = "e944b2b02f06ebb9";//80e64f3491ce8c50
-    public const string RewardedAdUnitId = "693e3544251f6ab9";//3c1232b62dd79262
-    public const string BannerAdUnitId = "3d3f5a0cca86a4ca";//6553c1e7e081c41e
+    public const string InterstitialAdUnitId = "48f2dc17dea08fd0";//80e64f3491ce8c50
+    public const string RewardedAdUnitId = "42b5076f696d468e";//3c1232b62dd79262
+    public const string BannerAdUnitId = "d1bcc4a550f70821";//6553c1e7e081c41e
     public const string MRecAdUnitId = "";//7c7c851694553107
 
     public const string MAX_AOA_AdUnitId = "";
