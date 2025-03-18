@@ -143,6 +143,7 @@ public class PopupHome : MonoBehaviour
         }
         else if (GameManager.IsBonusGame())
         {
+            nLevel.SetActive(false);
             nBar.SetActive(false);
             SetParentNButton(nParentBtnMiniGame);
             nManagerMission.gameObject.SetActive(true);
