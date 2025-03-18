@@ -343,7 +343,7 @@ public class LogicGame : MonoBehaviour
             {
                 if (i != 1)
                 {
-                    Debug.Log("i: " + i);
+                    //Debug.Log("i: " + i);
                     ListArrowPlate[i].canClick = false;
                 }
             }
