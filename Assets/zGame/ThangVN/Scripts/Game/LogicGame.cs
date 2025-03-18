@@ -413,7 +413,7 @@ public class LogicGame : MonoBehaviour
     {
         //float offset = 0f;
         float offset = 1.65f;
-        if (GameManager.IsBonusGame()) offset = 2.2f;
+        if (GameManager.IsBonusGame()) offset = 1.6f;
 
         if (cols >= rows)
         {
