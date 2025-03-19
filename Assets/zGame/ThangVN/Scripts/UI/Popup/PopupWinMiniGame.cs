@@ -51,30 +51,37 @@ public class PopupWinMiniGame : Popup
         {
             if (SaveGame.Level >= GameConfig.LEVEL_INTER)
                 SaveGame.CanShowInter = true;
-            
+
             RefreshButton(false);
             PlayAgain();
         });
 
-        btnHome.OnClick(()=>
+        btnHome.OnClick(() =>
         {
             if (SaveGame.Level >= GameConfig.LEVEL_INTER)
                 SaveGame.CanShowInter = true;
-            
+
             RefreshButton(false);
 
             Continue();
         });
 
-        btnClaimx2.OnClick(()=>
+        btnClaimx2.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo(successful =>
+            if (!AdsController.instance.IsRewardedVideoAvailable())
             {
-                if (successful)
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    ClaimReward();
-                }
-            }, null, "Reward Bonus Level");
+                    if (successful)
+                    {
+                        ClaimReward();
+                    }
+                }, null, "Reward Bonus Level");
+            }
         });
     }
 

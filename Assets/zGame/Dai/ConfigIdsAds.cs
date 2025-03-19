@@ -32,7 +32,7 @@ public class ConfigIdsAds
     public static MaxSdkBase.BannerPosition bannerPosition = MaxSdkBase.BannerPosition.BottomCenter;
     public static MaxSdkBase.AdViewPosition adViewPositionMrec = MaxSdkBase.AdViewPosition.TopCenter;
 
-    public const string MaxSdkKey = "-grlCu5OBhsTl2CFy4WAOWiyqDgOtDfyg_nb88uO-EcxPfiLMJm9GUL5UXCclL_3lOT7TZ9DdyPDAq-XaPHZFP";
+    public const string MaxSdkKey = "ZoNyqu_piUmpl33-qkoIfRp6MTZGW9M5xk1mb1ZIWK6FN9EBu0TXSHeprC3LMPQI7S3kTc1-x7DJGSV8S-gvFJ";
     public const string InterstitialAdUnitId = "48f2dc17dea08fd0";//80e64f3491ce8c50
     public const string RewardedAdUnitId = "42b5076f696d468e";//3c1232b62dd79262
     public const string BannerAdUnitId = "d1bcc4a550f70821";//6553c1e7e081c41e

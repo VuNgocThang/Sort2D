@@ -108,13 +108,20 @@ public class PopupShopInGame : Popup
             case BoosterEnum.BoosterSwap:
                 if (useAds)
                 {
-                    AdsController.instance.ShowRewardedVideo(successful =>
+                    if (!AdsController.instance.IsRewardedVideoAvailable())
+                    {
+                        EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+                    }
+                    else
+                    {
+                        AdsController.instance.ShowRewardedVideo(successful =>
                     {
                         if (successful)
                         {
                             SaveGame.Swap++;
                         }
                     }, null, "Buy Swap");
+                    }
                 }
                 else
                 {
@@ -140,7 +147,13 @@ public class PopupShopInGame : Popup
             case BoosterEnum.BoosterHammer:
                 if (useAds)
                 {
-                    AdsController.instance.ShowRewardedVideo(successful =>
+                    if (!AdsController.instance.IsRewardedVideoAvailable())
+                    {
+                        EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+                    }
+                    else
+                    {
+                        AdsController.instance.ShowRewardedVideo(successful =>
                         {
                             if (successful)
                             {
@@ -148,6 +161,7 @@ public class PopupShopInGame : Popup
                             }
                         }, null,
                         "Buy Hammer");
+                    }
                 }
                 else
                 {
@@ -176,7 +190,13 @@ public class PopupShopInGame : Popup
             case BoosterEnum.BoosterRefresh:
                 if (useAds)
                 {
-                    AdsController.instance.ShowRewardedVideo(successful =>
+                    if (!AdsController.instance.IsRewardedVideoAvailable())
+                    {
+                        EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+                    }
+                    else
+                    {
+                        AdsController.instance.ShowRewardedVideo(successful =>
                         {
                             if (successful)
                             {
@@ -184,6 +204,7 @@ public class PopupShopInGame : Popup
                             }
                         }, null,
                         "Buy Refresh");
+                    }
                 }
                 else
                 {

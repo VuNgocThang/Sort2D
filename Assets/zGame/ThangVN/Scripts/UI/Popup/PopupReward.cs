@@ -53,22 +53,29 @@ public class PopupReward : Popup
 
         btnClaimx2.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo(successful =>
+            if (!AdsController.instance.IsRewardedVideoAvailable())
             {
-                if (successful)
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    ClaimReward(2);
-                }
-            }, null, "Claim Reward");
+                    if (successful)
+                    {
+                        ClaimReward(2);
+                    }
+                }, null, "Claim Reward");
+            }
             // Hide();
         });
     }
 
-    public static async void Show()
-    {
-        PopupReward pop = await ManagerPopup.ShowPopup<PopupReward>();
-        pop.Init();
-    }
+    //public static async void Show()
+    //{
+    //    PopupReward pop = await ManagerPopup.ShowPopup<PopupReward>();
+    //    pop.Init();
+    //}
 
     public override void Init()
     {

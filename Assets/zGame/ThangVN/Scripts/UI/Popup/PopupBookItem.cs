@@ -27,17 +27,24 @@ public class PopupBookItem : Popup
     {
         btnDecorate.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo(successful =>
+            if (!AdsController.instance.IsRewardedVideoAvailable())
             {
-                if (successful)
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    Debug.Log("Redecorate Book At : " + SaveGame.CurrentBook);
-                    FirebaseCustom.LogRedecorateBook(SaveGame.CurrentBook);
+                    if (successful)
+                    {
+                        Debug.Log("Redecorate Book At : " + SaveGame.CurrentBook);
+                        FirebaseCustom.LogRedecorateBook(SaveGame.CurrentBook);
 
-                    SaveGame.Redecorated = true;
-                    PopupDecorateBook.Show(SaveGame.CurrentBook, true);
-                }
-            }, null, "Redecorate Book");
+                        SaveGame.Redecorated = true;
+                        PopupDecorateBook.Show(SaveGame.CurrentBook, true);
+                    }
+                }, null, "Redecorate Book");
+            }
         });
 
         btnBack.OnClick(() =>

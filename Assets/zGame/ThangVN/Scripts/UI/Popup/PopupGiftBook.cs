@@ -13,13 +13,20 @@ public class PopupGiftBook : Popup
         btnClosePopup.OnClick(Hide);
         btnClaim.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo(successful =>
+            if (!AdsController.instance.IsRewardedVideoAvailable())
             {
-                if (successful)
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    ClaimReward();
-                }
-            }, null, "Claim Gift Book");
+                    if (successful)
+                    {
+                        ClaimReward();
+                    }
+                }, null, "Claim Gift Book");
+            }
         });
     }
 

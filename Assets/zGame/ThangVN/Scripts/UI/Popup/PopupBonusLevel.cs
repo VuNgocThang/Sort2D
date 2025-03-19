@@ -12,15 +12,23 @@ public class PopupBonusLevel : Popup
     {
         btnHelp.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo(successful =>
-                {
-                    if (successful)
+            if (!AdsController.instance.IsRewardedVideoAvailable())
+            {
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                     {
-                        MoveToLevelBonus();
-                    }
-                }, null,
-                "Reward Play Bonus");
+                        if (successful)
+                        {
+                            MoveToLevelBonus();
+                        }
+                    }, null,
+                    "Reward Play Bonus");
+            }
         });
+
         btnNo.OnClick(MoveToHome);
     }
 

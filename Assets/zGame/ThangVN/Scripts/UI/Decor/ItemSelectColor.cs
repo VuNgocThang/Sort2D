@@ -32,15 +32,21 @@ public class ItemSelectColor : MonoBehaviour
                 // watch ads to canSelect
 
                 if (imgAds == null) return;
-
-                AdsController.instance.ShowRewardedVideo(successful =>
+                if (!AdsController.instance.IsRewardedVideoAvailable())
                 {
-                    if (successful)
+                    EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+                }
+                else
+                {
+                    AdsController.instance.ShowRewardedVideo(successful =>
                     {
-                        imgAds.SetActive(false);
-                        CanSelect = true;
-                    }
-                }, null, "Color Decor");
+                        if (successful)
+                        {
+                            imgAds.SetActive(false);
+                            CanSelect = true;
+                        }
+                    }, null, "Color Decor");
+                }
             }
         });
     }

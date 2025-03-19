@@ -15,13 +15,20 @@ public class PopupLoseMiniGame : Popup
         btnPlayAgain.OnClick(() =>
         {
             // RefreshButton(false);
-            AdsController.instance.ShowRewardedVideo(successful =>
+            if (!AdsController.instance.IsRewardedVideoAvailable())
             {
-                if (successful)
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    PlayAgain();
-                }
-            }, null, "Play Again Bonus Level");
+                    if (successful)
+                    {
+                        PlayAgain();
+                    }
+                }, null, "Play Again Bonus Level");
+            }
         });
 
         btnContinue.OnClick(() =>

@@ -20,14 +20,21 @@ public class PopupGift : Popup
         btnClosePopup.OnClick(Hide);
         btnGet.OnClick(() =>
         {
-            AdsController.instance.ShowRewardedVideo(successful =>
+            if (!AdsController.instance.IsRewardedVideoAvailable())
             {
-                if (successful)
+                EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+            }
+            else
+            {
+                AdsController.instance.ShowRewardedVideo(successful =>
                 {
-                    ClaimReward(indexBooster);
-                    Hide();
-                }
-            }, null, "Claim Gift Booster");
+                    if (successful)
+                    {
+                        ClaimReward(indexBooster);
+                        Hide();
+                    }
+                }, null, "Claim Gift Booster");
+            }
         });
     }
 

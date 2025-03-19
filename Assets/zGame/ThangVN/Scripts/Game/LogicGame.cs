@@ -790,21 +790,28 @@ public class LogicGame : MonoBehaviour
 
                         if (adsPlate.status != Status.Ads) return;
 
-                        AdsController.instance.ShowRewardedVideo(successful =>
+                        if (!AdsController.instance.IsRewardedVideoAvailable())
                         {
-                            if (successful)
+                            EasyUI.Toast.Toast.Show("No Ads Now", 1f);
+                        }
+                        else
+                        {
+                            AdsController.instance.ShowRewardedVideo(successful =>
                             {
-                                ParticleSystem unlockPart = unlockAdsParticlePool.Spawn();
-                                unlockPart.transform.SetParent(adsPlate.transform);
-                                unlockPart.transform.localPosition = Vector3.zero;
-                                unlockPart.transform.localScale = Vector3.one;
-                                unlockPart.Play();
+                                if (successful)
+                                {
+                                    ParticleSystem unlockPart = unlockAdsParticlePool.Spawn();
+                                    unlockPart.transform.SetParent(adsPlate.transform);
+                                    unlockPart.transform.localPosition = Vector3.zero;
+                                    unlockPart.transform.localScale = Vector3.one;
+                                    unlockPart.Play();
 
-                                Debug.Log(" Watch Ads to Unlock AdsPlate");
-                                adsPlate.status = Status.None;
-                                adsPlate.logicVisual.Refresh();
-                            }
-                        }, null, "Reward Ads Plate");
+                                    Debug.Log(" Watch Ads to Unlock AdsPlate");
+                                    adsPlate.status = Status.None;
+                                    adsPlate.logicVisual.Refresh();
+                                }
+                            }, null, "Reward Ads Plate");
+                        }
                     }
                 }
             }
