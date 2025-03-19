@@ -257,7 +257,7 @@ public class LogicGame : MonoBehaviour
         chargingParticlePool = new CustomPool<ParticleSystem>(chargingParticle, 2, transform, false);
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
-
+        
         if (GameManager.IsBonusGame())
         {
             nNextCube1.transform.SetParent(nParentNextCubeMini);
@@ -268,7 +268,7 @@ public class LogicGame : MonoBehaviour
 
             nBgMini.gameObject.SetActive(true);
             nBgNormal.gameObject.SetActive(false);
-            nStand.gameObject.SetActive(true);
+            //nStand.gameObject.SetActive(true);
             countDiff = countDiffMax;
         }
         else
@@ -281,7 +281,7 @@ public class LogicGame : MonoBehaviour
 
             nBgMini.gameObject.SetActive(false);
             nBgNormal.gameObject.SetActive(true);
-            nStand.gameObject.SetActive(false);
+            //nStand.gameObject.SetActive(false);
         }
 
         if (SaveGame.Level == 0 && !SaveGame.IsDoneTutorial)
