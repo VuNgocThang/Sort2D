@@ -1008,6 +1008,23 @@ public static class SaveGame
         }
     }
 
+    const string HIDEUI = "HIDEUI";
+    static int hideUI = -1;
+
+    public static bool HideUI
+    {
+        set
+        {
+            ES3.Save(HIDEUI, value ? 1 : 0);
+            hideUI = value ? 1 : 0;
+        }
+        get
+        {
+            if (hideUI == -1) hideUI = ES3.Load(HIDEUI, 1);
+            return hideUI == 1;
+        }
+    }
+
     #endregion
 
     #region Ads

@@ -157,6 +157,11 @@ public class HomeUI : MonoBehaviour
     private void Start()
     {
         // Application.targetFrameRate = 60;
+        if (Config.ACTIVE_TEST && Config.isActiveBanner)
+        {
+            AdsController.instance.HideBannerAd();
+        }
+
         DailyTaskManager.Instance.Init();
         FreeCoinManager.Instance.Init();
         int randomBG = UnityEngine.Random.Range(0, 2);

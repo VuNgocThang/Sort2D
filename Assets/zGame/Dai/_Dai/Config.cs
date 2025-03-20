@@ -21,7 +21,7 @@ public class Config
     public const int PUB_G_HOPEE = 6;
 
     //-------------
-    public const bool ACTIVE_TEST = false; //false
+    public const bool ACTIVE_TEST = true; //false
 #if UNITY_EDITOR
     public static bool ACTIVE_DEBUG_LOG = true; //false
 #else

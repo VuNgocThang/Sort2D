@@ -198,6 +198,10 @@ public class LogicGame : MonoBehaviour
 
         //InitNextPlate();
         RecursiveMerge();
+        if (Config.ACTIVE_TEST && Config.isActiveBanner)
+        {
+            AdsController.instance.HideBannerAd();
+        }
         //enabled = true;
     }
 
@@ -257,7 +261,7 @@ public class LogicGame : MonoBehaviour
         chargingParticlePool = new CustomPool<ParticleSystem>(chargingParticle, 2, transform, false);
         changeColorParticlePool = new CustomPool<ParticleSystem>(changeColorParticle, 2, transform, false);
         frostExplosionPool = new CustomPool<ParticleSystem>(frostExplosion, 2, transform, false);
-        
+
         if (GameManager.IsBonusGame())
         {
             nNextCube1.transform.SetParent(nParentNextCubeMini);

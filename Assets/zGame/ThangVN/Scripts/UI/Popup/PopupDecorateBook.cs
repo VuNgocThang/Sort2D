@@ -19,7 +19,8 @@ public class PopupDecorateBook : Popup
     [SerializeField] EasyButton btnSelectItem, btnSelectBgColor, btnPrev, btnNext, btnBack;
     [SerializeField] TextMeshProUGUI txtNameBook, txtColorPlate, txtCurrentProgress;
 
-    [SerializeField] GameObject bgScrollViewItem,
+    [SerializeField]
+    GameObject bgScrollViewItem,
         bgSelectColor,
         imgChooseItem,
         imgNotChooseItem,

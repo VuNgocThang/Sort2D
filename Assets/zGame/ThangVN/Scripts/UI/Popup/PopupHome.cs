@@ -11,8 +11,10 @@ using System;
 
 public class PopupHome : MonoBehaviour
 {
+    public static PopupHome Instance;
+
     [SerializeField] Camera cam;
-    public EasyButton btnSetting, btnCloseItem, btnOpenTool;
+    public EasyButton btnSetting, btnCloseItem/*, btnOpenTool*/;
 
     public TextMeshProUGUI txtPoint,
         txtLevel,
@@ -40,15 +42,17 @@ public class PopupHome : MonoBehaviour
     public GameObject imgDanger;
     public GameObject UiEffect;
     public GameObject UiEffect2;
-    public GameObject tool;
+    //public GameObject tool;
 
     [SerializeField] Transform nParentBtnMiniGame, nParentNormal, nManagerMission, nButtons, nTopBar;
 
     private void Awake()
     {
+        Instance = this;
+
         btnSetting.OnClick(() => { PopupSetting.Show(); });
         btnCloseItem.OnClick(ExitUsingItem);
-        btnOpenTool.OnClick(() => tool.SetActive(true));
+        //btnOpenTool.OnClick(() => tool.SetActive(true));
 
         btnHammer.Init();
         btnSwap.Init();
