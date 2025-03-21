@@ -1098,6 +1098,23 @@ public static class SaveGame
         }
     }
 
+    const string ISBOUGHTWELCOMEPACK = "ISBOUGHTWELCOMEPACK";
+    static int isBoughtWelcomePack = -1;
+
+    public static bool IsBoughtWelcomePack
+    {
+        set
+        {
+            ES3.Save(ISBOUGHTWELCOMEPACK, value ? 1 : 0);
+            isBoughtWelcomePack = value ? 1 : 0;
+        }
+        get
+        {
+            if (isBoughtWelcomePack == -1) isBoughtWelcomePack = ES3.Load(ISBOUGHTWELCOMEPACK, 0);
+            return isBoughtWelcomePack == 1;
+        }
+    }
+
     const string COUNTWATCHINTER = "COUNTWATCHINTER";
     static int countWatchInter = -1;
 

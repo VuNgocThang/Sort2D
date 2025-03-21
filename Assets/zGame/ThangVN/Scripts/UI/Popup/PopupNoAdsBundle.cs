@@ -28,5 +28,7 @@ public class PopupNoAdsBundle : Popup
         SaveGame.IsBoughtNoAds = true;
         HomeUI.Instance.btnNoAdsBundle.gameObject.SetActive(false);
         Debug.Log("Buy Bundle No Ads");
+        Config.SetRemoveAd();
+
     }
 }

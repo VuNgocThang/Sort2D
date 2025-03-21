@@ -121,6 +121,8 @@ public class PopupHome : MonoBehaviour
 
     void Start()
     {
+        btnSetting.gameObject.SetActive(SaveGame.Level > 0);
+
         if (SaveGame.Music) ManagerAudio.PlayMusic(ManagerAudio.Data.musicInGame);
         else ManagerAudio.PauseMusic();
 

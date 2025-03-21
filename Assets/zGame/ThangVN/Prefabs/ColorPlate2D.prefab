@@ -852,6 +852,7 @@ MonoBehaviour:
   arrow: {fileID: 4545842780916574645}
   arrowClick: {fileID: 1322554657776317356}
   arrowCannotClick: {fileID: 2008343171746998445}
+  grow: {fileID: 0}
   lockCoin: {fileID: 370043439903083110}
   cannotPlace: {fileID: 1791242231904410960}
   listForzen:
@@ -864,6 +865,17 @@ MonoBehaviour:
   listBags:
   - {fileID: 172347607153052609}
   poison: {fileID: 1873069508526939222}
+  animCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  moveDistance: 0.2
+  duration: 0.3
+  smallScale: {x: 0.8, y: 1.2, z: 1}
+  bigScale: {x: 1.2, y: 0.8, z: 1}
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &3093386941245993490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,7 +1200,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: fb56c3006e59fdf4b97d594a132a8ea2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1611,30 +1623,6 @@ MonoBehaviour:
   isMerging: 0
   canClick: 1
   pathType: 0
-  customCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   isPlayingOnClick: 0
 --- !u!65 &5693479225502479163
 BoxCollider:

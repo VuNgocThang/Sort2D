@@ -85,6 +85,9 @@ public class LogicVisualPlate : MonoBehaviour
     private Tween growTween;
     public void PlayAnimationArrowPending()
     {
+        if (arrow == null || grow == null)
+            return;
+
         if (arrowTween != null) arrowTween.Kill();
         if (growTween != null) growTween.Kill();
 
@@ -94,6 +97,7 @@ public class LogicVisualPlate : MonoBehaviour
            .Append(arrow.transform.DOLocalMoveY(startPosition.z, duration).SetEase(Ease.InOutSine))
            .Join(arrow.transform.DOScale(smallScale, duration))
            .SetLoops(-1, LoopType.Yoyo);
+
 
         growTween = DOTween.Sequence()
          .Append(grow.transform.DOLocalMoveY(startPosition.z - moveDistance, duration).SetEase(Ease.InOutSine))

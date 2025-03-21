@@ -21,6 +21,8 @@ public class PopupShop : MonoBehaviour
 
     [SerializeField] private ScrollRect scroll;
 
+    [SerializeField] GameObject btnNoAdsBundleGrey, btnNoAdsGrey, btnPack1Grey;
+
     private void Awake()
     {
         btnNoAdsBundle.OnClick(() => { BuyNoAdsBundle(); });
@@ -36,6 +38,18 @@ public class PopupShop : MonoBehaviour
         btnCoinPack6.OnClick(() => { BuyCoinPack6(); });
     }
 
+    private void OnEnable()
+    {
+        UpdateButtonBoughtGrey();
+    }
+
+    private void UpdateButtonBoughtGrey()
+    {
+        btnNoAdsBundleGrey.SetActive(SaveGame.IsBoughtNoAds);
+        btnNoAdsGrey.SetActive(SaveGame.IsBoughtNoAds);
+        btnPack1Grey.SetActive(SaveGame.IsBoughtWelcomePack);
+    }
+
     void AddItem(int gold, int crytal, int magicCard, int wand)
     {
         SaveGame.Coin += gold;
@@ -46,6 +60,8 @@ public class PopupShop : MonoBehaviour
 
     void BuyNoAdsBundle()
     {
+        SaveGame.IsBoughtNoAds = true;
+        UpdateButtonBoughtGrey();
         int coinBefore = SaveGame.Coin;
         int countCrytal = 1;
         int countMagicCard = 5;
@@ -60,12 +76,16 @@ public class PopupShop : MonoBehaviour
 
     void BuyNoAds()
     {
+        SaveGame.IsBoughtNoAds = true;
+        UpdateButtonBoughtGrey();
         Debug.Log("Buy No Ads");
         Config.SetRemoveAd();
     }
 
     void BuyPack1()
     {
+        SaveGame.IsBoughtWelcomePack = true;
+        UpdateButtonBoughtGrey();
         int coinBefore = SaveGame.Coin;
         int countCrytal = 1;
         int countMagicCard = 2;

@@ -120,7 +120,8 @@ public class ArrowController : MonoBehaviour
 
             if (c.CheckHolderStatus(LogicGame.Instance.listNextPlate[0]))
             {
-                c.logicVisual.PlayAnimationArrowPending();
+                if (c != null)
+                    c.logicVisual.PlayAnimationArrowPending();
             }
             else
             {
