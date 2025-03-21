@@ -97,6 +97,7 @@ public class TutorialDecor : MonoBehaviour
 
     public void EndTutorialDecor()
     {
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_ENABLE_SCROLL);
         SaveGame.IsDoneTutorialDecor = true;
         HideStep();
         handImgTut.SetActive(false);

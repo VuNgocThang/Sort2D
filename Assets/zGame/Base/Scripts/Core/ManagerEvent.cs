@@ -90,6 +90,7 @@ namespace ntDev
         EVENT_SCORE_CHALLENGES,
         EVENT_RATE_US,
         EVENT_INTER_ADS,
+        EVENT_ENABLE_SCROLL
     }
 
     public static class ManagerEvent

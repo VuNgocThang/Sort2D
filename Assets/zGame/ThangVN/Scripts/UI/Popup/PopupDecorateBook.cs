@@ -56,6 +56,7 @@ public class PopupDecorateBook : Popup
 
     private void Awake()
     {
+
         btnPrev.OnClick(() => { scroll.horizontalScrollbar.value -= 0.5f; });
 
         btnNext.OnClick(() => { scroll.horizontalScrollbar.value += 0.5f; });
@@ -67,6 +68,7 @@ public class PopupDecorateBook : Popup
 
             if (!SaveGame.IsDoneTutorialDecor)
             {
+                scroll.enabled = false;
                 StartCoroutine(TutChooseColor(listItemDecors[0].GetComponent<RectTransform>()));
             }
         });
@@ -110,7 +112,14 @@ public class PopupDecorateBook : Popup
 
         ManagerEvent.RegEvent(EventCMD.EVENT_CLAIM_REWARD_BOOK, RaiseEventCollectReward);
 
+        ManagerEvent.RegEvent(EventCMD.EVENT_ENABLE_SCROLL, EnableScroll);
+
         CheckNull();
+    }
+
+    void EnableScroll(object e)
+    {
+        scroll.enabled = true;
     }
 
     void CheckNull()
