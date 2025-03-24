@@ -39,7 +39,7 @@ public class PopupSetting : Popup
                 LogicGame.Instance.SaveDataGame();
             ManagerEvent.ClearEvent();
 
-            StartCoroutine(LoadScene("SceneHome"));
+            SceneManager.LoadScene("SceneHome");
         });
     }
 

@@ -10,6 +10,7 @@ public class RotateObject : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Rotate(0, 0, speed * Time.fixedDeltaTime);
+        if (transform != null)
+            transform.Rotate(0, 0, speed * Time.fixedDeltaTime);
     }
 }
