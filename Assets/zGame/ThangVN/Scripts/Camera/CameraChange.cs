@@ -11,7 +11,6 @@ public class CameraChange : MonoBehaviour
     [SerializeField] Vector3 startRot;
     float sizeDefault = 8f;
     float max = 6f;
-    [SerializeField] TestStack testStack;
     [SerializeField] Transform nDesk;
 
     Vector3 endPos = new Vector3(0f, 25f, -4.4f);

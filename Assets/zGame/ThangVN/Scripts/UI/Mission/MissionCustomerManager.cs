@@ -82,16 +82,16 @@ public class MissionCustomerManager : MonoBehaviour
     {
         if (LogicGame.Instance.isLose || LogicGame.Instance.isWin) return;
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            LogicGame.Instance.isWin = true;
-            FirebaseManager.instance.LogLevelWin(SaveGame.LevelBonus, 0);
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    LogicGame.Instance.isWin = true;
+        //    FirebaseManager.instance.LogLevelWin(SaveGame.LevelBonus, 0);
 
-            if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
-                SaveGame.LevelBonus++;
-            Debug.Log("completed");
-            RaiseEventWin();
-        }
+        //    if (SaveGame.LevelBonus < GameConfig.MAX_LEVEL_BONUS)
+        //        SaveGame.LevelBonus++;
+        //    Debug.Log("completed");
+        //    RaiseEventWin();
+        //}
 
         if (currentTimer < timer)
             currentTimer += Time.deltaTime;

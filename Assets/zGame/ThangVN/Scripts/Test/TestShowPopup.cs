@@ -14,9 +14,9 @@ public class TestShowPopup : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            PopupUnlockColor.Show((int)NewColorEnum.ColorOrange);
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    PopupUnlockColor.Show((int)NewColorEnum.ColorOrange);
+        //}
     }
 }

@@ -854,27 +854,27 @@ public class LogicGame : MonoBehaviour
         //    SceneManager.LoadScene("SceneGame");
         //}
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            isHadSpawnSpecial = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    isHadSpawnSpecial = true;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            isLose = true;
-            StartCoroutine(RaiseEventLose());
-        }
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    isLose = true;
+        //    StartCoroutine(RaiseEventLose());
+        //}
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            CheckWin();
-            StartCoroutine(RaiseEventWin());
-        }
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    CheckWin();
+        //    StartCoroutine(RaiseEventWin());
+        //}
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SaveGame.TutorialFirst = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    SaveGame.TutorialFirst = true;
+        //}
     }
 
 

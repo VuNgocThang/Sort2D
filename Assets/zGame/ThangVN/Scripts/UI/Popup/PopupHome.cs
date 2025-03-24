@@ -185,15 +185,15 @@ public class PopupHome : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            SaveGame.Level++;
-        }
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    SaveGame.Level++;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            ShuffleRandomColorSpawn();
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    ShuffleRandomColorSpawn();
+        //}
     }
 
     public void ResetNBar()

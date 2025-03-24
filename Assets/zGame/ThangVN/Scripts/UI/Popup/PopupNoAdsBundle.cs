@@ -23,12 +23,17 @@ public class PopupNoAdsBundle : Popup
         base.Init();
     }
 
+    public override void Hide()
+    {
+        base.Hide();
+    }
+
     private void BuyBundle()
     {
         SaveGame.IsBoughtNoAds = true;
         HomeUI.Instance.btnNoAdsBundle.gameObject.SetActive(false);
         Debug.Log("Buy Bundle No Ads");
         Config.SetRemoveAd();
-
+        Hide();
     }
 }
