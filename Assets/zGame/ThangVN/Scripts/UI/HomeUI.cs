@@ -164,8 +164,8 @@ public class HomeUI : MonoBehaviour
 
         DailyTaskManager.Instance.Init();
         FreeCoinManager.Instance.Init();
-        int randomBG = UnityEngine.Random.Range(0, 2);
-        bg.sprite = listSprite[randomBG];
+        //int randomBG = UnityEngine.Random.Range(0, 2);
+        //bg.sprite = listSprite[randomBG];
 
         SaveGame.Challenges = false;
         animator.Play("Show");

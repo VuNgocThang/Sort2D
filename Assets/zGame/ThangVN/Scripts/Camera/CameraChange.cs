@@ -23,25 +23,6 @@ public class CameraChange : MonoBehaviour
     private void Start()
     {
         //cam.orthographicSize = (testStack.cols / maxCol) * sizeDefault;
-        if (testStack != null)
-        {
-            if (testStack.cols >= testStack.rows)
-            {
-                float y = 0.3f * (max - testStack.cols);
-                testStack.transform.position = new Vector3(0, 1.8f + y, 0);
-
-                float scale = 6f / testStack.cols;
-                nDesk.localScale = new Vector3(scale, scale, scale);
-            }
-            else
-            {
-                float y = 0.3f * (max - testStack.rows);
-                testStack.transform.position = new Vector3(0, 1.8f + y, 0);
-
-                float scale = 6f / testStack.rows;
-                nDesk.localScale = new Vector3(scale, scale, scale);
-            }
-        }
 
         startPos = cam.transform.position;
         startRot = cam.transform.localEulerAngles;
