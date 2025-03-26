@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
+using TMPro;
 
 public class PopupNoAdsBundle : Popup
 {
     [SerializeField] EasyButton btnBuy;
+    [SerializeField] TextMeshProUGUI txtCost;
 
     public static async void Show()
     {
@@ -16,6 +18,7 @@ public class PopupNoAdsBundle : Popup
     private void Awake()
     {
         btnBuy.OnClick(BuyBundle);
+        txtCost.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.ads_bundle_7), "6.99$");
     }
 
     public override void Init()
