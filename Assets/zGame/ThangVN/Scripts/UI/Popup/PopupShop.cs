@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
 using UnityEngine.UI;
+using static PurchaserManager;
 
 public class PopupShop : MonoBehaviour
 {
@@ -58,152 +59,310 @@ public class PopupShop : MonoBehaviour
         SaveGame.Hammer += wand;
     }
 
-    void BuyNoAdsBundle()
+    async void BuyNoAdsBundle()
     {
-        SaveGame.IsBoughtNoAds = true;
-        UpdateButtonBoughtGrey();
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 1;
-        int countMagicCard = 5;
-        int countWand = 5;
-        int countGold = 0;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, false);
+        bool b = await PopupPurchasing.Show();
 
-        Debug.Log("Buy No Ads Bundle");
-        Config.SetRemoveAd();
-    }
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.ads_bundle_7, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
 
-    void BuyNoAds()
-    {
-        SaveGame.IsBoughtNoAds = true;
-        UpdateButtonBoughtGrey();
-        Debug.Log("Buy No Ads");
-        Config.SetRemoveAd();
-    }
+                SaveGame.IsBoughtNoAds = true;
+                UpdateButtonBoughtGrey();
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 1;
+                int countMagicCard = 5;
+                int countWand = 5;
+                int countGold = 0;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, false);
 
-    void BuyPack1()
-    {
-        SaveGame.IsBoughtWelcomePack = true;
-        UpdateButtonBoughtGrey();
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 1;
-        int countMagicCard = 2;
-        int countWand = 2;
-        int countGold = 1200;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+                Config.SetRemoveAd();
+            }
+            else if (state == IAP_CALLBACK_STATE.FAIL)
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
 
-        Debug.Log("Buy WelcomePack");
-    }
+                return;
+            }
+        });
 
-    void BuyPack2()
-    {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 3;
-        int countMagicCard = 3;
-        int countWand = 3;
-        int countGold = 1500;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
-
-        Debug.Log("Buy CommonPack");
-    }
-
-    void BuyPack3()
-    {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 3;
-        int countMagicCard = 5;
-        int countWand = 5;
-        int countGold = 2300;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
-
-        Debug.Log("Buy BookPack");
-    }
-
-    void BuyCoinPack1()
-    {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 0;
-        int countMagicCard = 0;
-        int countWand = 0;
-        int countGold = 300;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
-
-        Debug.Log("Buy Coin Pack 1");
-    }
-
-    void BuyCoinPack2()
-    {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 0;
-        int countMagicCard = 0;
-        int countWand = 0;
-        int countGold = 700;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
-
-        Debug.Log("Buy Coin Pack 2");
 
     }
 
-    void BuyCoinPack3()
+    async void BuyNoAds()
     {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 0;
-        int countMagicCard = 0;
-        int countWand = 0;
-        int countGold = 1200;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+        bool b = await PopupPurchasing.Show();
 
-        Debug.Log("Buy Coin Pack 3");
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.ads_pass_6, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                SaveGame.IsBoughtNoAds = true;
+                UpdateButtonBoughtGrey();
+                Config.SetRemoveAd();
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyPack1()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_welcome_5, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                SaveGame.IsBoughtWelcomePack = true;
+                UpdateButtonBoughtGrey();
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 1;
+                int countMagicCard = 2;
+                int countWand = 2;
+                int countGold = 1200;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyPack2()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_common_7, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 3;
+                int countMagicCard = 3;
+                int countWand = 3;
+                int countGold = 1500;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyPack3()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_book_9, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 3;
+                int countMagicCard = 5;
+                int countWand = 5;
+                int countGold = 2300;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyCoinPack1()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_mini_2, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 0;
+                int countMagicCard = 0;
+                int countWand = 0;
+                int countGold = 300;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyCoinPack2()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_small_4, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 0;
+                int countMagicCard = 0;
+                int countWand = 0;
+                int countGold = 700;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyCoinPack3()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_medium_6, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 0;
+                int countMagicCard = 0;
+                int countWand = 0;
+                int countGold = 1200;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
+    }
+
+    async void BuyCoinPack4()
+    {
+        bool b = await PopupPurchasing.Show();
+
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_large_9, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
+
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 0;
+                int countMagicCard = 0;
+                int countWand = 0;
+                int countGold = 2300;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
 
     }
 
-    void BuyCoinPack4()
+    async void BuyCoinPack5()
     {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 0;
-        int countMagicCard = 0;
-        int countWand = 0;
-        int countGold = 2300;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+        bool b = await PopupPurchasing.Show();
 
-        Debug.Log("Buy Coin Pack 4");
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_huge_18, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
 
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 0;
+                int countMagicCard = 0;
+                int countWand = 0;
+                int countGold = 5000;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
+
+                return;
+            }
+        });
     }
 
-    void BuyCoinPack5()
+    async void BuyCoinPack6()
     {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 0;
-        int countMagicCard = 0;
-        int countWand = 0;
-        int countGold = 5000;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
 
-        Debug.Log("Buy Coin Pack 5");
+        bool b = await PopupPurchasing.Show();
 
-    }
+        PurchaserManager.instance.BuyConsumable(PurchaserManager.IAP_ID.pack_ultimate_33, (string str, IAP_CALLBACK_STATE state) =>
+        {
+            if (state == IAP_CALLBACK_STATE.SUCCESS)
+            {
+                //ManagerPopup.HidePopup<PopupPurchasing>();
 
-    void BuyCoinPack6()
-    {
-        int coinBefore = SaveGame.Coin;
-        int countCrytal = 0;
-        int countMagicCard = 0;
-        int countWand = 0;
-        int countGold = 12000;
-        AddItem(countGold, countCrytal, countMagicCard, countWand);
-        PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+                int coinBefore = SaveGame.Coin;
+                int countCrytal = 0;
+                int countMagicCard = 0;
+                int countWand = 0;
+                int countGold = 12000;
+                AddItem(countGold, countCrytal, countMagicCard, countWand);
+                PopupRewardShop.Show(countCrytal, countMagicCard, countWand, coinBefore, true);
+            }
+            else
+            {
+                ManagerPopup.HidePopup<PopupPurchasing>();
 
-        Debug.Log("Buy Coin Pack 6");
-
+                return;
+            }
+        });
     }
 
     private const float yCoin = 3200f;

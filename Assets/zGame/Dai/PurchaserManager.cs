@@ -6,41 +6,24 @@ using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
 using UnityEngine.Purchasing.Security;
 
-public class PurchaserManager : MonoBehaviour, 
+public class PurchaserManager : MonoBehaviour,
     //IDetailedStoreListener
     IStoreListener
 {
     #region IAP
     public enum IAP_ID
     {
-        starter_pack,
-        item_pack,
-        super_smash_pack,
-        remove_ads_pack,
-        coin_50,
-        coin_200,
-        coin_500,
-        coin_1000,
-        coin_2000,
-        coin_5000,
-        coin_10000,
-        remove_ads,
-        spring_pack,
-        summer_pack,
-        autumn_pack,
-        winter_pack,
-        spring_pack_sale50,
-        summer_pack_sale50,
-        autumn_pack_sale50,
-        winter_pack_sale50,
-        welcome_pack,
-        special_pack,
-        special_pack_sale50,
-        piggy_bank,
-        unlock_daily,
-        master_treasure_1,
-        master_treasure_2,
-        master_treasure_3
+        ads_bundle_7,
+        ads_pass_6,
+        pack_book_9,
+        pack_common_7,
+        pack_huge_18,
+        pack_large_9,
+        pack_medium_6,
+        pack_mini_2,
+        pack_small_4,
+        pack_ultimate_33,
+        pack_welcome_5,
     }
 #if UNITY_ANDROID
     public static string GetStringIapId(IAP_ID type)
@@ -48,91 +31,48 @@ public class PurchaserManager : MonoBehaviour,
         string str = "";
         switch (type)
         {
-            case IAP_ID.remove_ads:
-                str = "remove_ads";
-                break;
-            case IAP_ID.starter_pack:
-                str = "starter_pack";
-                break;
-            case IAP_ID.item_pack:
-                str = "item_pack";
-                break;
-            case IAP_ID.super_smash_pack:
-                str = "super_smash_pack";
-                break;
-            case IAP_ID.remove_ads_pack:
-                str = "remove_ads_pack";
-                break;
-            case IAP_ID.coin_50:
-                str = "coin_50";
-                break;
-            case IAP_ID.coin_200:
-                str = "coin_200";
-                break;
-            case IAP_ID.coin_500:
-                str = "coin_500";
-                break;
-            case IAP_ID.coin_1000:
-                str = "coin_1000";
-                break;
-            case IAP_ID.coin_2000:
-                str = "coin_2000";
-                break;
-            case IAP_ID.coin_5000:
-                str = "coin_5000";
-                break;
-            case IAP_ID.coin_10000:
-                str = "coin_10000";
-                break;
-            case IAP_ID.spring_pack:
-                str = "spring_pack";
+            case IAP_ID.ads_bundle_7:
+                str = "ads_bundle_7";
                 break;
 
-            case IAP_ID.summer_pack:
-                str = "summer_pack";
-                break;
-            case IAP_ID.autumn_pack:
-                str = "autumn_pack";
-                break;
-            case IAP_ID.winter_pack:
-                str = "winter_pack";
-                break;
-            case IAP_ID.special_pack:
-                str = "special_pack";
-                break;
-            case IAP_ID.spring_pack_sale50:
-                str = "spring_pack_sale50";
+            case IAP_ID.ads_pass_6:
+                str = "ads_pass_6";
                 break;
 
-            case IAP_ID.summer_pack_sale50:
-                str = "summer_pack_sale50";
+            case IAP_ID.pack_book_9:
+                str = "pack_book_9";
                 break;
-            case IAP_ID.autumn_pack_sale50:
-                str = "autumn_pack_sale50";
+
+            case IAP_ID.pack_common_7:
+                str = "pack_common_7";
                 break;
-            case IAP_ID.winter_pack_sale50:
-                str = "winter_pack_sale50";
+
+            case IAP_ID.pack_huge_18:
+                str = "pack_huge_18";
                 break;
-            case IAP_ID.special_pack_sale50:
-                str = "special_pack_sale50";
+
+            case IAP_ID.pack_large_9:
+                str = "pack_large_9";
                 break;
-            case IAP_ID.welcome_pack:
-                str = "welcome_pack";
+
+            case IAP_ID.pack_medium_6:
+                str = "pack_medium_6";
                 break;
-            case IAP_ID.piggy_bank:
-                str = "piggy_bank";
+
+            case IAP_ID.pack_mini_2:
+                str = "pack_mini_2";
                 break;
-            case IAP_ID.unlock_daily:
-                str = "unlock_daily";
+
+            case IAP_ID.pack_small_4:
+                str = "pack_small_4";
                 break;
-            case IAP_ID.master_treasure_1:
-                str = "master_treasure_1";
+
+            case IAP_ID.pack_ultimate_33:
+                str = "pack_ultimate_33";
                 break;
-            case IAP_ID.master_treasure_2:
-                str = "master_treasure_2";
-                break;
-            case IAP_ID.master_treasure_3:
-                str = "master_treasure_3";
+
+            case IAP_ID.pack_welcome_5:
+                str = "pack_welcome_5";
                 break;
         }
         return str;
@@ -144,94 +84,48 @@ public class PurchaserManager : MonoBehaviour,
         string str = "";
         switch (type)
         {
-            case IAP_ID.remove_ads:
-                str = "cake_remove_ads_2";
-                break;
-            case IAP_ID.starter_pack:
-                str = "cake_starter_pack";
-                break;
-            case IAP_ID.item_pack:
-                str = "icake_tem_pack";
-                break;
-            case IAP_ID.super_smash_pack:
-                str = "cake_super_smash_pack";
-                break;
-            case IAP_ID.remove_ads_pack:
-                str = "cake_remove_ads_pack_2";
-                break;
-            case IAP_ID.coin_50:
-                str = "cake_coin_50";
-                break;
-            case IAP_ID.coin_200:
-                str = "cake_coin_200";
-                break;
-            case IAP_ID.coin_500:
-                str = "cake_coin_500";
-                break;
-            case IAP_ID.coin_1000:
-                str = "cake_coin_1000";
-                break;
-            case IAP_ID.coin_2000:
-                str = "cake_coin_2000";
-                break;
-            case IAP_ID.coin_5000:
-                str = "cake_coin_5000";
-                break;
-            case IAP_ID.coin_10000:
-                str = "cake_coin_10000";
+             case IAP_ID.ads_bundle_7:
+                str = "ads_bundle_7";
                 break;
 
-
-
-            case IAP_ID.spring_pack:
-                str = "cake_spring_pack";
+            case IAP_ID.ads_pass_6:
+                str = "ads_pass_6";
                 break;
 
-            case IAP_ID.summer_pack:
-                str = "cake_summer_pack";
-                break;
-            case IAP_ID.autumn_pack:
-                str = "cake_autumn_pack";
-                break;
-            case IAP_ID.winter_pack:
-                str = "cake_winter_pack";
-                break;
-            case IAP_ID.special_pack:
-                str = "cake_special_pack";
-                break;
-            case IAP_ID.spring_pack_sale50:
-                str = "cake_spring_pack_sale50";
+            case IAP_ID.pack_book_9:
+                str = "pack_book_9";
                 break;
 
-            case IAP_ID.summer_pack_sale50:
-                str = "cake_summer_pack_sale50";
+            case IAP_ID.pack_common_7:
+                str = "pack_common_7";
                 break;
-            case IAP_ID.autumn_pack_sale50:
-                str = "cake_autumn_pack_sale50";
+
+            case IAP_ID.pack_huge_18:
+                str = "pack_huge_18";
                 break;
-            case IAP_ID.winter_pack_sale50:
-                str = "cake_winter_pack_sale50";
+
+            case IAP_ID.pack_large_9:
+                str = "pack_large_9";
                 break;
-            case IAP_ID.special_pack_sale50:
-                str = "cake_special_pack_sale50";
+
+            case IAP_ID.pack_medium_6:
+                str = "pack_medium_6";
                 break;
-            case IAP_ID.welcome_pack:
-                str = "cake_welcome_pack";
+
+            case IAP_ID.pack_mini_2:
+                str = "pack_mini_2";
                 break;
-            case IAP_ID.piggy_bank:
-                str = "cake_piggy_bank";
+
+            case IAP_ID.pack_small_4:
+                str = "pack_small_4";
                 break;
-            case IAP_ID.unlock_daily:
-                str = "cake_unlock_daily";
+
+            case IAP_ID.pack_ultimate_33:
+                str = "pack_ultimate_33";
                 break;
-            case IAP_ID.master_treasure_1:
-                str = "cake_master_treasure_1";
-                break;
-            case IAP_ID.master_treasure_2:
-                str = "cake_master_treasure_2";
-                break;
-            case IAP_ID.master_treasure_3:
-                str = "cake_master_treasure_3";
+
+            case IAP_ID.pack_welcome_5:
+                str = "pack_welcome_5";
                 break;
         }
         return str;
@@ -255,8 +149,8 @@ public class PurchaserManager : MonoBehaviour,
     // kProductIDSubscription - it has custom Apple and Google identifiers. We declare their store-
     // specific mapping to Unity Purchasing's AddProduct, below.
     //public static string kProductIDConsumable = "consumable";
-   // public static string kProductIDNonConsumable = "nonconsumable";
-   // public static string kProductIDSubscription = "subscription";
+    // public static string kProductIDNonConsumable = "nonconsumable";
+    // public static string kProductIDSubscription = "subscription";
 
     // Apple App Store-specific product identifier for the subscription product.
     private static string kProductNameAppleSubscription = "com.unity3d.subscription.new";
@@ -297,23 +191,23 @@ public class PurchaserManager : MonoBehaviour,
 
         // Add a product to sell / restore by way of its identifier, associating the general identifier
         // with its store-specific identifiers.
-       // builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
+        // builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
         // Continue adding the non-consumable product.
         //builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable);
         // And finish adding the subscription product. Notice this uses store-specific IDs, illustrating
         // if the Product ID was configured differently between Apple and Google stores. Also note that
         // one uses the general kProductIDSubscription handle inside the game - the store-specific IDs 
         // must only be referenced here. 
-       // builder.AddProduct(kProductIDSubscription, ProductType.Subscription, new IDs(){
+        // builder.AddProduct(kProductIDSubscription, ProductType.Subscription, new IDs(){
         //        { kProductNameAppleSubscription, AppleAppStore.Name },
         //        { kProductNameGooglePlaySubscription, GooglePlay.Name },
-         //   });
+        //   });
 
 
         //builder.AddProduct(Config.IAP_ID.removeAd.ToString(), ProductType.NonConsumable);
         //foreach (string iapID in Enum.GetNames(typeof(PurchaserManager.IAP_ID)))
-            foreach (PurchaserManager.IAP_ID iapID in Enum.GetValues( typeof(PurchaserManager.IAP_ID)))
-            {
+        foreach (PurchaserManager.IAP_ID iapID in Enum.GetValues(typeof(PurchaserManager.IAP_ID)))
+        {
             //Debug.Log("iapID------------- : " + GetStringIapId(iapID));
             //if (!iapID.Equals(Config.IAP_ID.removeAd))
             //{
@@ -355,7 +249,7 @@ public class PurchaserManager : MonoBehaviour,
     {
         // Buy the consumable product using its general identifier. Expect a response either 
         // through ProcessPurchase or OnPurchaseFailed asynchronously.
-       // BuyProductID(kProductIDConsumable);
+        // BuyProductID(kProductIDConsumable);
     }
 
 
@@ -381,7 +275,7 @@ public class PurchaserManager : MonoBehaviour,
     {
         // Buy the non-consumable product using its general identifier. Expect a response either 
         // through ProcessPurchase or OnPurchaseFailed asynchronously.
-//        BuyProductID(kProductIDNonConsumable);
+        //        BuyProductID(kProductIDNonConsumable);
     }
 
 
@@ -539,11 +433,11 @@ public class PurchaserManager : MonoBehaviour,
     }
 
     //public void OnPurchaseFailed(Product product, PurchaseFailureDescription failureDescription)
-   // {
-   //     Debug.Log("PURCHASE FALSE "+failureDescription.message);
-   //     PurchaserManager_Callback.Invoke(product.definition.id, IAP_CALLBACK_STATE.FAIL);
+    // {
+    //     Debug.Log("PURCHASE FALSE "+failureDescription.message);
+    //     PurchaserManager_Callback.Invoke(product.definition.id, IAP_CALLBACK_STATE.FAIL);
     //    isBuying = false;
-   // }
+    // }
 
     private void OnApplePurchaseDeferred(Product pProduct)
     {
@@ -559,7 +453,7 @@ public class PurchaserManager : MonoBehaviour,
 
     public void OnInitializeFailed(InitializationFailureReason error, string message)
     {
-        
+
     }
 
 
@@ -648,16 +542,18 @@ public class PurchaserManager : MonoBehaviour,
             // SortPlayManager.instance.HideLoadingLayout();
             isBuying = false;
         }
-        else {
-            if (validPurchase) {
-                if (args.purchasedProduct.definition.id.Equals(GetStringIapId(PurchaserManager.IAP_ID.remove_ads_pack))
-                    || args.purchasedProduct.definition.id.Equals( GetStringIapId(PurchaserManager.IAP_ID.remove_ads)))
+        else
+        {
+            if (validPurchase)
+            {
+                if (args.purchasedProduct.definition.id.Equals(GetStringIapId(PurchaserManager.IAP_ID.ads_bundle_7))
+                    || args.purchasedProduct.definition.id.Equals(GetStringIapId(PurchaserManager.IAP_ID.ads_pass_6)))
                 {
                     Config.SetRemoveAd();
                 }
             }
         }
-        
+
 #if ACTIVE_APPSFLYER
         if (validPurchase) {
             AppsFlyerPurchaseEvent(args.purchasedProduct);

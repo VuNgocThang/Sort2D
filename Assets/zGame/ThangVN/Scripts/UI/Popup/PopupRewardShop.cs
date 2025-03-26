@@ -36,6 +36,7 @@ public class PopupRewardShop : Popup
 
     public static async void Show(int _countCrytals, int _countMagicCards, int _countWands, int _coinBefore, bool hasCoin = false)
     {
+        ManagerPopup.HidePopup<PopupPurchasing>();
         PopupRewardShop pop = await ManagerPopup.ShowPopup<PopupRewardShop>();
         pop.Init();
         pop.Initialized(_countCrytals, _countMagicCards, _countWands, _coinBefore, hasCoin);
