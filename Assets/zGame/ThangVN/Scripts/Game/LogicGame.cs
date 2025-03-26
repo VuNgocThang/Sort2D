@@ -200,6 +200,8 @@ public class LogicGame : MonoBehaviour
         RecursiveMerge();
         if (Config.ACTIVE_TEST && Config.isActiveBanner)
         {
+            Debug.Log("Config.ACTIVE_TEST: " + Config.ACTIVE_TEST);
+            Debug.Log("Config.isActiveBanner: " + Config.isActiveBanner);
             AdsController.instance.HideBannerAd();
         }
         //enabled = true;

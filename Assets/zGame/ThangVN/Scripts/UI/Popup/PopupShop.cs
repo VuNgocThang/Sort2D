@@ -4,6 +4,7 @@ using UnityEngine;
 using ntDev;
 using UnityEngine.UI;
 using static PurchaserManager;
+using TMPro;
 
 public class PopupShop : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PopupShop : MonoBehaviour
 
     [SerializeField] GameObject btnNoAdsBundleGrey, btnNoAdsGrey, btnPack1Grey;
 
+    [SerializeField] TextMeshProUGUI txtBundleAds, txtAds, txtWelcome, txtCommon, txtBook, txtMini, txtSmall, txtMedium, txtLarge, txtHuge, txtUltimate;
+
     private void Awake()
     {
         btnNoAdsBundle.OnClick(() => { BuyNoAdsBundle(); });
@@ -37,6 +40,22 @@ public class PopupShop : MonoBehaviour
         btnCoinPack4.OnClick(() => { BuyCoinPack4(); });
         btnCoinPack5.OnClick(() => { BuyCoinPack5(); });
         btnCoinPack6.OnClick(() => { BuyCoinPack6(); });
+        Init();
+    }
+
+    private void Init()
+    {
+        txtBundleAds.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.ads_bundle_7), "6.99$");
+        txtAds.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.ads_pass_6), "5.99$");
+        txtWelcome.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_welcome_5), "4.99$");
+        txtCommon.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_common_7), "6.99$");
+        txtBook.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_book_9), "8.99$");
+        txtMini.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_mini_2), "1.99$");
+        txtSmall.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_small_4), "3.99$");
+        txtMedium.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_medium_6), "5.99$");
+        txtLarge.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_large_9), "8.99$");
+        txtHuge.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_huge_18), "17.99$");
+        txtUltimate.text = PurchaserManager.instance.GetLocalizedPriceString(PurchaserManager.GetStringIapId(PurchaserManager.IAP_ID.pack_ultimate_33), "32.99$");
     }
 
     private void OnEnable()
