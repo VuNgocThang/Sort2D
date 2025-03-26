@@ -157,9 +157,13 @@ public class HomeUI : MonoBehaviour
     private void Start()
     {
         // Application.targetFrameRate = 60;
-        if (Config.ACTIVE_TEST && Config.isActiveBanner)
+        if (Config.ACTIVE_TEST /*&& Config.isActiveBanner*/)
         {
             AdsController.instance.HideBannerAd();
+        }
+        else
+        {
+            AdsController.instance.ShowBannerAd();
         }
 
         DailyTaskManager.Instance.Init();
