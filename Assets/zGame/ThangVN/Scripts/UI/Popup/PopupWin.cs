@@ -106,6 +106,7 @@ public class PopupWin : Popup
     public override void Init()
     {
         base.Init();
+        ShowApp();
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPaperFireWorks);
         ManagerAudio.PlaySound(ManagerAudio.Data.soundPopupWin);
 
@@ -128,6 +129,13 @@ public class PopupWin : Popup
             DailyTaskManager.Instance.ExecuteDailyTask(TaskType.CollectBooks, LogicGame.Instance.pigment);
 
         // ShowPopupRateUs();
+    }
+
+    void ShowApp()
+    {
+        //Dictionary<string, string> eventValue = new Dictionary<string, string>();
+        //eventValue.Add("level", $"{SaveGame.Level - 1}");
+        //AppsFlyerSDK.AppsFlyer.sendEvent("af_level_achieved", eventValue);
     }
 
     public void ShowPopupRateUs()

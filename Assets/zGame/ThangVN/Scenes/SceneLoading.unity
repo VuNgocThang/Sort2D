@@ -174,9 +174,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 30947627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 993661b1876f1504eb230ab51b36f350, type: 3}
+  m_Script: {fileID: 11500000, guid: 724150d3d9367a34c98a58df59592efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupGDPR: {fileID: 0}
+  SplashObj: {fileID: 2061473269}
+  objNotification: {fileID: 2079620454}
+  isInit: 0
+  canResetCollapBanner: 1
+  backFillBannerCollap: 0
 --- !u!1 &195933294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1101,7 @@ PrefabInstance:
       objectReference: {fileID: 2079620454}
     m_RemovedComponents:
     - {fileID: 535270137459282790, guid: 30a71cf0c06941c49a64412083da00c5, type: 3}
+    - {fileID: 7477662249688628349, guid: 30a71cf0c06941c49a64412083da00c5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1194,7 +1201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2079620455
 Transform:
   m_ObjectHideFlags: 0

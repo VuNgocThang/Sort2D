@@ -71,11 +71,7 @@ public class AdsController : MonoBehaviour
         //{
         //    SCREEN_SHOW_BANNER = false;
         //}
-#if UNITY_ANDROID
-        Application.targetFrameRate = 60;
-#elif UNITY_IOS
         Application.targetFrameRate = 90;
-#endif
     }
 
     private void Start()
@@ -141,8 +137,8 @@ public class AdsController : MonoBehaviour
         StartCoroutine(WaitNotificationActive());
     }
 
-    public void ActiveWaitFetchFirebase()
-    {
+    public void ActiveWaitFetchFirebase() {
+
         if (waitFetchFirebase != null)
         {
             StopCoroutine(waitFetchFirebase);
@@ -157,7 +153,7 @@ public class AdsController : MonoBehaviour
 
     public void ActiveFetchFirebaseDone()
     {
-        Config.AddLogShowDebug("FetchDone " + startActiveLoadAOA);
+        Config.AddLogShowDebug("FetchDone "+ startActiveLoadAOA);
         if (!startActiveLoadAOA)
         {
             startActiveLoadAOA = true;
@@ -170,7 +166,6 @@ public class AdsController : MonoBehaviour
             StopCoroutine(waitFetchFirebase);
             waitFetchFirebase = null;
         }
-
         Config.FirstCheckTypeUser();
         //-----
         if (Config.isActiveAOA
@@ -194,8 +189,7 @@ public class AdsController : MonoBehaviour
             waitFetchFirebase = null;
         }
     }
-
-    WaitForSeconds w1 = new WaitForSeconds(0.3f);
+    WaitForSeconds w1=new WaitForSeconds(0.3f);
 
     IEnumerator StartWaitFirebaseFetch()
     {
@@ -349,23 +343,17 @@ public class AdsController : MonoBehaviour
 
     public bool IsInterAdAvailable(string where = null)
     {
-        
+        if (Config.GetRemoveAd() || Config.currLevel < AdsController.VALUE_CONFIG_INTER_LEVEL_SHOW || !Config.ACTIVE_INTER_ADS) return false;
 
-        if (Config.GetRemoveAd() || Config.currLevel < AdsController.VALUE_CONFIG_INTER_LEVEL_SHOW ||
-            !Config.ACTIVE_INTER_ADS) return false;
-
-        Debug.Log("Config.isActiveInter: " + Config.isActiveInter);
         if (!Config.isActiveInter)
         {
             return false;
         }
 
-        Debug.Log("IsInterCheckTimeShow" + IsInterCheckTimeShow());
         if (IsInterCheckTimeShow())
         {
             bool check = false;
             check = admob.IsInterAvailable();
-            Debug.Log("check__: " + check);
             return check;
             //return true;
         }

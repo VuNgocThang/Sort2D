@@ -513,6 +513,10 @@ public class MaxAdsController
             Debug.Log("Rewarded ad displayed");
         }
         AdsController.rewardAdShowing = true;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            FirebaseManager.instance.LogVRDisplayed();
+        });
     }
 
     //private void OnRewardedAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -533,7 +537,6 @@ public class MaxAdsController
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             AdsController.rewardAdShowing = false;
-            FirebaseManager.instance.LogVRDisplayed();
         });
     }
 
@@ -834,6 +837,10 @@ public class MaxAdsController
             Debug.Log("Interstitial displayed");
         }
         AdsController.interAdShowing = true;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            FirebaseManager.instance.LogInterDisplayed();
+        });
     }
 
     private void OnInterstitialDismissedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -849,7 +856,6 @@ public class MaxAdsController
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
             AdsController.interAdShowing = false;
-            FirebaseManager.instance.LogInterDisplayed();
         });
     }
     public void RefreshInterClose()
@@ -877,7 +883,7 @@ public class MaxAdsController
         //MaxSdkCallbacks.Banner.OnAdLoadFailedEvent += OnBannerAdFailedEvent;
         //MaxSdkCallbacks.Banner.OnAdClickedEvent += OnBannerAdClickedEvent;
         //MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
-        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent_Banner;
 
         //// Banners are automatically sized to 320x50 on phones and 728x90 on tablets.
         //// You may use the utility method `MaxSdkUtils.isTablet()` to help with view sizing adjustments.
@@ -1003,6 +1009,7 @@ public class MaxAdsController
         //{
         //    banner2View.Show();
         //}
+       
         if (string.IsNullOrEmpty(ConfigIdsAds.BannerAdUnitId))
         {
             return;
@@ -1036,7 +1043,7 @@ public class MaxAdsController
         //MaxSdkCallbacks.MRec.OnAdLoadFailedEvent += OnMRecAdFailedEvent;
         //MaxSdkCallbacks.MRec.OnAdClickedEvent += OnMRecAdClickedEvent;
         //MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnMRecAdRevenuePaidEvent;
-        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+        MaxSdkCallbacks.MRec.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent_Mrec;
 
     }
     private void LoadMRecAds()
@@ -1267,6 +1274,36 @@ public class MaxAdsController
         AppOpenAdManager.Instance.OnDestroy();
 
     }
+    const int MAX_IMP_BANNER = 30;
+    static int countImpBanner = 0;
+    double revenueImpBannerCache = 0;
+    private void OnAdRevenuePaidEvent_Banner(string adUnitId, MaxSdkBase.AdInfo impressionData)
+    {
+        double revenue = impressionData.Revenue;
+        revenueImpBannerCache += revenue;
+        countImpBanner += 1;
+        if (countImpBanner >= MAX_IMP_BANNER)
+        {
+            OnAdRevenuePaidEvent_Final(adUnitId, impressionData, revenueImpBannerCache);
+            revenueImpBannerCache = 0;
+            countImpBanner = 0;
+        }
+    }
+    const int MAX_IMP_MREC = 30;
+    static int countImpMrec = 0;
+    double revenueImpMrecCache = 0;
+    private void OnAdRevenuePaidEvent_Mrec(string adUnitId, MaxSdkBase.AdInfo impressionData)
+    {
+        double revenue = impressionData.Revenue;
+        revenueImpMrecCache += revenue;
+        countImpMrec += 1;
+        if (countImpMrec >= MAX_IMP_MREC)
+        {
+            OnAdRevenuePaidEvent_Final(adUnitId, impressionData, revenueImpMrecCache);
+            revenueImpMrecCache = 0;
+            countImpMrec = 0;
+        }
+    }
     private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo impressionData)
     {
         double revenue = impressionData.Revenue;
@@ -1280,6 +1317,12 @@ public class MaxAdsController
         //};
         //        Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
         //FirebaseManager.instance.LogValueAds("AppLovin", impressionData.NetworkName, impressionData.AdUnitIdentifier, impressionData.Placement, revenue, "USD");
+        //string countryCode = MaxSdk.GetSdkConfiguration().CountryCode;
+        //FirebaseManager.instance.LogValueAds("AppLovin", impressionData.NetworkName, impressionData.AdUnitIdentifier, impressionData.AdFormat, revenue, "USD", impressionData.Placement, countryCode, impressionData.NetworkPlacement, impressionData.CreativeIdentifier);
+        OnAdRevenuePaidEvent_Final(adUnitId, impressionData, revenue);
+    }
+    private void OnAdRevenuePaidEvent_Final(string adUnitId, MaxSdkBase.AdInfo impressionData, double revenue)
+    {
         string countryCode = MaxSdk.GetSdkConfiguration().CountryCode;
         FirebaseManager.instance.LogValueAds("AppLovin", impressionData.NetworkName, impressionData.AdUnitIdentifier, impressionData.AdFormat, revenue, "USD", impressionData.Placement, countryCode, impressionData.NetworkPlacement, impressionData.CreativeIdentifier);
     }

@@ -353,6 +353,10 @@ public class AppOpenAdManager
             Debug.Log("Displayed app open ad");
         }
         isShowingAd = true;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            FirebaseManager.instance.LogAppOpenDisplayed();
+        });
     }
 
     private void HandleAdDidRecordImpression()
@@ -886,12 +890,12 @@ public class AppOpenAdManager
     }
     public void ClickCloseVideo()
     {
-        AdsController.instance.CloseVideoRewarded();
         if (mOnRewardedAdCompletedGoogle != null)
         {
             mOnRewardedAdCompletedGoogle(false);
             mOnRewardedAdCompletedGoogle = null;
         }
+        AdsController.instance.CloseVideoRewarded();
     }
     //-----
     private void RegisterEventHandlers(RewardedAd ad)
@@ -930,6 +934,10 @@ public class AppOpenAdManager
                 Debug.Log("Rewarded ad full screen content opened.");
             }
             AdsController.rewardAdShowing = true;
+            UnityMainThreadDispatcher.Instance().Enqueue(() =>
+            {
+                FirebaseManager.instance.LogVRDisplayed();
+            });
         };
         // Raised when the ad closed full screen content.
         ad.OnAdFullScreenContentClosed += () =>
@@ -944,7 +952,6 @@ public class AppOpenAdManager
             {
                 ClickCloseVideo();
                 AdsController.rewardAdShowing = false;
-                FirebaseManager.instance.LogVRDisplayed();
             });
         };
         // Raised when the ad failed to open full screen content.

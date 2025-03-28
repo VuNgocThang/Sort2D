@@ -8,7 +8,7 @@ public class ConfigIdsAds
     //------------------
     public static bool TEST_GOOOGLE_ADS = false;//false
     public const int TYPE_MEDIATION_AD = Config.MEDIATION_MAX;//1-Max mediation ; 2- Ironsource Mediation
-    public const int TYPE_PUB_G = Config.PUB_G_HOPEE;//1-RK ; 2-AB
+    public const int TYPE_PUB_G = Config.PUB_G_AB;//1-RK ; 2-AB
 #if UNITY_ANDROID
     //---AOA----
     public const string ID_TIER_1 = "ca-app-pub-9819920607806935/8444793771";// /112517806,23154201080/7421716960610

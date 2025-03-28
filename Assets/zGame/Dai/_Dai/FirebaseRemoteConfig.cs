@@ -120,6 +120,7 @@ public class FirebaseRemoteConfig
     // Initialize remote config, and set the default values.
     public void InitializeFirebase()
     {
+        Debug.Log("Start init firebase");
         // [START set_defaults]
         System.Collections.Generic.Dictionary<string, object> defaults =
           new System.Collections.Generic.Dictionary<string, object>();
@@ -195,9 +196,10 @@ public class FirebaseRemoteConfig
           .ContinueWithOnMainThread(task =>
           {
               // [END set_defaults]
-              DebugLog("RemoteConfig configured and ready!");
+              DebugLog("111111 RemoteConfig configured and ready!");
               isFirebaseInitialized = true;
 
+              AdsController.instance.ActiveWaitFetchFirebase();//NEW
               //FIXME
               FetchDataAsync();
           });
@@ -214,11 +216,12 @@ public class FirebaseRemoteConfig
     // changes in the console will always show up immediately.
     public Task FetchDataAsync()
     {
-        DebugLog("Fetching data...");
+        DebugLog("11111 Fetching data...");
         System.Threading.Tasks.Task fetchTask =
         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.FetchAsync(
             TimeSpan.Zero);
         return fetchTask.ContinueWithOnMainThread(FetchComplete);
+        //return fetchTask.ContinueWith(FetchComplete);
     }
     //[END fetch_async]
 
@@ -234,16 +237,19 @@ public class FirebaseRemoteConfig
         }
         else if (fetchTask.IsCompleted)
         {
-            DebugLog("Fetch completed successfully!");
+            DebugLog("Fetch completed successfully! ");
         }
-
+        Debug.Log("Firebase Instance " + Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance);
         var info = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.Info;
+        DebugLog("Fetch completed successfully 1111 ! " + info.LastFetchStatus);
         switch (info.LastFetchStatus)
         {
             case Firebase.RemoteConfig.LastFetchStatus.Success:
+                DebugLog("Fetch completed successfully 1111 ! 33333 " + info.LastFetchStatus);
                 Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.ActivateAsync()
                 .ContinueWithOnMainThread(task =>
                 {
+                    DebugLog("Fetch completed successfully 1111 ! 2222 " + info.LastFetchStatus);
                     DebugLog(String.Format("Remote data loaded and ready (last fetch time {0}).",
                                info.FetchTime));
                     ChangeConfigByFetch();
@@ -328,6 +334,7 @@ public class FirebaseRemoteConfig
         //------type user------
         Config.ACTIVE_CHECK_TYPE_USER = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_ACTIVE_CHECK_TYPE_USER).BooleanValue;
         Config.ACTIVE_BANNER_ALWAY_TYPE_USER = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_ACTIVE_BANNER_ALWAY_TYPE_USER).BooleanValue;
+       // Debug.Log("Check type user: " + Config.ACTIVE_CHECK_TYPE_USER +"   "+ Config.ACTIVE_BANNER_ALWAY_TYPE_USER);
 
         Config.CAPPING_FREE_USER_TIME_INTER_BY_INTER = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_CAPPING_FREE_USER_TIME_INTER_BY_INTER).LongValue;
         Config.CAPPING_FREE_USER_TIME_INTER_BY_REWARD = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_CAPPING_FREE_USER_TIME_INTER_BY_REWARD).LongValue;
@@ -367,13 +374,21 @@ public class FirebaseRemoteConfig
 
         Config.TIME_MENU_CHECK_USER_WHAT_DOING = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_TIME_MENU_CHECK_USER_WHAT_DOING).LongValue;
         Config.TIME_MAX_MENU_CHECK_TO_LEVEL_START = (int)Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_TIME_MAX_MENU_CHECK_TO_LEVEL_START).LongValue;
+        
+        
+#if UNITY_EDITOR
+        //Debug.Log("quit level ---------");
+        ////Config.TIME_FIRST_CHECK_TYPE_USER = 70;
+#endif
         //----------Debug Log-------------
 #if UNITY_EDITOR
         Config.ACTIVE_DEBUG_LOG = true;
 #else
         Config.ACTIVE_DEBUG_LOG = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(KEY_REMOTE_ACTIVE_DEBUG_LOG).BooleanValue;
 #endif
+        //Debug.Log("Check type user: " + Config.ACTIVE_CHECK_TYPE_USER + "   " + Config.ACTIVE_BANNER_ALWAY_TYPE_USER+"  "+ ConstantConfig.LevelShowInter);
         //------------------
+        Config.InitedDetectUser = false;
         ConfigIdsAds.FetchFirebaseDone();
 
 #endif

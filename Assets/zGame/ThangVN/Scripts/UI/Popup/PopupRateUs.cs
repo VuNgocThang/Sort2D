@@ -89,7 +89,10 @@ public class PopupRateUs : Popup
         //btnClose.gameObject.SetActive(false);
         //btnCloseMini.gameObject.SetActive(true);
 #if UNITY_ANDROID
-        Application.OpenURL("market://details?id=" + Application.identifier);
+        //Application.OpenURL("market://details?id=" + Application.identifier);
+        Application.OpenURL("https://play.google.com/store/apps/details?id=" + Application.identifier);
+    
+
 #elif UNITY_IOS
             Device.RequestStoreReview();
 #endif

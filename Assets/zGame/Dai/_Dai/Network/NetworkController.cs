@@ -28,7 +28,7 @@ public class NetworkController : MonoBehaviour
         if (request.error != null)
         {
 #if CHECK_NETWORK_CONNECT
-            // SystemPanel.instance.ShowDialog("Network failed! Please check again!");
+            SystemPanel.instance.ShowDialog("Network failed! Please check again!");
 #endif
         }
         else {

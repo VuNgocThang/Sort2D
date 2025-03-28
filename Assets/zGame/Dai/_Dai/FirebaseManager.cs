@@ -52,6 +52,7 @@ public class FirebaseManager : MonoBehaviour
 #if ACTIVE_FIREBASE_ANALYTIC
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
         {
+
             if (task.Result == DependencyStatus.Available)
             {
                 InitializeFirebase();
@@ -62,9 +63,11 @@ public class FirebaseManager : MonoBehaviour
                 //Config.CheckNewDay();
                 //Config.CheckRetent();
 
+                AdsController.instance.ActiveWaitFetchFirebase();//NEW
                 Debug.LogError(
                  "Error Could not resolve all Firebase dependencies: " + task.Result);
             }
+
         });
 #endif
 
@@ -74,6 +77,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 AppsFlyerAdRevenue.start();
                 break;
             default:
@@ -155,6 +159,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("level_reach", levelComplete.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 FirebaseAnalytics.SetUserProperty("level", levelComplete.ToString());
                 break;
             default:
@@ -176,6 +181,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("days_playing", countDay.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 break;
             default:
                 FirebaseAnalytics.SetUserProperty("days_playing", countDay.ToString());
@@ -196,6 +202,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("total_spent", totalSpent.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 Firebase.Analytics.FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSpendVirtualCurrency, new Parameter[] { new Parameter(FirebaseAnalytics.ParameterCurrency, "gold"), new Parameter(FirebaseAnalytics.ParameterValue, (long)valueNow)
                 , new Parameter(FirebaseAnalytics.ParameterItemName, where)});
                 break;
@@ -218,6 +225,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("total_earn", totalEarn.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 Firebase.Analytics.FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventEarnVirtualCurrency, new Parameter[] { new Parameter(FirebaseAnalytics.ParameterCurrency, "gold"), new Parameter(FirebaseAnalytics.ParameterValue, (long)valueNow)
                 , new Parameter(FirebaseAnalytics.ParameterSource, where)});
                 break;
@@ -240,6 +248,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("total_spent_gem", totalSpent.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 Firebase.Analytics.FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSpendVirtualCurrency, new Parameter[] { new Parameter(FirebaseAnalytics.ParameterCurrency, "gem"), new Parameter(FirebaseAnalytics.ParameterValue, (long)valueNow)
                 , new Parameter(FirebaseAnalytics.ParameterItemName, where)});
                 break;
@@ -262,6 +271,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("total_earn_gem", totalEarn.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 Firebase.Analytics.FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventEarnVirtualCurrency, new Parameter[] { new Parameter(FirebaseAnalytics.ParameterCurrency, "gem"), new Parameter(FirebaseAnalytics.ParameterValue, (long)valueNow)
                 , new Parameter(FirebaseAnalytics.ParameterSource, where)});
                 break;
@@ -291,6 +301,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("total_spent_hint", totalSpent.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 Firebase.Analytics.FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventSpendVirtualCurrency,
                     new Parameter[]
                     {
@@ -319,6 +330,7 @@ public class FirebaseManager : MonoBehaviour
                 FirebaseAnalytics.SetUserProperty("total_earn_hint", totalEarn.ToString());
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 Firebase.Analytics.FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventEarnVirtualCurrency,
                     new Parameter[]
                     {
@@ -345,6 +357,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 FirebaseAnalytics.SetUserProperty("retent_type", retent.ToString());
                 break;
             default:
@@ -364,6 +377,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 FirebaseAnalytics.SetUserProperty("days_played", countDayPlaying.ToString());
                 break;
             default:
@@ -383,6 +397,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 FirebaseAnalytics.SetUserProperty("paying_type", countPayingType.ToString());
                 break;
             default:
@@ -416,6 +431,7 @@ public class FirebaseManager : MonoBehaviour
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_start", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                     //Firebase.Analytics.FirebaseAnalytics.LogEvent("level_start", "level", level.ToString());
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_start", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
@@ -456,6 +472,7 @@ public class FirebaseManager : MonoBehaviour
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_lose", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("time", timeSecond), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_fail", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("failcount", Config.GetLevelFailCount(level)), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 default:
@@ -488,6 +505,7 @@ public class FirebaseManager : MonoBehaviour
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_win", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("time", timeSecond), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_complete", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("timeplayed", timeSecond), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 default:
@@ -511,6 +529,7 @@ public class FirebaseManager : MonoBehaviour
                 case Config.PUB_G_RK:
                     break;
                 case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                     AppsFlyer.sendEvent("af_level_achieved", eventValues);
                     break;
                 default:
@@ -547,6 +566,7 @@ public class FirebaseManager : MonoBehaviour
                         });
                     break;
                 case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_fail", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("failcount", Config.GetLevelFailCount(level)), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 default:
@@ -588,6 +608,7 @@ public class FirebaseManager : MonoBehaviour
                         });
                     break;
                 case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("level_fail", new Parameter[] { new Parameter("level", level.ToString()), new Parameter("failcount", Config.GetLevelFailCount(level)), new Parameter("level_str", "level_" + level.ToString()) });
                     break;
                 default:
@@ -616,6 +637,7 @@ public class FirebaseManager : MonoBehaviour
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("interstitial_show", new Parameter[] { new Parameter("level", curentLevel.ToString()), new Parameter("placement", pWhere), new Parameter("level_str", "level_" + curentLevel.ToString()) });
                     break;
                 case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("interstitial_show", new Parameter[] { new Parameter("level", curentLevel.ToString()), new Parameter("placement", pWhere), new Parameter("level_str", "level_" + curentLevel.ToString()) });
                     //Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression_abi", new Parameter[] { new Parameter("level", curentLevel.ToString()), new Parameter("placement", pWhere), new Parameter("level_str", "level_" + curentLevel.ToString()) });
                     break;
@@ -632,17 +654,17 @@ public class FirebaseManager : MonoBehaviour
         AdjustEvent adjustEvent = new AdjustEvent("Ads_Inter");
         Adjust.trackEvent(adjustEvent);
 #endif
-#if ACTIVE_APPSFLYER
-        switch (ConfigIdsAds.TYPE_PUB_G)
-        {
-            case Config.PUB_G_FACOL:
-                Dictionary<string, string> eventValues = new Dictionary<string, string>();
-                AppsFlyer.sendEvent("af_inters_displayed", eventValues);
-                break;
-            default:
-                break;
-        }
-#endif
+//#if ACTIVE_APPSFLYER
+//        switch (ConfigIdsAds.TYPE_PUB_G)
+//        {
+//            case Config.PUB_G_FACOL:
+//                Dictionary<string, string> eventValues = new Dictionary<string, string>();
+//                AppsFlyer.sendEvent("af_inters_displayed", eventValues);
+//                break;
+//            default:
+//                break;
+//        }
+//#endif
     }
 
 
@@ -684,6 +706,20 @@ public class FirebaseManager : MonoBehaviour
                     //-----
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression_abi", impressionParameters);
                     break;
+                case Config.PUB_G_HOPEE:
+
+                    var impressionParametersHopee = new[] {
+                      new Firebase.Analytics.Parameter("ad_platform", ad_platform),
+                      new Firebase.Analytics.Parameter("ad_source", ad_source),
+                      new Firebase.Analytics.Parameter("ad_unit_name", ad_unit_name),
+                      new Firebase.Analytics.Parameter("ad_format", ad_format),
+                      new Firebase.Analytics.Parameter("value", value),
+                      new Firebase.Analytics.Parameter("currency", currency), // All AppLovin revenue is sent in USD
+                    };
+                    Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression", impressionParametersHopee);
+                    //-----
+                    Firebase.Analytics.FirebaseAnalytics.LogEvent("ad_impression_hopee", impressionParametersHopee);
+                    break;
                 default:
                     break;
             }
@@ -696,17 +732,18 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                 //Dictionary<string, string> dic = new Dictionary<string, string>();
                 //dic.Add("ad_platform", ad_platform);
                 //dic.Add("ad_source", ad_source);
                 //dic.Add("ad_unit_name", ad_unit_name);
                 //dic.Add("ad_format", ad_format);
                 //AppsFlyerAdRevenue.logAdRevenue(ad_source, AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeApplovinMax, value, currency, dic);
-                if (Config.TYPE_MEDIATION_AD == Config.MEDIATION_MAX)
+                if (ConfigIdsAds.TYPE_MEDIATION_AD == Config.MEDIATION_MAX)
                 {
                     AppsFlyerAdRevenue.logAdRevenue(ad_source, AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeApplovinMax, value, currency, null);
                 }
-                else if (Config.TYPE_MEDIATION_AD == Config.MEDIATION_IRON)
+                else if (ConfigIdsAds.TYPE_MEDIATION_AD == Config.MEDIATION_IRON)
                 {
                     AppsFlyerAdRevenue.logAdRevenue(ad_source, AppsFlyerAdRevenueMediationNetworkType.AppsFlyerAdRevenueMediationNetworkTypeIronSource, value, currency, null);
                 }
@@ -746,8 +783,11 @@ public class FirebaseManager : MonoBehaviour
         //adPartners["appLovin"] = appLovin;
         adPartners[strNameMediation] = appLovin;
 
-        @event.SetAction(ad_source);
-        @event.SetLabel(networkPlacement);
+        //@event.SetAction(ad_source);
+        //@event.SetLabel(networkPlacement);
+
+        @event.SetAction(ad_format);
+        @event.SetLabel(ad_source);
         @event.SetValue(value);
         @event.AddSemanticAttribute("adPartners", adPartners);
         // AppLovin MAX has a default currency of USD
@@ -766,6 +806,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                 AppsFlyer.sendEvent("af_inters_logicgame", eventValues);
                 break;
             default:
@@ -782,6 +823,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                 AppsFlyer.sendEvent("af_inters_successfullyloaded", eventValues);
                 break;
             default:
@@ -799,6 +841,8 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_FACOL:
+                case Config.PUB_G_HOPEE:
                 AppsFlyer.sendEvent("af_inters_displayed", eventValues);
                 break;
             default:
@@ -857,6 +901,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                 AppsFlyer.sendEvent("af_rewarded_logicgame", eventValues);
                 break;
             default:
@@ -873,6 +918,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                 AppsFlyer.sendEvent("af_rewarded_successfullyloaded", eventValues);
                 break;
             default:
@@ -889,6 +935,7 @@ public class FirebaseManager : MonoBehaviour
             case Config.PUB_G_RK:
                 break;
             case Config.PUB_G_AB:
+                case Config.PUB_G_HOPEE:
                 AppsFlyer.sendEvent("af_rewarded_displayed", eventValues);
                 break;
             default:
@@ -915,6 +962,7 @@ public class FirebaseManager : MonoBehaviour
                 }
                 break;
             case Config.PUB_G_AB:
+            case Config.PUB_G_HOPEE:
                 if (idCheckPoint < 10)
                 {
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("checkpoint_0" + idCheckPoint.ToString());
@@ -937,27 +985,21 @@ public class FirebaseManager : MonoBehaviour
         }
 #endif
     }
-    public void LogPaymentItem(string pIdIAP, int soBanhProcess)
-    {
-        if (firebaseInitialized)
-        {
-#if ACTIVE_FIREBASE_ANALYTIC
-            //Firebase.Analytics.FirebaseAnalytics.LogEvent("iap_payment_" + pIdIAP);
-            var impressionParameters = new[] {
-                new Firebase.Analytics.Parameter("level_str", "index_"+soBanhProcess)
-            };
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("iap_payment_" + pIdIAP, impressionParameters);
-            //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
-#endif
-        }
-    }
-    public void LogPaymentItem(string pIdIAP)
+    
+    public void LogPaymentItem(string pIdIAP,float defauntUSD)
     {
         if (firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
             Firebase.Analytics.FirebaseAnalytics.LogEvent("iap_payment_" + pIdIAP);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("iap_payment_buy_successfully");
             //Debug.Log("logPaymentItem : "+"iap_payment_"+pIdIAP);
+
+            var purchaseParameters = new[] {
+                      new Firebase.Analytics.Parameter("value", defauntUSD),
+                      new Firebase.Analytics.Parameter("currency", "USD")
+                    };
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("iap_succ", purchaseParameters);
 #endif
         }
     }
@@ -995,46 +1037,219 @@ public class FirebaseManager : MonoBehaviour
     //        Adjust.trackEvent(adjustEvent);
     //#endif
     //    }
-    public void LogLoseAtProcessCake(int indexProcessCake)
-    {
-        if (firebaseInitialized)
-        {
-#if ACTIVE_FIREBASE_ANALYTIC
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("lose_at_process_cake_" + indexProcessCake);
-#endif
-        }
-    }
-    public void LogDayGetProcessCake(int indexProcessCake)
-    {
-        if (firebaseInitialized)
-        {
-#if ACTIVE_FIREBASE_ANALYTIC
-            int countDayActiveNew = PlayerPrefs.GetInt(Config.COUNT_DAY_ACTIVE, 0);
-            Firebase.Analytics.FirebaseAnalytics.LogEvent("get_process_cake_" + indexProcessCake, new Parameter[] { new Parameter("day", "day_" + (countDayActiveNew - 1)) });
-#endif
-        }
-    }
-    public void LogDay3AtProcessCake(int indexProcessCake)
-    {
 
+    public void LogUseVacuum(int pLevel)
+    {
         if (firebaseInitialized)
         {
 #if ACTIVE_FIREBASE_ANALYTIC
-            bool activeLog = PlayerPrefs.GetInt("log_day_3_get_cake", 0) == 0;
-            if (activeLog)
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_vacuum", new Parameter[] { new Parameter("level", "lv_" + (pLevel)) });
+#endif
+        }
+    }
+
+    public void LogUsePunch(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("use_punch", new Parameter[] { new Parameter("level", "lv_" + (pLevel)) });
+#endif
+        }
+    }
+
+    public void LogUseBomb(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
             {
-                int countDayActiveNew = PlayerPrefs.GetInt(Config.COUNT_DAY_ACTIVE, 0);
-                if (countDayActiveNew >= 3)
-                {
-                    Firebase.Analytics.FirebaseAnalytics.LogEvent("day3_at_process_cake_" + indexProcessCake);
-                    PlayerPrefs.SetInt("log_day_3_get_cake", 1);
-                }
+#if ACTIVE_FIREBASE_ANALYTIC
+                Firebase.Analytics.FirebaseAnalytics.LogEvent("use_bomb", new Parameter[] { new Parameter("level", "lv_" + (pLevel)) });
+#endif
             }
+        }
+    }
+    public void LogUseSandGlass(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+            {
+#if ACTIVE_FIREBASE_ANALYTIC
+                Firebase.Analytics.FirebaseAnalytics.LogEvent("use_sandglass", new Parameter[] { new Parameter("level", "lv_" + (pLevel)) });
+#endif
+            }
+        }
+    }
+    public void LogUseFirework(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+            {
+#if ACTIVE_FIREBASE_ANALYTIC
+                Firebase.Analytics.FirebaseAnalytics.LogEvent("use_firework", new Parameter[] { new Parameter("level", "lv_" + (pLevel)) });
+#endif
+            }
+        }
+    }
+    public void LogUseAddTime(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+            {
+#if ACTIVE_FIREBASE_ANALYTIC
+                Firebase.Analytics.FirebaseAnalytics.LogEvent("use_addtime", new Parameter[] { new Parameter("level", "lv_" + (pLevel)) });
+#endif
+            }
+        }
+    }
+
+    public void LogClaimDaily()
+    {
+        if (firebaseInitialized)
+        {
+            int countDayActiveNew = PlayerPrefs.GetInt(Config.COUNT_DAY_ACTIVE, 0);
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("claim_daily_rw", new Parameter[] { new Parameter("day", "day_" + (countDayActiveNew - 1)) });
+        }
+    }
+
+    public void LogLevelKeyChallenge(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("key_challenge_"+pLevel);
 #endif
         }
     }
 
-#region FIREBASE MESSAGE
+    public void LogPlayPinBall()
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("play_pin_ball");
+#endif
+        }
+    }
+
+    public void LogCheckPointPinBall(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("stage_pinball_"+pLevel);
+#endif
+        }
+    }
+
+    public void LogWinStreak(int streak, int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("win_streak_"+streak, new Parameter[] { new Parameter("level", "lv_" + pLevel) });
+#endif
+        }
+    }
+
+    public void LogLevelFactoryPass(int pLevel)
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("factory_pass_level_"+pLevel );
+#endif
+        }
+        
+    }
+
+    public void LogSpentCoins(string where)
+    {
+        if (firebaseInitialized)
+        {
+#if ACTIVE_FIREBASE_ANALYTIC
+            Firebase.Analytics.FirebaseAnalytics.LogEvent("spent_coin" ,new Parameter("placement", where));
+#endif
+        }
+    }
+    public void LogBannerDisplayed()
+    {
+#if ACTIVE_APPSFLYER
+        Dictionary<string, string> eventValues = new Dictionary<string, string>();
+
+        switch (ConfigIdsAds.TYPE_PUB_G)
+        {
+            case Config.PUB_G_RK:
+                break;
+            case Config.PUB_G_AB:
+            case Config.PUB_G_FACOL:
+                case Config.PUB_G_HOPEE:
+                AppsFlyer.sendEvent("af_banner_displayed", eventValues);
+                break;
+            default:
+                break;
+        }
+#endif
+    }
+    public void LogAppOpenDisplayed()
+    {
+#if ACTIVE_APPSFLYER
+        Dictionary<string, string> eventValues = new Dictionary<string, string>();
+
+        switch (ConfigIdsAds.TYPE_PUB_G)
+        {
+            case Config.PUB_G_RK:
+                break;
+            case Config.PUB_G_AB:
+            case Config.PUB_G_FACOL:
+                case Config.PUB_G_HOPEE:
+                AppsFlyer.sendEvent("af_appopen_displayed", eventValues);
+                break;
+            default:
+                break;
+        }
+#endif
+    }
+    public void LogMRECDisplayed()
+    {
+#if ACTIVE_APPSFLYER
+        Dictionary<string, string> eventValues = new Dictionary<string, string>();
+
+        switch (ConfigIdsAds.TYPE_PUB_G)
+        {
+            case Config.PUB_G_RK:
+                break;
+            case Config.PUB_G_AB:
+            case Config.PUB_G_FACOL:
+                case Config.PUB_G_HOPEE:
+                AppsFlyer.sendEvent("af_mrec_displayed", eventValues);
+                break;
+            default:
+                break;
+        }
+#endif
+    }
+    public void LogNativeDisplayed()
+    {
+#if ACTIVE_APPSFLYER
+        Dictionary<string, string> eventValues = new Dictionary<string, string>();
+
+        switch (ConfigIdsAds.TYPE_PUB_G)
+        {
+            case Config.PUB_G_RK:
+                break;
+            case Config.PUB_G_AB:
+            case Config.PUB_G_FACOL:
+                case Config.PUB_G_HOPEE:
+                AppsFlyer.sendEvent("af_native_displayed", eventValues);
+                break;
+            default:
+                break;
+        }
+#endif
+    }
+
+    #region FIREBASE MESSAGE
     //public virtual void OnMessageReceived(object sender, Firebase.Messaging.MessageReceivedEventArgs e)
     //{
     //    Debug.Log("Received a new message");
@@ -1103,6 +1318,6 @@ public class FirebaseManager : MonoBehaviour
     //    }
     //    return complete;
     //}
-#endregion
+    #endregion
 
 }
