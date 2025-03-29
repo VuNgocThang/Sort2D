@@ -24,7 +24,7 @@ public class SplashScene : MonoBehaviour
         isOutOfLoading = false;
         startLoading = true;
         loadingTime = Config.TIME_WAIT_LOADING;
-        //NetworkController.instance.CheckNetwork();
+        NetworkController.instance.CheckNetwork();
         StartCoroutine(LoadScene());
 
         //StartCoroutine(CheckAdsLoading());
